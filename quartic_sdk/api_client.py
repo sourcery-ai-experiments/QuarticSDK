@@ -27,13 +27,13 @@ class APIClient:
         """
         Get the process units
         """
-        pass
+        raise NotImplementedError
 
     def work_cells():
         """
         Get the work cells
         """
-        pass
+        raise NotImplementedError
 
     def tags(self, asset_id):
         """
