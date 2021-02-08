@@ -5,6 +5,9 @@ from quartic.utilities.constants import METHOD_TYPES
 
 
 class APIHelpers:
+    """
+    The class is the helper class which will be used for making the API calls
+    """
 
     http_method_function_mapping = {
         "GET": self.__http_get_api,
@@ -24,6 +27,12 @@ class APIHelpers:
 
     def call_api(self, url, method_type, path_params, query_params, body):
         """
+        Call the API at the given url
+        :param: url:
+        :param: method_type:
+        :param: path_params:
+        :param: query_params:
+        :param: body:
         """
         assert method_type in METHOD_TYPES
 
@@ -32,6 +41,10 @@ class APIHelpers:
     def __http_get_api(self, url, path_params, query_params, body):
         """
         The method makes a GET call via the requests module
+        :param: url:
+        :param: path_params:
+        :param: query_params:
+        :param: body:
         """
         request_url = self.configuration.host + url
         for path_param in path_params:
@@ -47,6 +60,10 @@ class APIHelpers:
     def __http_post_api(self, url, path_params, query_params, body):
         """
         The method makes a POST call via the requests module
+        :param: url:
+        :param: path_params:
+        :param: query_params:
+        :param: body:
         """
         request_url = self.configuration.host + url
         for path_param in path_params:
@@ -63,17 +80,29 @@ class APIHelpers:
     def __http_patch_api(self, url, path_params, query_params, body):
         """
         The method makes a PATCH call via the requests module
+        :param: url:
+        :param: path_params:
+        :param: query_params:
+        :param: body:
         """
         raise NotImplementedError
 
     def __http_put_api(self, url, path_params, query_params, body):
         """
         The method makes a PUT call via the requests module
+        :param: url:
+        :param: path_params:
+        :param: query_params:
+        :param: body:
         """
         raise NotImplementedError
 
     def __http_delete_api(self, url, path_params, query_params, body):
         """
         The method makes a DELETE call via the requests module
+        :param: url:
+        :param: path_params:
+        :param: query_params:
+        :param: body:
         """
         raise NotImplementedError
