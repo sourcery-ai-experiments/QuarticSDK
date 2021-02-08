@@ -9,6 +9,12 @@ class Configuration:
 
     def __init__(self, host, username=None, password=None, oauth_token=None, verify_ssl=True):
         """
+        Initialize the configuration
+        :param host:
+        :param username:
+        :param password:
+        :param oauth_token:
+        :param verify_ssl:
         """
         self.host = host
         if oauth_token:
@@ -22,7 +28,7 @@ class Configuration:
         else:
             raise Exception("Auth not provided")
 
-        self.verify_ssl = True
+        self.verify_ssl = verify_ssl
 
     def get_basic_auth_token(self):
         """
