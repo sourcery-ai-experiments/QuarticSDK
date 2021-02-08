@@ -29,7 +29,8 @@ class APIClient:
         """
         Get the assets method
         """
-        pass
+        return self.api_helper.call_api(
+            GET_ASSETS, "GET")
 
     def process_units():
         """
@@ -47,4 +48,6 @@ class APIClient:
         """
         Get the tags
         """
+        return self.api_helper.call_api(
+            GET_TAGS, [asset_id])
         pass
