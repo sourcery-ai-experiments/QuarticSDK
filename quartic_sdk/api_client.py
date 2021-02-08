@@ -36,13 +36,13 @@ class APIClient:
         """
         Get the process units
         """
-        pass
+        raise NotImplementedError
 
     def work_cells():
         """
         Get the work cells
         """
-        pass
+        raise NotImplementedError
 
     def tags(self, asset_id):
         """
@@ -50,4 +50,3 @@ class APIClient:
         """
         return self.api_helper.call_api(
             GET_TAGS, [asset_id])
-        pass

@@ -1,7 +1,7 @@
 
 import requests
-from quartic.utilities.configuration import Configuration
-from quartic.utilities.constants import METHOD_TYPES
+from quartic_sdk.utilities.configuration import Configuration
+from quartic_sdk.utilities.constants import METHOD_TYPES
 
 
 class APIHelpers:
