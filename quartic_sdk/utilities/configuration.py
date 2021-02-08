@@ -3,7 +3,7 @@ The given class implements the configuration details that need to be saved
 with the APIClient to make the API calls
 """
 import urllib3
-from quartic.utilities.constants import OAUTH, BASIC
+from quartic_sdk.utilities.constants import OAUTH, BASIC
 
 class Configuration:
 

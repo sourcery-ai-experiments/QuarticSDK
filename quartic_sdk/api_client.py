@@ -1,5 +1,5 @@
 
-from quartic.api.api_helpers import APIHelpers
+from quartic_sdk.api.api_helpers import APIHelpers
 
 
 class APIClient:
