@@ -24,7 +24,7 @@ class APIHelpers:
         self.configuration = Configuration.get_configuration(
             host, username, password, oauth_token, verify_ssl)
 
-    def call_api(self, url, method_type, path_params, query_params, body):
+    def call_api(self, url, method_type, path_params=[], query_params={}, body={}):
         """
         Call the API at the given url
         :param: url:
@@ -37,7 +37,7 @@ class APIHelpers:
 
         self.http_method_function_mapping[method_type](url, path_params, query_params, body)
 
-    def __http_get_api(self, url, path_params, query_params, body):
+    def __http_get_api(self, url, path_params=[], query_params={}, body={}):
         """
         The method makes a GET call via the requests module
         :param: url:
@@ -56,7 +56,7 @@ class APIHelpers:
             # TODO: Add oauth call
             return None
 
-    def __http_post_api(self, url, path_params, query_params, body):
+    def __http_post_api(self, url, path_params=[], query_params={}, body={}):
         """
         The method makes a POST call via the requests module
         :param: url:
@@ -76,7 +76,7 @@ class APIHelpers:
             # TODO: Add oauth call
             return None
 
-    def __http_patch_api(self, url, path_params, query_params, body):
+    def __http_patch_api(self, url, path_params=[], query_params={}, body={}):
         """
         The method makes a PATCH call via the requests module
         :param: url:
@@ -86,7 +86,7 @@ class APIHelpers:
         """
         raise NotImplementedError
 
-    def __http_put_api(self, url, path_params, query_params, body):
+    def __http_put_api(self, url, path_params=[], query_params={}, body={}):
         """
         The method makes a PUT call via the requests module
         :param: url:
@@ -96,7 +96,7 @@ class APIHelpers:
         """
         raise NotImplementedError
 
-    def __http_delete_api(self, url, path_params, query_params, body):
+    def __http_delete_api(self, url, path_params=[], query_params={}, body={}):
         """
         The method makes a DELETE call via the requests module
         :param: url:
