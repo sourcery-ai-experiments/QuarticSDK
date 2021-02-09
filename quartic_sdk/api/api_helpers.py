@@ -1,21 +1,13 @@
 
 import requests
 from quartic_sdk.utilities.configuration import Configuration
-from quartic_sdk.utilities.constants import METHOD_TYPES
+from quartic_sdk.utilities.constants import METHOD_TYPES, OAUTH, BASIC
 
 
 class APIHelpers:
     """
     The class is the helper class which will be used for making the API calls
     """
-
-    http_method_function_mapping = {
-        "GET": self.__http_get_api,
-        "POST": self.__http_post_api,
-        "PATCH": self.__http_patch_api,
-        "PUT": self.__http_put_api,
-        "DELETE": self.__http_delete_api
-    }
 
     def __init__(self, host, username=None, password=None, oauth_token=None, verify_ssl=None):
         """
@@ -35,7 +27,15 @@ class APIHelpers:
         """
         assert method_type in METHOD_TYPES
 
-        self.http_method_function_mapping[method_type](url, path_params, query_params, body)
+        http_method_function_mapping = {
+            "GET": self.__http_get_api,
+            "POST": self.__http_post_api,
+            "PATCH": self.__http_patch_api,
+            "PUT": self.__http_put_api,
+            "DELETE": self.__http_delete_api
+        }
+
+        http_method_function_mapping[method_type](url, path_params, query_params, body)
 
     def __http_get_api(self, url, path_params=[], query_params={}, body={}):
         """
