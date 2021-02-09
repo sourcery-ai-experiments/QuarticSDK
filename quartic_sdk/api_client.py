@@ -1,5 +1,5 @@
 
-from quartic.api.api_helpers import APIHelpers
+from quartic_sdk.api.api_helpers import APIHelpers
 from quartic_sdk.utilities.constants import (
     GET_ASSETS,
     GET_CONTEXT_FRAME_DEFINITIONS,
@@ -23,22 +23,24 @@ class APIClient:
         """
         Return the SDK version
         """
-        return VERSION
+        __version__=None
+        exec(open("./_version.py", "r").read())
+        return __version__
 
-    def assets():
+    def assets(self):
         """
         Get the assets method
         """
         return self.api_helper.call_api(
-            GET_ASSETS, "GET")
+            GET_ASSETS, "GET").json()
 
-    def process_units():
+    def process_units(self):
         """
         Get the process units
         """
         raise NotImplementedError
 
-    def work_cells():
+    def work_cells(self):
         """
         Get the work cells
         """
@@ -49,4 +51,4 @@ class APIClient:
         Get the tags
         """
         return self.api_helper.call_api(
-            GET_TAGS, [asset_id])
+            GET_TAGS, [asset_id]).json()
