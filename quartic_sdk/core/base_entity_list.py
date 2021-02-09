@@ -70,7 +70,7 @@ class BaseEntityList:
         """
         We filter the entities based upon the given condition
         """
-        pass
+        raise NotImplementedError
 
     def add(self, instance):
         """

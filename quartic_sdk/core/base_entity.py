@@ -44,6 +44,8 @@ class BaseEntity:
     def __eq__(self, other):
         """
         Override equals to check equality of all attributes
+        :param other: The other object, to which we are comparing
+        :return: (bool) Whether they are equal
         """
         assert isinstance(self, type(other))
         assert len(self.__dict__) == len(other.__dict__)
@@ -86,6 +88,13 @@ class AssetEntity(BaseEntity):
 
     def data(self, start_time, stop_time, granularity=0):
         """
+        Get the data of all tags in th easset between the given start_time and
+        stop_time for the given granularity
+        :param start_time: (epoch) Start_time for getting data
+        :param stop_time: (epoch) Stop_time for getting data
+        :param granularity: Granularity of the data
+        :return: (DataIterator) DataIterator object which can be iterated to get the data
+            between the given duration
         """
         tags = self.tags()
         body_json = {
@@ -113,6 +122,13 @@ class TagEntity(BaseEntity):
 
     def data(self, start_time, stop_time, granularity=0):
         """
+        Get the data for the given tag between the start_time and the stop_time
+        for the given granularity
+        :param start_time: (epoch) Start_time for getting data
+        :param stop_time: (epoch) Stop_time for getting data
+        :param granularity: Granularity of the data
+        :return: (DataIterator) DataIterator object which can be iterated to get the data
+            between the given duration
         """
         body_json = {
             "tags": [self.id],
