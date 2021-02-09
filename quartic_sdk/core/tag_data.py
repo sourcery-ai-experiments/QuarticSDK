@@ -4,7 +4,7 @@ from quartic_sdk.utilities.constants import POST_TAG_DATA
 
 class TagDataIterator:
 
-    def __init__(self, tags, start_time, stop_time, count, offset, api_helper, granularity=0):
+    def __init__(self, tags, start_time, stop_time, count, api_helper, offset=0, granularity=0):
         """
         """
         self.count = count

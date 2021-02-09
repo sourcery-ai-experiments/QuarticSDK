@@ -84,8 +84,19 @@ class AssetEntity(BaseEntity):
             GET_BATCHES, "GET", self.id).json()
         return EntityFactory("Batch", batches_response, self.api_helper)
 
-    def data(self):
-        pass
+    def data(self, start_time, stop_time, granularity=0):
+        """
+        """
+        tags = self.tags()
+        body_json = {
+            "tags": [tag.id for tag in tags],
+            "start_time": start_time,
+            "stop_time": stop_time,
+            "granularity": granularity
+        }
+        tag_data_response = self.api_helper.call_api(
+            POST_TAG_DATA, "POST", body=body_json)
+        return TagDataIterator(tags, start_time, stop_time, tag_data_response["count"], self.api_helper)
 
 
 class TagEntity(BaseEntity):
@@ -100,8 +111,19 @@ class TagEntity(BaseEntity):
         """
         return f"Tag: {self.name}_{self.id}"
 
-    def data(self):
-        pass
+    def data(self, start_time, stop_time, granularity=0):
+        """
+        """
+        body_json = {
+            "tags": [self.id],
+            "start_time": start_time,
+            "stop_time": stop_time,
+            "granularity": granularity
+        }
+        tag_data_response = self.api_helper.call_api(
+            POST_TAG_DATA, "POST", body=body_json)
+        return TagDataIterator(BaseEntityList("Tag", [self]),
+            start_time, stop_time, tag_data_response["count"], self.api_helper)
 
 
 class ContextFrameEntity(BaseEntity):
