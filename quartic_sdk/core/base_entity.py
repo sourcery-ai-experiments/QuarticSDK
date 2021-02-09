@@ -53,10 +53,7 @@ class BaseEntity:
         Override equals to check equality of all attributes
         """
         assert len(self.__dict__) == len(other.__dict__)
-        for key in self.__dict__:
-            if self.__dict__[key] != other.__dict__[key]:
-                return False
-        return True
+        return all(self.__dict__[key] == other.__dict__[key] for key in self.__dict__)
 
 
 class AssetEntity(BaseEntity):
