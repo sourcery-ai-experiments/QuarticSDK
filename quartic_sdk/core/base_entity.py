@@ -22,13 +22,7 @@ class BaseEntity:
     of specific types
     """
 
-    def __str__(self):
-        """
-        Override the method to return the asset name with id
-        """
-        return f"{self.class_type}: {self.name}_{self.id}" if hasattr(self, "name") else f"{self.class_type}: {self.id}"
-
-    def __init__(self, body_json, class_type, api_helper):
+    def __init__(self, body_json, api_helper):
         """
         Initialize the given entity. As a part of the initialization, we set the keys
         of `body_json` as the attributes of the class
@@ -38,7 +32,6 @@ class BaseEntity:
         for key in body_json:
             setattr(self, key, body_json[key])
         self.api_helper = api_helper
-        self.class_type = class_type
 
     def get(self, name):
         """
@@ -52,6 +45,7 @@ class BaseEntity:
         """
         Override equals to check equality of all attributes
         """
+        assert isinstance(self, type(other))
         assert len(self.__dict__) == len(other.__dict__)
         for key in self.__dict__:
             if self.__dict__[key] != other.__dict__[key]:
@@ -64,6 +58,12 @@ class AssetEntity(BaseEntity):
     The given class refers to the asset entity which is created based upon the
     asset object returned from the API
     """
+
+    def __str__(self):
+        """
+        Override the method to return the asset name with id
+        """
+        return f"Asset: {self.name}_{self.id}"
 
     def tags(self):
         """
@@ -99,7 +99,7 @@ class TagEntity(BaseEntity):
 
     def __str__(self):
         """
-        Override the method to return the tag name with id
+        Override the method to return the asset name with id
         """
         return f"Tag: {self.name}_{self.id}"
 
@@ -115,7 +115,7 @@ class ContextFrameEntity(BaseEntity):
 
     def __str__(self):
         """
-        Override the method to return the context frame id
+        Override the method to return the asset name with id
         """
         return f"ContextFrame: {self.id}"
 
@@ -133,10 +133,9 @@ class ContextFrameOccurrenceEntity(BaseEntity):
     The given class refers to the context frame occurrence entity which is created
     based upon the context frame occurrence object returned from the API
     """
-
     def __str__(self):
         """
-        Override the method to return the context frame occurrence id
+        Override the method to return the asset name with id
         """
         return f"ContextFrameOccurrence: {self.id}"
 
@@ -146,8 +145,9 @@ class BatchEntity(BaseEntity):
     The given class refers to the batch entity which is created based upon the batch
     object returned from the API
     """
+
     def __str__(self):
         """
-        Override the method to return the batch name with id
+        Override the method to return the asset name with id
         """
         return f"Batch: {self.name}_{self.id}"
