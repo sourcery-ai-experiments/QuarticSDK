@@ -97,7 +97,4 @@ class BaseEntityList:
         """
         assert isinstance(other, BaseEntityList)
         assert self.count() == other.count()
-        for index in self.count():
-            if not self[index] in other.all():
-                return False
-        return True
+        return all(self[index] in other.all() for index in self.count())
