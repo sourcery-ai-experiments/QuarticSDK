@@ -1,4 +1,5 @@
 
+from pprint import pprint
 from quartic_sdk.utilities.constants import (
     GET_TAGS,
     GET_BATCHES,
@@ -53,13 +54,15 @@ class AssetEntity(BaseEntity):
         """
         return f"Asset: {self.name}_{self.id}"
 
-    def tags(self):
+    def get_tags(self):
         """
         The given method returns the list of tags for the given asset
         """
+        print("Here")
         from quartic_sdk.core.entity_factory import EntityFactory
         tags_response = self.api_helper.call_api(
-            GET_TAGS, "GET", self.id).json()
+            GET_TAGS, "GET", [self.id]).json()
+        pprint(tags_response)
         return EntityFactory("Tag", tags_response, self.api_helper)
 
     def event_frames(self):
