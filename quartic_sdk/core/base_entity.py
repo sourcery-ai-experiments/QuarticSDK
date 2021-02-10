@@ -1,8 +1,5 @@
 
-from quartic_sdk.utilities.constants import (
-    GET_TAGS,
-    GET_BATCHES,
-    GET_CONTEXT_FRAME_OCCURRENCES)
+from quartic_sdk.utilities.constants import * as Constants
 
 
 class BaseEntity:
@@ -51,7 +48,7 @@ class AssetEntity(BaseEntity):
         """
         Override the method to return the asset name with id
         """
-        return f"Asset: {self.name}_{self.id}"
+        return f"{Constants.ASSET_ENTITY}: {self.name}_{self.id}"
 
     def get_tags(self):
         """
@@ -59,8 +56,8 @@ class AssetEntity(BaseEntity):
         """
         from quartic_sdk.core.entity_factory import EntityFactory
         tags_response = self.api_helper.call_api(
-            GET_TAGS, "GET", [self.id]).json()
-        return EntityFactory("Tag", tags_response, self.api_helper)
+            Constants.GET_TAGS, Constants.API_GET, [self.id]).json()
+        return EntityFactory(Constants.TAG_ENTITY, tags_response, self.api_helper)
 
     def event_frames(self):
         """
@@ -74,12 +71,12 @@ class AssetEntity(BaseEntity):
         """
         from quartic_sdk.core.entity_factory import EntityFactory
         batches_response = self.api_helper.call_api(
-            GET_BATCHES, "GET", self.id).json()
-        return EntityFactory("Batch", batches_response, self.api_helper)
+            Constants.GET_BATCHES, Constants.API_GET, self.id).json()
+        return EntityFactory(Constants.BATCH_ENTITY, batches_response, self.api_helper)
 
     def data(self, start_time, stop_time, granularity=0):
         """
-        Get the data of all tags in th easset between the given start_time and
+        Get the data of all tags in the asset between the given start_time and
         stop_time for the given granularity
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
@@ -87,7 +84,7 @@ class AssetEntity(BaseEntity):
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        tags = self.tags()
+        tags = self.get_tags()
         body_json = {
             "tags": [tag.id for tag in tags],
             "start_time": start_time,
@@ -95,7 +92,7 @@ class AssetEntity(BaseEntity):
             "granularity": granularity
         }
         tag_data_response = self.api_helper.call_api(
-            POST_TAG_DATA, "POST", body=body_json)
+            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json)
         return TagDataIterator(tags, start_time, stop_time, tag_data_response["count"], self.api_helper)
 
 
@@ -109,7 +106,7 @@ class TagEntity(BaseEntity):
         """
         Override the method to return the asset name with id
         """
-        return f"Tag: {self.name}_{self.id}"
+        return f"{Constants.TAG_ENTITY}: {self.name}_{self.id}"
 
     def data(self, start_time, stop_time, granularity=0):
         """
@@ -128,8 +125,8 @@ class TagEntity(BaseEntity):
             "granularity": granularity
         }
         tag_data_response = self.api_helper.call_api(
-            POST_TAG_DATA, "POST", body=body_json)
-        return TagDataIterator(BaseEntityList("Tag", [self]),
+            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json)
+        return TagDataIterator(BaseEntityList(Constants.TAG_ENTITY, [self]),
             start_time, stop_time, tag_data_response["count"], self.api_helper)
 
 
@@ -143,7 +140,7 @@ class ContextFrameEntity(BaseEntity):
         """
         Override the method to return the asset name with id
         """
-        return f"ContextFrame: {self.id}"
+        return f"{Constants.CONTEXT_FRAME_ENTITY}: {self.id}"
 
     def occurrences(self):
         """
@@ -151,8 +148,8 @@ class ContextFrameEntity(BaseEntity):
         """
         from quartic_sdk.core.entity_factory import EntityFactory
         occurrences_response = self.api_helper.call_api(
-            GET_CONTEXT_FRAME_OCCURRENCES, "GET", self.id).json()
-        return EntityFactory("ContextFrameOccurrence", occurrences_response, self.api_helper)
+            Constants.GET_CONTEXT_FRAME_OCCURRENCES, Constants.API_GET, self.id).json()
+        return EntityFactory(Constants.CONTEXT_FRAME_OCCURRENCE_ENTITY, occurrences_response, self.api_helper)
 
 
 class ContextFrameOccurrenceEntity(BaseEntity):
@@ -164,7 +161,7 @@ class ContextFrameOccurrenceEntity(BaseEntity):
         """
         Override the method to return the asset name with id
         """
-        return f"ContextFrameOccurrence: {self.id}"
+        return f"{Constants.CONTEXT_FRAME_OCCURRENCE_ENTITY}: {self.id}"
 
 
 class BatchEntity(BaseEntity):
@@ -177,13 +174,13 @@ class BatchEntity(BaseEntity):
         """
         Override the method to return the asset name with id
         """
-        return f"Batch: {self.name}_{self.id}"
+        return f"{Constants.BATCH_ENTITY}: {self.name}_{self.id}"
 
 
 ENTITY_DICTIONARY = {
-    "Asset": AssetEntity,
-    "Tag": TagEntity,
-    "ContextFrame": ContextFrameEntity,
-    "ContextFrameOccurrence": ContextFrameOccurrenceEntity,
-    "Batch": BatchEntity
+    Constants.ASSET_ENTITY: AssetEntity,
+    Constants.TAG_ENTITY: TagEntity,
+    Constants.CONTEXT_FRAME_ENTITY: ContextFrameEntity,
+    Constants.CONTEXT_FRAME_OCCURRENCE_ENTITY: ContextFrameOccurrenceEntity,
+    Constants.BATCH_ENTITY: BatchEntity
 }
