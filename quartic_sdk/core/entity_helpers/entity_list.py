@@ -1,28 +1,6 @@
 
-from quartic_sdk.core.base_entity import ENTITY_DICTIONARY
-
-
-class BaseEntityListIterator:
-    """
-    The given class is the entity list iterator which will be used to iterate
-    for the given list of entities
-    """
-
-    def __init__(self, base_entity_list):
-        """
-        Initialize the iterator. We set the current index as 0
-        """
-        self._base_entity_list = base_entity_list
-        self._index = 0
-
-    def __next__(self):
-        """
-        Return the subsequent iteration results starting from 0 as index
-        """
-        if self._base_entity_list.count() > self._index+1:
-            self._index +=1
-            return self._base_entity_list[self._index]
-        raise StopIteration
+from quartic_sdk.core.entities import ENTITY_DICTIONARY
+from quartic_sdk.core.iterators.entity_list_iterator import EntityListIterator
 
 
 class BaseEntityList:
@@ -83,7 +61,7 @@ class BaseEntityList:
         """
         We override the iterator to allow the user to iterate on the class
         """
-        return BaseEntityListIterator(self)
+        return EntityListIterator(self)
 
     def __getitem__(self, key):
         """
