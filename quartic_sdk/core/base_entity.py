@@ -1,19 +1,8 @@
 
-from quartic_sdk.core.entity_factory import EntityFactory
 from quartic_sdk.utilities.constants import (
     GET_TAGS,
     GET_BATCHES,
     GET_CONTEXT_FRAME_OCCURRENCES)
-
-
-ENTITY_DICTIONARY = {
-    "Asset": AssetEntity,
-    "Tag": TagEntity,
-    "ContextFrame": ContextFrameEntity,
-    "ContextFrameOccurrence": ContextFrameOccurrenceEntity,
-    "Batch": BatchEntity
-}
-
 
 
 class BaseEntity:
@@ -68,6 +57,7 @@ class AssetEntity(BaseEntity):
         """
         The given method returns the list of tags for the given asset
         """
+        from quartic_sdk.core.entity_factory import EntityFactory
         tags_response = self.api_helper.call_api(
             GET_TAGS, "GET", self.id).json()
         return EntityFactory("Tag", tags_response, self.api_helper)
@@ -82,6 +72,7 @@ class AssetEntity(BaseEntity):
         """
         The given method returns the list of batches for the given asset
         """
+        from quartic_sdk.core.entity_factory import EntityFactory
         batches_response = self.api_helper.call_api(
             GET_BATCHES, "GET", self.id).json()
         return EntityFactory("Batch", batches_response, self.api_helper)
@@ -158,6 +149,7 @@ class ContextFrameEntity(BaseEntity):
         """
         Return the list of occurrences for the given context frame
         """
+        from quartic_sdk.core.entity_factory import EntityFactory
         occurrences_response = self.api_helper.call_api(
             GET_CONTEXT_FRAME_OCCURRENCES, "GET", self.id).json()
         return EntityFactory("ContextFrameOccurrence", occurrences_response, self.api_helper)
@@ -186,3 +178,12 @@ class BatchEntity(BaseEntity):
         Override the method to return the asset name with id
         """
         return f"Batch: {self.name}_{self.id}"
+
+
+ENTITY_DICTIONARY = {
+    "Asset": AssetEntity,
+    "Tag": TagEntity,
+    "ContextFrame": ContextFrameEntity,
+    "ContextFrameOccurrence": ContextFrameOccurrenceEntity,
+    "Batch": BatchEntity
+}

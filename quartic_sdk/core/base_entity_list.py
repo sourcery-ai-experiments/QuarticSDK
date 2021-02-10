@@ -19,9 +19,9 @@ class BaseEntityListIterator:
         """
         Return the subsequent iteration results starting from 0 as index
         """
-        if len(base_entity_list.all()) > self._index:
+        if self._base_entity_list.count() > self._index+1:
             self._index +=1
-            return base_entity_list[self._index]
+            return self._base_entity_list[self._index]
         raise StopIteration
 
 
