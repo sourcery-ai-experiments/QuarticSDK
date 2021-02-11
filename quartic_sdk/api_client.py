@@ -1,5 +1,11 @@
+import base64
+from typing import List, Dict
 
-from quartic_sdk.api.api_helpers import APIHelpers
+import cloudpickle
+
+from quartic_sdk.api.api_helper import APIHelper
+from quartic_sdk.model.helpers import ModelUtils
+
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
 
@@ -10,7 +16,7 @@ class APIClient:
         """
         Create the API Client
         """
-        self.api_helper = APIHelpers(host, username, password, oauth_token, verify_ssl)
+        self.api_helper = APIHelper(host, username, password, oauth_token, verify_ssl)
 
     @staticmethod
     def version():
@@ -48,3 +54,20 @@ class APIClient:
         return_json = self.api_helper.call_api(
             Constants.GET_TAGS, Constants.API_GET, [asset_id]).json()
         return EntityFactory(Constants.TAG_ENTITY, return_json, self.api_helper)
+
+    def list_models(self, is_active: bool = None, ml_node: int = None) -> List[Dict]:
+        """
+        List models and its parameters accessible by user
+        :param is_active: Boolean Indicator if list should contain active nodes or not
+        :param ml_node:   Ml Node id to filter models deployed to particular node
+        :return:          list of dictionary
+        """
+        query_params = {}
+        if is_active is not None:
+            query_params['is_active'] = is_active
+        if ml_node:
+            query_params['ml_node'] = ml_node
+        response = self.api_helper.call_api(Constants.LIST_MODELS_ENDPOINT, method_type='GET',
+                                            path_params=[], query_params=query_params, body={})
+        response.raise_for_status()
+        return EntityFactory(Constants.MODEL_ENTITY, response.json(), self.api_helper)
