@@ -1,13 +1,7 @@
 
-from quartic_sdk.api.api_helper import APIHelper
-from quartic_sdk.utilities.constants import (
-    GET_ASSETS,
-    GET_CONTEXT_FRAME_DEFINITIONS,
-    GET_TAGS,
-    POST_TAG_DATA,
-    GET_CONTEXT_FRAME_OCCURRENCES,
-    GET_BATCHES
-)
+from quartic_sdk.api.api_helpers import APIHelpers
+import quartic_sdk.utilities.constants as Constants
+from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
 
 
 class APIClient:
@@ -31,8 +25,9 @@ class APIClient:
         """
         Get the assets method
         """
-        return self.api_helper.call_api(
-            GET_ASSETS, "GET").json()
+        return_json = self.api_helper.call_api(
+            Constants.GET_ASSETS, Constants.API_GET).json()
+        return EntityFactory(Constants.ASSET_ENTITY, return_json, self.api_helper)
 
     def process_units(self):
         """
@@ -50,5 +45,6 @@ class APIClient:
         """
         Get the tags
         """
-        return self.api_helper.call_api(
-            GET_TAGS, [asset_id]).json()
+        return_json = self.api_helper.call_api(
+            Constants.GET_TAGS, Constants.API_GET, [asset_id]).json()
+        return EntityFactory(Constants.TAG_ENTITY, return_json, self.api_helper)

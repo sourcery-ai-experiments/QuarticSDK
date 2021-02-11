@@ -1,7 +1,7 @@
 
 import requests
 from quartic_sdk.utilities.configuration import Configuration
-from quartic_sdk.utilities.constants import METHOD_TYPES, OAUTH, BASIC
+import quartic_sdk.utilities.constants as Constants
 
 
 class APIHelper:
@@ -25,14 +25,14 @@ class APIHelper:
         :param: query_params:
         :param: body:
         """
-        assert method_type in METHOD_TYPES
+        assert method_type in Constants.METHOD_TYPES
 
         http_method_function_mapping = {
-            "GET": self.__http_get_api,
-            "POST": self.__http_post_api,
-            "PATCH": self.__http_patch_api,
-            "PUT": self.__http_put_api,
-            "DELETE": self.__http_delete_api
+            Constants.API_GET: self.__http_get_api,
+            Constants.API_POST: self.__http_post_api,
+            Constants.API_PATCH: self.__http_patch_api,
+            Constants.API_PUT: self.__http_put_api,
+            Constants.API_DELETE: self.__http_delete_api
         }
 
         return http_method_function_mapping[method_type](url, path_params, query_params, body)
@@ -49,11 +49,11 @@ class APIHelper:
         for path_param in path_params:
             request_url += str(path_param) + "/"
 
-        if self.configuration.auth_type == BASIC:
+        if self.configuration.auth_type == Constants.BASIC:
             return requests.get(request_url, auth=(
                 self.configuration.username, self.configuration.password),
             params=query_params)
-        elif self.configuration.auth_type == OAUTH:
+        elif self.configuration.auth_type == Constants.OAUTH:
             # TODO: Add oauth call
             return None
 
@@ -69,12 +69,12 @@ class APIHelper:
         for path_param in path_params:
             request_url += str(path_param) + "/"
 
-        if self.configuration.auth_type == BASIC:
+        if self.configuration.auth_type == Constants.BASIC:
             headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
             return requests.post(request_url, auth=(
                 self.configuration.username, self.configuration.password),
                 json=body, headers=headers, params=query_params)
-        elif self.configuration.auth_type == OAUTH:
+        elif self.configuration.auth_type == Constants.OAUTH:
             # TODO: Add oauth call
             return None
 
