@@ -1,5 +1,5 @@
 
-from quartic_sdk.utilities.constants import * as Constants
+import quartic_sdk.utilities.constants as Constants
 
 
 class Base:
@@ -26,6 +26,12 @@ class Base:
         :return: The returned attribute value
         """
         return getattr(self, name)
+
+    def __str__(self):
+        """
+        Return the stringifed version of the representation
+        """
+        return self.__repr__()
 
     def __eq__(self, other):
         """

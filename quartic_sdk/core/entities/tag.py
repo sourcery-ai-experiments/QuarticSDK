@@ -1,8 +1,7 @@
 
-from quartic_sdk.core.entities.base_entity import Base
-from quartic_sdk.utilities.constants import * as Constants
-from quartic_sdk.core.tag_data import TagDataIterator
-from quartic_sdk.core.base_entity_list import BaseEntityList
+from quartic_sdk.core.entities.base import Base
+import quartic_sdk.utilities.constants as Constants
+from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
 
 
 class Tag(Base):
@@ -11,11 +10,11 @@ class Tag(Base):
     tag object returned from the API
     """
 
-    def __str__(self):
+    def __repr__(self):
         """
         Override the method to return the asset name with id
         """
-        return f"{Constants.TAG_ENTITY}: {self.name}_{self.id}"
+        return f"<{Constants.TAG_ENTITY}: {self.name}_{self.id}>"
 
     def data(self, start_time, stop_time, granularity=0):
         """
@@ -27,6 +26,7 @@ class Tag(Base):
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
+        from quartic_sdk.core.entity_helpers.entity_list import EntityList
         body_json = {
             "tags": [self.id],
             "start_time": start_time,
@@ -34,7 +34,7 @@ class Tag(Base):
             "granularity": granularity
         }
         tag_data_response = self.api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json)
-        return TagDataIterator(BaseEntityList(Constants.TAG_ENTITY, [self]),
+            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
+        return TagDataIterator(EntityList(Constants.TAG_ENTITY, [self]),
             start_time, stop_time, tag_data_response["count"], self.api_helper)
 

@@ -1,6 +1,6 @@
 
 import pandas as pd
-from quartic_sdk.utilities.constants import * as Constants
+import quartic_sdk.utilities.constants as Constants
 
 
 class TagDataIterator:

@@ -1,6 +1,6 @@
 
-from quartic_sdk.core.entities.base_entity import Base
-from quartic_sdk.utilities.constants import * as Constants
+from quartic_sdk.core.entities.base import Base
+import quartic_sdk.utilities.constants as Constants
 
 
 class Batch(Base):
@@ -9,8 +9,8 @@ class Batch(Base):
     object returned from the API
     """
 
-    def __str__(self):
+    def __repr__(self):
         """
         Override the method to return the asset name with id
         """
-        return f"{Constants.BATCH_ENTITY}: {self.name}_{self.id}"
+        return f"<{Constants.BATCH_ENTITY}: {self.name}_{self.id}>"

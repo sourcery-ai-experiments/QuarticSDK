@@ -1,5 +1,5 @@
 
-from quartic_sdk.core.entities import ENTITY_DICTIONARY
+from quartic_sdk.core.entities.type_mapping import ENTITY_DICTIONARY
 from quartic_sdk.core.entity_helpers.entity_list import EntityList
 
 

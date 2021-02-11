@@ -1,6 +1,6 @@
 
-from quartic_sdk.core.entities.base_entity import Base
-from quartic_sdk.utilities.constants import * as Constants
+from quartic_sdk.core.entities.base import Base
+import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
 
 
@@ -10,11 +10,11 @@ class Asset(Base):
     asset object returned from the API
     """
 
-    def __str__(self):
+    def __repr__(self):
         """
         Override the method to return the asset name with id
         """
-        return f"{Constants.ASSET_ENTITY}: {self.name}_{self.id}"
+        return f"<{Constants.ASSET_ENTITY}: {self.name}_{self.id}>"
 
     def get_tags(self):
         """
@@ -37,7 +37,7 @@ class Asset(Base):
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         batches_response = self.api_helper.call_api(
-            Constants.GET_BATCHES, Constants.API_GET, self.id).json()
+            Constants.GET_BATCHES, Constants.API_GET, [self.id]).json()
         return EntityFactory(Constants.BATCH_ENTITY, batches_response, self.api_helper)
 
     def data(self, start_time, stop_time, granularity=0):

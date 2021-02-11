@@ -1,9 +1,9 @@
 
-from quartic_sdk.core.entities import ENTITY_DICTIONARY
+from quartic_sdk.core.entities.type_mapping import ENTITY_DICTIONARY
 from quartic_sdk.core.iterators.entity_list_iterator import EntityListIterator
 
 
-class BaseEntityList:
+class EntityList:
     """
     The given class refers to the list of specific `class_type` of entity
     """
@@ -13,48 +13,64 @@ class BaseEntityList:
         We initialize the `BaseEntityList` based upon the class_type and the
         entities_list as passed by the user
         """
-        self.class_type = class_type
-        self.entities = []
+        self._class_type = class_type
+        self._entities = []
         for entity_obj in entities_list:
-            if self._validate_type(class_type, entity_obj):
-                self.entities.append(entity_obj)
+            if self._validate_type(entity_obj):
+                self._entities.append(entity_obj)
+
+    def __repr__(self):
+        """
+        Return the representation of the entitylist
+        """
+        str_repr = "<EntityList: ["
+        for entity_obj in self._entities:
+            str_repr = str_repr + str(entity_obj) + ", "
+        str_repr += "]>"
+        return str_repr
+
+    def __str__(self):
+        """
+        Return the stringified representation of the entitylist
+        """
+        return self.__repr__()
 
     def _validate_type(self, object):
         """
         We validate that the type of the object is the same as defined for the
         class definition
         """
-        return isinstance(object, ENTITY_DICTIONARY[self.class_type])
+        return isinstance(object, ENTITY_DICTIONARY[self._class_type])
 
     def get(self, name, value):
         """
         We return the entity with the given value for the name of the attribute
         """
-        return [entity for entity in self.entities_list if entity.name == value][0]
+        return [entity for entity in self._entities if getattr(entity, name) == value][0]
 
     def all(self):
         """
         We return the list of all entities for the given object
         """
-        return self.entities
+        return self._entities
 
     def first(self):
         """
         Return the first element of the list
         """
-        return self.entities[0]
+        return self._entities[0]
 
     def last(self):
         """
         Return the last element of the list
         """
-        return self.entities[-1]
+        return self._entities[-1]
 
     def count(self):
         """
         Returns the length of all entities
         """
-        return len(self.entities)
+        return len(self._entities)
 
     def filter(self, condition):
         """
@@ -67,7 +83,7 @@ class BaseEntityList:
         We add the given object instance to the entities list of the class
         """
         if self._validate_type(instance):
-            self.entities.append(instance)
+            self._entities.append(instance)
 
     def __iter__(self):
         """
@@ -86,5 +102,10 @@ class BaseEntityList:
         Check equality of two entity list objects
         """
         assert isinstance(other, BaseEntityList)
-        assert self.count() == other.count()
-        return all(self[index] in other.all() for index in self.count())
+        return self.count() == other.count() and all(self[index] in other.all() for index in self.count())
+
+    def __bool__(self):
+        """
+        Override to get the bool value of the class if required
+        """
+        return self.count() > 0

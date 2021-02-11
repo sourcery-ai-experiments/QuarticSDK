@@ -1,6 +1,6 @@
 
 from quartic_sdk.core.entities.base import Base
-from quartic_sdk.utilities.constants import Constants
+import quartic_sdk.utilities.constants as Constants
 
 
 class ContextFrame(Base):
@@ -9,11 +9,11 @@ class ContextFrame(Base):
     upon the context frame object returned from the API
     """
 
-    def __str__(self):
+    def __repr__(self):
         """
         Override the method to return the asset name with id
         """
-        return f"{Constants.CONTEXT_FRAME_ENTITY}: {self.id}"
+        return f"<{Constants.CONTEXT_FRAME_ENTITY}: {self.id}>"
 
     def occurrences(self):
         """

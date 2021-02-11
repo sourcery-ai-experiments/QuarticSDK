@@ -1,7 +1,7 @@
 
 import requests
 from quartic_sdk.utilities.configuration import Configuration
-from quartic_sdk.utilities.constants import * as Constants
+import quartic_sdk.utilities.constants as Constants
 
 
 class APIHelpers:
@@ -25,7 +25,7 @@ class APIHelpers:
         :param: query_params:
         :param: body:
         """
-        assert method_type in METHOD_TYPES
+        assert method_type in Constants.METHOD_TYPES
 
         http_method_function_mapping = {
             Constants.API_GET: self.__http_get_api,

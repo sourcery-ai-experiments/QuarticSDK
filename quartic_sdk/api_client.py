@@ -1,6 +1,6 @@
 
 from quartic_sdk.api.api_helpers import APIHelpers
-from quartic_sdk.utilities.constants import * as Constants
+import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
 
 
