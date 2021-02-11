@@ -40,5 +40,4 @@ class Base:
         :return: (bool) Whether they are equal
         """
         assert isinstance(self, type(other))
-        assert len(self.__dict__) == len(other.__dict__)
-        return all(self.__dict__[key] == other.__dict__[key] for key in self.__dict__)
+        return len(self.__dict__) == len(other.__dict__) and all(self.__dict__[key] == other.__dict__[key] for key in self.__dict__)
