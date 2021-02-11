@@ -1,5 +1,5 @@
 
-from quartic_sdk.api.api_helpers import APIHelpers
+from quartic_sdk.api.api_helper import APIHelper
 from quartic_sdk.utilities.constants import (
     GET_ASSETS,
     GET_CONTEXT_FRAME_DEFINITIONS,

@@ -4,7 +4,7 @@ from quartic_sdk.utilities.configuration import Configuration
 from quartic_sdk.utilities.constants import METHOD_TYPES, OAUTH, BASIC
 
 
-class APIHelpers:
+class APIHelper:
     """
     The class is the helper class which will be used for making the API calls
     """
@@ -73,7 +73,7 @@ class APIHelpers:
             headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
             return requests.post(request_url, auth=(
                 self.configuration.username, self.configuration.password),
-                data=body, headers=headers, params=query_params)
+                json=body, headers=headers, params=query_params)
         elif self.configuration.auth_type == OAUTH:
             # TODO: Add oauth call
             return None
