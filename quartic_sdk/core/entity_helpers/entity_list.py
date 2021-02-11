@@ -95,7 +95,7 @@ class EntityList:
         """
         Override the method to get the entity list value at the given index
         """
-        return self.entities[key]
+        return self._entities[key]
 
     def __eq__(self, other):
         """

@@ -72,7 +72,7 @@ class APIHelpers:
             headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
             return requests.post(request_url, auth=(
                 self.configuration.username, self.configuration.password),
-                data=body)
+                json=body, headers=headers)
         elif self.configuration.auth_type == Constants.OAUTH:
             # TODO: Add oauth call
             return None

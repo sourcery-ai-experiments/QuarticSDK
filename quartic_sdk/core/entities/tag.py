@@ -16,7 +16,7 @@ class Tag(Base):
         """
         return f"<{Constants.TAG_ENTITY}: {self.name}_{self.id}>"
 
-    def data(self, start_time, stop_time, granularity=0):
+    def data(self, start_time, stop_time, granularity=0, return_type="json"):
         """
         Get the data for the given tag between the start_time and the stop_time
         for the given granularity
@@ -36,5 +36,5 @@ class Tag(Base):
         tag_data_response = self.api_helper.call_api(
             Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
         return TagDataIterator(EntityList(Constants.TAG_ENTITY, [self]),
-            start_time, stop_time, tag_data_response["count"], self.api_helper)
+            start_time, stop_time, tag_data_response["count"], self.api_helper, return_type)
 

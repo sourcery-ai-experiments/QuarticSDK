@@ -12,10 +12,10 @@ API_PUT = "PUT"
 API_DELETE = "DELETE"
 
 # API calls
-GET_ASSETS = "/api/v1/asset/"
+GET_ASSETS = "/asset/"
 GET_CONTEXT_FRAME_DEFINITIONS = "/api/v1/context_frame_definitions/"
-GET_TAGS = "/api/v1/tags/"
-POST_TAG_DATA = "/api/v1/tag_data/"
+GET_TAGS = "/tags/"
+POST_TAG_DATA = "/tag_data/"
 GET_CONTEXT_FRAME_OCCURRENCES = "/api/v1/context_frame_occurrences/"
 GET_BATCHES = "/api/v1/batches/"
 

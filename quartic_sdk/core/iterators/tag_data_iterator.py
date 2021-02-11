@@ -35,6 +35,8 @@ class TagDataIterator:
         """
         We create the required post data which will be used for making the POST call
         """
+        print(self.tags)
+        print([tag.id for tag in self.tags])
         return {
             "tags": [tag.id for tag in self.tags],
             "start_time": self.start_time,
@@ -71,6 +73,7 @@ class TagDataIterator:
         if key >= self.count:
             raise IndexError
         body_json = self.create_post_data()
+        print(body_json)
         tag_data_return = self.api_helper.call_api(
             Constants.POST_TAG_DATA, Constants.API_POST, query_params={"offset": key}, body=body_json).json()
 
