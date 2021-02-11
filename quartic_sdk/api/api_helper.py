@@ -51,7 +51,8 @@ class APIHelper:
 
         if self.configuration.auth_type == Constants.BASIC:
             return requests.get(request_url, auth=(
-                self.configuration.username, self.configuration.password))
+                self.configuration.username, self.configuration.password),
+            params=query_params)
         elif self.configuration.auth_type == Constants.OAUTH:
             # TODO: Add oauth call
             return None
@@ -72,7 +73,7 @@ class APIHelper:
             headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
             return requests.post(request_url, auth=(
                 self.configuration.username, self.configuration.password),
-                json=body, headers=headers)
+                json=body, headers=headers, params=query_params)
         elif self.configuration.auth_type == Constants.OAUTH:
             # TODO: Add oauth call
             return None
