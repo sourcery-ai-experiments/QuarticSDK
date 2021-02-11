@@ -4,7 +4,7 @@ from quartic_sdk.utilities.configuration import Configuration
 import quartic_sdk.utilities.constants as Constants
 
 
-class APIHelpers:
+class APIHelper:
     """
     The class is the helper class which will be used for making the API calls
     """
