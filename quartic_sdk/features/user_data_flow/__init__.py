@@ -6,11 +6,12 @@ from quartic_sdk import APIClient
 from quartic_sdk.core.entities import Tag, Asset
 from quartic_sdk.core.entity_helpers.entity_list import EntityList
 from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
-from quartic_sdk.utilities.test_helpers import APIHelperCallAPI
-from .constants import (
+from quartic_sdk.utilities.test_helpers import (
+    APIHelperCallAPI,
     ASSET_LIST_GET,
     TAG_LIST_GET,
-    TAG_DATA_POST)
+    TAG_DATA_POST
+    )
 
 
 @step("we have successfully set up client and mocked requests method")
