@@ -1,4 +1,5 @@
 
+import pandas as pd
 from quartic_sdk.utilities.constants import * as Constants
 
 
@@ -8,7 +9,7 @@ class TagDataIterator:
     for getting the tag data values at the given intervals
     """
 
-    def __init__(self, tags, start_time, stop_time, count, api_helper, offset=0, granularity=0):
+    def __init__(self, tags, start_time, stop_time, count, api_helper, offset=0, granularity=0, return_type="json"):
         """
         We initialize the iterator with the given parameters
         :param tags: (BaseEntityList) Refers to the instance of BaseEntityList with
@@ -28,6 +29,7 @@ class TagDataIterator:
         self.stop_time = stop_time
         self.api_helper = api_helper
         self.granularity = granularity
+        self.return_type = return_type
 
     def create_post_data(self):
         """
@@ -54,6 +56,12 @@ class TagDataIterator:
         del tag_data_return['count']
         del tag_data_return['offset']
 
+        if self.return_type != "json":
+            tag_data_return_str = json.dumps(tag_data_return)
+
+            tag_data_return = pd.read_json(tag_data_return_str,
+                orient="split")
+
         return tag_data_return
 
     def __getitem__(self, key):
@@ -68,5 +76,11 @@ class TagDataIterator:
 
         del tag_data_return['count']
         del tag_data_return['offset']
+
+        if self.return_type != "json":
+            tag_data_return_str = json.dumps(tag_data_return)
+
+            tag_data_return = pd.read_json(tag_data_return_str,
+                orient="split")
 
         return tag_data_return

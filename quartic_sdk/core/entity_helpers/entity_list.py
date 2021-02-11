@@ -38,6 +38,18 @@ class BaseEntityList:
         """
         return self.entities
 
+    def first(self):
+        """
+        Return the first element of the list
+        """
+        return self.entities[0]
+
+    def last(self):
+        """
+        Return the last element of the list
+        """
+        return self.entities[-1]
+
     def count(self):
         """
         Returns the length of all entities
