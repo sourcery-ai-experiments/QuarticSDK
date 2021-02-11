@@ -1,12 +1,4 @@
-# Development Guide
-
-We explain all the different classes defined in the document here
-
-## APIClient
-
-The class refers to the API Client which is used as the interface between the user querying
-the Quartic.ai platform, and him using the SDK for his use cases
-
+# Model Creation
 
 ## Creating and Saving model
 
@@ -21,11 +13,11 @@ from sklearn.model_selection import train_test_split
 class ExampleModel(ModelABC):
     def __init__(self):
         self.model = RandomForestRegressor()
-        super().__init__("My Sample Model", description='This is a simple model where model within the Quartic Wrapper') 
-                         
+        super().__init__("My Sample Model", description='This is a simple model where model within the Quartic Wrapper')
+
     def train(self, X, y):
         self.model.fit(X, y)
-    
+
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
         return self.model.predict(input_df)
 
@@ -53,7 +45,7 @@ from sklearn import linear_model
 from sklearn.model_selection import train_test_split
 
 # Suppose we are training a  LinearRegression model
-model = linear_model.LinearRegression() 
+model = linear_model.LinearRegression()
 feature_tags = [1, 3, 5, 7] # selected Feature tags are 1,3,5,7
 target_tag = 8  # Target of the current model is the tag 8
 df = combined_data_frame[feature_tags]
@@ -66,7 +58,7 @@ class ExampleModel(ModelABC):
         self.model = model
         super().__init__("My Sample Model", description='This is a simple model where model is created,' +
                                                         'trained already and Simply wrapped into Quartic Base')
-        
+
     def predict(self, input_df):
         return self.model.predict(input_df)
 
@@ -76,7 +68,7 @@ example_model.predict(X_test)
 example_model.save(client, output_tag_name='Prediction Tag Name',
                    feature_tags=feature_tags, target_tag=target_tag,
                    test_df=X_test)
-    
+
 
 
 ```
@@ -96,11 +88,11 @@ class ExampleModel(ModelABC):
     def train(self, X, y):
         X_transformed = self.pre_transform(X)
         self.model.fit(X_transformed, y)
-        
+
     def pre_transform(self, df):
         df['new_column'] = df['1'] * df['2']
         return df
-        
+
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
         transformed_df = self.pre_transform(input_df)
         return self.model.predict(transformed_df)
@@ -122,17 +114,17 @@ class ExampleModel(ModelABC):
         self.model = model
         super().__init__("My Sample Model", description='This is a Model logging example', log_level)
         self.log.info("Model is Initialized")
-    
+
     def pre_transform(self, df, column_1, column_2):
         self.log.info("Transforming the Dataframe")
         self.log.debug("Transforming the Dataframe by simple multiplication")
         df['new_column'] = df[column_1] * df[column_2]
-        return df    
+        return df
     def train(self, X,y):
         self.log.info("Started Training steps")
         X = self.pre_transform(X, '1', '2')
         self.model.fit(X, y)
-    
+
     def predict(self, input_df):
         self.log.info("Starting the Prediction step")
         transformed_df = self.pre_transform(input_df, '1', '2')
@@ -150,4 +142,4 @@ example_model.save(client, output_tag_name='Prediction Tag Name',
 **Notes**:
 - save method takes a sample of test data frame to validate the model.
 - This test dataframe is expected to have tag ids as the column names. If model is trained with tag names instead, a transformation step needs to be added and used in predict method to convert the tag ids in input dataframe into tag names.
-- Any intermediate steps that are used model training outside wrapper, must be included in wrapper for applying similar set of transformations during prediction.  
+- Any intermediate steps that are used model training outside wrapper, must be included in wrapper for applying similar set of transformations during prediction.
