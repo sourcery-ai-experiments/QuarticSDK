@@ -32,8 +32,6 @@ def step_impl(context):
     with mock.patch('requests.get') as requests_get:
         requests_get.return_value = APIHelperCallAPI(ASSET_LIST_GET)
 
-        print(world.client)
-
         world.client_assets = world.client.assets()
 
     world.first_asset = world.client_assets.first()
