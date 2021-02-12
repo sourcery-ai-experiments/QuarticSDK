@@ -35,7 +35,9 @@ class APIHelper:
             Constants.API_DELETE: self.__http_delete_api
         }
 
-        return http_method_function_mapping[method_type](url, path_params, query_params, body)
+        response  = http_method_function_mapping[method_type](url, path_params, query_params, body)
+        response.raise_for_status()
+        return response
 
     def __http_get_api(self, url, path_params=[], query_params={}, body={}):
         """

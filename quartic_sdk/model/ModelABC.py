@@ -4,7 +4,7 @@ from typing import List
 
 import pandas as pd
 import sys
-from requests import Response
+from requests import Response, HTTPError
 
 from quartic_sdk.api_client import APIClient
 from quartic_sdk.model.helpers import Validation, ModelUtils
@@ -103,8 +103,11 @@ class ModelABC(metaclass=abc.ABCMeta):
         }
         if ml_node:
             request_body['ml_node_id'] = ml_node
-        response: Response = client.api_helper.call_api(CMD_MODEL_ENDPOINT, method_type=API_POST, body=request_body)
-        response.raise_for_status()
+        try:
+            response: Response = client.api_helper.call_api(CMD_MODEL_ENDPOINT, method_type=API_POST, body=request_body)
+        except HTTPError as e:
+            raise Exception(f"Failed to Save model: {str(e)}")
+
 
     @abc.abstractmethod
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
