@@ -93,6 +93,16 @@ class EntityList:
         """
         if not self.check_object_in_list(instance):
             self._entities.append(instance)
+        else:
+            raise AssertionError(f"Can not add object, since it is not of {self._class_type} type")
+
+    def exclude(self, name, value):
+        """
+        We return the EntityList after removing the entity with the attribute
+        name having the value as above
+        """
+        updated_entities = [entity_obj for entity_obj in self._entities if getattr(entity_obj, name) != value]
+        return EntityList(self._class_type, updated_entities)
 
     def __iter__(self):
         """
