@@ -24,6 +24,21 @@ class Tag(Base):
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param granularity: Granularity of the data
+        :param return_type: The param decides whether the data after querying will be
+            json(when value is "json") or pandas dataframe(when value is "pd"). By default,
+            it takes the value as "json"
+        :param transformations: Refers to the list of transformations. It supports either
+            interpolation or aggregation, depending upon which, we pass the value of this
+            dictionary. An example value here is:
+            [{
+                "transformation_type": "interpolation",
+                "column": "3",
+                "method": "linear"
+            }, {
+                "transformation_type": "aggregation",
+                "aggregation_column": "4",
+                "aggregation_dict": {"3": "max"}
+            }]
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
