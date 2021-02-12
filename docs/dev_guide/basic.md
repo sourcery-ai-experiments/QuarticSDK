@@ -5,7 +5,9 @@ This article explains and defines the various classes
 ---
 Class refers to the API client which is used as the interface between the user querying the Quartic AI Platform, and him using the SDK for his use cases
 
-### init
+### Available methods
+
+#### init
 The class has the following parameters for initialization:
 
 - **host (required)**: Refers to the host the user connects to for making API calls
@@ -19,19 +21,21 @@ An example of usage is as follows:
 client = APIClient(host="http://test.quartic.ai", username="username", password="password")
 ```
 
-### version
-The method returns the current version of the package.
+#### .version
+
+The method returns the current version of the package
 ```
 client.version() # Returns 0.0.0 based upon the time of writing the documentation
 ```
 
-### .assets
+#### .assets
 The method returns the list of all the assets that the authenticated user has access to. The list of assets are an object of type `EntityList`. More details on the class is provided below.
 ```
 client_assets = client.assets()
 ```
 
-### .tags
+#### .tags
+
 The method requires the following parameters to be called:
 
 **asset_id (required)**: The asset_id of the asset whose tags are to be returned
@@ -42,9 +46,9 @@ tags_of_asset_id_1 = client.tags(1)
 
 ## Entity
 ---
-Entity is the parent term through which all the objects accessible in the SDK are referred to.
+Entity is the parent term through which all the objects accessible in the SDK are referred to. The available methods are as follows:
 
-### init
+#### init
 An object of this class is initialiazed with two parameters. These are automatically created and depends on the user querying through the client.
 
 - **body_json(required)**: This is the json object which is used to create the related `Entity` object
