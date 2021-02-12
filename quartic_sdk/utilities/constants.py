@@ -21,9 +21,7 @@ GET_TAGS = "/tags/"
 POST_TAG_DATA = "/tag_data/"
 GET_CONTEXT_FRAME_OCCURRENCES = "/api/v1/context_frame_occurrences/"
 GET_BATCHES = "/api/v1/batches/"
-SAVE_MODEL_ENDPOINT = '/cmd/model/'
-LIST_MODELS_ENDPOINT = '/cmd/models'
-GET_MODEL_ENDPOINT = '/cmd/model/'
+CMD_MODEL_ENDPOINT = '/cmd/model/'
 
 # Entity types
 ASSET_ENTITY = "Asset"

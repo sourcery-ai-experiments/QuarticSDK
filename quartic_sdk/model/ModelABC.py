@@ -8,7 +8,7 @@ from requests import Response
 
 from quartic_sdk.api_client import APIClient
 from quartic_sdk.model.helpers import Validations, ModelUtils
-from quartic_sdk.utilities.constants import MAX_MODEL_SIZE, SAVE_MODEL_ENDPOINT, API_POST
+from quartic_sdk.utilities.constants import MAX_MODEL_SIZE, CMD_MODEL_ENDPOINT, API_POST
 
 
 class ModelABC(metaclass=abc.ABCMeta):
@@ -103,7 +103,7 @@ class ModelABC(metaclass=abc.ABCMeta):
         }
         if ml_node:
             request_body['ml_node_id'] = ml_node
-        response: Response = client.api_helper.call_api(SAVE_MODEL_ENDPOINT, method_type=API_POST, body=request_body)
+        response: Response = client.api_helper.call_api(CMD_MODEL_ENDPOINT, method_type=API_POST, body=request_body)
         response.raise_for_status()
 
     @abc.abstractmethod

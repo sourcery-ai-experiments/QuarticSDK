@@ -67,7 +67,7 @@ class APIClient:
             query_params['is_active'] = is_active
         if ml_node:
             query_params['ml_node'] = ml_node
-        response = self.api_helper.call_api(Constants.LIST_MODELS_ENDPOINT, method_type='GET',
+        response = self.api_helper.call_api(Constants.CMD_MODEL_ENDPOINT, method_type='GET',
                                             path_params=[], query_params=query_params, body={})
         response.raise_for_status()
         return EntityFactory(Constants.MODEL_ENTITY, response.json(), self.api_helper)
