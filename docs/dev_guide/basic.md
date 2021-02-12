@@ -72,6 +72,17 @@ We return the attribute value of the object for the given name:
 
 This refers to the asset entity, which contains the details of the asset. Asset contains all the properties of the base Entity defined above.
 
+### Class attributes
+
+* **id**: Refers to the id of the asset entity
+* **name**: Refers to the name of the asset entity
+* **edge_connectors**: Refers to the list of edge connector ids
+* **last_overhaul_date**: Refers to the last_overhaul_date
+* **processunit_workcell**: Refers to the id of the process_unit or work_cell
+* **site**: Refers to the id of the site, the asset belongs to
+
+### Present methods
+
 #### .get_tags
 
 The method returns all the tags present in the given asset in the form of `EntityList` where each object refers to `Tag`
@@ -95,6 +106,23 @@ The method params are:
 
 This refers to the tag entity, which contains the details of the tag. Tag contains all the properties of the base Entity defined above.
 
+### Class attributes
+
+* **id**: The id of the Tag
+* **name**: The name of the Tag
+* **tag_type**: The type of the tag:- 1.Raw, 2.Soft, 3.Aggregation, 4.Bitwise, 5.Writeback
+* **tag_data_type**: The tag data types:- 0.Double, 1.String, 2.Boolean, 3.Int, 4.Long, 5.Float
+* **short_name**: The short name of the Tag
+* **tag_value_type**: The tag value types:- 0.Discrete, 1.Telemetry
+* **tag_process_type**: The tag process types:- 1.Process Variable, 2.Condition Variable, 3.Process Alarm, 4.Process Event, 5.Anomaly Score, 6.Predicted Variable, 7.Others, 8.Workflow, 9.Influencing Score
+* **category**: Intelligence Categories:- 1.Energy, 2.Throughput, 3.Reliability, 4.Quality, 5.Safety, 6.Environment
+* **uom**: The units of measurement
+* **asset**: The asset id
+* **created_by**: Name of the person who created this
+* **value_table**: The dictionary which matches the tag streamed value to its name, and is present as json object
+
+### Present Methods
+
 #### .data
 
 The method returns the tagdata iterator for the selected tag for the set `start_time` and `stop_time`, which can be used to iterate through the data in batches of 2L datapoints. More details under the `TagDataIterator` subsection.
@@ -110,11 +138,28 @@ The method params are:
 
 This refers to the batch entity, which contains the details of the tag. Tag contains all the properties of the base Entity defined above.
 
+### Class attributes
+
+* **id**: Id of the batch
+* **batch_name**: The name of the batch. Most refers to the start timestamp of the batch
+* **start**: Start time of the batch
+* **stop**: Stop time of the batch
+* **asset**: Asset ID to which this batch belongs to
+* **is_questionable**: Whether the batch is questionable
+* **notes**: List of notes, the user might have added to the batch
+
 ***************
 
 ## ContextFrame
 
 This refers to the context frame entity, which contains the details of the tag. Tag contains all the properties of the base Entity defined above.
+
+### Class attributes
+
+* **id**: Id of the ContextFrame
+* **name**: Name of the context frame
+* **description**: Description of the context frame
+* **pu_or_wc**: The ID of the process unit or work cell this belongs to
 
 #### occurrences
 
