@@ -9,7 +9,8 @@ class TagDataIterator:
     for getting the tag data values at the given intervals
     """
 
-    def __init__(self, tags, start_time, stop_time, count, api_helper, offset=0, granularity=0, return_type="json"):
+    def __init__(self, tags, start_time, stop_time, count, api_helper, offset=0, granularity=0,
+        return_type=Constants.RETURN_JSON, transformations=[]):
         """
         We initialize the iterator with the given parameters
         :param tags: (BaseEntityList) Refers to the instance of BaseEntityList with
@@ -22,6 +23,8 @@ class TagDataIterator:
         :param offset: Current offset
         :param granularity: The granularity at which the tag data is queried
         """
+        if not self._validate_transformations_schema(transformations, tags):
+            raise Exception("Invalid transformations")
         self.count = count
         self._offset = offset
         self.tags = tags
@@ -30,18 +33,40 @@ class TagDataIterator:
         self.api_helper = api_helper
         self.granularity = granularity
         self.return_type = return_type
+        self._transformations = transformations
+
+    def _validate_transformations_schema(self, transformations, tags):
+        """
+        We validate the transformations schema. Its schema would be like the following:
+        [{"transformation_type": "interpolation", "column": "1", "method": "linear"},
+        {"transformation_type": "aggregation", "aggregation_column": "2",
+        "aggregation_dict": {"1":{"1":"max"},"2":{"2":"std"}}}]
+        """
+        agg_transformation = [transformation for transformation in transformations if transformation.get("transformation_type") == "aggregation"]
+        if len(agg_transformation) > 1:
+            return False
+        for transformation in transformations:
+            transformation_type = transformation.get("transformation_type")
+            if transformation_type == "linear":
+                if not transformation.get("column"):
+                    return False
+            elif transformation_type == "aggregation":
+                if not transformation.get("aggregation_column") or transformation.get("aggregation_dict"):
+                    return False
+                if len(transformation.get("aggregation_dict")) != len(tags) - 1:
+                    return False
+        return True
 
     def create_post_data(self):
         """
         We create the required post data which will be used for making the POST call
         """
-        print(self.tags)
-        print([tag.id for tag in self.tags])
         return {
             "tags": [tag.id for tag in self.tags],
             "start_time": self.start_time,
             "stop_time": self.stop_time,
-            "granularity": self.granularity
+            "granularity": self.granularity,
+            "transformations": self._transformations
         }
 
     def __next__(self):
@@ -58,7 +83,7 @@ class TagDataIterator:
         del tag_data_return['count']
         del tag_data_return['offset']
 
-        if self.return_type != "json":
+        if self.return_type != Constants.RETURN_JSON:
             tag_data_return_str = json.dumps(tag_data_return)
 
             tag_data_return = pd.read_json(tag_data_return_str,
@@ -73,14 +98,13 @@ class TagDataIterator:
         if key >= self.count:
             raise IndexError
         body_json = self.create_post_data()
-        print(body_json)
         tag_data_return = self.api_helper.call_api(
             Constants.POST_TAG_DATA, Constants.API_POST, query_params={"offset": key}, body=body_json).json()
 
         del tag_data_return['count']
         del tag_data_return['offset']
 
-        if self.return_type != "json":
+        if self.return_type != Constants.RETURN_JSON:
             tag_data_return_str = json.dumps(tag_data_return)
 
             tag_data_return = pd.read_json(tag_data_return_str,

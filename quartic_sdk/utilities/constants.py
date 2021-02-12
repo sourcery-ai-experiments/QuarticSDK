@@ -25,3 +25,7 @@ BATCH_ENTITY = "Batch"
 CONTEXT_FRAME_ENTITY = "ContextFrame"
 CONTEXT_FRAME_OCCURRENCE_ENTITY = "ContextFrameOccurrence"
 TAG_ENTITY = "Tag"
+
+# Data return type constants
+RETURN_JSON = "json"
+RETURN_PANDAS = "pd"

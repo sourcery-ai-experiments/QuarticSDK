@@ -78,11 +78,21 @@ class EntityList:
         """
         raise NotImplementedError
 
+    def check_object_in_list(self, instance):
+        """
+        We check whether the instance is already in the list
+        """
+        if not self._validate_type(instance):
+            raise Exception("Object data type is not present in the entity list")
+        if instance.id in [entity.id for entity in self._entities]:
+            return True
+        return False
+
     def add(self, instance):
         """
         We add the given object instance to the entities list of the class
         """
-        if self._validate_type(instance):
+        if not self.check_object_in_list(instance):
             self._entities.append(instance)
 
     def __iter__(self):
