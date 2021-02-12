@@ -11,7 +11,7 @@ from quartic_sdk.exceptions import InvalidPredictionException
 from quartic_sdk.utilities.constants import NUM_ROW_PER_PREDICTION, MAX_PREDICTION_PROCESSING_TIME
 
 
-class Validations(object):
+class Validation(object):
     """
     Contains Validation functions for ml models
     """

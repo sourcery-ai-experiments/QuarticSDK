@@ -7,7 +7,7 @@ import sys
 from requests import Response
 
 from quartic_sdk.api_client import APIClient
-from quartic_sdk.model.helpers import Validations, ModelUtils
+from quartic_sdk.model.helpers import Validation, ModelUtils
 from quartic_sdk.utilities.constants import MAX_MODEL_SIZE, CMD_MODEL_ENDPOINT, API_POST
 
 
@@ -89,7 +89,7 @@ class ModelABC(metaclass=abc.ABCMeta):
         :return:                None on successfully storing the model to Quartic Platform
         """
         assert isinstance(client, APIClient)
-        Validations.validate_model(self, test_df)
+        Validation.validate_model(self, test_df)
         model_pkl = ModelUtils.get_pickled_model(self)
         assert sys.getsizeof(model_pkl) <= MAX_MODEL_SIZE
 
