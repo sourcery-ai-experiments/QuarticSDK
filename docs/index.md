@@ -1,13 +1,11 @@
 # Home
 
-Quartic SDK is an external SDK provided by Quartic.ai to allow users to use assets, tags, etc. outside the Quartic AI Platform. Here are some use cases for Quartic SDK:
-
-- Creating a seperate UI
-- Using in Jupyter Shell while training models
+Quartic SDK is an external SDK provided by Quartic.ai to allow users to use assets, tags, etc. outside the Quartic AI Platform.
+It lets third party developers, who have authorization to access Quartic.ai entities, build custom applications using the SDK.
 
 ## Requirements
 ---
-Quartic SDK is built on Python 3.5+. Currently, the package has the following requirements:
+Quartic SDK is built for Python 3.5+. Currently, the package has the following requirements:
 
 - [requests==2.25.1](https://pypi.org/project/requests/)
 - [mkdocs==1.1.2](https://pypi.org/project/mkdocs/)
@@ -24,7 +22,7 @@ Install using `pip`
 ```
 pip install quartic-sdk
 ```
-...or follow the following steps to install it from the repo:
+...or follow the following steps to install it from the source:
 ```
 git clone https://github.com/Quarticai/QuarticSDK/
 python setup.py install
