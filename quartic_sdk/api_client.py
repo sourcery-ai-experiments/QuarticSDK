@@ -1,5 +1,5 @@
 
-from quartic_sdk.api.api_helpers import APIHelpers
+from quartic_sdk.api.api_helper import APIHelper
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
 
@@ -10,7 +10,7 @@ class APIClient:
         """
         Create the API Client
         """
-        self.api_helper = APIHelpers(host, username, password, oauth_token, verify_ssl)
+        self.api_helper = APIHelper(host, username, password, oauth_token, verify_ssl)
 
     @staticmethod
     def version():

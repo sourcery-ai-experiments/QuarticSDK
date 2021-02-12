@@ -69,9 +69,9 @@ class TagDataIterator:
                 if not transformation.get("column"):
                     return False
             elif transformation_type == "aggregation":
-                if not transformation.get("aggregation_column") or transformation.get("aggregation_dict"):
+                if not (transformation.get("aggregation_column") or transformation.get("aggregation_dict")):
                     return False
-                if len(transformation.get("aggregation_dict")) != len(tags) - 1:
+                if len(transformation.get("aggregation_dict")) != tags.count() - 1:
                     return False
         return True
 
@@ -80,7 +80,7 @@ class TagDataIterator:
         We create the required post data which will be used for making the POST call
         """
         return {
-            "tags": [tag.id for tag in self.tags],
+            "tags": [tag.id for tag in self.tags.all()],
             "start_time": self.start_time,
             "stop_time": self.stop_time,
             "granularity": self.granularity,
