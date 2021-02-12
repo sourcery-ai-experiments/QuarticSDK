@@ -84,9 +84,7 @@ class EntityList:
         """
         if not self._validate_type(instance):
             raise Exception("Object data type is not present in the entity list")
-        if instance.id in [entity.id for entity in self._entities]:
-            return True
-        return False
+        return instance.id in [entity.id for entity in self._entities]
 
     def add(self, instance):
         """
