@@ -68,7 +68,6 @@ class APIHelper:
         request_url = self.configuration.host + url
         for path_param in path_params:
             request_url += str(path_param) + "/"
-
         if self.configuration.auth_type == Constants.BASIC:
             headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
             return requests.post(request_url, auth=(

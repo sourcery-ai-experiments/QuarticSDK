@@ -70,10 +70,11 @@ class Asset(Base):
             "tags": [tag.id for tag in tags],
             "start_time": start_time,
             "stop_time": stop_time,
-            "granularity": granularity
+            "granularity": granularity,
+            "transformations": transformations
         }
         tag_data_response = self.api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json)
+            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
         return TagDataIterator(tags, start_time, stop_time, tag_data_response["count"], self.api_helper,
             return_type=return_type, transformations=transformations)
 

@@ -1,6 +1,8 @@
 
+import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entities.type_mapping import ENTITY_DICTIONARY
 from quartic_sdk.core.iterators.entity_list_iterator import EntityListIterator
+from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
 
 
 class EntityList:
@@ -128,3 +130,43 @@ class EntityList:
         Override to get the bool value of the class if required
         """
         return self.count() > 0
+
+    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_JSON, transformations=[]):
+        """
+        Get the data of all tags in the asset between the given start_time and
+        stop_time for the given granularity
+        :param start_time: (epoch) Start_time for getting data
+        :param stop_time: (epoch) Stop_time for getting data
+        :param granularity: Granularity of the data
+        :param return_type: The param decides whether the data after querying will be
+            json(when value is "json") or pandas dataframe(when value is "pd"). By default,
+            it takes the value as "json"
+        :param transformations: Refers to the list of transformations. It supports either
+            interpolation or aggregation, depending upon which, we pass the value of this
+            dictionary. An example value here is:
+            [{
+                "transformation_type": "interpolation",
+                "column": "3",
+                "method": "linear"
+            }, {
+                "transformation_type": "aggregation",
+                "aggregation_column": "4",
+                "aggregation_dict": {"3": "max"}
+            }]
+        :return: (DataIterator) DataIterator object which can be iterated to get the data
+            between the given duration
+        """
+        assert self._class_type == Constants.TAG_ENTITY
+        tags = self
+        body_json = {
+            "tags": [tag.id for tag in tags],
+            "start_time": start_time,
+            "stop_time": stop_time,
+            "granularity": granularity,
+            "transformations": transformations
+        }
+        tag_data_response = self.first().api_helper.call_api(
+            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
+        return TagDataIterator(tags, start_time, stop_time, tag_data_response["count"], self.first().api_helper,
+            return_type=return_type, transformations=transformations)
+
