@@ -56,6 +56,9 @@ class TagDataIterator:
         [{"transformation_type": "interpolation", "column": "1", "method": "linear"},
         {"transformation_type": "aggregation", "aggregation_column": "2",
         "aggregation_dict": {"1":{"1":"max"},"2":{"2":"std"}}}]
+        :param transformations: List of transformations in the schema as above
+        :param tags: List of tag ids
+        :return: (bool) Whether the transformation schema is valid
         """
         agg_transformation = [transformation for transformation in transformations if transformation.get("transformation_type") == "aggregation"]
         if len(agg_transformation) > 1:

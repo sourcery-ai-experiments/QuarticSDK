@@ -81,6 +81,7 @@ class EntityList:
     def check_object_in_list(self, instance):
         """
         We check whether the instance is already in the list
+        :param instance: Object that is to be added to the list
         """
         if not self._validate_type(instance):
             raise Exception("Object data type is not present in the entity list")
