@@ -157,9 +157,8 @@ class EntityList:
             between the given duration
         """
         assert self._class_type == Constants.TAG_ENTITY
-        tags = self
         body_json = {
-            "tags": [tag.id for tag in tags],
+            "tags": [int(tag.id) for tag in self.all()],
             "start_time": start_time,
             "stop_time": stop_time,
             "granularity": granularity,
@@ -167,6 +166,6 @@ class EntityList:
         }
         tag_data_response = self.first().api_helper.call_api(
             Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
-        return TagDataIterator(tags, start_time, stop_time, tag_data_response["count"], self.first().api_helper,
+        return TagDataIterator(self, start_time, stop_time, tag_data_response["count"], self.first().api_helper,
             return_type=return_type, transformations=transformations)
 
