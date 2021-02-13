@@ -40,7 +40,7 @@ class Asset(Base):
             Constants.GET_BATCHES, Constants.API_GET, [self.id]).json()
         return EntityFactory(Constants.BATCH_ENTITY, batches_response, self.api_helper)
 
-    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_JSON, transformations=[]):
+    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[]):
         """
         Get the data of all tags in the asset between the given start_time and
         stop_time for the given granularity

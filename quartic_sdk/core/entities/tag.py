@@ -16,7 +16,7 @@ class Tag(Base):
         """
         return f"<{Constants.TAG_ENTITY}: {self.name}_{self.id}>"
 
-    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_JSON,
+    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS,
         transformations={}):
         """
         Get the data for the given tag between the start_time and the stop_time

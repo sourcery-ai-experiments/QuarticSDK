@@ -131,7 +131,7 @@ class EntityList:
         """
         return self.count() > 0
 
-    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_JSON, transformations=[]):
+    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[]):
         """
         Get the data of all tags in the asset between the given start_time and
         stop_time for the given granularity
