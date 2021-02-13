@@ -133,7 +133,7 @@ class EntityList:
 
     def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[]):
         """
-        Get the data of all tags in the asset between the given start_time and
+        Get the data of all tags in the list between the given start_time and
         stop_time for the given granularity
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
