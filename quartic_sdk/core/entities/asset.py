@@ -66,15 +66,5 @@ class Asset(Base):
             between the given duration
         """
         tags = self.get_tags()
-        body_json = {
-            "tags": [tag.id for tag in tags],
-            "start_time": start_time,
-            "stop_time": stop_time,
-            "granularity": granularity,
-            "transformations": transformations
-        }
-        tag_data_response = self.api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
-        return TagDataIterator(tags, start_time, stop_time, tag_data_response["count"], self.api_helper,
-            return_type=return_type, transformations=transformations)
-
+        return TagDataIterator.create_tag_data_iterator(tags, start_time, stop_time, self.api_helper,
+            granularity, return_type, transformations)

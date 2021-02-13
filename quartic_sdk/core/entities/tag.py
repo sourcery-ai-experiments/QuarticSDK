@@ -17,7 +17,7 @@ class Tag(Base):
         return f"<{Constants.TAG_ENTITY}: {self.name}_{self.id}>"
 
     def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS,
-        transformations={}):
+        transformations=[]):
         """
         Get the data for the given tag between the start_time and the stop_time
         for the given granularity
@@ -43,15 +43,5 @@ class Tag(Base):
             between the given duration
         """
         from quartic_sdk.core.entity_helpers.entity_list import EntityList
-        body_json = {
-            "tags": [self.id],
-            "start_time": start_time,
-            "stop_time": stop_time,
-            "granularity": granularity
-        }
-        tag_data_response = self.api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
-        return TagDataIterator(EntityList(Constants.TAG_ENTITY, [self]),
-            start_time, stop_time, tag_data_response["count"], self.api_helper,
-            return_type=return_type, transformations=transformations)
-
+        return TagDataIterator.create_tag_data_iterator(EntityList(Constants.TAG_ENTITY, [self]),
+            start_time, stop_time, self.api_helper, granularity, return_type, transformations)

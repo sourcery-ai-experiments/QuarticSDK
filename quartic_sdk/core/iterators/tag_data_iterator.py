@@ -47,9 +47,25 @@ class TagDataIterator:
         self.start_time = start_time
         self.stop_time = stop_time
         self.api_helper = api_helper
-        self.granularity = granularity
+        self.granularity = TagDataIterator._calculate_granularity(granularity)
         self.return_type = return_type
         self._transformations = transformations
+
+    @staticmethod
+    def _calculate_granularity(granularity):
+        """
+        We approximate the granularity to the lower allowed number that the granularities is allowed
+        :param granularity: User input granularity
+        :return: Calculated granularity
+        """
+        for index in range(len(Constants.AVAILABLE_GRANULARITIES)):
+            if Constants.AVAILABLE_GRANULARITIES[index] == granularity:
+                return granularity
+            elif index < len(Constants.AVAILABLE_GRANULARITIES) - 1:
+                if Constants.AVAILABLE_GRANULARITIES[index] < granularity and granularity < Constants.AVAILABLE_GRANULARITIES[index+1]:
+                    return Constants.AVAILABLE_GRANULARITIES[index]
+            else:
+                return Constants.AVAILABLE_GRANULARITIES[index]
 
     def _validate_transformations_schema(self, transformations, tags):
         """
@@ -130,3 +146,42 @@ class TagDataIterator:
                 orient="split")
 
         return tag_data_return
+
+    @classmethod
+    def create_tag_data_iterator(cls, tags, start_time, stop_time, api_helper, granularity=0, return_type=Constants.RETURN_PANDAS,
+        transformations=[]):
+        """
+        The method creates the TagDataIterator instance based upon the parameters that are passed here
+        :param start_time: (epoch) Start_time for getting data
+        :param stop_time: (epoch) Stop_time for getting data
+        :param granularity: Granularity of the data
+        :param return_type: The param decides whether the data after querying will be
+            json(when value is "json") or pandas dataframe(when value is "pd"). By default,
+            it takes the value as "json"
+        :param transformations: Refers to the list of transformations. It supports either
+            interpolation or aggregation, depending upon which, we pass the value of this
+            dictionary. An example value here is:
+            [{
+                "transformation_type": "interpolation",
+                "column": "3",
+                "method": "linear"
+            }, {
+                "transformation_type": "aggregation",
+                "aggregation_column": "4",
+                "aggregation_dict": {"3": "max"}
+            }]
+        :return: (DataIterator) DataIterator object which can be iterated to get the data
+            between the given duration
+        """
+        body_json = {
+            "tags": [tag.id for tag in tags.all()],
+            "start_time": start_time,
+            "stop_time": stop_time,
+            "granularity": TagDataIterator._calculate_granularity(granularity=granularity),
+            "transformations": transformations
+        }
+        tag_data_response = api_helper.call_api(
+            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
+        return TagDataIterator(tags=tags, start_time=start_time, stop_time=stop_time, count=tag_data_response["count"],
+            api_helper=api_helper, granularity=granularity,
+            return_type=return_type, transformations=transformations)
