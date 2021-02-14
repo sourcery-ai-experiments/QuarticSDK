@@ -6,7 +6,6 @@ import pandas as pd
 import sys
 from requests import Response, HTTPError
 
-from quartic_sdk.api_client import APIClient
 from quartic_sdk.model.helpers import Validation, ModelUtils
 from quartic_sdk.utilities.constants import MAX_MODEL_SIZE, CMD_MODEL_ENDPOINT, API_POST
 
@@ -88,6 +87,7 @@ class ModelABC(metaclass=abc.ABCMeta):
         :param ml_node:         Optional - Ml Node Id if deployment of model needs to be done to specific node
         :return:                None on successfully storing the model to Quartic Platform
         """
+        from quartic_sdk import APIClient
         assert isinstance(client, APIClient)
         Validation.validate_model(self, test_df)
         model_pkl = ModelUtils.get_pickled_model(self)
@@ -106,7 +106,7 @@ class ModelABC(metaclass=abc.ABCMeta):
         try:
             response: Response = client.api_helper.call_api(CMD_MODEL_ENDPOINT, method_type=API_POST, body=request_body)
         except HTTPError as e:
-            raise Exception(f"Failed to Save model: {str(e)}")
+            raise Exception(f"Failed to Save model: {e.message}")
 
 
     @abc.abstractmethod

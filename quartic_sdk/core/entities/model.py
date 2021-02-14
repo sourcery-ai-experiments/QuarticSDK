@@ -1,11 +1,10 @@
 import base64
 
 from cloudpickle import cloudpickle
-from quartic_sdk.model.helpers import ModelUtils
 
-from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+from quartic_sdk.core.entities.base import Base
+from quartic_sdk.model.helpers import ModelUtils
 
 
 class Model(Base):
