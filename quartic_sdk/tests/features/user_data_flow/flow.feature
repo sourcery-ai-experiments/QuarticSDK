@@ -4,3 +4,8 @@ Feature: Different computations on QuarticSDK
     Given we have successfully set up client and mocked requests method
     When we call different internal methods
     Then the return matches the expectations
+
+  Scenario: test calling list models should return Model entities
+    Given we have successfully set up client and mocked requests method
+    When we call different internal methods
+    Then the return matches the expectations

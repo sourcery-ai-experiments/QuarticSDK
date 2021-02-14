@@ -27,7 +27,7 @@ class TestModelValidations(TestCase):
             data = {'col_A': [1, 2], 'col_B': [3, 4]}
             Validation.validate_model(ModelThatReturnsString(), pd.DataFrame(data=data))
 
-        with self.assertRaises(AssertionError):
+        with self.assertRaises(InvalidPredictionException):
             data = {'col_A': [1, 2], 'col_B': [3, 4]}
             Validation.validate_model(SlowModel(), pd.DataFrame(data=data))
 

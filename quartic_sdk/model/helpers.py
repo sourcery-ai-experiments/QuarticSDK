@@ -54,7 +54,7 @@ class Validation(object):
         :raises:    InvalidPredictionException
         """
         if not isinstance(result, pd.Series):
-            raise InvalidPredictionException("Output of model.predict should be of type pandas Series")
+            raise InvalidPredictionException("Output of model. predict should be of type pandas Series")
         if result.empty or result.isnull().all():
             raise InvalidPredictionException("Prediction result for given test data was empty or None for all the rows."
                                              " Please verify the model")
@@ -71,7 +71,8 @@ class Validation(object):
         performance_test_df = cls.get_performance_test_df(test_df)
         prediction_result, processing_time = cls.get_model_prediction_and_time(model, performance_test_df)
         cls.validate_prediction_output(prediction_result)
-        assert processing_time <= MAX_PREDICTION_PROCESSING_TIME
+        if processing_time > MAX_PREDICTION_PROCESSING_TIME:
+            raise InvalidPredictionException("Prediction takes longer than expected..., Cannot be deployed.")
 
 
 class ModelUtils(object):

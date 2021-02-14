@@ -106,7 +106,7 @@ class ModelABC(metaclass=abc.ABCMeta):
         try:
             response: Response = client.api_helper.call_api(CMD_MODEL_ENDPOINT, method_type=API_POST, body=request_body)
         except HTTPError as e:
-            raise Exception(f"Failed to Save model: {e.message}")
+            raise Exception(f"Failed to Save model: {str(e)}")
 
 
     @abc.abstractmethod
