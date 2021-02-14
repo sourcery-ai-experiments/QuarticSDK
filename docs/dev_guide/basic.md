@@ -43,6 +43,11 @@ The method requires the following parameters to be called:
 tags_of_asset_id_1 = client.tags(1)
 ```
 
+#### .list_models
+Lists the Models and its parameters
+The method requires the following parameters to be called:
+- **is_active (optional)**: Boolean variable indicating to list the models that are active or inactive currently in quartic platform. Default: None, Indicating to return both active and inactive models
+- **ml_node (optional)**: Integer variable to list the models deployed to particular node. Default: None, returns all the accessible models for the user.
 
 ## Entity
 ---
@@ -99,6 +104,15 @@ The method returns all the occurrences of the given ContextFrame in the form of 
 ## ContextFrameOccurrence
 ---
 This refers to the context frame occurrence entity, which contains the details of the tag. Tag contains all the properties of the base Entity defined above.
+
+## Model
+---
+
+This refers to Model entity, which contains the details of Model, Model contains all the properties of the base Entity defined above.
+
+### .model_instance
+
+Returns the Model object(created and deployed by extending model base- ModelABC).
 
 ## EntityList
 ---
