@@ -1,5 +1,6 @@
 import abc
 import logging
+from pprint import pprint
 from typing import List
 
 import pandas as pd
@@ -105,8 +106,9 @@ class ModelABC(metaclass=abc.ABCMeta):
             request_body['ml_node_id'] = ml_node
         try:
             response: Response = client.api_helper.call_api(CMD_MODEL_ENDPOINT, method_type=API_POST, body=request_body)
-        except HTTPError as e:
-            raise Exception(f"Failed to Save model: {str(e)}")
+            self.log.info("Successfully saved the model to Quartic Platform")
+        except HTTPError as ex:
+            raise Exception(f"Failed to Save model: {ex.response.content.decode()}")
 
 
     @abc.abstractmethod

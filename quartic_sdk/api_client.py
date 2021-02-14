@@ -3,7 +3,7 @@ from typing import List, Dict
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.api.api_helper import APIHelper
 from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
-
+from quartic_sdk._version import __version__
 
 class APIClient:
 
@@ -18,8 +18,6 @@ class APIClient:
         """
         Return the SDK version
         """
-        __version__=None
-        exec(open("./_version.py", "r").read())
         return __version__
 
     def assets(self):

@@ -1,4 +1,3 @@
-
 import requests
 from quartic_sdk.utilities.configuration import Configuration
 import quartic_sdk.utilities.constants as Constants
@@ -35,7 +34,7 @@ class APIHelper:
             Constants.API_DELETE: self.__http_delete_api
         }
 
-        response  = http_method_function_mapping[method_type](url, path_params, query_params, body)
+        response = http_method_function_mapping[method_type](url, path_params, query_params, body)
         response.raise_for_status()
         return response
 
@@ -54,7 +53,7 @@ class APIHelper:
         if self.configuration.auth_type == Constants.BASIC:
             return requests.get(request_url, auth=(
                 self.configuration.username, self.configuration.password),
-            params=query_params)
+                                params=query_params)
         elif self.configuration.auth_type == Constants.OAUTH:
             # TODO: Add oauth call
             return None
@@ -72,10 +71,10 @@ class APIHelper:
             request_url += str(path_param) + "/"
 
         if self.configuration.auth_type == Constants.BASIC:
-            headers = {'Content-Type': 'application/json', 'Accept':'application/json'}
+            headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
             return requests.post(request_url, auth=(
                 self.configuration.username, self.configuration.password),
-                json=body, headers=headers, params=query_params)
+                                 json=body, headers=headers, params=query_params)
         elif self.configuration.auth_type == Constants.OAUTH:
             # TODO: Add oauth call
             return None
