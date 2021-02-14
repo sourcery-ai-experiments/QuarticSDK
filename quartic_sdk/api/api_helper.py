@@ -9,12 +9,12 @@ class APIHelper:
     The class is the helper class which will be used for making the API calls
     """
 
-    def __init__(self, host, username=None, password=None, oauth_token=None, verify_ssl=None):
+    def __init__(self, host, username=None, password=None, oauth_token=None, client_id=None, client_secret=None, verify_ssl=None):
         """
         Create API Client
         """
         self.configuration = Configuration.get_configuration(
-            host, username, password, oauth_token, verify_ssl)
+            host, username, password, oauth_token, client_id, client_secret, verify_ssl)
 
     def call_api(self, url, method_type, path_params=[], query_params={}, body={}):
         """

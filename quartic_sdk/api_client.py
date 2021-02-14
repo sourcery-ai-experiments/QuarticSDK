@@ -6,11 +6,11 @@ from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
 
 class APIClient:
 
-    def __init__(self, host, username=None, password=None, oauth_token=None, verify_ssl=None):
+    def __init__(self, host, username=None, password=None, oauth_token=None, client_id=None, client_secret=None, verify_ssl=None):
         """
         Create the API Client
         """
-        self.api_helper = APIHelpers(host, username, password, oauth_token, verify_ssl)
+        self.api_helper = APIHelpers(host, username, password, oauth_token, client_id, client_secret, verify_ssl)
 
     @staticmethod
     def version():
