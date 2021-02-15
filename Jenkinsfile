@@ -1,0 +1,30 @@
+@Library('shared-library') _
+import quarticpipeline.PipelineBuilder
+
+containerNodes = [
+  Test: [
+    dir: './jenkins_scripts/',
+      steps: [
+        test: [
+          file_name: 'test.sh',
+          docker_image: 'quarticai/common_package:python3.7',
+          docker_image_args: '-u root'
+            ]
+        ]
+    ],
+  Publish: [
+    dir: './jenkins_scripts/',
+      steps: [
+        publish: [
+          file_name: 'publish.sh',
+          docker_image: 'quarticai/common_package:python3.7',
+          docker_image_args: '-u root'
+            ]
+        ]
+    ]
+]
+
+pipelineBuilder = new PipelineBuilder(this, env, scm, containerNodes)
+userEnv = ['RESERVE=azubuntu']
+
+pipelineBuilder.executePipeline(userEnv)
