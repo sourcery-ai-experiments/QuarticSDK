@@ -3,9 +3,9 @@ To fetch data points of one or more tags, train a model, and save it on the Quar
 
 ## Step 1
 ---
-Start by initializing the `APIClient` with the authentication details. Currently, Quartic SDK supports two kinds of authentication. These are BasicAuthentication, where the user is supposed to pass the username
-and password; and OAuth2.0, where the user passes the client token.
-For this example, we will be using BasicAuthentication. Also, we will assume the Quartic host to be `https://test.quartic.ai`, and the username and password being `username` and `password`.
+Initialize the `APIClient` with the authentication details. Currently, Quartic SDK supports two kinds of authentication: Basic Authentication and OAuth2.0. In Basic Authentication, the user must pass in the parameters the username and password; and in OAuth2.0, the client token.
+
+For our example, we will be using Basic Authentication and assume the Quartic host to be `https://test.quartic.ai` and the username and password to be `username` and `password`.
 
 ```
 from quartic_sdk import APIClient
@@ -15,7 +15,7 @@ client = APIClient("https://test.quartic.ai", username="username", password="pas
 
 ## Step 2
 ---
-Fetch primitive objects. These objects don't require extra parameters and can be fetched directly from the `client` object. The list returned will contain the class object `EntityList`, which consists of the methods required for getting instances based upon the given parameters.
+Fetch primitive objects. These objects do not require any extra parameters and can be fetched directly from the `client` object. The list returned will contain the class object `EntityList`, which consists of the methods required for getting instances based upon the given parameters.
 
 ```
 assets = client.assets()
@@ -45,7 +45,7 @@ for data in asset_data:
 
 ## Step 5
 ---
-Once the client is initialized and data is fetched using the steps above, model can now be trained, tested and deployed to Quartic Platform using below:
+Once the client is initialized and data is fetched using the steps above, models can now be trained, tested and deployed to Quartic AI Platform using below:
 
 ``` python
 from quartic_sdk.model import ModelABC
