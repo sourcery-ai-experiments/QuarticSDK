@@ -9,12 +9,24 @@ class APIHelper:
     The class is the helper class which will be used for making the API calls
     """
 
-    def __init__(self, host, username=None, password=None, oauth_token=None, verify_ssl=None):
+    def __init__(self, host, username=None, password=None, oauth_token=None, verify_ssl=None,
+        client_id, client_secret):
         """
         Create API Client
         """
+        if client_id and client_secret:
+            oauth_token = self.setup_oauth(client_id, client_secret)
         self.configuration = Configuration.get_configuration(
-            host, username, password, oauth_token, verify_ssl)
+            host, username, password, oauth_token, verify_ssl, client_id, client_secret)
+
+    def setup_oauth(self, client_id, client_secret):
+        """
+        Setup OAuth 2.0 with the client_id and client_secret
+        :param client_id:
+        :param client_secret:
+        :return: OAuth token
+        """
+        pass
 
     def call_api(self, url, method_type, path_params=[], query_params={}, body={}):
         """
@@ -54,8 +66,8 @@ class APIHelper:
                 self.configuration.username, self.configuration.password),
             params=query_params)
         elif self.configuration.auth_type == Constants.OAUTH:
-            # TODO: Add oauth call
-            return None
+            headers = {"Authorization": "Bearer " + self.configuration.oauth_token}
+            return requests.get(request_url, params=query_params, headers=headers)
 
     def __http_post_api(self, url, path_params=[], query_params={}, body={}):
         """
@@ -74,8 +86,9 @@ class APIHelper:
                 self.configuration.username, self.configuration.password),
                 json=body, headers=headers, params=query_params)
         elif self.configuration.auth_type == Constants.OAUTH:
-            # TODO: Add oauth call
-            return None
+            headers = {"Authorization": "Bearer " + self.configuration.oauth_token,
+            "Content-Type": "application/json", "Accept": "application/json"}
+            return requests.post(request_url, params=query_params, json=body, headers=headers)
 
     def __http_patch_api(self, url, path_params=[], query_params={}, body={}):
         """

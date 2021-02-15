@@ -18,6 +18,9 @@ GET_TAGS = "/tags/"
 POST_TAG_DATA = "/tag_data/"
 GET_CONTEXT_FRAME_OCCURRENCES = "/api/v1/context_frame_occurrences/"
 GET_BATCHES = "/api/v1/batches/"
+OAUTH_AUTHORIZE = "/authorize"
+OAUTH_TOKEN = "/token"
+OAUTH_USERINFO = "/userinfo"
 
 # Entity types
 ASSET_ENTITY = "Asset"
