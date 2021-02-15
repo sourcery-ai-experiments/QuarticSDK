@@ -1,5 +1,6 @@
 from typing import List, Dict
 
+
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.api.api_helper import APIHelper
 from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory

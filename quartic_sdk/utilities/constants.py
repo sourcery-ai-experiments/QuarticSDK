@@ -30,3 +30,7 @@ CONTEXT_FRAME_ENTITY = "ContextFrame"
 CONTEXT_FRAME_OCCURRENCE_ENTITY = "ContextFrameOccurrence"
 TAG_ENTITY = "Tag"
 MODEL_ENTITY = "Model"
+
+# Data return type constants
+RETURN_JSON = "json"
+RETURN_PANDAS = "pd"
