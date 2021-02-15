@@ -1,45 +1,46 @@
 # Model Creation
-This article gives an introduction on how to create, wrap and deploy models into Quartic Platform. 
+This article explains how to create, wrap, and deploy models into Quartic AI Platform. 
 
 ## ModelABC
-ModelABC is a base class for all the user models that can be deployed to QuarticPlatform. 
-User needs to extend this class and implement predict method to make the model compatible to deploy in quartic platform.
+---
+ModelABC is a base class for all the ML models that can be deployed to the Platform. Users must extend this class and implement the predict method to make the ML model compatible to deploy in the Quartic AI Platform. The available methods are as follows:
 
-### Available methods
-
-#### init
+### init
 The method has following parameters for initialization:
-- **name (required)**: A Unique Name for the model
-- **description (optional)**: A sentence to describe the Model. Default = `''`
-- **log_level (optional)**: str - sets log level for the model. one of `'CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG', 'NOTSET'`. Default: `INFO`
 
-_Note: While implementing an instance of ModelABC, user needs to call `super().__init__` with above parameters._
+- **name (required)**: Enter a unique name for the model
+- **description (optional)**: Describe the model. The default value for the field is `''`
+- **log_level (optional)**: Select one of the log level for the model: `'CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG', 'NOTSET'`. The default value is `INFO`.
 
-#### .save
-This is a private method used to save the model to QuarticPlatform.
+<div class="note"><strong>Note:&nbsp;</strong>While implementing an instance of ModelABC, users must call <code>super().__init__</code> with above parameters.</div>
 
-**Do not Override this method**
-- **client (required)**:    Refers to an instance of APIClient 
-- **output_tag_name (required)**: A Unique name for the Prediction results
-- **feature_tags (required)**:  A list of tags that are used as features in the model
-- **target_tag (required)**:   A Tag with both asset and edge connector assigned which can be used as a parent for the current prediction output
-- **test_df (required)**:   Test Dataframe to validate model prediction results
-- **ml_node (optional)**:   Ml Node Id if User wants to deploy model to particular node. 
+### .save
+This is a private method used to save the model to the Quartic AI Platform.
 
-_**Note**_:
-1. _By Default Quartic selects the best Ml Node based on cpu and memory utilization at that point to deploy the model if ml_node is not provided(**Recommended**)_
-2. _save method takes a sample of test data frame to validate the model.__
+<div class="note"><strong>Note:&nbsp;</strong>While implementing an instance of ModelABC, users must call <code>super().__init__</code> with above parameters.</div>
 
+<div class="note-warning"><strong>Warning:&nbsp;</strong>Do not Override this method.</div>
 
-#### .predict
-The method has following parameters for running the predictions for user model:
-- **input_df (required)** - Input Dataframe to prefrom prediction on.
+- **client (required)**: Refers to an instance of APIClient 
+- **output_tag_name (required)**: Refers to a unique name for the prediction results
+- **feature_tags (required)**: Refers to a list of tags that are used as features in the model
+- **target_tag (required)**: Refers to th Tag with both asset and edge connector assigned which can be used as a parent for the current prediction output
+- **test_df (required)**: Test Dataframe to validate model prediction results
+- **ml_node (optional)**: Refers to the Ml Node ID for deploying model to a particular node. 
 
-_**Note**_: 
-1. _User needs to override this method to transform and run predictions for the model created_
-2. _input_df is expected to have tag ids as the column names. If model is trained with tag names instead, a transformation step needs to be added and used in predict method to convert the tag ids in input dataframe into tag names._
+<div class="note"><strong>Note:&nbsp;</strong>
+1. By default, the Quartic AI Platform selects the best Ml Node based on CPU and memory utilization at that point to deploy the model if ml_node is not provided (Recommended).
+2. The save_method takes a sample of test data frame to validate the model._</div>
 
-#### Example
+### .predict
+The method has the following parameters for running the predictions of a ML model:
+- **input_df (required)**: Refers to the Input Dataframe to perfrom prediction on.
+
+<div class="note"><strong>Note:&nbsp;</strong>
+1. Users must override this method to transform and run predictions for the model created.
+2. input_df is expected to have tag ids as the column names. If model is trained with tag names instead, a transformation step needs to be added and used in predict method to convert the tag ids in input dataframe into tag names._</div>
+
+### Example
 ```python
 import pandas as pd
 from quartic_sdk.model import ModelABC
@@ -68,5 +69,5 @@ quartic_model.save(client=api_client, output_tag_name="Prediction Result",
 
 
 ```
-**Notes**:
-- Any intermediate steps that are used model training outside wrapper, must be included in wrapper for applying similar set of transformations during prediction.
+
+<div class="note"><strong>Note:&nbsp;</strong>Any intermediate steps that are used for model training outside the wrapper must be included in wrapper for applying similar set of transformations during prediction.</div>
