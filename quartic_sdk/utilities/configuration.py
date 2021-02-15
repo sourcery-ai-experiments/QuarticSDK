@@ -15,8 +15,6 @@ class Configuration:
         :param password:
         :param oauth_token:
         :param verify_ssl:
-        :param client_id:
-        :param client_secret:
         """
         self.host = host
         if oauth_token:
