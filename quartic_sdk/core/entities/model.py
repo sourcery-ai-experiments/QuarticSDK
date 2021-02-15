@@ -33,5 +33,4 @@ class Model(Base):
         checksum_received = model_string[:32]
         decoded_model = base64.b64decode(model_string[32:])
         assert ModelUtils.get_checksum(model_string[32:].encode()) == checksum_received
-        model = cloudpickle.loads(decoded_model)
-        return model
+        return cloudpickle.loads(decoded_model)
