@@ -3,10 +3,11 @@ import pytest
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entity_helpers.entity_list import EntityList
 from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
-from quartic_sdk.utilities.test_helpers import ASSET_LIST_GET, TAG_LIST_GET
+from quartic_sdk.utilities.test_helpers import ASSET_LIST_GET, TAG_LIST_GET, SINGLE_ASSET_GET
 
 asset_entity_list = EntityFactory(Constants.ASSET_ENTITY, ASSET_LIST_GET, None)
 test_asset_entity = EntityFactory(Constants.ASSET_ENTITY, ASSET_LIST_GET[0], None)
+test_new_asset_entity = EntityFactory(Constants.ASSET_ENTITY, SINGLE_ASSET_GET, None)
 test_tag_entity = EntityFactory(Constants.TAG_ENTITY, TAG_LIST_GET[0], None)
 
 
@@ -40,9 +41,9 @@ def test_entity_list_add():
     Test add method of entitylist for correct and incorrect class types
     """
     added_entity_list = asset_entity_list
-    added_entity_list.add(test_asset_entity)
+    added_entity_list.add(test_new_asset_entity)
     assert added_entity_list.count() == 2
-    with pytest.raises(AssertionError):
+    with pytest.raises(Exception):
         added_entity_list.add(test_tag_entity)
 
 def test_entity_list_first():
