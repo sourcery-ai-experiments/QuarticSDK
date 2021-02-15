@@ -96,8 +96,7 @@ class ModelUtils(object):
         :param model:   Model to pickle
         :return:        Pickled Model as string
         """
-
-        model_pkl = cloudpickle.dumps(model)
+        model_pkl = cloudpickle.dumps(model, protocol=3)
         model_string = base64.b64encode(model_pkl)
         checksum = cls.get_checksum(model_string)
         return checksum + model_string.decode()

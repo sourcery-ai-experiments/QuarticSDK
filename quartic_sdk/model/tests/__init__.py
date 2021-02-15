@@ -12,10 +12,8 @@ class SupportedModel(ModelABC):
     Example Model used for testing model
     This is a valid model that can be save to quartic platfrom
     """
-
     def __init__(self):
         super().__init__("test_modelABC")
-
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
         return pd.Series([i for i in range(input_df.shape[0])])
 
