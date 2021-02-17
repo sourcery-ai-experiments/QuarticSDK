@@ -37,12 +37,12 @@ class EntityList:
         """
         return self.__repr__()
 
-    def _validate_type(self, object):
+    def _validate_type(self, instance):
         """
         We validate that the type of the object is the same as defined for the
         class definition
         """
-        return isinstance(object, ENTITY_DICTIONARY[self._class_type])
+        return isinstance(instance, ENTITY_DICTIONARY[self._class_type])
 
     def get(self, name, value):
         """

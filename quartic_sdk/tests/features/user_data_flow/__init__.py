@@ -1,5 +1,5 @@
+from unittest import mock
 
-import mock
 from aloe import step, world
 
 from quartic_sdk import APIClient

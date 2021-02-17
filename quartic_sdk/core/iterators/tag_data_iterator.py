@@ -47,25 +47,9 @@ class TagDataIterator:
         self.start_time = start_time
         self.stop_time = stop_time
         self.api_helper = api_helper
-        self.granularity = TagDataIterator._calculate_granularity(granularity)
+        self.granularity = granularity
         self.return_type = return_type
         self._transformations = transformations
-
-    @staticmethod
-    def _calculate_granularity(granularity):
-        """
-        We approximate the granularity to the lower allowed number that the granularities is allowed
-        :param granularity: User input granularity
-        :return: Calculated granularity
-        """
-        for index in range(len(Constants.AVAILABLE_GRANULARITIES)):
-            if Constants.AVAILABLE_GRANULARITIES[index] == granularity:
-                return granularity
-            elif index < len(Constants.AVAILABLE_GRANULARITIES) - 1:
-                if Constants.AVAILABLE_GRANULARITIES[index] < granularity and granularity < Constants.AVAILABLE_GRANULARITIES[index+1]:
-                    return Constants.AVAILABLE_GRANULARITIES[index]
-            else:
-                return Constants.AVAILABLE_GRANULARITIES[index]
 
     def _validate_transformations_schema(self, transformations, tags):
         """
@@ -177,7 +161,7 @@ class TagDataIterator:
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,
             "stop_time": stop_time,
-            "granularity": TagDataIterator._calculate_granularity(granularity=granularity),
+            "granularity": granularity,
             "transformations": transformations
         }
         tag_data_response = api_helper.call_api(
