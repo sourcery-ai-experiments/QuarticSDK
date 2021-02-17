@@ -27,6 +27,7 @@ test:
 
 build: clean
 	python setup.py bdist_wheel
+	python setup.py sdist
 
 version:
 	@echo $(VERSION)
