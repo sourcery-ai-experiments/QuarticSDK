@@ -23,7 +23,7 @@ clean-cache:
 clean: clean-dist clean-cache
 
 test:
-	pip install -r requirements.txt && pytest -s && aloe -v quartic_sdk/tests/features/*/*.feature
+	pip install -r requirements.txt && pytest -s && aloe
 
 build: clean
 	python setup.py sdist bdist_wheel
