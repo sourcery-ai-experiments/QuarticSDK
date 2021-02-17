@@ -1,5 +1,5 @@
 # Model Creation
-This article explains how to create, wrap, and deploy models into Quartic AI Platform.
+This article explains how to create, wrap, and deploy models to the Quartic AI Platform.
 
 ## ModelABC
 ---
@@ -34,6 +34,7 @@ This is a private method used to save the model to the Quartic AI Platform.
 
 ### .predict
 The method has the following parameters for running the predictions of a ML model:
+
 - **input_df (mandatory)**: Refers to the Input Dataframe to perfrom prediction on.
 
 <div class="note"><strong>Note:&nbsp;</strong>

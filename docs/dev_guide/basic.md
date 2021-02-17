@@ -1,5 +1,5 @@
 # Development Guide
-This article explains the various classes alongwith their methods and the available attributes.
+This article explains the various classes alongwith their methods and available attributes.
 
 ## APIClient
 ---
@@ -43,8 +43,9 @@ tags_of_asset_id_1 = client.tags(1)
 
 ### .list_models
 This method lists the ML models and its parameters and requires the following parameters to be called:
-- **is_active (optional)**: This specifies if is_active is true, list_models will list the models which are active in the Quartic AI Platform.
-- **ml_node (optional)**: If ml_node (numeric field) is specified, list_models will list all the custom models that are deployed into a specific ml node.
+
+- **is_active (optional)**: If `is_active` is true, `list_models` will list the models which are active in the Quartic AI Platform.
+- **ml_node (optional)**: If `ml_node` (numeric field) is specified, `list_models` will list all the custom models that are deployed into a specific ml node.
 
 ## Entity
 ---
@@ -54,11 +55,12 @@ Entity is the parent term by which all the objects accessible in the SDK are ref
 An object of this class is initialiazed with two parameters. These are automatically created and depend on the user's query through the client.
 
 - **body_json (mandatory)**: This is the json object which is used to create the related `Entity` object.
-- **api_helper (mandatory)**: This is the APIHelper object which contains all the info about the authentication and is used for making API calls.
+- **api_helper (mandatory)**: This is the APIHelper object which contains information about the authentication and is used for making API calls.
 
 ### get
 The attribute value of the object is returned for the given name.
-- **name (mandatory)**: The attribute name whose value is to be returned.
+
+- **name (mandatory)**: Refers to the attribute name whose value is to be returned.
 
 ## Asset
 ---
@@ -71,12 +73,13 @@ The method returns all the tags present in the given asset in the form of `Entit
 The method returns all the batches present in the given asset in the form of `EntityList` where each object refers to `Batch`.
 
 ### .data
-The method returns the tag data iterator for all the tags present in the asset for the set `start_time` and `stop_time`. It can be used to iterate through the data in batches of 200,000 datapoints. More details under the `TagDataIterator` subsection.
-The method parameters are:
+The method returns the tag data iterator for all the tags present in the asset for the set `start_time` and `stop_time`. It can be used to iterate through the data in batches of 200,000 datapoints. More details are provided under the `TagDataIterator` subsection.
 
-- **start_time (mandatory)**: (epoch) Refers to the `start_time` for fetching the data of the asset.
-- **stop_time (mandatory)**: (epoch) Refers to the `stop_time` for fetching the data of the asset.
-- **granularity (optional)**: Refers to the granularity at which data is required. Depending upon the granularity provided. It automatically averages the granularity to either of RAW (granularity of tag edge connector), 5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s or 86400s. If no granularity is provided, it will take the default granularity as the raw granularity.
+The method parameters are as follows:
+
+- **start_time (mandatory)**: (epoch) This refers to the `start_time` for fetching the data of the asset.
+- **stop_time (mandatory)**: (epoch) This refers to the `stop_time` for fetching the data of the asset.
+- **granularity (optional)**: This refers to the granularity at which data is required. If the granularity provided, the method returns the data in the tag for the given time range with the lower of the closest possible granularity: Raw (granularity of the datasource), 5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s or 86400s. The default granularity is Raw.
 - **return_type (optional)**: The user can pass either `pd`, which will return the pandas dataframe iterator, or `json` which will return json object on return. This value takes the `pd` value as default.
 - **transformations (optional)**: The user is supposed to pass the list of interpolations and aggregations here. Further details on transformations is provided towards the end of this documentation.
 
@@ -85,10 +88,11 @@ The method parameters are:
 This refers to the tag entity which contains the details of the tag. Tag contains all the properties of the base Entity defined above.
 
 ### .data
-The method returns the tagdata iterator for the selected tag for the set `start_time` and `stop_time`, which can be used to iterate through the data in batches of 200,000 datapoints. More details under the `TagDataIterator` subsection. The method parameters are:
+The method returns the tagdata iterator for the selected tag for the set `start_time` and `stop_time`, which can be used to iterate through the data in batches of 200,000 datapoints. More details under the `TagDataIterator` subsection. The method parameters are as follows:
+
 - **start_time (mandatory)**: (epoch) Refers to the `start_time` for fetching the data of the asset.
 - **stop_time (mandatory)**: (epoch) Refers to the `stop_time` for fetching the data of the asset.
-- **granularity (optional)**: Refers to the granularity at which data is required. Depending upon the granularity provided. It automatically averages the granularity to either of RAW (granularity of tag edge connector), 5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s, 86400s. If no granularity is provided, it will take the default granularity as the raw granularity.
+- **granularity (optional)**: This refers to the granularity at which data is required. If the granularity provided, the method returns the data in the tag for the given time range with the lower of the closest possible granularity: Raw (granularity of the datasource), 5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s or 86400s. The default granularity is Raw.
 - **return_type (optional)**: The user can pass either `pd`, which will return the pandas dataframe iterator, or `json` which will return json object on return. This value takes the `pd` value as default.
 - **transformations (optional)**: The user is supposed to pass the list of interpolations and aggregations here. Further details on transformations is provided towards the end of this documentation.
 
@@ -100,8 +104,7 @@ This refers to the batch entity which contains the details of the tag. Tag conta
 ---
 This refers to the context frame entity which contains the details of the tag. Tag contains all the properties of the base Entity defined above.
 
-### occurrences
-The method returns all the occurrences of the given ContextFrame in the form of `EntityList` where each object refers to `ContextFrameOccurrence`.
+- **occurrences**: The method returns all the occurrences of the given ContextFrame in the form of `EntityList` where each object refers to `ContextFrameOccurrence`.
 
 ## ContextFrameOccurrence
 ---
@@ -109,10 +112,9 @@ This refers to the context frame occurrence entity which contains the details of
 
 ## Model
 ---
-This refers to Model entity, which contains the details of Model, Model contains all the properties of the base Entity defined above.
+This refers to Model entity, which contains the details of the model, Model contains all the properties of the base Entity defined above.
 
-### .model_instance
-This methode returns the Model object (created and deployed by extending model base- ModelABC).
+- **.model_instance**: This methode returns the Model object (created and deployed by extending model base- ModelABC).
 
 ## EntityList
 ---
@@ -126,6 +128,7 @@ The class requires the following parameters for initialization:
 
 ### .get
 The method returns the first item in the list whose attribute `name` has the value `value`. It requires the following parameters:
+
 - **name (mandatory)**: Refers to the name of the attribute.
 - **value (mandatory)**: Refers to the value of this attribute.
 
@@ -168,7 +171,7 @@ This method is present only for the `Tag` type EntityList, and it returns the da
 
 - **start_time (mandatory)**: (epoch) Refers to the `start_time` for fetching the data of the asset.
 - **stop_time (mandatory)**: (epoch) Refers to the `stop_time` for fetching the data of the asset.
-- **granularity (optional)**: Refers to the granularity at which data is required. Depending upon the granularity provided. It automatically averages the granularity to either of RAW (granularity of tag edge connector), 5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s or 86400s. If no granularity is provided, it will take the default granularity as the raw granularity.
+- **granularity (optional)**: This refers to the granularity at which data is required. If the granularity provided, the method returns the data in the tag for the given time range with the lower of the closest possible granularity: Raw (granularity of the datasource), 5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s or 86400s. The default granularity is Raw.
 - **return_type (optional)**: The user can pass either `pd`, which will return the pandas dataframe iterator, or `json` which will return json object on return. This value takes the `pd` value as default.
 - **transformations (optional)**: The user is supposed to pass the list of interpolations and aggregations here. Further details on transformations is provided towards the end of this documentation.
 
@@ -180,8 +183,8 @@ Querying data for any set of tags in any given duration returns an instance of `
 The tag data iterator is created based upon the multiple transformations that the user might need. The transformations is a list of dictionaries where each dictionary contains the details of interpolation/aggregation to be performed on the data. The different transformations are:
 
 #### Interpolation:
+Interpolation requires the following keys to be present:
 
-Interpolation contains the following keys to be present:
 - **transformation_type (mandatory)**: Refers to the type of transformation. It should always be `interpolation` for this.
 - **column (mandatory)**: Refers to the column which is to be interpolated.
 - **method (mandatory)**: Refers to the interpolation method; the options are: linear, spline, cubic interpolation, and polynomial.
@@ -190,6 +193,7 @@ Interpolation contains the following keys to be present:
 
 #### Aggregation:
 Aggregation requires the following keys to be present:
+
 - **transformation_type (mandatory)**: Refers to the type of transformation. It should always be `aggregation` for this.
 - **aggregation_column (mandatory)**: Refers to the column being aggregated.
 - **aggregation_dict (mandatory)**: This dictionary refers to the methods based upon which the different columns in the dataset will be aggregated.

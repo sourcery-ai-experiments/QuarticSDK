@@ -3,9 +3,9 @@ To fetch data points of one or more tags, train a model, and save it on the Quar
 
 ## Step 1
 ---
-Initialize the `APIClient` with the authentication details. Currently, Quartic SDK supports two kinds of authentication: Basic Authentication and OAuth2.0. In Basic Authentication, the user must pass in the parameters the username and password; and in OAuth2.0, the client token.
+Initialize the `APIClient` with the authentication details. Currently, Quartic SDK supports two kinds of authentication: Basic Authentication and OAuth2.0. In Basic Authentication, the user must pass the parameters of username and password; and in OAuth2.0, the client token.
 
-For our example, we will be using Basic Authentication and assume the Quartic host to be `https://test.quartic.ai` and the username and password to be `username` and `password`.
+For our example, if the authentication used is Basic Authentication, the Quartic host is `https://test.quartic.ai`, and the username and password is `username` and `password`, then the APIClient will look like this:
 
 ```
 from quartic_sdk import APIClient
@@ -15,7 +15,7 @@ client = APIClient("https://test.quartic.ai", username="username", password="pas
 
 ## Step 2
 ---
-Fetch primitive objects. These objects do not require any extra parameters and can be fetched directly from the `client` object. The list returned will contain the class object `EntityList`, which consists of the methods required for getting instances based upon the given parameters.
+Fetch primitive objects. These objects do not require any extra parameters and can be fetched directly from the `client` object. The list returned will contain the class object `EntityList`, which consists of the methods required for getting instances and depends on the given parameters.
 
 ```
 assets = client.assets()
@@ -24,7 +24,7 @@ context_frames = client.context_frame_definitions()
 
 ## Step 3
 ---
-Fetch a tag of an assets, which will be further used to fetch data points. Pass the start_time and the stop_time of the query in epoch. For example, for a duration of 1 day, from 1 Jan 2021 to 2 Jan 2021, the corresponding time in epoch would be 1609439400000 and 1609525800000.
+Fetch a tag of an asset, which will be further used to fetch data points. Pass the start_time and the stop_time of the query in epoch. For example, for a duration of 1 day, from 1 Jan 2021 to 2 Jan 2021, the corresponding time in epoch would be 1609439400000 and 1609525800000.
 ```
 asset = assets.first()
 asset_tags = asset.get_tags()
@@ -45,7 +45,7 @@ for data in asset_data:
 
 ## Step 5
 ---
-Once the client is initialized and data is fetched using the steps above, models can now be trained, tested and deployed to Quartic AI Platform using below:
+Once the client is initialized and data fetched, models can now be trained, tested and deployed to Quartic AI Platform using below:
 
 ``` python
 from quartic_sdk.model import ModelABC
