@@ -18,7 +18,7 @@ clean-dist:
 
 clean-cache:
 	rm -r *.egg-info || true
-	python3 setup.py clean --all || true
+	python setup.py clean --all || true
 
 clean: clean-dist clean-cache
 
