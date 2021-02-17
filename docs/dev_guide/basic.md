@@ -77,6 +77,8 @@ The method parameters are:
 - **start_time (required)**: (epoch) Refers to the `start_time` for fetching the data of the asset
 - **stop_time (required)**: (epoch) Refers to the `stop_time` for fetching the data of the asset
 - **granularity (not required)**: Refers to the granularity at which data is required. Depending upon the granularity provided. It automatically averages the granularity to either of RAW(granularity of tag edge connector), 5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s, 86400s. If no granularity is provided, it will take the default granularity as the raw granularity.
+- **return_type(not required)**: The user can pass either `pd`, which will return the pandas dataframe iterator, or `json` which will return json object on return. This value takes the `pd` value as default
+- **transformations**: The user is supposed to pass the list of interpolations and aggregations here. Further details on transformations is provided towards the end of this documentation
 
 ## Tag
 ---
@@ -87,6 +89,8 @@ The method returns the tagdata iterator for the selected tag for the set `start_
 - **start_time (required)**: (epoch) Refers to the `start_time` for fetching the data of the asset
 - **stop_time (required)**: (epoch) Refers to the `stop_time` for fetching the data of the asset
 - **granularity (not required)**: Refers to the granularity at which data is required. Depending upon the granularity provided. It automatically averages the granularity to either of RAW(granularity of tag edge connector), 5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s, 86400s. If no granularity is provided, it will take the default granularity as the raw granularity.
+- **return_type(not required)**: The user can pass either `pd`, which will return the pandas dataframe iterator, or `json` which will return json object on return. This value takes the `pd` value as default
+- **transformations**: The user is supposed to pass the list of interpolations and aggregations here. Further details on transformations is provided towards the end of this documentation
 
 ## Batch
 ---
@@ -159,6 +163,35 @@ The method filters the given EntityList to return an updated list that doesn't c
 updated_entity_list = client_assets.exclude("id", 1)
 ```
 
+### .data
+This method is present only for the `Tag` type EntityList, which is used to return the data present in the given tags. This returns a TagDataIterator instance, and has the following params:
+
+- **start_time (required)**: (epoch) Refers to the `start_time` for fetching the data of the asset
+- **stop_time (required)**: (epoch) Refers to the `stop_time` for fetching the data of the asset
+- **granularity (not required)**: Refers to the granularity at which data is required. Depending upon the granularity provided. It automatically averages the granularity to either of RAW(granularity of tag edge connector), 5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s, 86400s. If no granularity is provided, it will take the default granularity as the raw granularity.
+- **return_type(not required)**: The user can pass either `pd`, which will return the pandas dataframe iterator, or `json` which will return json object on return. This value takes the `pd` value as default
+- **transformations**: The user is supposed to pass the list of interpolations and aggregations here. Further details on transformations is provided towards the end of this documentation
+
 ## TagDataIterator
 ---
 Querying data for any set of tags in any given duration returns an instance of `TagDataIterator`, which can be used to iterate between the given time range. When the `.data` of tags/assets is called, the method divides the complete interval between `start_time` and `stop_time` into different time_ranges, with each range containing up to 200,000 data points for all the tags. The user can loop through this interval to get all the data points.
+
+### Transformations:
+
+The tag data iterator is created based upon the multiple transformations that the user might need. The transformations is a list of dictionaries where each dictionary contains the details of interpolation/aggregation to be done on the data. The different transformations are:
+
+#### Interpolation:
+
+Interpolation contains the following keys to be present:
+- **transformation_type(required)**: Refers to the type of transformation. It should always be `interpolation` for this.
+- **column(required)**: The column which is to be interpolated
+- **method(required)**: This is the method based upon which the interpolation is supposed to happen. This can be `linear` for linear interpolation, `spline` for spline interpolation, `cubic` for cubic interpolation and `polynomial` for polynomial interpolation
+- **order(required)**: This value is required for all methods other than `linear`, and refers to the order of the interpolation
+- **limit_direction(not required)**: This refers to the direction in which the interpolation takes place. This takes the value `forward` by default
+
+#### Aggregation:
+
+Aggregation requires the following keys to be present:
+- **transformation_type(required)**: Refers to the type of transformation. It should always be `aggregation` for this.
+- **aggregation_column(required)**: The column, based upon which the aggregation is supposed to happen
+- **aggregation_dict(required)**: This dictionary refers to the methods based upon which the aggregation is supposed to happen in the different columns present in the dataset.
