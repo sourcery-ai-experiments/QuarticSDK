@@ -38,10 +38,3 @@ if [[ "$BRANCE_NAME" =~ ^[v0-9]*\.[x0-9]*\.[x0-9]*$ ]]; then
   pip install twine==3.3.0 wheel==0.36.2
   twine upload dist/*
 fi
-
-
-
-
-
-
-
