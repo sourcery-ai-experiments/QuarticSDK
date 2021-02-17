@@ -141,30 +141,30 @@ all_assets = client_assets.all()
 ```
 
 ### .first
-The method returns the first element of the Integer variable to list the ML models deployed to a particular node. Default: None, returns all the accessible ML models for the user.
+This method returns the first element of the Integer variable to list the ML models deployed to a particular node. The default value is *None*, which returns all the accessible ML models for the user.
 ```
 first_asset = client_assets.first()
 ```
 
 ### .last
-The method returns the last element of the EntityList.
+This method returns the last element of the EntityList.
 ```
 last_asset = client_assets.last()
 ```
 
 ### .add
-The method adds the given object into the list. If the object already exists or it belongs to a different class_type, it throws an exception.
+This method adds the given object into the list. If the object already exists or it belongs to a different class_type, it throws an exception.
 ```
 client_assets.add(new_asset_entity)
 ```
 ### .exclude
-The method filters the given EntityList to return an updated list that doesn't contain the entity which has the `name` attribute value as `value`
+This method filters the given EntityList to return an updated list that doesn't contain the entity which has the `name` attribute value as `value`.
 ```
 updated_entity_list = client_assets.exclude("id", 1)
 ```
 
 ### .data
-This method is present only for the `Tag` type EntityList, which is used to return the data present in the given tags. This returns a TagDataIterator instance, and has the following params:
+This method is present only for the `Tag` type EntityList, and it returns the data present in the given tags. It returns a TagDataIterator instance, and has the following parameters:
 
 - **start_time (mandatory)**: (epoch) Refers to the `start_time` for fetching the data of the asset.
 - **stop_time (mandatory)**: (epoch) Refers to the `stop_time` for fetching the data of the asset.
@@ -177,21 +177,19 @@ This method is present only for the `Tag` type EntityList, which is used to retu
 Querying data for any set of tags in any given duration returns an instance of `TagDataIterator`, which can be used to iterate between the given time range. When the `.data` of tags/assets is called, the method divides the complete interval between `start_time` and `stop_time` into different time_ranges, with each range containing up to 200,000 data points for all the tags. The user can loop through this interval to get all the data points.
 
 ### Transformations:
-
-The tag data iterator is created based upon the multiple transformations that the user might need. The transformations is a list of dictionaries where each dictionary contains the details of interpolation/aggregation to be done on the data. The different transformations are:
+The tag data iterator is created based upon the multiple transformations that the user might need. The transformations is a list of dictionaries where each dictionary contains the details of interpolation/aggregation to be performed on the data. The different transformations are:
 
 #### Interpolation:
 
 Interpolation contains the following keys to be present:
 - **transformation_type (mandatory)**: Refers to the type of transformation. It should always be `interpolation` for this.
-- **column (mandatory)**: The column which is to be interpolated.
-- **method (mandatory)**: This is the method based upon which the interpolation is supposed to happen. This can be `linear` for linear interpolation, `spline` for spline interpolation, `cubic` for cubic interpolation and `polynomial` for polynomial interpolation.
-- **order (mandatory)**: This value is required for all methods other than `linear`, and refers to the order of the interpolation.
-- **limit_direction (optional)**: This refers to the direction in which the interpolation takes place. This takes the value `forward` by default.
+- **column (mandatory)**: Refers to the column which is to be interpolated.
+- **method (mandatory)**: Refers to the interpolation method; the options are: linear, spline, cubic interpolation, and polynomial.
+- **order (mandatory)**: Refers to the order of the interpolation, and is required for all methods except `linear`.
+- **limit_direction (optional)**: Refers to the direction in which the interpolation takes place. The default value is `forward`.
 
 #### Aggregation:
-
 Aggregation requires the following keys to be present:
 - **transformation_type (mandatory)**: Refers to the type of transformation. It should always be `aggregation` for this.
-- **aggregation_column (mandatory)**: The column, based upon which the aggregation is supposed to happen.
-- **aggregation_dict (mandatory)**: This dictionary refers to the methods based upon which the aggregation is supposed to happen in the different columns present in the dataset.
+- **aggregation_column (mandatory)**: Refers to the column being aggregated.
+- **aggregation_dict (mandatory)**: This dictionary refers to the methods based upon which the different columns in the dataset will be aggregated.
