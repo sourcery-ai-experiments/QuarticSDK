@@ -14,6 +14,7 @@ class SupportedModel(ModelABC):
     """
     def __init__(self):
         super().__init__("test_modelABC")
+
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
         return pd.Series([i for i in range(input_df.shape[0])])
 
