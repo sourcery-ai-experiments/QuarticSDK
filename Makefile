@@ -26,7 +26,7 @@ test:
 	pip install -r requirements.txt && pytest -s && aloe
 
 build: clean
-	python setup.py bdist_wheel
+	python setup.py sdist bdist_wheel
 
 version:
 	@echo $(VERSION)

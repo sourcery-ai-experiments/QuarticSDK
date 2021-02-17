@@ -28,21 +28,21 @@ setup(
     name="quartic-sdk",
     version=__version__,
     description="QuarticSDK is the SDK package which exposes the APIs to the user",
+    long_description=get_file_contents('README.md'),
+    long_description_content_type='text/markdown',
+    license='MIT',
     author="Quartic.ai engineering team",
     author_email="tech@quartic.ai",
     url="https://github.com/Quarticai/QuarticSDK/",
+    keywords=["Quartic", "QuarticSDK"],
     classifiers=[
-        "Intended Audience :: Developers",
-        "Topic :: Software Development :: QuarticSDK",
-        "Programming Language :: Python :: 3.6"
-        ],
+        'Development Status :: 5 - Production/Stable',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
+        'Intended Audience :: Developers',      # Define that your audience are developers
+        'Topic :: Software Development :: Build Tools',
+        'License :: OSI Approved :: MIT License',   # Again, pick a license
+        'Programming Language :: Python :: 3.6', #Specify which python versions that you want to support
+    ],
     install_requires=get_install_requires(),
     include_package_data=True,
-    keywords="QuarticSDK",
-    packages=find_packages(exclude=['tests*']),
-    package_data={
-        # If any package contains *.so or *.pyi or *.lic files or *.key files,
-        # include them:
-        "": ["*.so", "*.pyi", "*.lic", "*.key"],
-        }
+    packages=find_packages(exclude=['tests*'])
     )
