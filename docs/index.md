@@ -1,10 +1,9 @@
-# QuarticSDK
-
+# Home
 Quartic SDK is Quartic.ai's external software development kit which allows users to use assets, tags, and other intelligence outside the Quartic AI Platform. Using the Quartic SDK, third party developers who have access to the Quartic AI Platform can build custom applications.
 
 ## Installation
 ---
-Install using `pip`
+Install using `pip`:
 
 ```
 pip install quartic-sdk
@@ -31,26 +30,5 @@ user_assets = client.assets() # Get the list of all assets that the user has acc
 
 asset = user_assets.get(name="Test Asset") # Get a specific asset with the name "Test Asset"
 asset_tags = asset.get_tags() # Gets the list of all tags
-
-first_tag=asset_tags.first() # Returns the first in the list of tags
-first_tag_data_iterator=first_tag.data(start_time=1000000,stop_time=2000000) # Returns the data present in the first tag for the time range of 1000000 to 2000000
-
-```
-
-## Documentation
----
-To run the documentation locally, run the following in the terminal:
-```
-mkdocs serve
-```
-
-## Test Cases
----
-To run the behaviour test cases, run the following:
-```
-aloe quartic_sdk/tests/
-```
-To run the unit test cases, run the following:
-```
-pytest
+asset_data = asset.data(start_time=1000000, stop_time=2000000) # Get the data of the asset for the given interval between start_time and stop_time. This returns an iterator, which can be iterated to get all the data points present.
 ```
