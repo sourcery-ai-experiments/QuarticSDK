@@ -8,11 +8,11 @@ from quartic_sdk._version import __version__
 
 class APIClient:
 
-    def __init__(self, host, username=None, password=None, oauth_token=None, client_id=None, client_secret=None, verify_ssl=None):
+    def __init__(self, host, username=None, password=None, oauth_token=None, verify_ssl=None):
         """
         Create the API Client
         """
-        self.api_helper = APIHelper(host, username, password, oauth_token, client_id, client_secret, verify_ssl)
+        self.api_helper = APIHelper(host, username, password, oauth_token, verify_ssl)
 
     @staticmethod
     def version():
