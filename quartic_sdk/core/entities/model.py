@@ -13,6 +13,10 @@ class Model(Base):
     Model object returned from the API
     """
 
+    def __init__(self, body_json, api_helper):
+        super().__init__(body_json, api_helper)
+        self.id = self.model_id
+
     def __repr__(self):
         """
         Override the method to return the Model with model name and id
