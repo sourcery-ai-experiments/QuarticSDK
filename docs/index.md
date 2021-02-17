@@ -3,7 +3,7 @@ Quartic SDK is Quartic.ai's external software development kit which allows users
 
 ## Installation
 ---
-Install using `pip`
+Install using `pip`:
 
 ```
 pip install quartic-sdk

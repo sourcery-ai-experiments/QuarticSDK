@@ -19,7 +19,7 @@ class TagDataIterator:
         :param start_time: (epoch) Start time of the query
         :param stop_time: (epoch) Stop time of the query
         :param count: Count of time ranges in this interval with each interval
-                containing 2L points
+                containing 200,000 points
         :param api_helper: (APIHelper) APIHelper class object
         :param offset: Current offset
         :param granularity: The granularity at which the tag data is queried
