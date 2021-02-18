@@ -1,17 +1,16 @@
 import abc
 import logging
-from pprint import pprint
+import sys
 from typing import List
 
 import pandas as pd
-import sys
-from requests import Response, HTTPError
+from requests import HTTPError
 
-from quartic_sdk.model.helpers import Validation, ModelUtils
-from quartic_sdk.utilities.constants import MAX_MODEL_SIZE, CMD_MODEL_ENDPOINT, API_POST
+from quartic_sdk.model.helpers import ModelUtils, Validation
+from quartic_sdk.utilities import constants
 
 
-class ModelABC(metaclass=abc.ABCMeta):
+class BaseQuarticModel(metaclass=abc.ABCMeta):
     """
     A Base Class Model for Wrapping User Models into Quartic Deployments.
     User need to Inherit this class and override the predict method with all the post model training steps like,
@@ -90,26 +89,31 @@ class ModelABC(metaclass=abc.ABCMeta):
         """
         from quartic_sdk import APIClient
         assert isinstance(client, APIClient)
+        test_df = ModelUtils.get_performance_test_df(test_df)
+        test_data = ModelUtils.get_pickled_object(test_df.head(5))
+        model_pkl = ModelUtils.get_pickled_object(self)
         Validation.validate_model(self, test_df)
-        model_pkl = ModelUtils.get_pickled_model(self)
-        assert sys.getsizeof(model_pkl) <= MAX_MODEL_SIZE
+        assert sys.getsizeof(model_pkl) <= constants.MAX_MODEL_SIZE, \
+            f"model can't be more than {constants.MAX_MODEL_SIZE}MB"
 
         # Need to implement rest api call part to trigger api
         request_body = {
-            "model": model_pkl,
-            "model_name": self.name,
-            "output_tag_name": output_tag_name,
-            "feature_tags": feature_tags,
-            "target_tag_id": target_tag,
+            constants.MODEL: model_pkl,
+            constants.MODEL_NAME: self.name,
+            constants.OUTPUT_TAG_NAME: output_tag_name,
+            constants.FEATURE_TAGS: feature_tags,
+            constants.TARGET_TAG_ID: target_tag,
+            constants.TEST_DATA: test_data
         }
         if ml_node:
-            request_body['ml_node_id'] = ml_node
+            request_body[constants.ML_NODE_ID] = ml_node
         try:
-            response: Response = client.api_helper.call_api(CMD_MODEL_ENDPOINT, method_type=API_POST, body=request_body)
+            client.api_helper.call_api(constants.CMD_MODEL_ENDPOINT,
+                                       method_type=constants.API_POST,
+                                       body=request_body)
             self.log.info("Successfully saved the model to Quartic Platform")
         except HTTPError as ex:
             raise Exception(f"Failed to Save model: {ex.response.content.decode()}")
-
 
     @abc.abstractmethod
     def predict(self, input_df: pd.DataFrame) -> pd.Series:

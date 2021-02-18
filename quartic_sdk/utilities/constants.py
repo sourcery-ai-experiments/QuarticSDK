@@ -2,9 +2,17 @@
 OAUTH = 1
 BASIC = 2
 
+# MODEL Constants
 NUM_ROW_PER_PREDICTION = 100
 MAX_PREDICTION_PROCESSING_TIME = 10  # In seconds
 MAX_MODEL_SIZE = 100 * 1024 * 1024  # 100 MB
+MODEL="model"
+MODEL_NAME="model_name"
+OUTPUT_TAG_NAME="output_tag_name"
+FEATURE_TAGS="feature_tags"
+TARGET_TAG_ID="target_tag_id"
+TEST_DATA="test_data"
+ML_NODE_ID="ml_node_id"
 
 # API method types
 METHOD_TYPES = ["GET", "POST", "PUT", "PATCH", "DELETE"]

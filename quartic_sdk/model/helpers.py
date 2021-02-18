@@ -1,35 +1,15 @@
 import base64
 import hashlib
 import math
-from time import time
-
 import cloudpickle
-import numpy as np
 import pandas as pd
+import numpy as np
 
+from time import time
 from quartic_sdk.exceptions import InvalidPredictionException
 from quartic_sdk.utilities.constants import NUM_ROW_PER_PREDICTION, MAX_PREDICTION_PROCESSING_TIME
 
-
 class Validation(object):
-    """
-    Contains Validation functions for ml models
-    """
-    @classmethod
-    def get_performance_test_df(cls, test_df: pd.DataFrame):
-        """
-        Creates a Test data frame of size 100 rows(for 30sec batch approximation)
-        :param test_df: Test Data frame
-        :return: Returns test dataframe with configured number of rows
-        """
-        if test_df.shape[0] == NUM_ROW_PER_PREDICTION:
-            return test_df
-        elif test_df.shape[0] < NUM_ROW_PER_PREDICTION:
-            current_size = test_df.shape[0]
-            num_repetition = math.ceil(NUM_ROW_PER_PREDICTION / int(current_size))
-            return pd.concat([test_df] * num_repetition, ignore_index=True).head(NUM_ROW_PER_PREDICTION)
-        else:
-            return test_df.head(NUM_ROW_PER_PREDICTION)
 
     @classmethod
     def get_model_prediction_and_time(cls, model, test_df):
@@ -68,7 +48,7 @@ class Validation(object):
         :param model:   Instance of ModelABC
         :param test_df: Test dataframe
         """
-        performance_test_df = cls.get_performance_test_df(test_df)
+        performance_test_df = ModelUtils.get_performance_test_df(test_df)
         prediction_result, processing_time = cls.get_model_prediction_and_time(model, performance_test_df)
         cls.validate_prediction_output(prediction_result)
         if processing_time > MAX_PREDICTION_PROCESSING_TIME:
@@ -90,13 +70,30 @@ class ModelUtils(object):
         return hashlib.md5(model_bytes).hexdigest()
 
     @classmethod
-    def get_pickled_model(cls, model):
+    def get_pickled_object(cls, object):
         """
         Generates pickle for model and adds checksum to it
-        :param model:   Model to pickle
+        :param object:   Model to pickle
         :return:        Pickled Model as string
         """
-        model_pkl = cloudpickle.dumps(model, protocol=3)
-        model_string = base64.b64encode(model_pkl)
-        checksum = cls.get_checksum(model_string)
-        return checksum + model_string.decode()
+        pickled_object = cloudpickle.dumps(object, protocol=3)
+        encoded_string = base64.b64encode(pickled_object)
+        checksum = cls.get_checksum(encoded_string)
+        return checksum + encoded_string.decode()
+
+    @classmethod
+    def get_performance_test_df(cls, test_df: pd.DataFrame):
+        """
+        Creates a Test data frame of size 100 rows(for 30sec batch approximation)
+        :param test_df: Test Data frame
+        :return: Returns test dataframe with configured number of rows
+        """
+        if test_df.shape[0] == NUM_ROW_PER_PREDICTION:
+            return test_df
+        elif test_df.shape[0] < NUM_ROW_PER_PREDICTION:
+            current_size = test_df.shape[0]
+            num_repetition = math.ceil(NUM_ROW_PER_PREDICTION / int(current_size))
+            return pd.concat([test_df] * num_repetition, ignore_index=True).head(NUM_ROW_PER_PREDICTION)
+        else:
+            return test_df.head(NUM_ROW_PER_PREDICTION)
+
