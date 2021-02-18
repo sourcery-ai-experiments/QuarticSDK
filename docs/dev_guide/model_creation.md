@@ -1,7 +1,7 @@
 # Model Creation
 This article explains how to create, wrap, and deploy models to the Quartic AI Platform.
 
-## ModelABC
+## BaseQuarticModel
 ---
 ModelABC is a base class for all the ML models that can be deployed to the Platform. Users must extend this class and implement the predict method to make the ML model compatible to deploy in the Quartic AI Platform. The available methods are as follows:
 
@@ -44,11 +44,11 @@ The method has the following parameters for running the predictions of a ML mode
 ### Example
 ```python
 import pandas as pd
-from quartic_sdk.model import ModelABC
+from quartic_sdk.model import BaseQuarticModel
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 
-class ExampleModel(ModelABC):
+class ExampleModel(BaseQuarticModel):
     def __init__(self):
         self.model = RandomForestRegressor()
         super().__init__("My Sample Model", description='This is a simple model to give a quick introduction on creating and deploying models to quartic platform.')
