@@ -8,7 +8,7 @@ echo $PWD
 set -ex
 echo "$BRANCH_NAME"
 
-export GITHUB_TOKEN = "$GIT_TOKEN"
+export GITHUB_TOKEN="$GIT_TOKEN"
 
 
 pip install pip==20.2.3
@@ -19,8 +19,6 @@ NAME=quartic_sdk
 VERSION=$(awk '$1 == "__version__" {print $NF}' ./quartic_sdk/_version.py | sed "s/'//g")
 OS=none
 CPU_ARCH=any
-
-
 
 WHEEL_FILENAME="$NAME-$VERSION-py3-$OS-$CPU_ARCH.whl"
 CODE=$(curl -sS -w '%{http_code}' -F package="@dist/$WHEEL_FILENAME" -o output.txt "https://$GEMFURY_AUTH_TOKEN@push.fury.io/quartic-ai/")
