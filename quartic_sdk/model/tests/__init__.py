@@ -3,14 +3,14 @@ import logging
 import pandas as pd
 import time
 
-from quartic_sdk.model.ModelABC import ModelABC
+from quartic_sdk.model.BaseQuarticModel import BaseQuarticModel
 from quartic_sdk.utilities import constants
 
 
-class SupportedModel(ModelABC):
+class SupportedModel(BaseQuarticModel):
     """
     Example Model used for testing model
-    This is a valid model that can be save to quartic platfrom
+    This is a valid model that can be save to quartic platform
     """
     def __init__(self):
         super().__init__("test_modelABC")
@@ -19,10 +19,10 @@ class SupportedModel(ModelABC):
         return pd.Series([i for i in range(input_df.shape[0])])
 
 
-class ModelThatReturnsList(ModelABC):
+class ModelThatReturnsList(BaseQuarticModel):
     """
     Example Model used for testing model
-    This is a valid model that can be save to quartic platfrom
+    This is a valid model that can be save to quartic platform
     """
 
     def __init__(self):
@@ -32,20 +32,20 @@ class ModelThatReturnsList(ModelABC):
         return [i for i in range(input_df.shape[0])]
 
 
-class ModelThatReturnsNone(ModelABC):
+class ModelThatReturnsNone(BaseQuarticModel):
     """
     Example Model used for testing model
-    This is a valid model that can be save to quartic platfrom
+    This is a valid model that can be save to quartic platform
     """
 
     def __init__(self):
         super().__init__("test_modelABC")
 
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
-        return pd.Series([None for i in range(input_df.shape[0])])
+        return pd.Series([None for _ in range(input_df.shape[0])])
 
 
-class ModelThatReturnsString(ModelABC):
+class ModelThatReturnsString(BaseQuarticModel):
     """
     Example Model used for testing model
     This is a invalid model whose predict function returns data of type string
@@ -63,7 +63,7 @@ class ModelThatReturnsString(ModelABC):
         return self.post_transform(output)
 
 
-class SlowModel(ModelABC):
+class SlowModel(BaseQuarticModel):
     """
     Example Model used for testing model
     This is a invalid model whose predict function takes longer processing time than that is supported by Quartic
@@ -87,7 +87,7 @@ class SlowModel(ModelABC):
         return pd.Series([i for i in range(input_df.shape[0])])
 
 
-class ModelWithLog(ModelABC):
+class ModelWithLog(BaseQuarticModel):
     """
     Example Model used for testing model
     This is a invalid model whose predict function takes longer processing time than that is supported by Quartic
