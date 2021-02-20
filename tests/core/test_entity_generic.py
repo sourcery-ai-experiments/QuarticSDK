@@ -3,7 +3,7 @@ We test the generic methods in the entities through Asset entity and Tag entity
 """
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
-from quartic_sdk.utilities.test_helpers import ASSET_LIST_GET, TAG_LIST_GET, SINGLE_ASSET_GET
+from quartic_sdk.utilities.test_helpers import ASSET_LIST_GET, TAG_LIST_GET, SINGLE_ASSET_GET, TAG_LIST_MULTI_GET
 
 
 test_asset_entity = EntityFactory(Constants.ASSET_ENTITY, ASSET_LIST_GET[0], None)

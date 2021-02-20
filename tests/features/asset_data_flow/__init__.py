@@ -11,7 +11,8 @@ from quartic_sdk.utilities.test_helpers import (
     APIHelperCallAPI,
     ASSET_LIST_GET,
     TAG_LIST_GET,
-    ASSET_DATA_POST
+    ASSET_DATA_POST,
+    TAG_LIST_MULTI_GET
     )
 import quartic_sdk.utilities.constants as Constants
 
@@ -21,10 +22,10 @@ def step_impl(context):
     """
     For the first step we setup the APIClient
     """
-    world.client = APIClient("test_host", username="username", password="password")
+    world.client = APIClient("http://test_host", username="username", password="password")
 
 
-@step("we call the required methods to get the asset details")
+@step("we call the required methods to get the asset data")
 def step_impl(context):
     """
     Now we call the different internal methods and save their values
@@ -41,11 +42,14 @@ def step_impl(context):
     with mock.patch('requests.post') as requests_post:
         requests_post.return_value = APIHelperCallAPI(ASSET_DATA_POST)
 
-        # return type default is pandas dataframe
-        world.first_asset_data_pd = world.first_asset.data(start_time=1, stop_time=2)
+        with mock.patch('requests.get') as requests_get:
+            requests_get.return_value = APIHelperCallAPI(TAG_LIST_MULTI_GET)
 
-        world.first_asset_data_json = world.first_asset.data(
-            start_time=1, stop_time=2, return_type=Constants.RETURN_JSON)
+            # return type default is pandas dataframe
+            world.first_asset_data_pd = world.first_asset.data(start_time=1, stop_time=2)
+
+            world.first_asset_data_json = world.first_asset.data(
+                start_time=1, stop_time=2, return_type=Constants.RETURN_JSON)
 
     test_transformation1 = [{
         "transformation_type": "interpolation",
@@ -56,12 +60,15 @@ def step_impl(context):
     with mock.patch('requests.post') as requests_post:
         requests_post.return_value = APIHelperCallAPI(ASSET_DATA_POST)
 
-        # return type default is pandas dataframe
-        world.first_asset_data_with_correct_transformation_pd = world.first_asset.data(start_time=1, stop_time=2,
-                transformations=test_transformation1)
+        with mock.patch('requests.get') as requests_get:
+            requests_get.return_value = APIHelperCallAPI(TAG_LIST_MULTI_GET)
 
-        world.first_asset_data_with_correct_transformation_pd = world.first_asset.data(start_time=1,
-            stop_time=2, transformations=test_transformation1, return_type=Constants.RETURN_JSON)
+            # return type default is pandas dataframe
+            world.first_asset_data_with_correct_transformation_pd = world.first_asset.data(start_time=1, stop_time=2,
+                    transformations=test_transformation1)
+
+            world.first_asset_data_with_correct_transformation_pd = world.first_asset.data(start_time=1,
+                stop_time=2, transformations=test_transformation1, return_type=Constants.RETURN_JSON)
 
     test_transformation2 = [{
         "transformation_type": "interpolation",
@@ -77,15 +84,18 @@ def step_impl(context):
         "aggregation_column": "1"
     }]
 
-    with pytest.raises(Exception):
-        world.tag_data_with_incorrect_transformation = world.first_asset.data(start_time=1, stop_time=2,
-            transformations=test_transformation2)
+    with mock.patch('requests.get') as requests_get:
+        requests_get.return_value = APIHelperCallAPI(TAG_LIST_MULTI_GET)
 
-    with pytest.raises(Exception):
-        world.tag_data_with_incorrect_transformation = world.first_asset.data(
-            start_time=1, stop_time=2, transformations=test_transformation3)
+        with pytest.raises(Exception):
+            world.tag_data_with_incorrect_transformation = world.first_asset.data(start_time=1, stop_time=2,
+                transformations=test_transformation2)
 
-@step("the return of tag data works correctly for json and pandas df")
+        with pytest.raises(Exception):
+            world.tag_data_with_incorrect_transformation = world.first_asset.data(
+                start_time=1, stop_time=2, transformations=test_transformation3)
+
+@step("the return of asset data works correctly for json and pandas df")
 def step_impl(context):
     """
     In this step we assert to ensure that the methods call the correct functions

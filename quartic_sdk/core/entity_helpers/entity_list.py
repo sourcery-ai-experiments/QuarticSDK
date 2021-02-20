@@ -157,6 +157,7 @@ class EntityList:
             between the given duration
         """
         assert self._class_type == Constants.TAG_ENTITY
-        return TagDataIterator.create_tag_data_iterator(self, start_time, stop_time, self.first().api_helper,
-            granularity, return_type, transformations)
+        return TagDataIterator.create_tag_data_iterator(tags=self, start_time=start_time, stop_time=stop_time,
+            api_helper=self.first().api_helper,
+            granularity=granularity, return_type=return_type, transformations=transformations)
 

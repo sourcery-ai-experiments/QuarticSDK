@@ -20,7 +20,7 @@ def step_impl(context):
     """
     For the first step we setup the APIClient
     """
-    world.client = APIClient("test_host", username="username", password="password")
+    world.client = APIClient("http://test_host", username="username", password="password")
 
 
 @step("we call the required methods to get the tag details")

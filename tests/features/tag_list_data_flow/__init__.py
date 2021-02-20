@@ -10,7 +10,8 @@ from quartic_sdk.utilities.test_helpers import (
     APIHelperCallAPI,
     ASSET_LIST_GET,
     TAG_LIST_MULTI_GET,
-    ASSET_DATA_POST
+    ASSET_DATA_POST,
+    TAG_LIST_DATA_POST
     )
 import quartic_sdk.utilities.constants as Constants
 
@@ -20,7 +21,7 @@ def step_impl(context):
     """
     For the first step we setup the APIClient, and the related tag_list
     """
-    world.client = APIClient("test_host", username="username", password="password")
+    world.client = APIClient("http://test_host", username="username", password="password")
     world.tag_list = EntityList(Constants.TAG_ENTITY)
 
 
