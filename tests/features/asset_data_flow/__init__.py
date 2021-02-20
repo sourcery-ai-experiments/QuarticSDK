@@ -70,28 +70,28 @@ def step_impl(context):
             world.first_asset_data_with_correct_transformation_pd = world.first_asset.data(start_time=1,
                 stop_time=2, transformations=test_transformation1, return_type=Constants.RETURN_JSON)
 
-    test_transformation2 = [{
-        "transformation_type": "interpolation",
-        "method": "linear"
-    }]
-
-    test_transformation3 = [{
-        "transformation_type": "interpolation",
-        "column": "1",
-        "method": "linear"
-    }, {
-        "transformation_type": "aggregation",
-        "aggregation_column": "1"
-    }]
-
     with mock.patch('requests.get') as requests_get:
         requests_get.return_value = APIHelperCallAPI(TAG_LIST_MULTI_GET)
+
+        test_transformation2 = [{
+            "transformation_type": "interpolation",
+            "method": "linear"
+        }]
 
         with pytest.raises(Exception):
             world.tag_data_with_incorrect_transformation = world.first_asset.data(start_time=1, stop_time=2,
                 transformations=test_transformation2)
 
         with pytest.raises(Exception):
+            test_transformation3 = [{
+                "transformation_type": "interpolation",
+                "column": "1",
+                "method": "linear"
+            }, {
+                "transformation_type": "aggregation",
+                "aggregation_column": "1"
+            }]
+
             world.tag_data_with_incorrect_transformation = world.first_asset.data(
                 start_time=1, stop_time=2, transformations=test_transformation3)
 
