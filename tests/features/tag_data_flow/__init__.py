@@ -60,13 +60,13 @@ def step_impl(context):
         world.tag_data_with_correct_transformation = world.first_tag.data(start_time=1, stop_time=2,
                 transformations=test_transformation1)
 
-    test_transformation2 = [{
-        "transformation_type": "interpolation",
-        "method": "linear"
-    }]
-
     with mock.patch('requests.post') as requests_post:
         with pytest.raises(Exception):
+            test_transformation2 = [{
+                "transformation_type": "interpolation",
+                "method": "linear"
+            }]
+
             world.tag_data_with_incorrect_transformation = world.first_tag.data(start_time=1, stop_time=2,
                 transformations=test_transformation2)
 
