@@ -39,7 +39,7 @@ class TagDataIterator:
                 "aggregation_dict": {"3": "max"}
             }]
         """
-        if not self._validate_transformations_schema(transformations, tags):
+        if not TagDataIterator.validate_transformations_schema(transformations, tags):
             raise Exception("Invalid transformations")
         self.count = count
         self._offset = offset
@@ -51,7 +51,8 @@ class TagDataIterator:
         self.return_type = return_type
         self._transformations = transformations
 
-    def _validate_transformations_schema(self, transformations, tags):
+    @staticmethod
+    def validate_transformations_schema(transformations, tags):
         """
         We validate the transformations schema. Its schema would be like the following:
         [{"transformation_type": "interpolation", "column": "1", "method": "linear"},
@@ -157,6 +158,8 @@ class TagDataIterator:
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
+        if not TagDataIterator.validate_transformations_schema(tags, transformations):
+            raise Exception("Invalid transformations")
         body_json = {
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,

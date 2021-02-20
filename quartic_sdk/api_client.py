@@ -29,6 +29,14 @@ class APIClient:
             Constants.GET_ASSETS, Constants.API_GET).json()
         return EntityFactory(Constants.ASSET_ENTITY, return_json, self.api_helper)
 
+    def context_frames(self):
+        """
+        Get the context frames method
+        """
+        return_json = self.api_helper.call_api(
+            Constants.GET_CONTEXT_FRAME_DEFINITIONS, Constants.API_GET).json()
+        return EntityFactory(Constants.CONTEXT_FRAME_ENTITY, return_json, self.api_helper)
+
     def process_units(self):
         """
         Get the process units
