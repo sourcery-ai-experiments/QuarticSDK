@@ -1,5 +1,7 @@
+# pylint: disable=function-redefined, unused-argument
+import pandas as pd
+import pytest
 from unittest import mock
-
 from aloe import step, world
 
 from quartic_sdk import APIClient
@@ -12,7 +14,7 @@ from quartic_sdk.utilities.test_helpers import (
     TAG_LIST_MULTI_GET,
     ASSET_DATA_POST,
     TAG_LIST_DATA_POST
-    )
+)
 import quartic_sdk.utilities.constants as Constants
 
 
@@ -21,7 +23,10 @@ def step_impl(context):
     """
     For the first step we setup the APIClient, and the related tag_list
     """
-    world.client = APIClient("http://test_host", username="username", password="password")
+    world.client = APIClient(
+        "http://test_host",
+        username="username",
+        password="password")
     world.tag_list = EntityList(Constants.TAG_ENTITY)
 
 
@@ -52,7 +57,8 @@ def step_impl(context):
 
         world.tag_list_data_pd = world.tag_list.data(start_time=1, stop_time=2)
 
-        world.tag_list_data_json = world.tag_list.data(start_time=1, stop_time=2, return_type=Constants.RETURN_JSON)
+        world.tag_list_data_json = world.tag_list.data(
+            start_time=1, stop_time=2, return_type=Constants.RETURN_JSON)
 
     test_transformation1 = [{
         "transformation_type": "interpolation",
@@ -68,30 +74,9 @@ def step_impl(context):
     with mock.patch('requests.post') as requests_post:
         requests_post.return_value = APIHelperCallAPI(TAG_LIST_DATA_POST)
 
-        world.first_asset_data_with_correct_transformation = world.tag_list.data(start_time=1, stop_time=2,
-                transformations=test_transformation1)
+        world.first_asset_data_with_correct_transformation = world.tag_list.data(
+            start_time=1, stop_time=2, transformations=test_transformation1)
 
-    test_transformation2 = [{
-        "transformation_type": "interpolation",
-        "method": "linear"
-    }]
-
-    with pytest.raises(Exception):
-        world.tag_data_with_incorrect_transformation = world.tag_list.data(start_time=1, stop_time=2,
-            transformations=test_transformation2)
-
-    with pytest.raises(Exception):
-        test_transformation3 = [{
-            "transformation_type": "interpolation",
-            "column": "1",
-            "method": "linear"
-        }, {
-            "transformation_type": "aggregation",
-            "aggregation_column": "1"
-        }]
-
-        world.tag_data_with_incorrect_transformation = world.tag_list.data(
-            start_time=1, stop_time=2, transformations=test_transformation3)
 
 @step("the return of tag list data works correctly for json and pandas df")
 def step_impl(context):
@@ -106,13 +91,38 @@ def step_impl(context):
     assert isinstance(world.tag_list_data_pd, TagDataIterator)
 
     with mock.patch('requests.post') as requests_post:
-        requests_post.return_value = APIHelperCallAPI(TAG_LIST_DATA_POST)
+        requests_post.return_value = APIHelperCallAPI(
+            TAG_LIST_DATA_POST.copy())
         assert isinstance(world.tag_list_data_pd[0], pd.DataFrame)
 
     assert isinstance(world.tag_list_data_json, TagDataIterator)
 
     with mock.patch('requests.post') as requests_post:
-        requests_post.return_value = APIHelperCallAPI(TAG_LIST_DATA_POST)
+        requests_post.return_value = APIHelperCallAPI(
+            TAG_LIST_DATA_POST.copy())
         assert isinstance(world.tag_list_data_json[0], dict)
 
-    assert isinstance(world.first_asset_data_with_correct_transformation, TagDataIterator)
+    assert isinstance(
+        world.first_asset_data_with_correct_transformation,
+        TagDataIterator)
+
+    with pytest.raises(Exception):
+        test_transformation2 = [{
+            "transformation_type": "interpolation",
+            "method": "linear"
+        }]
+        world.tag_data_with_incorrect_transformation = world.tag_list.data(
+            start_time=1, stop_time=2, transformations=test_transformation2)
+
+    with pytest.raises(Exception):
+        test_transformation3 = [{
+            "transformation_type": "interpolation",
+            "column": "1",
+            "method": "linear"
+        }, {
+            "transformation_type": "aggregation",
+            "aggregation_column": "1"
+        }]
+
+        world.tag_data_with_incorrect_transformation = world.tag_list.data(
+            start_time=1, stop_time=2, transformations=test_transformation3)

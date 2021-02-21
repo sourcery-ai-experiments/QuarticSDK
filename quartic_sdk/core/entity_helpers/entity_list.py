@@ -48,7 +48,9 @@ class EntityList:
         """
         We return the entity with the given value for the name of the attribute
         """
-        return [entity for entity in self._entities if getattr(entity, name) == value][0]
+        return [
+            entity for entity in self._entities if getattr(
+                entity, name) == value][0]
 
     def all(self):
         """
@@ -86,7 +88,8 @@ class EntityList:
         :param instance: Object that is to be added to the list
         """
         if not self._validate_type(instance):
-            raise Exception("Object data type is not present in the entity list")
+            raise Exception(
+                "Object data type is not present in the entity list")
         return instance.id in [entity.id for entity in self._entities]
 
     def add(self, instance):
@@ -96,14 +99,17 @@ class EntityList:
         if not self.check_object_in_list(instance):
             self._entities.append(instance)
         else:
-            raise AssertionError(f"Can not add object, since it is not of {self._class_type} type")
+            raise AssertionError(
+                f"Can not add object, since it is not of {self._class_type} type")
 
     def exclude(self, name, value):
         """
         We return the EntityList after removing the entity with the attribute
         name having the value as above
         """
-        updated_entities = [entity_obj for entity_obj in self._entities if getattr(entity_obj, name) != value]
+        updated_entities = [
+            entity_obj for entity_obj in self._entities if getattr(
+                entity_obj, name) != value]
         return EntityList(self._class_type, updated_entities)
 
     def __iter__(self):
@@ -122,8 +128,9 @@ class EntityList:
         """
         Check equality of two entity list objects
         """
-        assert isinstance(other, BaseEntityList)
-        return self.count() == other.count() and all(self[index] in other.all() for index in self.count())
+        assert isinstance(other, EntityList)
+        return self.count() == other.count() and all(
+            self[index] in other.all() for index in self.count())
 
     def __bool__(self):
         """
@@ -131,7 +138,13 @@ class EntityList:
         """
         return self.count() > 0
 
-    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[]):
+    def data(
+            self,
+            start_time,
+            stop_time,
+            granularity=0,
+            return_type=Constants.RETURN_PANDAS,
+            transformations=None):
         """
         Get the data of all tags in the list between the given start_time and
         stop_time for the given granularity
@@ -157,7 +170,15 @@ class EntityList:
             between the given duration
         """
         assert self._class_type == Constants.TAG_ENTITY
-        return TagDataIterator.create_tag_data_iterator(tags=self, start_time=start_time, stop_time=stop_time,
-            api_helper=self.first().api_helper,
-            granularity=granularity, return_type=return_type, transformations=transformations)
-
+        return TagDataIterator.create_tag_data_iterator(
+            self,
+            start_time,
+            stop_time,
+            self.first().api_helper,
+            granularity,
+            return_type,
+            transformations)
+        # return TagDataIterator.create_tag_data_iterator(tags=self, start_time=start_time, stop_time=stop_time,
+        #     api_helper=self.first().api_helper,
+        # granularity=granularity, return_type=return_type,
+        # transformations=transformations)

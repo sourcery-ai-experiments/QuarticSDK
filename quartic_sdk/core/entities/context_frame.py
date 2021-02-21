@@ -1,4 +1,7 @@
-
+# pylint: disable=no-member
+"""
+The given file contains the class to refer to the Context Frame entity
+"""
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
 
@@ -21,5 +24,8 @@ class ContextFrame(Base):
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         occurrences_response = self.api_helper.call_api(
-            Constants.GET_CONTEXT_FRAME_OCCURRENCES, Constants.API_GET, self.id).json()
-        return EntityFactory(Constants.CONTEXT_FRAME_OCCURRENCE_ENTITY, occurrences_response, self.api_helper)
+            Constants.GET_CONTEXT_FRAME_OCCURRENCES, Constants.API_GET, [self.id]).json()
+        return EntityFactory(
+            Constants.CONTEXT_FRAME_OCCURRENCE_ENTITY,
+            occurrences_response,
+            self.api_helper)

@@ -1,3 +1,4 @@
+# pylint: disable=function-redefined, unused-argument
 import pytest
 from unittest import mock
 
@@ -12,7 +13,7 @@ from quartic_sdk.utilities.test_helpers import (
     ASSET_LIST_GET,
     TAG_LIST_GET,
     TAG_DATA_POST
-    )
+)
 
 
 @step("we have successfully set up client to test tag data flow")
@@ -20,7 +21,10 @@ def step_impl(context):
     """
     For the first step we setup the APIClient
     """
-    world.client = APIClient("http://test_host", username="username", password="password")
+    world.client = APIClient(
+        "http://test_host",
+        username="username",
+        password="password")
 
 
 @step("we call the required methods to get the tag details")
@@ -46,7 +50,8 @@ def step_impl(context):
     with mock.patch('requests.post') as requests_post:
         requests_post.return_value = APIHelperCallAPI(TAG_DATA_POST)
 
-        world.tag_data_without_transformation = world.first_tag.data(start_time=1,stop_time=2)
+        world.tag_data_without_transformation = world.first_tag.data(
+            start_time=1, stop_time=2)
 
     test_transformation1 = [{
         "transformation_type": "interpolation",
@@ -57,18 +62,9 @@ def step_impl(context):
     with mock.patch('requests.post') as requests_post:
         requests_post.return_value = APIHelperCallAPI(TAG_DATA_POST)
 
-        world.tag_data_with_correct_transformation = world.first_tag.data(start_time=1, stop_time=2,
-                transformations=test_transformation1)
+        world.tag_data_with_correct_transformation = world.first_tag.data(
+            start_time=1, stop_time=2, transformations=test_transformation1)
 
-    with mock.patch('requests.post') as requests_post:
-        with pytest.raises(Exception):
-            test_transformation2 = [{
-                "transformation_type": "interpolation",
-                "method": "linear"
-            }]
-
-            world.tag_data_with_incorrect_transformation = world.first_tag.data(start_time=1, stop_time=2,
-                transformations=test_transformation2)
 
 @step("the return of tag data works correctly for json and pandas df")
 def step_impl(context):
@@ -81,4 +77,24 @@ def step_impl(context):
 
     assert isinstance(world.tag_data_without_transformation, TagDataIterator)
 
-    assert isinstance(world.tag_data_with_correct_transformation, TagDataIterator)
+    assert isinstance(
+        world.tag_data_with_correct_transformation,
+        TagDataIterator)
+
+    with pytest.raises(Exception):
+        test_transformation2 = [{
+            "transformation_type": "interpolation",
+            "method": "linear"
+        }]
+
+        world.tag_data_with_incorrect_transformation = world.first_tag.data(
+            start_time=1, stop_time=2, transformations=test_transformation2)
+
+    with pytest.raises(Exception):
+        test_transformation3 = [{
+            "transformation_type": "transform",
+            "method": "linear",
+            "column": "1"
+        }]
+        world.tag_data_with_incorrect_transformation_type = world.first_tag.data(
+            start_time=1, stop_time=2, transformations=test_transformation3)

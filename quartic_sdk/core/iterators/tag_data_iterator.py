@@ -10,8 +10,17 @@ class TagDataIterator:
     for getting the tag data values at the given intervals
     """
 
-    def __init__(self, tags, start_time, stop_time, count, api_helper, offset=0, granularity=0,
-        return_type=Constants.RETURN_JSON, transformations=[]):
+    def __init__(
+            self,
+            tags,
+            start_time,
+            stop_time,
+            count,
+            api_helper,
+            offset=0,
+            granularity=0,
+            return_type=Constants.RETURN_JSON,
+            transformations=None):
         """
         We initialize the iterator with the given parameters
         :param tags: (BaseEntityList) Refers to the instance of BaseEntityList with
@@ -39,7 +48,8 @@ class TagDataIterator:
                 "aggregation_dict": {"3": "max"}
             }]
         """
-        if not TagDataIterator.validate_transformations_schema(transformations, tags):
+        if not TagDataIterator.validate_transformations_schema(
+                transformations, tags):
             raise Exception("Invalid transformations")
         self.count = count
         self._offset = offset
@@ -62,19 +72,26 @@ class TagDataIterator:
         :param tags: List of tag ids
         :return: (bool) Whether the transformation schema is valid
         """
-        agg_transformation = [transformation for transformation in transformations if transformation.get("transformation_type") == "aggregation"]
+        if not transformations:
+            return True
+        agg_transformation = [transformation for transformation in transformations if transformation.get(
+            "transformation_type") == "aggregation"]
         if len(agg_transformation) > 1:
             return False
         for transformation in transformations:
             transformation_type = transformation.get("transformation_type")
-            if transformation_type == "linear":
+            if transformation_type == "interpolation":
                 if not transformation.get("column"):
                     return False
             elif transformation_type == "aggregation":
-                if not (transformation.get("aggregation_column") or transformation.get("aggregation_dict")):
+                if not (transformation.get("aggregation_column")
+                        or transformation.get("aggregation_dict")):
                     return False
-                if len(transformation.get("aggregation_dict")) != tags.count() - 1:
+                if len(transformation.get("aggregation_dict")
+                       ) != tags.count() - 1:
                     return False
+            else:
+                return False
         return True
 
     def create_post_data(self):
@@ -97,7 +114,8 @@ class TagDataIterator:
             raise StopIteration
         body_json = self.create_post_data()
         tag_data_return = self.api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, query_params={"offset": self._offset}, body=body_json).json()
+            Constants.POST_TAG_DATA, Constants.API_POST, query_params={
+                "offset": self._offset}, body=body_json).json()
         self._offset += 1
 
         del tag_data_return['count']
@@ -107,7 +125,7 @@ class TagDataIterator:
             tag_data_return_str = json.dumps(tag_data_return)
 
             tag_data_return = pd.read_json(tag_data_return_str,
-                orient="split")
+                                           orient="split")
 
         return tag_data_return
 
@@ -119,7 +137,8 @@ class TagDataIterator:
             raise IndexError
         body_json = self.create_post_data()
         tag_data_return = self.api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, query_params={"offset": key}, body=body_json).json()
+            Constants.POST_TAG_DATA, Constants.API_POST, query_params={
+                "offset": key}, body=body_json).json()
 
         del tag_data_return['count']
         del tag_data_return['offset']
@@ -128,13 +147,20 @@ class TagDataIterator:
             tag_data_return_str = json.dumps(tag_data_return)
 
             tag_data_return = pd.read_json(tag_data_return_str,
-                orient="split")
+                                           orient="split")
 
         return tag_data_return
 
     @classmethod
-    def create_tag_data_iterator(cls, tags, start_time, stop_time, api_helper, granularity=0, return_type=Constants.RETURN_PANDAS,
-        transformations=[]):
+    def create_tag_data_iterator(
+            cls,
+            tags,
+            start_time,
+            stop_time,
+            api_helper,
+            granularity=0,
+            return_type=Constants.RETURN_PANDAS,
+            transformations=None):
         """
         The method creates the TagDataIterator instance based upon the parameters that are passed here
         :param start_time: (epoch) Start_time for getting data
@@ -158,7 +184,8 @@ class TagDataIterator:
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        if not TagDataIterator.validate_transformations_schema(tags, transformations):
+        if not TagDataIterator.validate_transformations_schema(
+                transformations, tags):
             raise Exception("Invalid transformations")
         body_json = {
             "tags": [tag.id for tag in tags.all()],
@@ -169,6 +196,12 @@ class TagDataIterator:
         }
         tag_data_response = api_helper.call_api(
             Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
-        return TagDataIterator(tags=tags, start_time=start_time, stop_time=stop_time, count=tag_data_response["count"],
-            api_helper=api_helper, granularity=granularity,
-            return_type=return_type, transformations=transformations)
+        return TagDataIterator(
+            tags=tags,
+            start_time=start_time,
+            stop_time=stop_time,
+            count=tag_data_response["count"],
+            api_helper=api_helper,
+            granularity=granularity,
+            return_type=return_type,
+            transformations=transformations)

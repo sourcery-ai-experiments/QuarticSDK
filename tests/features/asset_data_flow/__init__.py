@@ -1,6 +1,8 @@
+# pylint: disable=function-redefined, unused-argument
 
-import pandas as pd
 from unittest import mock
+import pytest
+import pandas as pd
 from aloe import step, world
 
 from quartic_sdk import APIClient
@@ -13,7 +15,7 @@ from quartic_sdk.utilities.test_helpers import (
     TAG_LIST_GET,
     ASSET_DATA_POST,
     TAG_LIST_MULTI_GET
-    )
+)
 import quartic_sdk.utilities.constants as Constants
 
 
@@ -22,7 +24,10 @@ def step_impl(context):
     """
     For the first step we setup the APIClient
     """
-    world.client = APIClient("http://test_host", username="username", password="password")
+    world.client = APIClient(
+        "http://test_host",
+        username="username",
+        password="password")
 
 
 @step("we call the required methods to get the asset data")
@@ -46,7 +51,8 @@ def step_impl(context):
             requests_get.return_value = APIHelperCallAPI(TAG_LIST_MULTI_GET)
 
             # return type default is pandas dataframe
-            world.first_asset_data_pd = world.first_asset.data(start_time=1, stop_time=2)
+            world.first_asset_data_pd = world.first_asset.data(
+                start_time=1, stop_time=2)
 
             world.first_asset_data_json = world.first_asset.data(
                 start_time=1, stop_time=2, return_type=Constants.RETURN_JSON)
@@ -64,11 +70,14 @@ def step_impl(context):
             requests_get.return_value = APIHelperCallAPI(TAG_LIST_MULTI_GET)
 
             # return type default is pandas dataframe
-            world.first_asset_data_with_correct_transformation_pd = world.first_asset.data(start_time=1, stop_time=2,
-                    transformations=test_transformation1)
+            world.first_asset_data_with_correct_transformation_pd = world.first_asset.data(
+                start_time=1, stop_time=2, transformations=test_transformation1)
 
-            world.first_asset_data_with_correct_transformation_pd = world.first_asset.data(start_time=1,
-                stop_time=2, transformations=test_transformation1, return_type=Constants.RETURN_JSON)
+            world.first_asset_data_with_correct_transformation_json = world.first_asset.data(
+                start_time=1,
+                stop_time=2,
+                transformations=test_transformation1,
+                return_type=Constants.RETURN_JSON)
 
     with mock.patch('requests.get') as requests_get:
         requests_get.return_value = APIHelperCallAPI(TAG_LIST_MULTI_GET)
@@ -79,8 +88,8 @@ def step_impl(context):
         }]
 
         with pytest.raises(Exception):
-            world.tag_data_with_incorrect_transformation = world.first_asset.data(start_time=1, stop_time=2,
-                transformations=test_transformation2)
+            world.tag_data_with_incorrect_transformation = world.first_asset.data(
+                start_time=1, stop_time=2, transformations=test_transformation2)
 
         with pytest.raises(Exception):
             test_transformation3 = [{
@@ -94,6 +103,7 @@ def step_impl(context):
 
             world.tag_data_with_incorrect_transformation = world.first_asset.data(
                 start_time=1, stop_time=2, transformations=test_transformation3)
+
 
 @step("the return of asset data works correctly for json and pandas df")
 def step_impl(context):
@@ -109,22 +119,29 @@ def step_impl(context):
 
     assert isinstance(world.first_asset_data_pd, TagDataIterator)
 
-    with mock.patch('requests.post') as requests_post:
-        requests_post.return_value = APIHelperCallAPI(ASSET_DATA_POST)
+    with mock.patch('requests.post') as requests_post1:
+        requests_post1.return_value = APIHelperCallAPI(ASSET_DATA_POST.copy())
         assert isinstance(world.first_asset_data_pd[0], pd.DataFrame)
 
-    with mock.patch('requests.post') as requests_post:
-        requests_post.return_value = APIHelperCallAPI(ASSET_DATA_POST)
+    with mock.patch('requests.post') as requests_post2:
+        requests_post2.return_value = APIHelperCallAPI(ASSET_DATA_POST.copy())
         assert isinstance(world.first_asset_data_json[0], dict)
 
-    assert isinstance(world.first_asset_data_with_correct_transformation_pd, TagDataIterator)
+    assert isinstance(
+        world.first_asset_data_with_correct_transformation_pd,
+        TagDataIterator)
 
-    with mock.patch('requests.post') as requests_post:
-        requests_post.return_value = APIHelperCallAPI(ASSET_DATA_POST)
-        assert isinstance(world.first_asset_data_with_correct_transformation_pd[0], pd.DataFrame)
+    with mock.patch('requests.post') as requests_post3:
+        requests_post3.return_value = APIHelperCallAPI(ASSET_DATA_POST.copy())
+        assert isinstance(
+            world.first_asset_data_with_correct_transformation_pd[0],
+            pd.DataFrame)
 
-    assert isinstance(world.first_asset_data_with_correct_transformation_json, TagDataIterator)
+    assert isinstance(
+        world.first_asset_data_with_correct_transformation_json,
+        TagDataIterator)
 
-    with mock.patch('requests.post') as requests_post:
-        requests_post.return_value = APIHelperCallAPI(ASSET_DATA_POST)
-        assert isinstance(world.first_asset_data_with_correct_transformation_json[0], dict)
+    with mock.patch('requests.post') as requests_post4:
+        requests_post4.return_value = APIHelperCallAPI(ASSET_DATA_POST.copy())
+        assert isinstance(
+            world.first_asset_data_with_correct_transformation_json[0], dict)
