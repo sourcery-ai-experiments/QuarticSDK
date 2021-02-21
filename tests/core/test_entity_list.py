@@ -6,6 +6,10 @@ from quartic_sdk.utilities.test_helpers import (
     ASSET_LIST_GET, TAG_LIST_GET, SINGLE_ASSET_GET, TAG_LIST_MULTI_GET)
 
 asset_entity_list = EntityFactory(Constants.ASSET_ENTITY, ASSET_LIST_GET, None)
+new_asset_entity_list = EntityFactory(
+    Constants.ASSET_ENTITY, ASSET_LIST_GET, None)
+second_asset_entity = EntityFactory(
+    Constants.ASSET_ENTITY, SINGLE_ASSET_GET, None)
 test_asset_entity = EntityFactory(
     Constants.ASSET_ENTITY, ASSET_LIST_GET[0], None)
 test_new_asset_entity = EntityFactory(
@@ -44,6 +48,19 @@ def test_entity_list_count():
     assert asset_entity_list.count() == 1
 
 
+def test_entity_list_equality():
+    """
+    Test that the equality method of entity list is working correctly
+    """
+    with pytest.raises(AssertionError):
+        asset_entity_list == test_asset_entity
+    with pytest.raises(AssertionError):
+        asset_entity_list != test_tag_entities_list
+    assert asset_entity_list == new_asset_entity_list
+    new_asset_entity_list.add(second_asset_entity)
+    assert asset_entity_list != new_asset_entity_list
+
+
 def test_entity_list_add():
     """
     Test add method of entitylist for correct and incorrect class types
@@ -60,13 +77,3 @@ def test_entity_list_first():
     Test first method of entitylist
     """
     assert asset_entity_list.first() == test_asset_entity
-
-
-def test_entity_list_equality():
-    """
-    Test that the equality method of entity list is working correctly
-    """
-    with pytest.raises(AssertionError):
-        asset_entity_list == test_asset_entity
-
-    assert asset_entity_list != test_tag_entities_list

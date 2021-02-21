@@ -129,8 +129,9 @@ class EntityList:
         Check equality of two entity list objects
         """
         assert isinstance(other, EntityList)
+        assert other._class_type == self._class_type
         return self.count() == other.count() and all(
-            self[index] in other.all() for index in self.count())
+            self[index] in other.all() for index in range(self.count()))
 
     def __bool__(self):
         """
@@ -178,7 +179,3 @@ class EntityList:
             granularity,
             return_type,
             transformations)
-        # return TagDataIterator.create_tag_data_iterator(tags=self, start_time=start_time, stop_time=stop_time,
-        #     api_helper=self.first().api_helper,
-        # granularity=granularity, return_type=return_type,
-        # transformations=transformations)
