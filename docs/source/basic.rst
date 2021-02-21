@@ -11,6 +11,7 @@ APIClient
 Class refers to the API client which is used as the interface between
 the user querying the Quartic AI Platform and the use case.
 
+
 The available methods are as follows:
 
 init
@@ -32,6 +33,29 @@ An example of usage is as follows:
 
     client = APIClient(host="http://test.quartic.ai", username="username", password="password")
 
+It can be noted that the class provides two methods of authentication to the user.
+The two methods are BasicAuthentication and OAuth2.0:
+
+BasicAuthentication:
+********************
+
+The user is supposed to pass the username and password along with the hostname in the APIClient
+to ensure all the successive API calls are authenticated via BasicAuthentication
+
+::
+
+    client = APIClient(host="http://test.quartic.ai", username="username", password="password")
+
+OAuth2.0
+********
+
+The user is supposed to pass the OAuth token along with the hostname to ensure that all the
+successive API calls are authenticated via OAuth2.0
+
+::
+
+    client = APIClient(host="http://test.quartic.ai", oauth_token="9865c994212e495690c2db3fc6cbdfea")
+
 .version
 ~~~~~~~~
 
@@ -51,6 +75,17 @@ details on the class is provided below.
 ::
 
     client_assets = client.assets()
+
+.context_frames
+~~~~~~~~~~~~~~~
+
+This method returns the list of context frames which are created using the assets
+that the authenticated user has access to. The list of context frames are an
+object of type ``EntityList``. More details on the class is provided below.
+
+::
+
+    client_context_frames = client.context_frames()
 
 .tags
 ~~~~~
