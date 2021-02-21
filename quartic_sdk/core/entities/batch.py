@@ -1,4 +1,4 @@
-# pylint: disable=no-member
+
 """
 The given file contains the class to refer to the Batch entity
 """

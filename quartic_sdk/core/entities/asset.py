@@ -1,4 +1,4 @@
-# pylint: disable=no-member, import-outside-toplevel
+
 """
 The given file contains the class to refer to the asset entity
 """

@@ -1,4 +1,4 @@
-# pylint: disable=function-redefined, unused-argument
+
 from unittest import mock
 
 from aloe import step, world

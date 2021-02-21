@@ -1,4 +1,4 @@
-# pylint: disable=function-redefined, unused-argument
+
 import pandas as pd
 import pytest
 from unittest import mock

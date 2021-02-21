@@ -1,4 +1,4 @@
-# pylint: disable=function-redefined, unused-argument
+
 import pytest
 from unittest import mock
 
