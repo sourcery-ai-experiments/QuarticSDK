@@ -39,7 +39,7 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
 
     Examples
     --------
-    class MyModel(ModelABC):
+    class MyModel(BaseQuarticModel):
         def __init__(self, model):
             self.model = model
             super().__init__('MyModel', 'model description', 'INFO')

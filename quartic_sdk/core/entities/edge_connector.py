@@ -1,34 +1,33 @@
 
-"""
-The given file contains the class to refer to the tag entity
-"""
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
 
-
-class Tag(Base):
+class EdgeConnector(Base):
     """
-    The given class refers to the tag entity which is created based upon the
-    tag object returned from the API
+    The given class refers to the data source entity which is created based upon the
+    data source object returned from the API
     """
 
     def __repr__(self):
         """
-        Override the method to return the tag name with id
+        Override the method to return the data source name with id
         """
-        return f"<{Constants.TAG_ENTITY}: {self.name}_{self.id}>"
+        return f"<{Constants.EDGE_CONNECTOR_ENTITY}: {self.name}_{self.id}>"
 
-    def data(
-            self,
-            start_time,
-            stop_time,
-            granularity=0,
-            return_type=Constants.RETURN_PANDAS,
-            transformations=None):
+    def get_tags(self):
         """
-        Get the data for the given tag between the start_time and the stop_time
-        for the given granularity
+        The given method returns the list of tags for the given asset
+        """
+        from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
+        tags_response = self.api_helper.call_api(
+            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params={"edge_connector": self.id}).json()
+        return EntityFactory(Constants.TAG_ENTITY, tags_response, self.api_helper)
+
+    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[]):
+        """
+        Get the data of all tags in the edge connector between the given start_time and
+        stop_time for the given granularity
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param granularity: Granularity of the data
@@ -50,14 +49,7 @@ class Tag(Base):
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        from quartic_sdk.core.entity_helpers.entity_list import EntityList
-        return TagDataIterator.create_tag_data_iterator(
-            EntityList(
-                Constants.TAG_ENTITY,
-                [self]),
-            start_time,
-            stop_time,
-            self.api_helper,
-            granularity,
-            return_type,
-            transformations)
+        tags = self.get_tags()
+        return TagDataIterator.create_tag_data_iterator(tags, start_time, stop_time, self.api_helper,
+            granularity, return_type, transformations)
+
