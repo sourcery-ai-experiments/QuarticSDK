@@ -25,5 +25,6 @@ statsmodels==0.12.2
 tensorflow==2.4.1
 torch==1.7.1
 torchvision==0.8.2
-umap-learn==0.5.1
+umap-learn==0.4.1
 xgboost==0.81
+numpy>=1.9.1
