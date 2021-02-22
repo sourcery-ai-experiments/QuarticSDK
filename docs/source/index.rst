@@ -2,13 +2,11 @@
 Quartic SDK documentation
 =========================
 
-Quartic SDK is Quartic.ai's external software development kit which
-allows users to use assets, tags, and other intelligence outside the
-Quartic AI Platform. Using the Quartic SDK, third party developers who
-have access to the Quartic AI Platform can build custom applications.
-Quartic SDK supports both BasicAuthentication and OAuth2.0 Authentication,
-where users provide their username and password in the former or
-the OAuth token in the later.
+Quartic SDK is Quartic.ai's external software development kit (SDK) which
+allows users to use the assets, tags, and other intelligence of the Quartic AI Platform externally. Using the Quartic SDK, third party developers who
+to build custom applications. uartic SDK supports two kinds of authentication: Basic Authentication
+and OAuth2.0. In Basic Authentication, the user must pass the parameters
+of username and password; and in OAuth2.0, the client token.
 
 .. toctree::
    :maxdepth: 2

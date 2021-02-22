@@ -56,7 +56,7 @@ super().\ **init**\  with above parameters.
 
    <div class="note-warning">
 
-Warning: Do not Override this method.
+Warning: Do not override this method.
 
 .. raw:: html
 
@@ -67,11 +67,10 @@ Warning: Do not Override this method.
    prediction results
 -  **feature\_tags (mandatory)**: Refers to a list of tags that are used
    as features in the model
--  **target\_tag (mandatory)**: Refers to th Tag with both asset and
-   edge connector assigned which can be used as a parent for the current
+-  **target\_tag (mandatory)**: Refers to the tag that has been assigned to an asset the ML model will use this asset as a parent of the current
    prediction output
--  **test\_df (mandatory)**: Test Dataframe to validate model prediction
-   results
+-  **test\_df (mandatory)**: Refers to the test dataframe that validates the model prediction
+   results and ensures compatibility with the Quartic AI Platform
 -  **ml\_node (optional)**: Refers to the Ml Node ID for deploying model
    to a particular node.
 
@@ -95,8 +94,7 @@ frame to validate the model.\_
 The method has the following parameters for running the predictions of a
 ML model:
 
--  **input\_df (mandatory)**: Refers to the Input Dataframe to perfrom
-   prediction on.
+-  **input\_df (mandatory)**: Refers to the dataframe on which the model is being evaluated
 
 .. raw:: html
 
@@ -104,9 +102,9 @@ ML model:
 
 Note:  1. Users must override this method to transform and run
 predictions for the model created. 2. input\_df is expected to have tag
-ids as the column names. If model is trained with tag names instead, a
-transformation step needs to be added and used in predict method to
-convert the tag ids in input dataframe into tag names.\_
+IDs as the column names. If model is trained with tag names instead, a
+transformation step must be added and used in predict method to
+convert the tag IDs in input dataframe into tag names.\_
 
 .. raw:: html
 
@@ -125,7 +123,7 @@ Example
     class ExampleModel(ModelABC):
         def __init__(self):
             self.model = RandomForestRegressor()
-            super().__init__("My Sample Model", description='This is a simple model to give a quick introduction on creating and deploying models to quartic platform.')
+            super().__init__("Sample Model", description='This is a simple model to give a quick introduction on creating and deploying models to the Quartic AI Platform.')
 
         def train(self, X, y):
             self.model.fit(X, y)
@@ -135,10 +133,10 @@ Example
             return pd.Series(predictions)
 
     quartic_model = ExampleModel()
-    quartic_model.train(X_train, y_train) # Training data extracted from data loaded from Quartic Platform
+    quartic_model.train(X_train, y_train) # Training data extracted from data loaded from the Quartic AI Platform
     quartic_model.save(client=api_client, output_tag_name="Prediction Result",
-                       feature_tags=[1,2,3], # tags that are used in X variable say 1,2,3
-                       target_tag = 3, # tag that specifies a relation for prediction say 3
+                       feature_tags=[1,2,3], # tags that are used in the X variable or features, for example 1,2,3
+                       target_tag = 3, # tag that specifies a relationship for prediction, for example, 3
                        test_df = X_train
                        )
 
