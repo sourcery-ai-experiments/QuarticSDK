@@ -11,12 +11,6 @@ APIClient
 Class refers to the API client which is used as the interface between
 the user querying the Quartic AI Platform and the use case.
 
-
-The available methods are as follows:
-
-init
-~~~~
-
 This class has the following parameters for initialization:
 
 -  **host (mandatory)**: Refers to the host the user connects to for
@@ -34,10 +28,12 @@ An example of usage is as follows:
     client = APIClient(host="http://test.quartic.ai", username="username", password="password")
 
 It can be noted that the class provides two methods of authentication to the user.
+
 The two methods are BasicAuthentication and OAuth2.0:
+*****************************************************
 
 BasicAuthentication:
-********************
+~~~~~~~~~~~~~~~~~~~~
 
 The user is supposed to pass the username and password along with the hostname in the APIClient
 to ensure all the successive API calls are authenticated via BasicAuthentication
@@ -47,7 +43,7 @@ to ensure all the successive API calls are authenticated via BasicAuthentication
     client = APIClient(host="http://test.quartic.ai", username="username", password="password")
 
 OAuth2.0
-********
+~~~~~~~~
 
 The user is supposed to pass the OAuth token along with the hostname to ensure that all the
 successive API calls are authenticated via OAuth2.0. For the detailed information on fetching
@@ -56,6 +52,9 @@ tokens, please refer to the Quartic Knowledge Base.
 ::
 
     client = APIClient(host="http://test.quartic.ai", oauth_token="9865c994212e495690c2db3fc6cbdfea")
+
+The available methods are as follows:
+*************************************
 
 .version
 ~~~~~~~~
@@ -129,9 +128,6 @@ Entity
 Entity is the parent term by which all the objects accessible in the SDK
 are referred to. The available methods are as follows:
 
-init
-^^^^
-
 An object of this class is initialiazed with two parameters. These are
 automatically created and depend on the user's query through the client.
 
@@ -140,6 +136,9 @@ automatically created and depend on the user's query through the client.
 -  **api\_helper (mandatory)**: This is the APIHelper object which
    contains information about the authentication and is used for making
    API calls.
+
+The available methods are as follows:
+*************************************
 
 get
 ~~~
@@ -164,7 +163,8 @@ template as `Asset: {asset_name}_{asset_id}`. The available attributes in the cl
 -  **created_at**: The created at time of the asset in epoch
 -  **status**: The streaming status of the asset :- 0.INIT, 1.ACTIVE, 2.PARTIAL_STREAMING, 3.INACTIVE, 4.UNASSIGNED_TAGS
 
-The available methods are:
+The available methods are as follows:
+*************************************
 
 .get\_tags
 ~~~~~~~~~~
@@ -229,7 +229,8 @@ The available attributes in this class are:
 -  **created_by**: The user ID, who created this tag
 -  **value_table**: The key value pair where key is the integer while the value is the string
 
-The available methods are:
+The available methods are as follows:
+*************************************
 
 .data
 ~~~~~
@@ -298,7 +299,8 @@ The available attributes in this class are:
 -  **config**: Config of the data source
 -  **parent**: In case of sub edge connector, this refers to the id of the parent edge connector
 
-The available methods are:
+The available methods are as follows:
+*************************************
 
 .get\_tags
 ~~~~~~~~~~
@@ -350,7 +352,8 @@ The available attributes in this class are:
 - **description**: ContextFrame description
 - **pu_or_wc**: ID of the Process Unit/Work cell
 
-The available methods are:
+The available methods are as follows:
+*************************************
 
 -  **occurrences**: The method returns all the occurrences of the given
    ContextFrame in the form of ``EntityList`` where each object refers
@@ -381,8 +384,22 @@ Model contains all the properties of the base Entity defined above.
 When one prints the name of the model object, it returns the name alongwith the ID of the model, with the
 template as `Model: {model_name}_{model_id}`
 
--  **.model\_instance**: This methode returns the Model object (created
-   and deployed by extending model base- ModelABC).
+The available attributes in this class are:
+
+-  **model_id**: Unique ID for the model
+-  **model_name**: Name given for the model
+-  **feature_tags**: IDs of tags used as Feature
+-  **output_tag**: ID of the tag in which prediction results are stored
+-  **target_tag**: ID of the tag which is used as the parent for prediction output tag
+
+The available methods are as follows:
+*************************************
+
+.model\_instance
+~~~~~~~~~~~~~~~~
+
+This method returns the Model object (created and deployed by extending model base- BaseQuarticModel).
+The method parameters are as follows:
 
 EntityList
 -------------
@@ -390,9 +407,6 @@ EntityList
 This class contains the list of entities, where each entity can be of
 the type ``Asset``, ``Tag``,
 ``ContextFrame``,\ ``ContextFrameOccurrence``, ``Model`` and ``Batch``.
-
-init
-~~~~
 
 The class requires the following parameters for initialization:
 
@@ -403,6 +417,9 @@ The class requires the following parameters for initialization:
    will be contained in the list. The types should match the
    ``class_type`` as provided. In case this is not present, it will
    default to an empty list.
+
+The available methods are as follows:
+*************************************
 
 .get
 ~~~~
@@ -506,7 +523,7 @@ to 200,000 data points for all the tags. The user can loop through this
 interval to get all the data points.
 
 Transformations:
-~~~~~~~~~~~~~~~~
+****************
 
 The tag data iterator is created based upon the multiple transformations
 that the user might need. The transformations is a list of dictionaries
@@ -514,7 +531,7 @@ where each dictionary contains the details of interpolation/aggregation
 to be performed on the data. The different transformations are:
 
 Interpolation:
-^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~
 
 Interpolation requires the following keys to be present:
 
@@ -530,7 +547,7 @@ Interpolation requires the following keys to be present:
    interpolation takes place. The default value is ``forward``.
 
 Aggregation:
-^^^^^^^^^^^^
+~~~~~~~~~~~~
 
 Aggregation requires the following keys to be present:
 

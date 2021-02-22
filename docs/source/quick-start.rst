@@ -73,12 +73,12 @@ trained, tested and deployed to Quartic AI Platform using below:
 
 .. code:: python
 
-    from quartic_sdk.model import ModelABC
+    from quartic_sdk.model import BaseQuarticModel
     from sklearn.ensemble import RandomForestRegressor
     from sklearn.model_selection import train_test_split
 
 
-    class ExampleModel(ModelABC):
+    class ExampleModel(BaseQuarticModel):
         def __init__(self, model):
             self.model = model
             super().__init__("My Sample Model", description='This is a simple model to give a quick start for user')

@@ -26,7 +26,7 @@ class Model(Base):
     def model_instance(self):
         """
         Returns the model object saved in the model
-        :return:    Returns a Model which is subclass of ModelABC
+        :return:    Returns a Model which is subclass of BaseQuarticModel
         """
         response = self.api_helper.call_api(Constants.CMD_MODEL_ENDPOINT, method_type=Constants.API_GET,
                                             path_params=[self.model_id],
