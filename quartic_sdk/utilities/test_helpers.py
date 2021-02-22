@@ -26,3 +26,7 @@ ASSET_LIST_GET = [{"id": 1, "name": "Asset_name", "edge_connectors": [1, 2]}]
 TAG_LIST_GET = [{"id": 1, "name": "Tag1", "short_name": "Short Tag1", "edge_connector": 1, "asset": 1}]
 TAG_DATA_POST = {"columns": [1], "index": [1,2,3], "data": [[2], [3], [4]], "count": 1, "offset": 0}
 SINGLE_ASSET_GET = {"id": 2, "name": "Asset_name2", "edge_connectors": [1, 2]}
+EDGE_CONNECTOR_LIST_GET = [{"id": 1, "name": "Edge connector name", "connector_protocol": 201}]
+EDGE_CONNECTOR_DATA_POST = {"columns": [1, 2, 3], "index": [1,2,3], "data": [[2, 3, 1], [3, 1, 2], [4, 1, 2]], "count": 3, "offset": 0}
+TAG_LIST_MULTI_GET = [{"id": 1, "name": "Tag1", "short_name": "Short Tag1", "edge_connector": 1, "asset": 1},
+    {"id": 2, "name": "Tag2", "short_name": "Short Tag2", "edge_connector": 1, "asset": 1}]
