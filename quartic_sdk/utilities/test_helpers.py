@@ -34,21 +34,24 @@ BATCH_LIST_GET = [{"id": 1, "name": 12121212, "start": 1212, "stop": 2121}]
 CONTEXT_FRAME_LIST_GET = [{"id": 1, "name": "CFD1", "description": "CFD description", "pu_or_wc": "PU"}]
 CONTEXT_FRAME_OCCURRENCE_GET = [
   {
-    "start": {
+    "id": 1,
+    "start_ef_occurrence": {
       "start_time": 12121212,
       "stop_time": 21212121
     },
-    "stop": {
+    "stop_ef_occurrence": {
       "start_time": 12121212,
       "stop_time": 21322132
     },
-    "sub": [
+    "sub_context_frame_occurrences": [
       {
         "event_frame_id": 2,
         "start_time": 2000000,
         "stop_time": 2100000
       }
-    ]
+    ],
+    "context_frame": 1,
+    "is_valid": True
   }
 ]
 
