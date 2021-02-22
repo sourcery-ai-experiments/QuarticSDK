@@ -13,7 +13,7 @@ class SupportedModel(BaseQuarticModel):
     This is a valid model that can be save to quartic platform
     """
     def __init__(self):
-        super().__init__("test_modelABC")
+        super().__init__("test_BaseQuarticModel")
 
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
         return pd.Series([i for i in range(input_df.shape[0])])
@@ -26,7 +26,7 @@ class ModelThatReturnsList(BaseQuarticModel):
     """
 
     def __init__(self):
-        super().__init__("test_modelABC")
+        super().__init__("test_BaseQuarticModel")
 
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
         return [i for i in range(input_df.shape[0])]
@@ -39,7 +39,7 @@ class ModelThatReturnsNone(BaseQuarticModel):
     """
 
     def __init__(self):
-        super().__init__("test_modelABC")
+        super().__init__("test_BaseQuarticModel")
 
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
         return pd.Series([None for _ in range(input_df.shape[0])])

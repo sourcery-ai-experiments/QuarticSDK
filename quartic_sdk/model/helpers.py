@@ -15,7 +15,7 @@ class Validation(object):
     def get_model_prediction_and_time(cls, model, test_df):
         """
         evaluates prediction of model with test data frame
-        :param model:   Instance ModelABC
+        :param model:   Instance BaseQuarticModel
         :param test_df: Test Dataframe
         :return:        tuple of prediction and processing time
         """
@@ -45,7 +45,7 @@ class Validation(object):
     def validate_model(cls, model, test_df):
         """
         Validates the model for size and performance
-        :param model:   Instance of ModelABC
+        :param model:   Instance of BaseQuarticModel
         :param test_df: Test dataframe
         """
         performance_test_df = ModelUtils.get_performance_test_df(test_df)
