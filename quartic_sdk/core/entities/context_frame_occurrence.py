@@ -2,7 +2,6 @@
 """
 The given file contains the class to refer to the Context Frame Occurrence entity
 """
-import uuid
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entities.base import Base
 
