@@ -50,7 +50,8 @@ OAuth2.0
 ********
 
 The user is supposed to pass the OAuth token along with the hostname to ensure that all the
-successive API calls are authenticated via OAuth2.0
+successive API calls are authenticated via OAuth2.0. For the detailed information on fetching
+tokens, please refer to the Quartic Knowledge Base.
 
 ::
 
@@ -99,6 +100,17 @@ be returned.
 
     tags_of_asset_id_1 = client.tags(1)
 
+.edge_connectors
+~~~~~~~~~~~~~~~~
+
+This method returns the list of all the data sources which the authenticated user has access to.
+The list of data sources are an object of type ``EntityList``. More details on the class
+are provided below.
+
+::
+
+    edge_connectors = client.edge_connectors()
+
 .list\_models
 ~~~~~~~~~~~~~
 
@@ -142,7 +154,17 @@ Asset
 This refers to the asset entity which contains the details of the asset.
 Asset contains all the properties of the base entity defined above.
 When one prints the name of the asset object, it returns the name alongwith the ID of the asset, with the
-template as `Asset: {asset_name}_{asset_id}`
+template as `Asset: {asset_name}_{asset_id}`. The available attributes in the class are:
+
+-  **id**: The ID of the asset
+-  **name** : The name of the asset
+-  **edge_connectors**: The datasource IDs whose tags belong to this asset
+-  **last_overhaul_date**: The last overhaul date of the asset in epoch
+-  **onboarded_at**: The onboarded at time of the asset in epoch
+-  **created_at**: The created at time of the asset in epoch
+-  **status**: The streaming status of the asset :- 0.INIT, 1.ACTIVE, 2.PARTIAL_STREAMING, 3.INACTIVE, 4.UNASSIGNED_TAGS
+
+The available methods are:
 
 .get\_tags
 ~~~~~~~~~~
@@ -192,6 +214,23 @@ contains all the properties of the base Entity defined above.
 When one prints the name of the tag object, it returns the name alongwith the ID of the tag, with the
 template as `Tag: {tag_name}_{tag_id}`
 
+The available attributes in this class are:
+
+-  **id**: Tag ID
+-  **name**: Tag Name
+-  **tag_type**: The tag types:- 1.Raw, 2.Soft, 3.Aggregation, 4.Bitwise, 5.Writeback
+-  **tag_data_type**: The tag data types:- 0.Double, 1.String, 2.Boolean, 3.Int, 4.Long, 5.Float
+-  **short_name**: Tag short name
+-  **edge_connector**: The data source ID
+-  **tag_process_type**: The tag process types:- 1.Process Variable, 2.Condition Variable, 3.Process Alarm, 4.Process Event, 5.Anomaly Score, 6.Predicted Variable, 7.Others, 8.Workflow, 9.Influencing Score
+-  **category**: Intelligence Categories:- 1.Energy, 2.Throughput, 3.Reliability, 4.Quality, 5.Safety, 6.Environment
+-  **uom**: The unit of measurement
+-  **asset**: ID of the asset
+-  **created_by**: The user ID, who created this tag
+-  **value_table**: The key value pair where key is the integer while the value is the string
+
+The available methods are:
+
 .data
 ~~~~~
 
@@ -226,14 +265,92 @@ Tag contains all the properties of the base Entity defined above.
 When one prints the name of the batch object, it returns the name alongwith the ID of the batch, with the
 template as `Batch: {batch_name}_{batch_id}`
 
+The available attributes in this class are:
+
+-  **id**: Batch ID
+-  **batch_name**: Batch Name
+-  **start**: Batch start time in epoch
+-  **stop**: Batch stop time in epoch
+-  **asset**: Asset ID
+-  **notes**: List of notes regarding the batch
+-  **is_questionable**: Whether the batch is questionable
+
+EdgeConnector
+--------------
+
+This refers to the data source entity which contains the details of
+the data source. EdgeConnector contains all the properties of the base Entity defined
+above.
+When one prints the name of the EdgeConnector object, it returns the ID of the EdgeConnector, with the
+template as `EdgeConnector: {edge_connector_name}_{edge_connector_id}`
+
+The available attributes in this class are:
+
+-  **id**: Data Source ID
+-  **created_at**: Time of creation of data source in epoch
+-  **edge_device**: ID of the edge device
+-  **connector_protocol**: The different edge connector types:- 200.ABDF1, 201.OPTO22, 202.OPCDA, 203.OSIPI, 204.MODBUS, 205.MQTT, 206.OPCUA, 207.SQL
+-  **last_streamed_on**: Last streamed on epoch
+-  **update_interval**: Update interval in ms
+-  **name**: Name of the data source
+-  **stream_status**: The stream status for the edge connector:- 0.INIT, 1.ACTIVE, 2.PARTIAL STREAMING, 3.INACTIVE, 4.UNASSIGNED TAGS
+-  **created_by**: User ID who created this data source
+-  **config**: Config of the data source
+-  **parent**: In case of sub edge connector, this refers to the id of the parent edge connector
+
+The available methods are:
+
+.get\_tags
+~~~~~~~~~~
+
+The method returns all the tags present in the given edge connector in the form
+of ``EntityList`` where each object refers to ``Tag``.
+
+.data
+~~~~~
+
+The method returns the tag data iterator for all the tags present in the
+data source for the set ``start_time`` and ``stop_time``. It can be used to
+iterate through the data in batches of 200,000 datapoints. More details
+are provided under the ``TagDataIterator`` subsection.
+
+The method parameters are as follows:
+
+-  **start\_time (mandatory)**: (epoch) This refers to the
+   ``start_time`` for fetching the data of the data source.
+-  **stop\_time (mandatory)**: (epoch) This refers to the ``stop_time``
+   for fetching the data of the data source.
+-  **granularity (optional)**: This refers to the granularity at which
+   data is required. If the granularity provided, the method returns the
+   data in the tag for the given time range with the lower of the
+   closest possible granularity: Raw (granularity of the datasource),
+   5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s or 86400s.
+   The default granularity is Raw.
+-  **return\_type (optional)**: The user can pass either ``pd``, which
+   will return the pandas dataframe iterator, or ``json`` which will
+   return json object on return. This value takes the ``pd`` value as
+   default.
+-  **transformations (optional)**: The user is supposed to pass the list
+   of interpolations and aggregations here. Further details on
+   transformations is provided towards the end of this documentation.
+
 ContextFrame
 ---------------
 
 This refers to the context frame entity which contains the details of
-the tag. Tag contains all the properties of the base Entity defined
+the tag. ContextFrame contains all the properties of the base Entity defined
 above.
 When one prints the name of the ContextFrame object, it returns the ID of the ContextFrame, with the
 template as `ContextFrame: {context_frame_id}`
+
+The available attributes in this class are:
+
+- **id**: ContextFrame ID
+- **name**: ContextFrame name
+- **description**: ContextFrame description
+- **pu_or_wc**: ID of the Process Unit/Work cell
+
+The available methods are:
 
 -  **occurrences**: The method returns all the occurrences of the given
    ContextFrame in the form of ``EntityList`` where each object refers
@@ -243,10 +360,18 @@ ContextFrameOccurrence
 -------------------------
 
 This refers to the context frame occurrence entity which contains the
-details of the tag. Tag contains all the properties of the base Entity
+details of the tag. ContextFrameOccurrence contains all the properties of the base Entity
 defined above.
 When one prints the name of the ContextFrame object, it returns a random unique integer denoting the occurrence, with the
 template as ``ContextFrameOccurrence: {random_integer}``
+
+The available attributes in this class are:
+
+-  **id**: ContextFrameOccurrence ID
+-  **start_ef_occurrence**: Start event frame occurrence for the context frame
+-  **stop_ef_occurrence**: Stop event frame occurrence for the context frame
+-  **is_valid**: Whether the context frame occurrence is valid
+-  **context_frame**: Context Frame ID
 
 Model
 --------
