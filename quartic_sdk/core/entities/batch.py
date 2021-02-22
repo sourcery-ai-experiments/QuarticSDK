@@ -1,4 +1,7 @@
 
+"""
+The given file contains the class to refer to the Batch entity
+"""
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
 
