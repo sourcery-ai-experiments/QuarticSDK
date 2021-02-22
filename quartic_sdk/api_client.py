@@ -29,6 +29,14 @@ class APIClient:
             Constants.GET_ASSETS, Constants.API_GET).json()
         return EntityFactory(Constants.ASSET_ENTITY, return_json, self.api_helper)
 
+    def edge_connectors(self):
+        """
+        Get the edge connectors method
+        """
+        return_json = self.api_helper.call_api(
+            Constants.GET_EDGE_CONNECTORS, Constants.API_GET).json()
+        return EntityFactory(Constants.EDGE_CONNECTOR_ENTITY, return_json, self.api_helper)
+
     def process_units(self):
         """
         Get the process units
