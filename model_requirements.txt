@@ -6,7 +6,6 @@ numba==0.52.0
 numexpr==2.7.2
 onnx==1.8.1
 pamela==1.0.0
-pandas==1.1.5
 patsy==0.5.1
 plotly==4.14.3
 py4j==0.10.9.1
@@ -25,5 +24,5 @@ statsmodels==0.12.2
 tensorflow==2.4.1
 torch==1.7.1
 torchvision==0.8.2
-umap-learn==0.5.1
+umap-learn==0.4.1
 xgboost==0.81

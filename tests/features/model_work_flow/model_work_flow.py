@@ -11,12 +11,12 @@ from quartic_sdk.model.tests import SupportedModel, ModelThatReturnsString, Slow
 from quartic_sdk.utilities.test_helpers import APIHelperCallAPI
 
 
-@step("A Model wrapped in ModelABC and returns predictions output as string")
+@step("A Model wrapped in BaseQuarticModel and returns predictions output as string")
 def step_impl(context):
     world.model = ModelThatReturnsString()
 
 
-@step("A Model wrapped in ModelABC and sleeps for n seconds before returning the results")
+@step("A Model wrapped in BaseQuarticModel and sleeps for n seconds before returning the results")
 def step_impl(context):
     world.model = SlowModel()
 
@@ -38,22 +38,22 @@ def step_impl(context):
         world.raised_exception = e
 
 
-@step("A Model wrapped in ModelABC and has all proper parameters")
+@step("A Model wrapped in BaseQuarticModel and has all proper parameters")
 def step_impl(context):
     world.model = SupportedModel()
 
 
-@step("A Model wrapped in ModelABC and returns prediction output as list")
+@step("A Model wrapped in BaseQuarticModel and returns prediction output as list")
 def step_impl(context):
     world.model = ModelThatReturnsList()
 
 
-@step("A Model wrapped in ModelABC and returns prediction output as all Null")
+@step("A Model wrapped in BaseQuarticModel and returns prediction output as all Null")
 def step_impl(context):
     world.model = ModelThatReturnsList()
 
 
-@step("A Model wrapped in ModelABC with a mock log handler added")
+@step("A Model wrapped in BaseQuarticModel with a mock log handler added")
 def step_impl(context):
     world.model = ModelWithLog()
     world.handler = MockLoggingHandler()
