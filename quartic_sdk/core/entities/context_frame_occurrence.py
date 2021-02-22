@@ -13,13 +13,6 @@ class ContextFrameOccurrence(Base):
     based upon the context frame occurrence object returned from the API
     """
 
-    def __init__(self, body_json, api_helper):
-        """
-        Since, occurrences don't have any id, we provide it a random integer as id
-        """
-        super().__init__(body_json, api_helper)
-        self.id = uuid.uuid1(node=self.start["start_time"]).int
-
     def __repr__(self):
         """
         Override the method to return the asset name with id
