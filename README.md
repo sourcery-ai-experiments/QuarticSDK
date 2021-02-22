@@ -48,7 +48,7 @@ mkdocs serve
 ---
 To run the behaviour test cases, run the following:
 ```
-aloe quartic_sdk/tests/
+aloe
 ```
 To run the unit test cases, run the following:
 ```
