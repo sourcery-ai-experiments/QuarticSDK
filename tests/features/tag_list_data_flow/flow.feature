@@ -1,4 +1,4 @@
-Feature: Computations to fetch tags data from sdk
+Feature: Fetch tag list data with and without transformations
 
   Scenario: test tags data flow in the SDK
     Given we have successfully set up client to test tags data flow

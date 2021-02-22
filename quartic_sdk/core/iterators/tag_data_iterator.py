@@ -81,11 +81,11 @@ class TagDataIterator:
         for transformation in transformations:
             transformation_type = transformation.get("transformation_type")
             if transformation_type == "interpolation":
-                if not transformation.get("column"):
+                if transformation.get("column") is None:
                     return False
             elif transformation_type == "aggregation":
-                if not (transformation.get("aggregation_column")
-                        or transformation.get("aggregation_dict")):
+                if transformation.get("aggregation_column") is None \
+                        or transformation.get("aggregation_dict") is None:
                     return False
                 if len(transformation.get("aggregation_dict")
                        ) != tags.count() - 1:

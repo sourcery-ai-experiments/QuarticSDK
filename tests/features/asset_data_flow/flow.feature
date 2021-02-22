@@ -1,4 +1,4 @@
-Feature: Computations to fetch asset data from sdk
+Feature: Fetch Asset Data with and without transformations
 
   Scenario: test asset data flow in the SDK
     Given we have successfully set up client to test asset data flow

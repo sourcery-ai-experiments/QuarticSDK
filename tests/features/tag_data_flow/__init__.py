@@ -73,7 +73,7 @@ def step_impl(context):
     to ensure the correct variable types and the respective data created for a single data
     """
     assert isinstance(world.first_tag, Tag)
-    assert world.first_tag.id == 1
+    assert world.first_tag.id == TAG_LIST_GET[0]["id"]
 
     assert isinstance(world.tag_data_without_transformation, TagDataIterator)
 

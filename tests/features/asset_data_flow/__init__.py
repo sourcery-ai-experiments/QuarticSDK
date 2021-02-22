@@ -111,10 +111,10 @@ def step_impl(context):
     to ensure the correct variable types and the respective data created
     """
     assert isinstance(world.client_assets, EntityList)
-    assert world.client_assets.first().id == 1
+    assert world.client_assets.first().id == ASSET_LIST_GET[0]["id"]
 
     assert isinstance(world.first_asset, Asset)
-    assert world.first_asset.id == 1
+    assert world.first_asset.id == ASSET_LIST_GET[0]["id"]
 
     assert isinstance(world.first_asset_data_pd, TagDataIterator)
 
