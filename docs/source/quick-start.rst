@@ -1,8 +1,8 @@
 Quick start
 ===========
 
-To fetch data points of one or more tags, train a model, and save it on
-the Quartic AI Platform, follow the steps below:
+The steps to fetch data points of one or more tags, train a model, or save it on
+the Quartic AI Platform are as follows:
 
 Step 1
 ---------
@@ -98,4 +98,3 @@ trained, tested and deployed to Quartic AI Platform using below:
     example_model.save(client, output_tag_name='Prediction Tag Name',
                        feature_tags=feature_tags, target_tag=target_tag,
                        test_df=X_test)
-

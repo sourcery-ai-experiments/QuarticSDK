@@ -2,14 +2,14 @@
 Basic Functionality
 ===================
 
-This article explains the various classes alongwith their methods and
+This article explains the various classes of Quartic SDK along with their methods and
 available attributes.
 
 APIClient
 ------------
 
 Class refers to the API client which is used as the interface between
-the user querying the Quartic AI Platform and the use case.
+the user querying the Quartic AI Platform and their use case.
 
 This class has the following parameters for initialization:
 
@@ -21,7 +21,7 @@ This class has the following parameters for initialization:
 -  **verify\_ssl (optional)**: Required when the host needs to be
    verified for SSL.
 
-An example of usage is as follows:
+Here's an example:
 
 ::
 
@@ -35,8 +35,8 @@ The two methods are BasicAuthentication and OAuth2.0:
 BasicAuthentication:
 ~~~~~~~~~~~~~~~~~~~~
 
-The user is supposed to pass the username and password along with the hostname in the APIClient
-to ensure all the successive API calls are authenticated via BasicAuthentication
+The user must pass the username and password along with the hostname in the APIClient
+to ensure all the successive API calls are authenticated via Basic Authentication
 
 ::
 
@@ -45,9 +45,9 @@ to ensure all the successive API calls are authenticated via BasicAuthentication
 OAuth2.0
 ~~~~~~~~
 
-The user is supposed to pass the OAuth token along with the hostname to ensure that all the
+The user must pass the OAuth token along with the hostname to ensure that all the
 successive API calls are authenticated via OAuth2.0. For the detailed information on fetching
-tokens, please refer to the Quartic Knowledge Base.
+tokens, please refer to the Global Settings article in the Quartic Knowledge Base.
 
 ::
 
@@ -80,7 +80,7 @@ details on the class is provided below.
 ~~~~~~~~~~~~~~~
 
 This method returns the list of context frames which are created using the assets
-that the authenticated user has access to. The list of context frames are an
+that the user has access to. The list of context frames are an
 object of type ``EntityList``. More details on the class is provided below.
 
 ::
@@ -102,7 +102,7 @@ be returned.
 .edge_connectors
 ~~~~~~~~~~~~~~~~
 
-This method returns the list of all the data sources which the authenticated user has access to.
+This method returns the list of all the data sources which the user has access to.
 The list of data sources are an object of type ``EntityList``. More details on the class
 are provided below.
 
@@ -152,7 +152,7 @@ Asset
 
 This refers to the asset entity which contains the details of the asset.
 Asset contains all the properties of the base entity defined above.
-When one prints the name of the asset object, it returns the name alongwith the ID of the asset, with the
+When one prints the name of the asset object, the class returns the name along with the ID of the asset and the
 template as `Asset: {asset_name}_{asset_id}`. The available attributes in the class are:
 
 -  **id**: The ID of the asset
@@ -263,7 +263,7 @@ Batch
 
 This refers to the batch entity which contains the details of the tag.
 Tag contains all the properties of the base Entity defined above.
-When one prints the name of the batch object, it returns the name alongwith the ID of the batch, with the
+When one prints the name of the batch object, it returns the name alongwith the ID of the batch and the
 template as `Batch: {batch_name}_{batch_id}`
 
 The available attributes in this class are:
@@ -279,25 +279,25 @@ The available attributes in this class are:
 EdgeConnector
 --------------
 
-This refers to the data source entity which contains the details of
-the data source. EdgeConnector contains all the properties of the base Entity defined
+This refers to the datasource entity which contains the details of
+the datasource. Datasource contains all the properties of the base Entity defined
 above.
-When one prints the name of the EdgeConnector object, it returns the ID of the EdgeConnector, with the
-template as `EdgeConnector: {edge_connector_name}_{edge_connector_id}`
+When one prints the name of the datasource object, it returns the ID of the datasource and the
+template as `datasource: {datasource_name}_{datasource_id}`
 
 The available attributes in this class are:
 
--  **id**: Data Source ID
+-  **id**: Datasource ID
 -  **created_at**: Time of creation of data source in epoch
--  **edge_device**: ID of the edge device
--  **connector_protocol**: The different edge connector types:- 200.ABDF1, 201.OPTO22, 202.OPCDA, 203.OSIPI, 204.MODBUS, 205.MQTT, 206.OPCUA, 207.SQL
+-  **edge_device**: ID of the edge node
+-  **connector_protocol**: The different datasource types:- 200.ABDF1, 201.OPTO22, 202.OPCDA, 203.OSIPI, 204.MODBUS, 205.MQTT, 206.OPCUA, 207.SQL
 -  **last_streamed_on**: Last streamed on epoch
 -  **update_interval**: Update interval in ms
--  **name**: Name of the data source
--  **stream_status**: The stream status for the edge connector:- 0.INIT, 1.ACTIVE, 2.PARTIAL STREAMING, 3.INACTIVE, 4.UNASSIGNED TAGS
--  **created_by**: User ID who created this data source
--  **config**: Config of the data source
--  **parent**: In case of sub edge connector, this refers to the id of the parent edge connector
+-  **name**: Name of the datasource
+-  **stream_status**: The stream status for the datasource:- 0.INIT, 1.ACTIVE, 2.PARTIAL STREAMING, 3.INACTIVE, 4.UNASSIGNED TAGS
+-  **created_by**: ID of the user who created the datasource
+-  **config**: Configurations of the data source
+-  **parent**: In case of query datasource, this refers to the ID of the parent datasource
 
 The available methods are as follows:
 *************************************
@@ -305,23 +305,23 @@ The available methods are as follows:
 .get\_tags
 ~~~~~~~~~~
 
-The method returns all the tags present in the given edge connector in the form
+The method returns all the tags present in the given datasource in the form
 of ``EntityList`` where each object refers to ``Tag``.
 
 .data
 ~~~~~
 
 The method returns the tag data iterator for all the tags present in the
-data source for the set ``start_time`` and ``stop_time``. It can be used to
+datasource for the set ``start_time`` and ``stop_time``. It can be used to
 iterate through the data in batches of 200,000 datapoints. More details
 are provided under the ``TagDataIterator`` subsection.
 
 The method parameters are as follows:
 
 -  **start\_time (mandatory)**: (epoch) This refers to the
-   ``start_time`` for fetching the data of the data source.
+   ``start_time`` for fetching the data of the datasource.
 -  **stop\_time (mandatory)**: (epoch) This refers to the ``stop_time``
-   for fetching the data of the data source.
+   for fetching the data of the data ource.
 -  **granularity (optional)**: This refers to the granularity at which
    data is required. If the granularity provided, the method returns the
    data in the tag for the given time range with the lower of the
@@ -332,7 +332,7 @@ The method parameters are as follows:
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
    default.
--  **transformations (optional)**: The user is supposed to pass the list
+-  **transformations (optional)**: The user must pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
 
@@ -342,7 +342,7 @@ ContextFrame
 This refers to the context frame entity which contains the details of
 the tag. ContextFrame contains all the properties of the base Entity defined
 above.
-When one prints the name of the ContextFrame object, it returns the ID of the ContextFrame, with the
+When one prints the name of the ContextFrame object, it returns the ID of the ContextFrame and the
 template as `ContextFrame: {context_frame_id}`
 
 The available attributes in this class are:
@@ -399,7 +399,6 @@ The available methods are as follows:
 ~~~~~~~~~~~~~~~~
 
 This method returns the Model object (created and deployed by extending model base- BaseQuarticModel).
-The method parameters are as follows:
 
 EntityList
 -------------
@@ -448,9 +447,7 @@ The method returns all the entities present in the list.
 .first
 ~~~~~~
 
-This method returns the first element of the Integer variable to list
-the ML models deployed to a particular node. The default value is
-*None*, which returns all the accessible ML models for the user.
+This method returns the first element of the EntityList.
 
 ::
 
@@ -498,7 +495,7 @@ instance, and has the following parameters:
 -  **stop\_time (mandatory)**: (epoch) Refers to the ``stop_time`` for
    fetching the data of the asset.
 -  **granularity (optional)**: This refers to the granularity at which
-   data is required. If the granularity provided, the method returns the
+   data is required. If granularity is provided, the method returns the
    data in the tag for the given time range with the lower of the
    closest possible granularity: Raw (granularity of the datasource),
    5s, 30s, 60s, 300s, 1200s, 3600s, 10800s, 21600s, 43200s or 86400s.
@@ -507,7 +504,7 @@ instance, and has the following parameters:
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
    default.
--  **transformations (optional)**: The user is supposed to pass the list
+-  **transformations (optional)**: The user must pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
 
@@ -526,7 +523,7 @@ Transformations:
 ****************
 
 The tag data iterator is created based upon the multiple transformations
-that the user might need. The transformations is a list of dictionaries
+that a user might need. The transformations is a list of dictionaries
 where each dictionary contains the details of interpolation/aggregation
 to be performed on the data. The different transformations are:
 
@@ -536,7 +533,7 @@ Interpolation:
 Interpolation requires the following keys to be present:
 
 -  **transformation\_type (mandatory)**: Refers to the type of
-   transformation. It should always be ``interpolation`` for this.
+   transformation and must always be ``interpolation``.
 -  **column (mandatory)**: Refers to the column which is to be
    interpolated.
 -  **method (mandatory)**: Refers to the interpolation method; the
@@ -552,10 +549,9 @@ Aggregation:
 Aggregation requires the following keys to be present:
 
 -  **transformation\_type (mandatory)**: Refers to the type of
-   transformation. It should always be ``aggregation`` for this.
+   transformation and must always be ``aggregation``.
 -  **aggregation\_column (mandatory)**: Refers to the column being
    aggregated.
 -  **aggregation\_dict (mandatory)**: This dictionary refers to the
-   methods based upon which the different columns in the dataset will be
+   methods on which the different columns in the dataset are to be
    aggregated.
-
