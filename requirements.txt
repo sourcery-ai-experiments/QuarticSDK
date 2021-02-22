@@ -1,4 +1,4 @@
--r model_requirements.txt
+# -r model_requirements.txt
 
 alabaster==0.7.12
 aloe==0.2.0
