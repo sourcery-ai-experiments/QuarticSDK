@@ -2,7 +2,7 @@
 """
 The given file contains the class to refer to the Context Frame Occurrence entity
 """
-import random
+import uuid
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entities.base import Base
 
@@ -18,7 +18,7 @@ class ContextFrameOccurrence(Base):
         Since, occurrences don't have any id, we provide it a random integer as id
         """
         super().__init__(body_json, api_helper)
-        self.id = random.randint(1, 100000000)
+        self.id = uuid.uuid1(node=self.start["start_time"]).int
 
     def __repr__(self):
         """
