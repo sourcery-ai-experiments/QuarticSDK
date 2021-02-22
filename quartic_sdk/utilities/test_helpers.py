@@ -54,4 +54,6 @@ CONTEXT_FRAME_OCCURRENCE_GET = [
     "is_valid": True
   }
 ]
+EDGE_CONNECTOR_LIST_GET = [{"id": 1, "name": "Edge connector name", "connector_protocol": 201}]
+EDGE_CONNECTOR_DATA_POST = {"columns": [1, 2, 3], "index": [1,2,3], "data": [[2, 3, 1], [3, 1, 2], [4, 1, 2]], "count": 3, "offset": 0}
 

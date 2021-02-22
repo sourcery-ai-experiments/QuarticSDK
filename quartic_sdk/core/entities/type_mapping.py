@@ -8,5 +8,6 @@ ENTITY_DICTIONARY = {
     Constants.CONTEXT_FRAME_ENTITY: ContextFrame,
     Constants.CONTEXT_FRAME_OCCURRENCE_ENTITY: ContextFrameOccurrence,
     Constants.BATCH_ENTITY: Batch,
-    Constants.MODEL_ENTITY: Model
+    Constants.MODEL_ENTITY: Model,
+    Constants.EDGE_CONNECTOR_ENTITY: EdgeConnector
 }
