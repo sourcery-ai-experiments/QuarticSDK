@@ -49,7 +49,7 @@ corresponding time in epoch would be 1609439400000 and 1609525800000.
 
     asset = assets.first()
     asset_tags = asset.get_tags()
-    feature_tags = [tag.id for for tag in asset_tags[:5]]
+    feature_tags = [tag.id for tag in asset_tags[:5]]
     target_tag = asset_tags.last().id
     asset_data = asset.data(start_time=1609439400000, stop_time=1609525800000)
 
@@ -61,7 +61,7 @@ Save the tag data in the data frame.
 ::
 
     import pandas as pd
-    combined_data_frame = pd.DataFrame(columns=[tag.id for tag in feature_tags])
+    combined_data_frame = pd.DataFrame(columns=feature_tags)
     for data in asset_data:
         combined_data_frame = combined_data_frame.append(data)
 

@@ -29,7 +29,7 @@ from quartic_sdk import APIClient
 client = APIClient("https://test.quartic.ai/", username="username", password="password")
 user_assets = client.assets() # Get the list of all assets that the user has access to
 
-asset = user_assets.get(name="Test Asset") # Get a specific asset with the name "Test Asset"
+asset = user_assets.get("name","Test Asset") # Get a specific asset with the name "Test Asset"
 asset_tags = asset.get_tags() # Gets the list of all tags
 
 first_tag=asset_tags.first() # Returns the first in the list of tags
@@ -41,14 +41,16 @@ first_tag_data_iterator=first_tag.data(start_time=1000000,stop_time=2000000) # R
 ---
 To run the documentation locally, run the following in the terminal:
 ```
-mkdocs serve
+cd docs
+make html
+open build/html/index.html
 ```
 
 ## Test Cases
 ---
 To run the behaviour test cases, run the following:
 ```
-aloe quartic_sdk/tests/
+aloe
 ```
 To run the unit test cases, run the following:
 ```

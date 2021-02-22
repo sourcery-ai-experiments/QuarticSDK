@@ -134,14 +134,15 @@ get
 
 The attribute value of the object is returned for the given name.
 
--  **name (mandatory)**: Refers to the attribute name whose value is to
-   be returned.
+-  **name (mandatory)**: Refers to the attribute name whose value is to be returned.
 
 Asset
 --------
 
 This refers to the asset entity which contains the details of the asset.
 Asset contains all the properties of the base entity defined above.
+When one prints the name of the asset object, it returns the name alongwith the ID of the asset, with the
+template as `Asset: {asset_name}_{asset_id}`
 
 .get\_tags
 ~~~~~~~~~~
@@ -188,6 +189,8 @@ Tag
 
 This refers to the tag entity which contains the details of the tag. Tag
 contains all the properties of the base Entity defined above.
+When one prints the name of the tag object, it returns the name alongwith the ID of the tag, with the
+template as `Tag: {tag_name}_{tag_id}`
 
 .data
 ~~~~~
@@ -220,6 +223,8 @@ Batch
 
 This refers to the batch entity which contains the details of the tag.
 Tag contains all the properties of the base Entity defined above.
+When one prints the name of the batch object, it returns the name alongwith the ID of the batch, with the
+template as `Batch: {batch_name}_{batch_id}`
 
 ContextFrame
 ---------------
@@ -227,6 +232,8 @@ ContextFrame
 This refers to the context frame entity which contains the details of
 the tag. Tag contains all the properties of the base Entity defined
 above.
+When one prints the name of the ContextFrame object, it returns the ID of the ContextFrame, with the
+template as `ContextFrame: {context_frame_id}`
 
 -  **occurrences**: The method returns all the occurrences of the given
    ContextFrame in the form of ``EntityList`` where each object refers
@@ -238,12 +245,16 @@ ContextFrameOccurrence
 This refers to the context frame occurrence entity which contains the
 details of the tag. Tag contains all the properties of the base Entity
 defined above.
+When one prints the name of the ContextFrame object, it returns a random unique integer denoting the occurrence, with the
+template as ``ContextFrameOccurrence: {random_integer}``
 
 Model
 --------
 
 This refers to Model entity, which contains the details of the model,
 Model contains all the properties of the base Entity defined above.
+When one prints the name of the model object, it returns the name alongwith the ID of the model, with the
+template as `Model: {model_name}_{model_id}`
 
 -  **.model\_instance**: This methode returns the Model object (created
    and deployed by extending model base- ModelABC).
@@ -253,7 +264,7 @@ EntityList
 
 This class contains the list of entities, where each entity can be of
 the type ``Asset``, ``Tag``,
-``ContextFrame``,\ ``ContextFrameOccurrence``, and ``Batch``.
+``ContextFrame``,\ ``ContextFrameOccurrence``, ``Model`` and ``Batch``.
 
 init
 ~~~~
@@ -262,7 +273,7 @@ The class requires the following parameters for initialization:
 
 -  **class\_type (mandatory)**: Refers to the type of objects it will
    contain. These can be ``Asset``, ``Tag``, ``ContextFrame``,
-   ``ContextFrameOccurrence``, or ``Batch``.
+   ``ContextFrameOccurrence``, ``Model`` or ``Batch``.
 -  **entities\_list (optional)**: Refers to the list of entities, which
    will be contained in the list. The types should match the
    ``class_type`` as provided. In case this is not present, it will
