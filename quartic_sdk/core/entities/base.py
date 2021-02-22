@@ -1,4 +1,6 @@
-
+"""
+The given file contains the class to refer to the base class for entity creation
+"""
 import quartic_sdk.utilities.constants as Constants
 
 
@@ -40,4 +42,7 @@ class Base:
         :return: (bool) Whether they are equal
         """
         assert isinstance(self, type(other))
-        return len(self.__dict__) == len(other.__dict__) and all(self.__dict__[key] == other.__dict__[key] for key in self.__dict__)
+        return len(
+            self.__dict__) == len(
+            other.__dict__) and all(
+            self.__dict__[key] == other.__dict__[key] for key in self.__dict__)
