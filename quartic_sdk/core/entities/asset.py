@@ -52,7 +52,7 @@ class Asset(Base):
             stop_time,
             granularity=0,
             return_type=Constants.RETURN_PANDAS,
-            transformations=None):
+            transformations=[]):
         """
         Get the data of all tags in the asset between the given start_time and
         stop_time for the given granularity
