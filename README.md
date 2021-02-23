@@ -17,6 +17,8 @@ python setup.py install
 
 ## Example
 ---
+Comprehensive documentation is available at https://quarticsdk.readthedocs.io/en/latest/
+
 Here's an example on how the Quartic SDK can be used:
 
 #### Getting the assets, tags, batches from the server
