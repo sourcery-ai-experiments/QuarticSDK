@@ -25,7 +25,7 @@ class Tag(Base):
             stop_time,
             granularity=0,
             return_type=Constants.RETURN_PANDAS,
-            transformations=None):
+            transformations=[]):
         """
         Get the data for the given tag between the start_time and the stop_time
         for the given granularity

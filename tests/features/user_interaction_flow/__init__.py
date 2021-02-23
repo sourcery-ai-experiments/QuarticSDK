@@ -38,6 +38,12 @@ def step_impl(context):
         requests_get.return_value = TestHelpers.APIHelperCallAPI(
             TestHelpers.TAG_LIST_GET)
 
+        world.client_asset_tags = world.client.tags(world.first_asset.id)
+
+    with mock.patch('requests.get') as requests_get:
+        requests_get.return_value = TestHelpers.APIHelperCallAPI(
+            TestHelpers.TAG_LIST_GET)
+
         world.first_asset_tags = world.first_asset.get_tags()
 
     with mock.patch('requests.get') as requests_get:
@@ -76,6 +82,7 @@ def step_impl(context):
     """
     assert isinstance(world.client_assets, EntityList)
     assert isinstance(world.first_asset, Asset)
+    assert isinstance(world.client_asset_tags, EntityList)
     assert isinstance(world.first_asset_tags, EntityList)
     assert isinstance(world.first_tag, Tag)
     assert isinstance(world.first_asset_batches, EntityList)
