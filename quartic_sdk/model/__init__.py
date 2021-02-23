@@ -1,1 +1,1 @@
-from quartic_sdk.model.ModelABC import ModelABC
+from quartic_sdk.model.BaseQuarticModel import BaseQuarticModel
