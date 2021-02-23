@@ -25,12 +25,12 @@ Getting the assets, tags, batches from the server
 
 ::
 
-    # Assuming that the Quartic.ai server is at `https://test.quartic.ai/`, with the login
+    # Assuming that the Quartic.ai server is at `https://test.quartic.ai`, with the login
     # and the username and password is `username` and `password.`
 
     from quartic_sdk import APIClient
 
-    client = APIClient("https://test.quartic.ai/", username="username", password="password")
+    client = APIClient("https://test.quartic.ai", username="username", password="password")
     user_assets = client.assets() # Get the list of all assets that the user has access to
 
     asset = user_assets.get("name","Test Asset") # Get a specific asset with the name "Test Asset"

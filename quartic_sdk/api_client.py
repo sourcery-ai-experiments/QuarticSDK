@@ -79,7 +79,7 @@ class APIClient:
         :return: (EntityList) List of tags belonging to the asset
         """
         return_json = self.api_helper.call_api(
-            Constants.GET_TAGS, Constants.API_GET, [asset_id]).json()
+            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params={"asset": asset_id}).json()
         return EntityFactory(
             Constants.TAG_ENTITY,
             return_json,
