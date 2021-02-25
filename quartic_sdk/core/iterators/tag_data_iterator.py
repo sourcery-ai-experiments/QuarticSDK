@@ -194,6 +194,8 @@ class TagDataIterator:
             "granularity": granularity,
             "transformations": transformations
         }
+        if tags.count() == 0:
+            raise Exception("There are no tags to fetch data of")
         tag_data_response = api_helper.call_api(
             Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
         return TagDataIterator(
