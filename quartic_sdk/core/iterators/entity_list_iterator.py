@@ -18,7 +18,7 @@ class EntityListIterator:
         """
         Return the subsequent iteration results starting from 0 as index
         """
-        if self._base_entity_list.count() > self._index+1:
+        if self._base_entity_list.count() > self._index:
             self._index +=1
-            return self._base_entity_list[self._index]
+            return self._base_entity_list[self._index-1]
         raise StopIteration

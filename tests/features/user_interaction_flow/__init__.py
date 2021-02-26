@@ -81,6 +81,8 @@ def step_impl(context):
     Now, we assert that the variables saved in the world are of the correct data types
     """
     assert isinstance(world.client_assets, EntityList)
+    for asset in world.client_assets:
+        assert isinstance(asset, Asset)
     assert isinstance(world.first_asset, Asset)
     assert isinstance(world.client_asset_tags, EntityList)
     assert isinstance(world.first_asset_tags, EntityList)
