@@ -1,0 +1,184 @@
+:mod:`quartic_sdk.utilities.constants`
+======================================
+
+.. py:module:: quartic_sdk.utilities.constants
+
+
+Module Contents
+---------------
+
+.. data:: OAUTH
+   :annotation: = 1
+
+   
+
+.. data:: BASIC
+   :annotation: = 2
+
+   
+
+.. data:: NUM_ROW_PER_PREDICTION
+   :annotation: = 100
+
+   
+
+.. data:: MAX_PREDICTION_PROCESSING_TIME
+   :annotation: = 10
+
+   
+
+.. data:: MAX_MODEL_SIZE
+   
+
+   
+
+.. data:: MODEL
+   :annotation: = model
+
+   
+
+.. data:: MODEL_NAME
+   :annotation: = model_name
+
+   
+
+.. data:: OUTPUT_TAG_NAME
+   :annotation: = output_tag_name
+
+   
+
+.. data:: FEATURE_TAGS
+   :annotation: = feature_tags
+
+   
+
+.. data:: TARGET_TAG_ID
+   :annotation: = target_tag_id
+
+   
+
+.. data:: TEST_DATA
+   :annotation: = test_data
+
+   
+
+.. data:: ML_NODE_ID
+   :annotation: = ml_node_id
+
+   
+
+.. data:: METHOD_TYPES
+   :annotation: = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+
+   
+
+.. data:: API_GET
+   :annotation: = GET
+
+   
+
+.. data:: API_POST
+   :annotation: = POST
+
+   
+
+.. data:: API_PATCH
+   :annotation: = PATCH
+
+   
+
+.. data:: API_PUT
+   :annotation: = PUT
+
+   
+
+.. data:: API_DELETE
+   :annotation: = DELETE
+
+   
+
+.. data:: GET_ASSETS
+   :annotation: = /api/v1/asset/
+
+   
+
+.. data:: GET_CONTEXT_FRAME_DEFINITIONS
+   :annotation: = /api/v1/context_frame_definitions/
+
+   
+
+.. data:: GET_EDGE_CONNECTORS
+   :annotation: = /api/v1/edge_connector/
+
+   
+
+.. data:: GET_TAGS
+   :annotation: = /api/v1/tags/
+
+   
+
+.. data:: POST_TAG_DATA
+   :annotation: = /api/v1/tag_data/
+
+   
+
+.. data:: GET_CONTEXT_FRAME_OCCURRENCES
+   :annotation: = /api/v1/context_frame_occurrences/
+
+   
+
+.. data:: GET_BATCHES
+   :annotation: = /api/v1/batches/
+
+   
+
+.. data:: CMD_MODEL_ENDPOINT
+   :annotation: = /cmd/model/
+
+   
+
+.. data:: ASSET_ENTITY
+   :annotation: = Asset
+
+   
+
+.. data:: BATCH_ENTITY
+   :annotation: = Batch
+
+   
+
+.. data:: CONTEXT_FRAME_ENTITY
+   :annotation: = ContextFrame
+
+   
+
+.. data:: CONTEXT_FRAME_OCCURRENCE_ENTITY
+   :annotation: = ContextFrameOccurrence
+
+   
+
+.. data:: TAG_ENTITY
+   :annotation: = Tag
+
+   
+
+.. data:: EDGE_CONNECTOR_ENTITY
+   :annotation: = EdgeConnector
+
+   
+
+.. data:: MODEL_ENTITY
+   :annotation: = Model
+
+   
+
+.. data:: RETURN_JSON
+   :annotation: = json
+
+   
+
+.. data:: RETURN_PANDAS
+   :annotation: = pd
+
+   
+
