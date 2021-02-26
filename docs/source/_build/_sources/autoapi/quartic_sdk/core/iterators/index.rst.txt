@@ -1,0 +1,16 @@
+:mod:`quartic_sdk.core.iterators`
+=================================
+
+.. py:module:: quartic_sdk.core.iterators
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   entity_list_iterator/index.rst
+   tag_data_iterator/index.rst
+
+
