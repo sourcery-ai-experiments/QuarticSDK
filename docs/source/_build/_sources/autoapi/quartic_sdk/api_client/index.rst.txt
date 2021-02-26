@@ -1,0 +1,71 @@
+:mod:`quartic_sdk.api_client`
+=============================
+
+.. py:module:: quartic_sdk.api_client
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   quartic_sdk.api_client.APIClient
+
+
+
+.. class:: APIClient(host, username=None, password=None, oauth_token=None, verify_ssl=None)
+
+
+   .. method:: version()
+      :staticmethod:
+
+      Return the SDK version
+
+
+   .. method:: assets(self)
+
+      Get the assets method
+
+
+   .. method:: context_frames(self)
+
+      Get the context frames method
+      :return: (EntityList) List of context frames
+
+
+   .. method:: edge_connectors(self)
+
+      Get the edge connectors method
+
+
+   .. method:: process_units(self)
+      :abstractmethod:
+
+      Get the process units
+
+
+   .. method:: work_cells(self)
+      :abstractmethod:
+
+      Get the work cells
+
+
+   .. method:: tags(self, asset_id)
+
+      Get the tags
+      :param asset_id: ID of the asset
+      :return: (EntityList) List of tags belonging to the asset
+
+
+   .. method:: list_models(self, is_active: bool = None, ml_node: int = None) -> List[Dict]
+
+      List models and its parameters accessible by user
+      :param is_active: Boolean Indicator if list should contain active nodes or not
+      :param ml_node:   Ml Node id to filter models deployed to particular node
+      :return:          list of dictionary
+
+
+
