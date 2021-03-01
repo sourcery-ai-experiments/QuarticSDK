@@ -1,4 +1,4 @@
 """
 Refers to the version of the package
 """
-__version__ = 'plt.4548.0'
+__version__ = 'plt.4551.0'
