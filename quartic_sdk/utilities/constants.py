@@ -44,3 +44,6 @@ MODEL_ENTITY = "Model"
 # Data return type constants
 RETURN_JSON = "json"
 RETURN_PANDAS = "pd"
+
+# Supported granularities
+GRANULARITIES = [0,5,30,60,300,1200,3600,10800,21600,43200,86400]

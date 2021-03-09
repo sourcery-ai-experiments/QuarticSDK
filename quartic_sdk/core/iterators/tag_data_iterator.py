@@ -1,4 +1,5 @@
 
+from pprint import pprint
 import json
 import pandas as pd
 import quartic_sdk.utilities.constants as Constants
@@ -20,7 +21,7 @@ class TagDataIterator:
             offset=0,
             granularity=0,
             return_type=Constants.RETURN_JSON,
-            transformations=None):
+            transformations=[]):
         """
         We initialize the iterator with the given parameters
         :param tags: (BaseEntityList) Refers to the instance of BaseEntityList with
@@ -57,9 +58,25 @@ class TagDataIterator:
         self.start_time = start_time
         self.stop_time = stop_time
         self.api_helper = api_helper
-        self.granularity = granularity
+        self.granularity = TagDataIterator.validated_granularity(granularity)
         self.return_type = return_type
         self._transformations = transformations
+
+    @staticmethod
+    def validated_granularity(granularity):
+        """
+        The method approximates granularity to the nearest possibility
+        :param granularity: Granularity to be validated
+        :return: Modified granularity
+        """
+        if granularity in Constants.GRANULARITIES:
+            return granularity
+        for index in range(len(Constants.GRANULARITIES)):
+            if index != len(Constants.GRANULARITIES) -1:
+                if granularity > Constants.GRANULARITIES[index] and granularity < Constants.GRANULARITIES[index+1]:
+                    return Constants.GRANULARITIES[index]
+            else:
+                return Constants.GRANULARITIES[index]
 
     @staticmethod
     def validate_transformations_schema(transformations, tags):
@@ -125,7 +142,9 @@ class TagDataIterator:
             tag_data_return_str = json.dumps(tag_data_return)
 
             tag_data_return = pd.read_json(tag_data_return_str,
-                                           orient="split")
+                                           orient="split",
+                                           convert_dates=False,
+                                           convert_axes=False)
 
         return tag_data_return
 
@@ -147,7 +166,9 @@ class TagDataIterator:
             tag_data_return_str = json.dumps(tag_data_return)
 
             tag_data_return = pd.read_json(tag_data_return_str,
-                                           orient="split")
+                                           orient="split",
+                                           convert_dates=False,
+                                           convert_axes=False)
 
         return tag_data_return
 
@@ -160,7 +181,7 @@ class TagDataIterator:
             api_helper,
             granularity=0,
             return_type=Constants.RETURN_PANDAS,
-            transformations=None):
+            transformations=[]):
         """
         The method creates the TagDataIterator instance based upon the parameters that are passed here
         :param start_time: (epoch) Start_time for getting data
@@ -191,7 +212,7 @@ class TagDataIterator:
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,
             "stop_time": stop_time,
-            "granularity": granularity,
+            "granularity": TagDataIterator.validated_granularity(granularity),
             "transformations": transformations
         }
         if tags.count() == 0:
