@@ -9,6 +9,11 @@ Install using `pip`
 ```
 pip install quartic-sdk
 ```
+to Install complete package with all supported model libraries:
+```
+pip install quartic-sdk[complete]
+```
+
 ...or follow the following steps to install it from the source:
 ```
 git clone https://github.com/Quarticai/QuarticSDK/

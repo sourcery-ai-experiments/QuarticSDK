@@ -12,8 +12,8 @@ def get_file_contents(filename):
         return fp.read()
 
 
-def get_install_requires():
-    requirements = get_file_contents('requirements.txt')
+def get_install_requires(requirement_file):
+    requirements = get_file_contents(requirement_file)
     install_requires = []
 
     for line in requirements.split('\n'):
@@ -21,7 +21,6 @@ def get_install_requires():
 
         if line and not line.startswith('-'):
             install_requires.append(line)
-
     return install_requires
 
 setup(
@@ -42,7 +41,10 @@ setup(
         'License :: OSI Approved :: MIT License',   # Again, pick a license
         'Programming Language :: Python :: 3.6', #Specify which python versions that you want to support
     ],
-    install_requires=get_install_requires(),
+    install_requires=get_install_requires('requirements.txt'),
+    extras_require={
+        "complete": get_install_requires('requirements.txt') + get_install_requires('model_requirements.txt')
+    },
     include_package_data=True,
     packages=find_packages(exclude=['tests*'])
     )
