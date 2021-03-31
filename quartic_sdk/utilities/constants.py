@@ -159,3 +159,10 @@ INTELLIGENCE_CATEGORIES = {
     SAFETY: 'Safety',
     ENVIRONMENT: 'Environment'
 }
+
+#Transformation Validation errors
+MULTIPLE_AGGREGATION_ERROR = "Only one aggregation transformation can be applied at a time"
+INTERPOLATION_COLUMN_MISSING = "Interpolation column is missing"
+AGGREGATION_PARAMETER_MISSING = "aggregation_column and aggregation_dict is required"
+AGGREGATION_DICT_COLUMN_MISSING = "Aggregation for all columns not defined in aggregation_dict"
+INVALID_TRANSFORMATION_TYPE = "transformation_type is invalid"

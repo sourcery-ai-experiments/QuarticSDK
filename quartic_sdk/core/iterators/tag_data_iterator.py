@@ -48,9 +48,9 @@ class TagDataIterator:
                 "aggregation_dict": {"3": "max"}
             }]
         """
-        if not TagDataIterator.validate_transformations_schema(
-                transformations, tags):
-            raise Exception("Invalid transformations")
+        TagDataIterator.validate_transformations_schema(
+                transformations, tags)
+
         self.count = count
         self._offset = offset
         self.tags = tags
@@ -70,29 +70,28 @@ class TagDataIterator:
         "aggregation_dict": {"1":{"1":"max"},"2":{"2":"std"}}}]
         :param transformations: List of transformations in the schema as above
         :param tags: List of tag ids
-        :return: (bool) Whether the transformation schema is valid
+        :return: (None) Does not return anything, raises exception if validation fails
         """
-        if not transformations:
-            return True
+
         agg_transformation = [transformation for transformation in transformations if transformation.get(
             "transformation_type") == "aggregation"]
         if len(agg_transformation) > 1:
-            return False
+            raise Exception("Invalid transformations : ", Constants.MULTIPLE_AGGREGATION_ERROR)
         for transformation in transformations:
             transformation_type = transformation.get("transformation_type")
             if transformation_type == "interpolation":
                 if transformation.get("column") is None:
-                    return False
+                    raise Exception("Invalid transformations : ", Constants.INTERPOLATION_COLUMN_MISSING)
             elif transformation_type == "aggregation":
                 if transformation.get("aggregation_column") is None \
                         or transformation.get("aggregation_dict") is None:
-                    return False
+                     raise Exception("Invalid transformations : ", Constants.AGGREGATION_PARAMETER_MISSING)
                 if len(transformation.get("aggregation_dict")
                        ) != tags.count() - 1:
-                    return False
+                     raise Exception("Invalid transformations : ", Constants.AGGREGATION_DICT_COLUMN_MISSING)
             else:
-                return False
-        return True
+                raise Exception("Invalid transformations : ", Constants.INVALID_TRANSFORMATION_TYPE)
+
 
     def create_post_data(self):
         """
@@ -188,9 +187,8 @@ class TagDataIterator:
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        if not TagDataIterator.validate_transformations_schema(
-                transformations, tags):
-            raise Exception("Invalid transformations")
+        TagDataIterator.validate_transformations_schema(
+                transformations, tags)
         body_json = {
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,
