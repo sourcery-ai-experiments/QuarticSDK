@@ -188,7 +188,8 @@ class TagDataIterator:
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        TagDataIterator.raise_exception_for_transformation_schema(
+        if transformations:
+            TagDataIterator.raise_exception_for_transformation_schema(
                 transformations, tags)
         body_json = {
             "tags": [tag.id for tag in tags.all()],
