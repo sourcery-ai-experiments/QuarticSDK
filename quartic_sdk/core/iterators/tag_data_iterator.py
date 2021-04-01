@@ -48,8 +48,8 @@ class TagDataIterator:
                 "aggregation_dict": {"3": "max"}
             }]
         """
-        if transformations:
-            TagDataIterator.raise_exception_for_transformation_schema(
+
+        TagDataIterator.raise_exception_for_transformation_schema(
                 transformations, tags)
 
         self.count = count
@@ -188,8 +188,8 @@ class TagDataIterator:
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        if transformations:
-            TagDataIterator.raise_exception_for_transformation_schema(
+
+        TagDataIterator.raise_exception_for_transformation_schema(
                 transformations, tags)
         body_json = {
             "tags": [tag.id for tag in tags.all()],
