@@ -28,8 +28,15 @@ class Asset(Base):
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         tags_response = self.api_helper.call_api(
-            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params={"asset": self.id}).json()
-        return EntityFactory(Constants.TAG_ENTITY, tags_response, self.api_helper)
+            Constants.GET_TAGS,
+            Constants.API_GET,
+            path_params=[],
+            query_params={
+                "asset": self.id}).json()
+        return EntityFactory(
+            Constants.TAG_ENTITY,
+            tags_response,
+            self.api_helper)
 
     def event_frames(self):
         """
@@ -55,6 +62,7 @@ class Asset(Base):
             stop_time,
             granularity=0,
             return_type=Constants.RETURN_PANDAS,
+            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             transformations=[]):
         """
         Get the data of all tags in the asset between the given start_time and
@@ -88,6 +96,7 @@ class Asset(Base):
             self.api_helper,
             granularity,
             return_type,
+            batch_size,
             transformations)
 
     def __getattribute__(self, name):
@@ -99,6 +108,7 @@ class Asset(Base):
         :return: Either mapped value or raw value with respect to the object attribute
         """
         asset_mapping = Asset.mapping
-        if name in asset_mapping.keys() and asset_mapping[name].get(self.__dict__[name]):
+        if name in asset_mapping.keys() and asset_mapping[name].get(
+                self.__dict__[name]):
             return asset_mapping[name][self.__dict__[name]]
         return object.__getattribute__(self, name)

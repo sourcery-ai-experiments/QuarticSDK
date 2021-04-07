@@ -15,9 +15,9 @@ class TagDataIterator:
             tags,
             start_time,
             stop_time,
-            count,
+            total_count,
+            batch_size,
             api_helper,
-            offset=0,
             granularity=0,
             return_type=Constants.RETURN_JSON,
             transformations=[]):
@@ -30,7 +30,7 @@ class TagDataIterator:
         :param count: Count of time ranges in this interval with each interval
                 containing 200,000 points
         :param api_helper: (APIHelper) APIHelper class object
-        :param offset: Current offset
+        :param cursor: Pagination cursor string
         :param granularity: The granularity at which the tag data is queried
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
@@ -52,15 +52,18 @@ class TagDataIterator:
         TagDataIterator.raise_exception_for_transformation_schema(
                 transformations, tags)
 
-        self.count = count
-        self._offset = offset
+        self.total_count = total_count
+        self.batch_size = batch_size
         self.tags = tags
         self.start_time = start_time
         self.stop_time = stop_time
         self.api_helper = api_helper
         self.granularity = granularity
         self.return_type = return_type
+
         self._transformations = transformations
+        self._cursor = None
+        self._data_call_state = 0
 
     @staticmethod
     def raise_exception_for_transformation_schema(transformations, tags):
@@ -103,31 +106,39 @@ class TagDataIterator:
             "start_time": self.start_time,
             "stop_time": self.stop_time,
             "granularity": self.granularity,
-            "transformations": self._transformations
+            "transformations": self._transformations,
+            "batch_size": self.batch_size
         }
 
     def __next__(self):
         """
-        Get the next object in the iteration
+        Get the next object in the iteration.
+        Note that the return object is inclusive of time ranges
         """
-        if self._offset >= self.count:
+        if self._data_call_state != 0 and self._cursor == None:
+            self._data_call_state = 0
             raise StopIteration
-        body_json = self.create_post_data()
-        tag_data_return = self.api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, query_params={
-                "offset": self._offset}, body=body_json).json()
-        self._offset += 1
+        if self._data_call_state == 0:
+            body_json = self.create_post_data()
+            tag_data_return = self.api_helper.call_api(
+                Constants.RETURN_TAG_DATA, Constants.API_POST, body=body_json).json()
+            self._data_call_state = 1
+        else:
+            tag_data_return = self.api_helper.call_api(
+                url=Constants.RETURN_TAG_DATA, method_type=Constants.API_GET, query_params={cursor=self._cursor})
 
-        del tag_data_return['count']
-        del tag_data_return['offset']
+        self._cursor = tag_data_return["cursor"]
+
 
         if self.return_type != Constants.RETURN_JSON:
-            tag_data_return_str = json.dumps(tag_data_return)
+            tag_data_return_str = json.dumps(tag_data_return["data"])
 
-            tag_data_return = pd.read_json(tag_data_return_str,
+            return_tag_data = pd.read_json(tag_data_return_str,
                                            orient="split",
                                            convert_dates=False,
                                            convert_axes=False)
+        else:
+            return_tag_data = tag_data_return["data"]
 
         return tag_data_return
 
@@ -135,25 +146,7 @@ class TagDataIterator:
         """
         We override this method to get the object at the given key
         """
-        if key >= self.count:
-            raise IndexError
-        body_json = self.create_post_data()
-        tag_data_return = self.api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, query_params={
-                "offset": key}, body=body_json).json()
-
-        del tag_data_return['count']
-        del tag_data_return['offset']
-
-        if self.return_type != Constants.RETURN_JSON:
-            tag_data_return_str = json.dumps(tag_data_return)
-
-            tag_data_return = pd.read_json(tag_data_return_str,
-                                           orient="split",
-                                           convert_dates=False,
-                                           convert_axes=False)
-
-        return tag_data_return
+        raise NotImplementedError
 
     @classmethod
     def create_tag_data_iterator(
@@ -164,6 +157,7 @@ class TagDataIterator:
             api_helper,
             granularity=0,
             return_type=Constants.RETURN_PANDAS,
+            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             transformations=[]):
         """
         The method creates the TagDataIterator instance based upon the parameters that are passed here
@@ -196,7 +190,8 @@ class TagDataIterator:
             "start_time": start_time,
             "stop_time": stop_time,
             "granularity": granularity,
-            "transformations": transformations
+            "transformations": transformations,
+            "batch_size": batch_size
         }
         if tags.count() == 0:
             raise Exception("There are no tags to fetch data of")
@@ -206,8 +201,23 @@ class TagDataIterator:
             tags=tags,
             start_time=start_time,
             stop_time=stop_time,
-            count=tag_data_response["count"],
+            total_count=tag_data_response["total_count"],
             api_helper=api_helper,
+            batch_size=batch_size,
             granularity=granularity,
             return_type=return_type,
             transformations=transformations)
+
+    @staticmethod
+    def return_complete_data_frame_from_iterator(tag_data_iterator):
+        """
+        Returns the complete data frame as returned from the tag data iterator
+        :param tag_data_iterator: TagDataIterator object
+        :return: (pd.DataFrame)
+        """
+        tag_data_iterator.return_type = Constants.RETURN_PANDAS
+        data_df = pd.DataFrame()
+        for iteration_df in tag_data_iterator:
+            if len(iteration_df)>1 and len(iteration_df) == iteration_df.batch_size:
+                data_df = pd.concat(data_df, iteration_df[:-1])
+        return data_df
