@@ -50,7 +50,7 @@ class TagDataIterator:
         """
 
         TagDataIterator.raise_exception_for_transformation_schema(
-                transformations, tags)
+            transformations, tags)
 
         self.total_count = total_count
         self.batch_size = batch_size
@@ -80,22 +80,26 @@ class TagDataIterator:
         agg_transformation = [transformation for transformation in transformations if transformation.get(
             "transformation_type") == "aggregation"]
         if len(agg_transformation) > 1:
-            raise Exception("Invalid transformations : Only one aggregation transformation can be applied at a time")
+            raise Exception(
+                "Invalid transformations : Only one aggregation transformation can be applied at a time")
         for transformation in transformations:
             transformation_type = transformation.get("transformation_type")
             if transformation_type == "interpolation":
                 if transformation.get("column") is None:
-                    raise Exception("Invalid transformations : Interpolation column is missing")
+                    raise Exception(
+                        "Invalid transformations : Interpolation column is missing")
             elif transformation_type == "aggregation":
                 if transformation.get("aggregation_column") is None \
                         or transformation.get("aggregation_dict") is None:
-                     raise Exception("Invalid transformations : aggregation_column and aggregation_dict is required")
+                    raise Exception(
+                        "Invalid transformations : aggregation_column and aggregation_dict is required")
                 if len(transformation.get("aggregation_dict")
                        ) != tags.count() - 1:
-                     raise Exception("Invalid transformations : Aggregation for all columns not defined in aggregation_dict")
+                    raise Exception(
+                        "Invalid transformations : Aggregation for all columns not defined in aggregation_dict")
             else:
-                raise Exception("Invalid transformations : transformation_type is invalid")
-
+                raise Exception(
+                    "Invalid transformations : transformation_type is invalid")
 
     def create_post_data(self):
         """
@@ -115,7 +119,7 @@ class TagDataIterator:
         Get the next object in the iteration.
         Note that the return object is inclusive of time ranges
         """
-        if self._data_call_state != 0 and self._cursor == None:
+        if self._data_call_state != 0 and self._cursor is None:
             self._data_call_state = 0
             raise StopIteration
         if self._data_call_state == 0:
@@ -125,10 +129,12 @@ class TagDataIterator:
             self._data_call_state = 1
         else:
             tag_data_return = self.api_helper.call_api(
-                url=Constants.RETURN_TAG_DATA, method_type=Constants.API_GET, query_params={cursor=self._cursor})
+                url=Constants.RETURN_TAG_DATA,
+                method_type=Constants.API_GET,
+                query_params={
+                    cursor: self._cursor})
 
         self._cursor = tag_data_return["cursor"]
-
 
         if self.return_type != Constants.RETURN_JSON:
             tag_data_return_str = json.dumps(tag_data_return["data"])
@@ -140,7 +146,7 @@ class TagDataIterator:
         else:
             return_tag_data = tag_data_return["data"]
 
-        return tag_data_return
+        return return_tag_data
 
     def __getitem__(self, key):
         """
@@ -184,7 +190,7 @@ class TagDataIterator:
         """
 
         TagDataIterator.raise_exception_for_transformation_schema(
-                transformations, tags)
+            transformations, tags)
         body_json = {
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,
@@ -196,7 +202,9 @@ class TagDataIterator:
         if tags.count() == 0:
             raise Exception("There are no tags to fetch data of")
         tag_data_response = api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
+            Constants.RETURN_TAG_DATA,
+            Constants.API_POST,
+            body=body_json).json()
         return TagDataIterator(
             tags=tags,
             start_time=start_time,
@@ -218,6 +226,7 @@ class TagDataIterator:
         tag_data_iterator.return_type = Constants.RETURN_PANDAS
         data_df = pd.DataFrame()
         for iteration_df in tag_data_iterator:
-            if len(iteration_df)>1 and len(iteration_df) == iteration_df.batch_size:
+            if len(iteration_df) > 1 and len(
+                    iteration_df) == iteration_df.batch_size:
                 data_df = pd.concat(data_df, iteration_df[:-1])
         return data_df
