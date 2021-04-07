@@ -143,17 +143,15 @@ class TagDataIterator:
 
         self._cursor = tag_data_return["cursor"]
 
-        if self.return_type != Constants.RETURN_JSON:
-            tag_data_return_str = json.dumps(tag_data_return["data"])
+        if self.return_type == Constants.RETURN_JSON:
+            return tag_data_return["data"]
 
-            return_tag_data = pd.read_json(tag_data_return_str,
+        tag_data_return_str = json.dumps(tag_data_return["data"])
+
+        return pd.read_json(tag_data_return_str,
                                            orient="split",
                                            convert_dates=False,
                                            convert_axes=False)
-        else:
-            return_tag_data = tag_data_return["data"]
-
-        return return_tag_data
 
     @classmethod
     def create_tag_data_iterator(
