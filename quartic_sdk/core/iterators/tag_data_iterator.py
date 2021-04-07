@@ -114,6 +114,13 @@ class TagDataIterator:
             "batch_size": self.batch_size
         }
 
+    def __iter__(self):
+        """
+        Return the data iterator with the data fetch state set at 0
+        """
+        self._data_call_state = 0
+        return self
+
     def __next__(self):
         """
         Get the next object in the iteration.
@@ -132,7 +139,7 @@ class TagDataIterator:
                 url=Constants.RETURN_TAG_DATA,
                 method_type=Constants.API_GET,
                 query_params={
-                    cursor: self._cursor})
+                    "cursor": self._cursor}).json()
 
         self._cursor = tag_data_return["cursor"]
 
@@ -147,12 +154,6 @@ class TagDataIterator:
             return_tag_data = tag_data_return["data"]
 
         return return_tag_data
-
-    def __getitem__(self, key):
-        """
-        We override this method to get the object at the given key
-        """
-        raise NotImplementedError
 
     @classmethod
     def create_tag_data_iterator(
@@ -226,7 +227,8 @@ class TagDataIterator:
         tag_data_iterator.return_type = Constants.RETURN_PANDAS
         data_df = pd.DataFrame()
         for iteration_df in tag_data_iterator:
-            if len(iteration_df) > 1 and len(
-                    iteration_df) == iteration_df.batch_size:
-                data_df = pd.concat(data_df, iteration_df[:-1])
+            if data_df.empty:
+                data_df = iteration_df
+            else:
+                data_df = pd.concat([data_df[:-1], iteration_df])
         return data_df
