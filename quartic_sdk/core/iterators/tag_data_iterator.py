@@ -2,6 +2,7 @@
 import json
 import pandas as pd
 import quartic_sdk.utilities.constants as Constants
+from quartic_sdk.utilities.exceptions import IncorrectTransformationException
 
 
 class TagDataIterator:
@@ -80,25 +81,25 @@ class TagDataIterator:
         agg_transformation = [transformation for transformation in transformations if transformation.get(
             "transformation_type") == "aggregation"]
         if len(agg_transformation) > 1:
-            raise Exception(
+            raise IncorrectTransformationException(
                 "Invalid transformations : Only one aggregation transformation can be applied at a time")
         for transformation in transformations:
             transformation_type = transformation.get("transformation_type")
             if transformation_type == "interpolation":
                 if transformation.get("column") is None:
-                    raise Exception(
+                    raise IncorrectTransformationException(
                         "Invalid transformations : Interpolation column is missing")
             elif transformation_type == "aggregation":
                 if transformation.get("aggregation_column") is None \
                         or transformation.get("aggregation_dict") is None:
-                    raise Exception(
+                    raise IncorrectTransformationException(
                         "Invalid transformations : aggregation_column and aggregation_dict is required")
                 if len(transformation.get("aggregation_dict")
                        ) != tags.count() - 1:
-                    raise Exception(
+                    raise IncorrectTransformationException(
                         "Invalid transformations : Aggregation for all columns not defined in aggregation_dict")
             else:
-                raise Exception(
+                raise IncorrectTransformationException(
                     "Invalid transformations : transformation_type is invalid")
 
     def create_post_data(self):
