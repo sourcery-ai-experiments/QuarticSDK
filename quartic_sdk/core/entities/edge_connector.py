@@ -1,6 +1,7 @@
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+from quartic_sdk.core.iterators.opcua_data_iterator import OPCUADataIterator
 
 
 class EdgeConnector(Base):
@@ -29,6 +30,22 @@ class EdgeConnector(Base):
         tags_response = self.api_helper.call_api(
             Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params={"edge_connector": self.id}).json()
         return EntityFactory(Constants.TAG_ENTITY, tags_response, self.api_helper)
+
+    def historical_data(self,
+        start_time,
+        stop_time,
+        batch_size=Constants.DEFAULT_BATCH_SIZE,
+        max_records=None,
+        tags=None,
+        return_type=Constants.RETURN_PANDAS):
+        """
+        Fetch historical data for the given OPCUA edge connector
+        """
+        assert self.connector_protocol == Constants.OPCUA
+        if not tags:
+            tags = self.get_tags()
+        return OPCUADataIterator(tags, self.id, start_time, stop_time, self.api_helper, batch_size, max_records,
+            return_type)
 
     def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[]):
         """
