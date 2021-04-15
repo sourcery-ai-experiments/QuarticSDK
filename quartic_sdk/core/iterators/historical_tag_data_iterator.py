@@ -2,10 +2,9 @@
 import json
 import pandas as pd
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
 
 
-class OPCUADataIterator:
+class HistoricalTagDataIterator:
     """
     Thee given class is the iterator class for OPCUA data connector
     """
@@ -32,8 +31,6 @@ class OPCUADataIterator:
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
         """
-        TagDataIterator.raise_exception_for_transformation_schema(
-            transformations, tags)
         self.tags = tags
         self.edge_connector_id = edge_connector_id
         self.start_time = start_time
@@ -41,7 +38,6 @@ class OPCUADataIterator:
         self.batch_size = batch_size
         self.max_records = max_records
         self.api_helper = api_helper
-        self.granularity = granularity
         self.return_type = return_type
 
         self._cursor = None
@@ -87,7 +83,7 @@ class OPCUADataIterator:
         body_json = self.create_post_data()
         tag_data_return = self.api_helper.call_api(
             Constants.POST_OPCUA_DATA, Constants.API_POST, body=body_json,
-            path_params=[self.edge_connector_id]).json()
+            path_params=[self.edge_connector_id], query_params={"cursor": self._cursor}).json()
         self._data_call_state = 1
 
         self._cursor = tag_data_return["cursor"]
@@ -98,12 +94,12 @@ class OPCUADataIterator:
         return self.__rearrange_json_to_create_data_frame(tag_data_return)
 
     @staticmethod
-    def get_complete_data_in_range(opcua_data_iterator):
+    def get_complete_data_in_range(historical_data_iterator):
         """
         Get complete data frame from the opcua data iterator
         """
-        opcua_data_iterator.return_type = Constants.RETURN_PANDAS
+        historical_data_iterator.return_type = Constants.RETURN_PANDAS
         data_df = pd.DataFrame()
-        for iteration_df in opcua_data_iterator:
-            data_df = pd.concat(data_df, iteration_df)
+        for iteration_df in historical_data_iterator:
+            data_df = pd.concat([data_df, iteration_df])
         return data_df
