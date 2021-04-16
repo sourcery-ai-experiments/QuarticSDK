@@ -30,6 +30,7 @@ GET_TAGS = "/api/v1/tags/"
 RETURN_TAG_DATA = "/api/v1/tag_data/"
 GET_CONTEXT_FRAME_OCCURRENCES = "/api/v1/context_frame_occurrences/"
 GET_BATCHES = "/api/v1/batches/"
+POST_OPCUA_DATA = "/api/v1/opcua_tag_data/"
 CMD_MODEL_ENDPOINT = '/cmd/model/'
 
 # Entity types
@@ -161,3 +162,4 @@ INTELLIGENCE_CATEGORIES = {
 }
 
 DEFAULT_PAGE_LIMIT_ROWS = 200000
+DEFAULT_BATCH_SIZE = 200000
