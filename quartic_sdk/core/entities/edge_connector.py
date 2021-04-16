@@ -46,7 +46,7 @@ class EdgeConnector(Base):
         return HistoricalTagDataIterator(tags, self.id, start_time, stop_time, self.api_helper, batch_size, max_records,
             return_type)
 
-    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[]):
+    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[]):
         """
         Get the data of all tags in the edge connector between the given start_time and
         stop_time for the given granularity
@@ -73,7 +73,7 @@ class EdgeConnector(Base):
         """
         tags = self.get_tags()
         return TagDataIterator.create_tag_data_iterator(tags, start_time, stop_time, self.api_helper,
-                                                        granularity, return_type, transformations)
+                                                        granularity, return_type, batch_size, transformations)
 
     def __getattribute__(self, name):
         """

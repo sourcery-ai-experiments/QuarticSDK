@@ -27,7 +27,7 @@ GET_ASSETS = "/api/v1/asset/"
 GET_CONTEXT_FRAME_DEFINITIONS = "/api/v1/context_frame_definitions/"
 GET_EDGE_CONNECTORS = "/api/v1/edge_connector/"
 GET_TAGS = "/api/v1/tags/"
-POST_TAG_DATA = "/api/v1/tag_data/"
+RETURN_TAG_DATA = "/api/v1/tag_data/"
 GET_CONTEXT_FRAME_OCCURRENCES = "/api/v1/context_frame_occurrences/"
 GET_BATCHES = "/api/v1/batches/"
 POST_OPCUA_DATA = "/api/v1/opcua_tag_data/"
@@ -161,4 +161,5 @@ INTELLIGENCE_CATEGORIES = {
     ENVIRONMENT: 'Environment'
 }
 
+DEFAULT_PAGE_LIMIT_ROWS = 200000
 DEFAULT_BATCH_SIZE = 200000

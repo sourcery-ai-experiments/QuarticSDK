@@ -120,11 +120,13 @@ def step_impl(context):
 
     with mock.patch('requests.post') as requests_post1:
         requests_post1.return_value = APIHelperCallAPI(EDGE_CONNECTOR_DATA_POST.copy())
-        assert isinstance(world.first_edge_connector_data_pd[0], pd.DataFrame)
+        for edge_connector_data in world.first_edge_connector_data_pd:
+            assert isinstance(edge_connector_data, pd.DataFrame)
 
     with mock.patch('requests.post') as requests_post2:
         requests_post2.return_value = APIHelperCallAPI(EDGE_CONNECTOR_DATA_POST.copy())
-        assert isinstance(world.first_edge_connector_data_json[0], dict)
+        for edge_connector_data in world.first_edge_connector_data_json:
+            assert isinstance(edge_connector_data, dict)
 
     assert isinstance(
         world.first_edge_connector_data_with_correct_transformation_pd,
@@ -132,9 +134,8 @@ def step_impl(context):
 
     with mock.patch('requests.post') as requests_post3:
         requests_post3.return_value = APIHelperCallAPI(EDGE_CONNECTOR_DATA_POST.copy())
-        assert isinstance(
-            world.first_edge_connector_data_with_correct_transformation_pd[0],
-            pd.DataFrame)
+        for edge_connector_data in world.first_edge_connector_data_with_correct_transformation_pd:
+            assert isinstance(edge_connector_data, pd.DataFrame)
 
     assert isinstance(
         world.first_edge_connector_data_with_correct_transformation_json,
@@ -142,5 +143,5 @@ def step_impl(context):
 
     with mock.patch('requests.post') as requests_post4:
         requests_post4.return_value = APIHelperCallAPI(EDGE_CONNECTOR_DATA_POST.copy())
-        assert isinstance(
-            world.first_edge_connector_data_with_correct_transformation_json[0], dict)
+        for edge_connector_data in world.first_edge_connector_data_with_correct_transformation_json:
+            assert isinstance(edge_connector_data, dict)
