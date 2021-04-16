@@ -145,6 +145,7 @@ class EntityList:
             stop_time,
             granularity=0,
             return_type=Constants.RETURN_PANDAS,
+            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             transformations=[]):
         """
         Get the data of all tags in the list between the given start_time and
@@ -178,4 +179,5 @@ class EntityList:
             self.first().api_helper,
             granularity,
             return_type,
+            batch_size,
             transformations)
