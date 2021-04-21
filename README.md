@@ -50,6 +50,9 @@ To run the documentation locally, run the following commands in terminal:
 ```
 cd docs
 make html
+
+cd docs/source
+sphinx-build -b html . _build
 open build/html/index.html
 ```
 
