@@ -117,7 +117,7 @@ Module Contents
 
    
 
-.. data:: POST_TAG_DATA
+.. data:: RETURN_TAG_DATA
    :annotation: = /api/v1/tag_data/
 
    
@@ -129,6 +129,11 @@ Module Contents
 
 .. data:: GET_BATCHES
    :annotation: = /api/v1/batches/
+
+   
+
+.. data:: POST_OPCUA_DATA
+   :annotation: = /api/v1/historical_tag_data/
 
    
 
@@ -429,6 +434,16 @@ Module Contents
 
 .. data:: INTELLIGENCE_CATEGORIES
    
+
+   
+
+.. data:: DEFAULT_PAGE_LIMIT_ROWS
+   :annotation: = 200000
+
+   
+
+.. data:: DEFAULT_BATCH_SIZE
+   :annotation: = 200000
 
    
 
