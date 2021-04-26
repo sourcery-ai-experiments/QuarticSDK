@@ -83,7 +83,7 @@ Classes
       :return: (EntityList) List of tags belonging to the asset
 
 
-   .. method:: list_models(self, is_active: bool = None, ml_node: int = None) -> List[Dict]
+   .. method:: list_models(self, is_active: bool = None, ml_node: int = None)
 
       List models and its parameters accessible by user
       :param is_active: Boolean Indicator if list should contain active nodes or not

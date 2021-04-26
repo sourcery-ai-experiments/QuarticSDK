@@ -39,7 +39,12 @@ Classes
       The given method returns the list of tags for the given asset
 
 
-   .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[])
+   .. method:: historical_data(self, start_time, stop_time, batch_size=Constants.DEFAULT_BATCH_SIZE, max_records=None, tags=None, return_type=Constants.RETURN_PANDAS)
+
+      Fetch historical data for the given OPCUA edge connector
+
+
+   .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
 
       Get the data of all tags in the edge connector between the given start_time and
       stop_time for the given granularity

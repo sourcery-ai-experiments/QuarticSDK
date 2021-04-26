@@ -93,8 +93,8 @@ def step_impl(context):
     with mock.patch('requests.post') as requests_post:
         requests_post.return_value = TestHelpers.APIHelperCallAPI(
             TestHelpers.TAG_DATA_POST)
-        world.first_tag_data_first = world.first_tag_data[0]
-        assert isinstance(world.first_tag_data_first.index, Int64Index)
+        for tag_data in world.first_tag_data:
+            assert isinstance(tag_data.index, Int64Index)
     assert isinstance(world.context_frames, EntityList)
     assert isinstance(world.first_context_frame, ContextFrame)
     assert isinstance(world.cf_occurrences, EntityList)
