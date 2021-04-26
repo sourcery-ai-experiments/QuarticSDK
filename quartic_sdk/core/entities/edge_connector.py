@@ -20,7 +20,7 @@ class EdgeConnector(Base):
         """
         Override the method to return the data source name with id
         """
-        return f"<{Constants.EDGE_CONNECTOR_ENTITY}: {self.name}_{self.id}>"
+        return f"<{Constants.EDGE_CONNECTOR_ENTITY}: {self.name}>"
 
     def get_tags(self):
         """

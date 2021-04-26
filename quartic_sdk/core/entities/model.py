@@ -21,7 +21,7 @@ class Model(Base):
         """
         Override the method to return the Model with model name and id
         """
-        return f"<{Constants.MODEL_ENTITY}: {self.model_name}_{self.model_id}>"
+        return f"<{Constants.MODEL_ENTITY}: {self.model_name}>"
 
     def model_instance(self):
         """

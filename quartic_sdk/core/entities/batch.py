@@ -16,4 +16,4 @@ class Batch(Base):
         """
         Override the method to return the asset name with id
         """
-        return f"<{Constants.BATCH_ENTITY}: {self.batch_name}_{self.id}>"
+        return f"<{Constants.BATCH_ENTITY}: {self.batch_name}>"

@@ -20,7 +20,7 @@ class Asset(Base):
         """
         Override the method to return the asset name with id
         """
-        return f"<{Constants.ASSET_ENTITY}: {self.name}_{self.id}>"
+        return f"<{Constants.ASSET_ENTITY}: {self.name}>"
 
     def get_tags(self):
         """

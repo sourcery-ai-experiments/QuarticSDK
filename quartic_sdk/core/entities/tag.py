@@ -24,7 +24,7 @@ class Tag(Base):
         """
         Override the method to return the tag name with id
         """
-        return f"<{Constants.TAG_ENTITY}: {self.name}_{self.id}>"
+        return f"<{Constants.TAG_ENTITY}: {self.name}>"
 
     def data(
             self,
