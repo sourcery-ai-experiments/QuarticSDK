@@ -1,6 +1,7 @@
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+from quartic_sdk.core.iterators.historical_tag_data_iterator import HistoricalTagDataIterator
 
 
 class EdgeConnector(Base):
@@ -30,7 +31,22 @@ class EdgeConnector(Base):
             Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params={"edge_connector": self.id}).json()
         return EntityFactory(Constants.TAG_ENTITY, tags_response, self.api_helper)
 
-    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[]):
+    def historical_data(self,
+        start_time,
+        stop_time,
+        batch_size=Constants.DEFAULT_BATCH_SIZE,
+        max_records=None,
+        tags=None,
+        return_type=Constants.RETURN_PANDAS):
+        """
+        Fetch historical data for the given OPCUA edge connector
+        """
+        if not tags:
+            tags = self.get_tags()
+        return HistoricalTagDataIterator(tags, self.id, start_time, stop_time, self.api_helper, batch_size, max_records,
+            return_type)
+
+    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[]):
         """
         Get the data of all tags in the edge connector between the given start_time and
         stop_time for the given granularity
@@ -57,7 +73,7 @@ class EdgeConnector(Base):
         """
         tags = self.get_tags()
         return TagDataIterator.create_tag_data_iterator(tags, start_time, stop_time, self.api_helper,
-                                                        granularity, return_type, transformations)
+                                                        granularity, return_type, batch_size, transformations)
 
     def __getattribute__(self, name):
         """

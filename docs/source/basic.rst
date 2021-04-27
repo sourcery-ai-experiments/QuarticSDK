@@ -349,7 +349,6 @@ The available attributes in this class are:
 -  **batch_name**: Batch Name
 -  **start**: Batch start time in epoch
 -  **stop**: Batch stop time in epoch
--  **asset**: Asset ID
 -  **notes**: List of notes regarding the batch
 -  **is_questionable**: Whether the batch is questionable
 
@@ -450,6 +449,31 @@ The method parameters are as follows:
 -  **transformations (optional)**: The user must pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
+
+.historical_data
+~~~~~~~~~~~~~~~~
+
+The method returns the historical tag data iterator for all the tags present in the
+datasource for the set ``start_time`` and ``stop_time``. It can be used to iterate
+through the ddata in custom batches as decided by the user. More details are
+provided under the ``HistoricalTagDataIterator`` subsection.
+
+The method parameters are as follows:
+
+-  **start\_time (mandatory)**: (epoch) This refers to the
+   ``start_time`` for fetching the data of the datasource.
+-  **stop\_time (mandatory)**: (epoch) This refers to the ``stop_time``
+   for fetching the data of the data source.
+-  **batch_size (optional)**: This refers to the number of rows in each page
+   while iterating through the historical data
+-  **max_records (optional)**: This refers to the maximum number of records
+   that are to be fetched in the API call
+-  **tags (optional)**: (EntityList) This is the entitylist of tags. This is an
+   optional value, and will take all the data source tags by default
+-  **return\_type (optional)**: The user can pass either ``pd``, which
+   will return the pandas dataframe iterator, or ``json`` which will
+   return json object on return. This value takes the ``pd`` value as
+   default.
 
 ContextFrame
 ---------------
@@ -633,6 +657,27 @@ method divides the complete interval between ``start_time`` and
 ``stop_time`` into different time\_ranges, with each range containing up
 to 200,000 data points for all the tags. The user can loop through this
 interval to get all the data points.
+
+HistoricalTagDataIterator
+-------------------------
+
+Querying historical data for any set of tags in any given duration returns
+an instance of ``HistoricalTagDataIterator``, which can be used to iterate
+between the given time range. When the ``.historical_data`` of data source
+is called, the class queries via cursor, based upon the entered ``batch_size``
+
+The available methods are as follows:
+*************************************
+
+.get_complete_data_in_range
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The method loops through the complete range and returns the final data frame
+which is required. Note that this is meant to be used only for pandas return
+of historical data and not for json return. The method has the following parameters:
+
+-  **historical\_data\_iterator (mandatory)** This is the historicaldataiterator
+   object whose complete data is to be returned
 
 Transformations:
 ****************
