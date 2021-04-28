@@ -124,15 +124,15 @@ class EntityList:
             raise AssertionError(
                 f"Can not add object, since it is not of {self._class_type} type")
 
-    def exclude(self, name, value):
+    def exclude(self, **kwargs):
         """
-        We return the EntityList after removing the entity with the attribute
-        name having the value as above
+        We return the EntityList after removing the entities with the attributes having the given values
+        :param kwargs: Dict which maps `filter_key` to filter_value
         """
-        updated_entities = [
-            entity_obj for entity_obj in self._entities if getattr(
-                entity_obj, name) != value]
-        return EntityList(self._class_type, updated_entities)
+        filtered_entities = set([entity.id for entity in self.filter(**kwargs)])
+        excluded_entities = [entity for entity in self._entities
+                                if entity.id not in filtered_entities]
+        return EntityList(self._class_type, excluded_entities)
 
     def __iter__(self):
         """
