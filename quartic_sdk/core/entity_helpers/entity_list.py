@@ -3,6 +3,7 @@ import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entities.type_mapping import ENTITY_DICTIONARY
 from quartic_sdk.core.iterators.entity_list_iterator import EntityListIterator
 from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+import operator
 
 
 class EntityList:
@@ -76,11 +77,32 @@ class EntityList:
         """
         return len(self._entities)
 
-    def filter(self, condition):
+    def filter(self, **kwargs):
         """
-        We filter the entities based upon the given condition
-        """
-        raise NotImplementedError
+        We filter the entities based upon the given conditions
+        There might be multiple conditions
+        :param kwargs: Dict which maps `filter_key` to filter_value
+                       The `filter_key` can be decomposed into two parts: (attribute, operator)
+                       For instance, if `filter_key` is `created_at__lt` then ('created_at', 'lt')
+                       It might also be a simple query where we check for equality, then `filter_key` is simply the attribute name
+        """ 
+
+        attributes_and_operators, filter_values = [], []
+        for filter_key in kwargs:
+            if '__' in filter_key:
+                filter_attribute, filter_operator = filter_key.split('__')
+            else:
+                filter_attribute, filter_operator = filter_key, 'eq'
+            attributes_and_operators.append((filter_attribute, filter_operator))
+            filter_values.append(kwargs[filter_key])
+        
+        filtered_entities = self._entities
+        for (filter_attribute, filter_operator), filter_value in zip(attributes_and_operators, filter_values):
+            operator_func = getattr(operator, filter_operator)
+            filtered_entities = [entity for entity in filtered_entities
+                            if operator_func(getattr(entity, filter_attribute), filter_value)]
+                            
+        return EntityList(self._class_type, filtered_entities)
 
     def check_object_in_list(self, instance):
         """
