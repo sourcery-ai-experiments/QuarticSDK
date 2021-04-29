@@ -86,22 +86,14 @@ class EntityList:
                        For instance, if `filter_key` is `created_at__lt` then ('created_at', 'lt')
                        It might also be a simple query where we check for equality, then `filter_key` is simply the attribute name
         """ 
-
-        attributes_and_operators, filter_values = [], []
-        for filter_key in kwargs:
-            if '__' in filter_key:
-                filter_attribute, filter_operator = filter_key.split('__')
-            else:
-                filter_attribute, filter_operator = filter_key, 'eq'
-            attributes_and_operators.append((filter_attribute, filter_operator))
-            filter_values.append(kwargs[filter_key])
-        
         filtered_entities = self._entities
-        for (filter_attribute, filter_operator), filter_value in zip(attributes_and_operators, filter_values):
+        negate = kwargs.pop('_negate') if '_negate' in kwargs else False
+        for filter_key in kwargs:
+            filter_attribute, filter_operator = filter_key.split('__') if '__' in filter_key else (filter_key, 'eq')
+            filter_value = kwargs[filter_key]
             operator_func = getattr(operator, filter_operator)
-            filtered_entities = [entity for entity in filtered_entities
-                            if operator_func(getattr(entity, filter_attribute), filter_value)]
-                            
+            filter_func = lambda x, y: not operator_func(x, y) if negate else operator_func(x, y)
+            filtered_entities = list(filter(lambda entity: filter_func(getattr(entity, filter_attribute), filter_value), filtered_entities))      
         return EntityList(self._class_type, filtered_entities)
 
     def check_object_in_list(self, instance):
@@ -129,10 +121,7 @@ class EntityList:
         We return the EntityList after removing the entities with the attributes having the given values
         :param kwargs: Dict which maps `filter_key` to filter_value
         """
-        filtered_entities = set([entity.id for entity in self.filter(**kwargs)])
-        excluded_entities = [entity for entity in self._entities
-                                if entity.id not in filtered_entities]
-        return EntityList(self._class_type, excluded_entities)
+        return self.filter(**kwargs, _negate=True)
 
     def __iter__(self):
         """
