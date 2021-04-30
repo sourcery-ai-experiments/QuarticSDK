@@ -18,13 +18,13 @@ class ContextFrame(Base):
         """
         return f"<{Constants.CONTEXT_FRAME_ENTITY}: {self.id}>"
 
-    def occurrences(self):
+    def occurrences(self, query_params={}):
         """
         Return the list of occurrences for the given context frame
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         occurrences_response = self.api_helper.call_api(
-            Constants.GET_CONTEXT_FRAME_OCCURRENCES, Constants.API_GET, [self.id]).json()
+            Constants.GET_CONTEXT_FRAME_OCCURRENCES, Constants.API_GET, [self.id], query_params).json()
         return EntityFactory(
             Constants.CONTEXT_FRAME_OCCURRENCE_ENTITY,
             occurrences_response,
