@@ -90,10 +90,8 @@ class EntityList:
         negate = kwargs.pop('_negate') if '_negate' in kwargs else False
         for filter_key in kwargs:
             filter_attribute, filter_operator = filter_key.split('__') if '__' in filter_key else (filter_key, 'eq')
-            filter_value = kwargs[filter_key]
-            operator_func = getattr(operator, filter_operator)
-            filter_func = lambda x, y: not operator_func(x, y) if negate else operator_func(x, y)
-            filtered_entities = list(filter(lambda entity: filter_func(getattr(entity, filter_attribute), filter_value), filtered_entities))      
+            filter_func = lambda x, y: not getattr(operator, filter_operator)(x, y) if negate else getattr(operator, filter_operator)(x, y)
+            filtered_entities = list(filter(lambda entity: filter_func(getattr(entity, filter_attribute), kwargs[filter_key]), filtered_entities))      
         return EntityList(self._class_type, filtered_entities)
 
     def check_object_in_list(self, instance):
