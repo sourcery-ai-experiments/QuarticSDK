@@ -89,7 +89,7 @@ class Asset(Base):
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        tags = self.get_tags().exclude("tag_data_type", Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
+        tags = self.get_tags().exclude(tag_data_type=Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
         logging.info("Filtering to fetch data only for non-spectral tags")
         return TagDataIterator.create_tag_data_iterator(
             tags,
