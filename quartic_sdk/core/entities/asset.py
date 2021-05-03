@@ -19,9 +19,9 @@ class Asset(Base):
 
     def __repr__(self):
         """
-        Override the method to return the asset name with id
+        Override the method to return the asset name
         """
-        return f"<{Constants.ASSET_ENTITY}: {self.name}_{self.id}>"
+        return f"<{Constants.ASSET_ENTITY}: {self.name}>"
 
     def get_tags(self):
         """
