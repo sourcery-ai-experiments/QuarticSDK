@@ -83,7 +83,6 @@ def test_entity_list_filter():
     """
     Test filter method of EntityList
     """
-    print(test_tag_entities_list[0].tag_data_type)
     assert test_tag_entities_list.filter(id=1).count() == 1
     assert test_tag_entities_list.filter(id__ne=1).count() == 3
     assert test_tag_entities_list.filter(tag_data_type="double").count() == 3
