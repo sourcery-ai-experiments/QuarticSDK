@@ -22,9 +22,9 @@ class Tag(Base):
 
     def __repr__(self):
         """
-        Override the method to return the tag name with id
+        Override the method to return the tag name
         """
-        return f"<{Constants.TAG_ENTITY}: {self.name}_{self.id}>"
+        return f"<{Constants.TAG_ENTITY}: {self.name}>"
 
     def data(
             self,
