@@ -34,9 +34,10 @@ Classes
       Override the method to return the data source name with id
 
 
-   .. method:: get_tags(self)
+   .. method:: get_tags(self, query_params={})
 
       The given method returns the list of tags for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: historical_data(self, start_time, stop_time, batch_size=Constants.DEFAULT_BATCH_SIZE, max_records=None, tags=None, return_type=Constants.RETURN_PANDAS)

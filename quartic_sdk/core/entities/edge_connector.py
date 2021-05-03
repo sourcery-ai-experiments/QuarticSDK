@@ -25,6 +25,7 @@ class EdgeConnector(Base):
     def get_tags(self, query_params={}):
         """
         The given method returns the list of tags for the given asset
+        :param query_params: Dictionary of filter conditions
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         query_params["edge_connector"] = self.id

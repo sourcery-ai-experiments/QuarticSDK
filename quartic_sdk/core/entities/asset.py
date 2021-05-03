@@ -25,6 +25,7 @@ class Asset(Base):
     def get_tags(self, query_params={}):
         """
         The given method returns the list of tags for the given asset
+        :param query_params: Dictionary of filter conditions
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         query_params["asset"] = self.id
@@ -47,6 +48,7 @@ class Asset(Base):
     def batches(self, query_params={}):
         """
         The given method returns the list of batches for the given asset
+        :param query_params: Dictionary of filter conditions
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         batches_response = self.api_helper.call_api(

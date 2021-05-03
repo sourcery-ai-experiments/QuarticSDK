@@ -26,6 +26,7 @@ class Model(Base):
     def model_instance(self, query_params={}):
         """
         Returns the model object saved in the model
+        :param query_params: Dictionary of filter conditions
         :return:    Returns a Model which is subclass of BaseQuarticModel
         """
         response = self.api_helper.call_api(Constants.CMD_MODEL_ENDPOINT, method_type=Constants.API_GET,

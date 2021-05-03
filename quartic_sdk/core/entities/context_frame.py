@@ -21,6 +21,7 @@ class ContextFrame(Base):
     def occurrences(self, query_params={}):
         """
         Return the list of occurrences for the given context frame
+        :param query_params: Dictionary of filter conditions
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         occurrences_response = self.api_helper.call_api(
