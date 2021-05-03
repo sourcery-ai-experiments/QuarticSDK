@@ -34,7 +34,7 @@ Classes
       Override the method to return the data source name with id
 
 
-   .. method:: get_tags(self, query_params={})
+   .. method:: get_tags(self)
 
       The given method returns the list of tags for the given asset
 

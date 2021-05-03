@@ -39,8 +39,7 @@ Classes
 
 
 
-.. class:: Asset(body_json, api_helper)
-
+.. class:: Asset
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -57,7 +56,7 @@ Classes
       Override the method to return the asset name with id
 
 
-   .. method:: get_tags(self, query_params={})
+   .. method:: get_tags(self)
 
       The given method returns the list of tags for the given asset
 
@@ -68,7 +67,7 @@ Classes
       The given method returns the list of event frames for the given asset
 
 
-   .. method:: batches(self, query_params={})
+   .. method:: batches(self)
 
       The given method returns the list of batches for the given asset
 
@@ -109,8 +108,7 @@ Classes
 
 
 
-.. class:: Batch(body_json, api_helper)
-
+.. class:: Batch
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -123,8 +121,7 @@ Classes
 
 
 
-.. class:: ContextFrame(body_json, api_helper)
-
+.. class:: ContextFrame
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -136,14 +133,13 @@ Classes
       Override the method to return the asset name with id
 
 
-   .. method:: occurrences(self, query_params={})
+   .. method:: occurrences(self)
 
       Return the list of occurrences for the given context frame
 
 
 
-.. class:: ContextFrameOccurrence(body_json, api_helper)
-
+.. class:: ContextFrameOccurrence
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -174,7 +170,7 @@ Classes
       Override the method to return the data source name with id
 
 
-   .. method:: get_tags(self, query_params={})
+   .. method:: get_tags(self)
 
       The given method returns the list of tags for the given asset
 
@@ -287,7 +283,7 @@ Classes
       Override the method to return the Model with model name and id
 
 
-   .. method:: model_instance(self, query_params={})
+   .. method:: model_instance(self)
 
       Returns the model object saved in the model
       :return:    Returns a Model which is subclass of BaseQuarticModel

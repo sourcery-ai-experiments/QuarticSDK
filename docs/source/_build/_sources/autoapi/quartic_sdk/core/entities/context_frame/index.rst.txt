@@ -21,8 +21,7 @@ Classes
 
 
 
-.. class:: ContextFrame(body_json, api_helper)
-
+.. class:: ContextFrame
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -34,7 +33,7 @@ Classes
       Override the method to return the asset name with id
 
 
-   .. method:: occurrences(self, query_params={})
+   .. method:: occurrences(self)
 
       Return the list of occurrences for the given context frame
 

@@ -21,8 +21,7 @@ Classes
 
 
 
-.. class:: Asset(body_json, api_helper)
-
+.. class:: Asset
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -39,7 +38,7 @@ Classes
       Override the method to return the asset name with id
 
 
-   .. method:: get_tags(self, query_params={})
+   .. method:: get_tags(self)
 
       The given method returns the list of tags for the given asset
 
@@ -50,7 +49,7 @@ Classes
       The given method returns the list of event frames for the given asset
 
 
-   .. method:: batches(self, query_params={})
+   .. method:: batches(self)
 
       The given method returns the list of batches for the given asset
 
