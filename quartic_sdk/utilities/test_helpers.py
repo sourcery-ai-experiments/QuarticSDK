@@ -27,7 +27,8 @@ TAG_LIST_GET = [{"id": 1,
                  "name": "Tag1",
                  "short_name": "Short Tag1",
                  "edge_connector": 1,
-                 "asset": 1}]
+                 "asset": 1,
+                 "tag_data_type": 0}]
 TAG_DATA_POST = {
     "data": {
         "columns": ["1"], "index": [
@@ -51,12 +52,14 @@ TAG_LIST_MULTI_GET = [{"id": 1,
                        "name": "Tag1",
                        "short_name": "Short Tag1",
                        "edge_connector": 1,
-                       "asset": 1},
+                       "asset": 1,
+                       "tag_data_type": 0},
                       {"id": 2,
                        "name": "Tag2",
                        "short_name": "Short Tag2",
                        "edge_connector": 1,
-                       "asset": 1}]
+                       "asset": 1,
+                       "tag_data_type": 0}]
 TAG_LIST_DATA_POST = {
     "data": {
         "columns": [
