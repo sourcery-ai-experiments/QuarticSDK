@@ -59,7 +59,22 @@ TAG_LIST_MULTI_GET = [{"id": 1,
                        "short_name": "Short Tag2",
                        "edge_connector": 1,
                        "asset": 1,
-                       "tag_data_type": 0}]
+                       "tag_data_type": 0},
+                      {"id": 3,
+                       "name": "Tag3",
+                       "short_name": "Short Tag3",
+                       "edge_connector": 1,
+                       "asset": 2,
+                       "tag_data_type": 0
+                       },
+                      {"id": 4,
+                       "name": "Tag4",
+                       "short_name": "Short Tag4",
+                       "edge_connector": 2,
+                       "asset": 3,
+                       "tag_data_type": 1
+                       }
+                      ]
 TAG_LIST_DATA_POST = {
     "data": {
         "columns": [
