@@ -658,16 +658,43 @@ exists or it belongs to a different class\_type, it throws an exception.
 
     client_assets.add(new_asset_entity)
 
+.filter 
+~~~~~~~~
+This method filters the given EntityList to return an updated list that contains only those entities which satisfy all the conditions given in arguments.
+It works with all primitive attribtues of the ``Entity`` in the ``EntityList``, if the specific operation is defined for that data type.
+
+
+It takes multiple keyword arguments as a parameter (**\*\*kwargs**) to filter the entities.
+
+For a simple filter operation that includes entities by checking for equality, the format is: `entity_attribute=value`
+
+For operators other than equality, the format is: `entity_attribute__operator=value`
+
+You can |reference_link| for a list of possible operators.
+
+.. |reference_link| raw:: html
+
+   <a href="https://docs.python.org/3/library/operator.html" target="_blank">refer here</a>
+
+
+::
+
+   filtered_entity_list = client_assets.filter(status='Inactive')
+   filtered_entity_list = client_assets.filter(country__ne='India')
+
+
+
 .exclude
 ~~~~~~~~
 
 This method filters the given EntityList to return an updated list that
-doesn't contain the entity which has the ``name`` attribute value as
-``value``.
+doesn't contain entities which satisfy any of the conditions given in arguments.
 
+It takes the same arguments as ``.filter`` above but negates the conditions to exclude them.
 ::
 
-    updated_entity_list = client_assets.exclude("id", 1)
+    updated_entity_list = client_assets.exclude(id=5)
+    updated_entity_list = client_assets.exclude(created_at__lt=first_asset.created_at)
 
 .data
 ~~~~~
