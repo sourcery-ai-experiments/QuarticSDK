@@ -36,7 +36,7 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the tag name with id
+      Override the method to return the tag name
 
 
    .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[])

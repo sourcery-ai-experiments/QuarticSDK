@@ -31,12 +31,13 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the data source name with id
+      Override the method to return the data source name
 
 
-   .. method:: get_tags(self)
+   .. method:: get_tags(self, query_params={})
 
       The given method returns the list of tags for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[])

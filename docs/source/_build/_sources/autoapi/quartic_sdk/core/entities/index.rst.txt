@@ -54,12 +54,13 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the asset name with id
+      Override the method to return the asset name
 
 
-   .. method:: get_tags(self)
+   .. method:: get_tags(self, query_params={})
 
       The given method returns the list of tags for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: event_frames(self)
@@ -68,9 +69,10 @@ Classes
       The given method returns the list of event frames for the given asset
 
 
-   .. method:: batches(self)
+   .. method:: batches(self, query_params={})
 
       The given method returns the list of batches for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[])
@@ -119,12 +121,17 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the asset name with id
+      Override the method to return the asset name
 
 
 
 .. class:: ContextFrame(body_json, api_helper)
 
+<<<<<<< HEAD
+.. class:: ContextFrame(body_json, api_helper)
+
+=======
+>>>>>>> 771990a... Merge pull request #97 from Quarticai/PLT-5377
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -136,14 +143,20 @@ Classes
       Override the method to return the asset name with id
 
 
-   .. method:: occurrences(self)
+   .. method:: occurrences(self, query_params={})
 
       Return the list of occurrences for the given context frame
+      :param query_params: Dictionary of filter conditions
 
 
 
 .. class:: ContextFrameOccurrence(body_json, api_helper)
 
+<<<<<<< HEAD
+.. class:: ContextFrameOccurrence(body_json, api_helper)
+
+=======
+>>>>>>> 771990a... Merge pull request #97 from Quarticai/PLT-5377
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -171,12 +184,13 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the data source name with id
+      Override the method to return the data source name
 
 
-   .. method:: get_tags(self)
+   .. method:: get_tags(self, query_params={})
 
       The given method returns the list of tags for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[])
@@ -230,7 +244,7 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the tag name with id
+      Override the method to return the tag name
 
 
    .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[])
@@ -279,12 +293,13 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the Model with model name and id
+      Override the method to return the Model with model name
 
 
-   .. method:: model_instance(self)
+   .. method:: model_instance(self, query_params={})
 
       Returns the model object saved in the model
+      :param query_params: Dictionary of filter conditions
       :return:    Returns a Model which is subclass of BaseQuarticModel
 
 

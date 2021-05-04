@@ -34,9 +34,10 @@ Classes
       Override the method to return the asset name with id
 
 
-   .. method:: occurrences(self)
+   .. method:: occurrences(self, query_params={})
 
       Return the list of occurrences for the given context frame
+      :param query_params: Dictionary of filter conditions
 
 
 

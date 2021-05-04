@@ -22,13 +22,15 @@ class EdgeConnector(Base):
         """
         return f"<{Constants.EDGE_CONNECTOR_ENTITY}: {self.name}>"
 
-    def get_tags(self):
+    def get_tags(self, query_params={}):
         """
         The given method returns the list of tags for the given asset
+        :param query_params: Dictionary of filter conditions
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
+        query_params["edge_connector"] = self.id
         tags_response = self.api_helper.call_api(
-            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params={"edge_connector": self.id}).json()
+            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params=query_params).json()
         return EntityFactory(Constants.TAG_ENTITY, tags_response, self.api_helper)
 
     def historical_data(self,

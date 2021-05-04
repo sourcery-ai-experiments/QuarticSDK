@@ -36,12 +36,13 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the asset name with id
+      Override the method to return the asset name
 
 
-   .. method:: get_tags(self)
+   .. method:: get_tags(self, query_params={})
 
       The given method returns the list of tags for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: event_frames(self)
@@ -50,9 +51,10 @@ Classes
       The given method returns the list of event frames for the given asset
 
 
-   .. method:: batches(self)
+   .. method:: batches(self, query_params={})
 
       The given method returns the list of batches for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[])

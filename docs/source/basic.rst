@@ -73,6 +73,13 @@ This method returns the list of assets that the authenticated user has
 access to. The list of assets are an object of type ``EntityList``. More
 details on the class is provided below.
 
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the Assets accordingly.
+   Filter conditions can be like          
+|   ``{"created_at__gt": 162002555700, "status": 1}``
+
 ::
 
     client_assets = client.assets()
@@ -83,6 +90,13 @@ details on the class is provided below.
 This method returns the list of context frames which are created using the assets
 that the user has access to. The list of context frames are an
 object of type ``EntityList``. More details on the class is provided below.
+
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the ContextFrame Occurrences accordingly.
+   Filter conditions can be like 
+   ``{"start_ef_occurrence": "A3412", "stop_ef_occurrence": "C7415"}``
 
 ::
 
@@ -96,6 +110,11 @@ This method requires the following parameters to be called:
 **asset\_id (mandatory)**: The asset\_id of the asset whose tags are to
 be returned.
 
+**query\_params (optional)**: User can pass a dictionary of conditions 
+and condition values to filter the tags accordingly.
+Filter conditions can be like 
+|``{"tag_type": 1, "edge_connector": 674}``
+
 ::
 
     tags_of_asset_id_1 = client.tags(1)
@@ -106,6 +125,13 @@ be returned.
 This method returns the list of all the data sources which the user has access to.
 The list of data sources are an object of type ``EntityList``. More details on the class
 are provided below.
+
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the Assets accordingly.
+   Filter conditions can be like 
+   ``{"created_at__gt": 162002555700, "connector_protocol": 206}``
 
 ::
 
@@ -191,11 +217,25 @@ The available methods are as follows:
 The method returns all the tags present in the given asset in the form
 of ``EntityList`` where each object refers to ``Tag``.
 
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the tags accordingly.
+   Filter conditions can be like 
+|   ``{"tag_type": 1, "edge_connector": 674}``
+
 .batches
 ~~~~~~~~
 
 The method returns all the batches present in the given asset in the
 form of ``EntityList`` where each object refers to ``Batch``.
+
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the batches accordingly.
+   Filter conditions can be like 
+|   ``{"start_time__gt": 16267600304, "stop_time__lt": 16268600304}``
 
 .data
 ~~~~~
@@ -473,6 +513,13 @@ The available methods are as follows:
 -  **occurrences**: The method returns all the occurrences of the given
    ContextFrame in the form of ``EntityList`` where each object refers
    to ``ContextFrameOccurrence``.
+
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the ContextFrame Occurrences accordingly.
+   Filter conditions can be like 
+   ``{"start_ef_occurrence": "A3412", "stop_ef_occurrence": "C7415"}``
 
 ContextFrameOccurrence
 -------------------------
