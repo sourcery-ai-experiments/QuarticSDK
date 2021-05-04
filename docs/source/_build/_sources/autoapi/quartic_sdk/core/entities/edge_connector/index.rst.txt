@@ -31,7 +31,7 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the data source name with id
+      Override the method to return the data source name
 
 
    .. method:: get_tags(self, query_params={})

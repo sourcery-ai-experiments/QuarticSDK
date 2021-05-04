@@ -26,7 +26,7 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the Model with model name and id
+      Override the method to return the Model with model name
 
 
    .. method:: model_instance(self, query_params={})

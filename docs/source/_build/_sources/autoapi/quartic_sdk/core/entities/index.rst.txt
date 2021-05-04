@@ -54,7 +54,7 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the asset name with id
+      Override the method to return the asset name
 
 
    .. method:: get_tags(self, query_params={})
@@ -121,7 +121,7 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the asset name with id
+      Override the method to return the asset name
 
 
 
@@ -174,7 +174,7 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the data source name with id
+      Override the method to return the data source name
 
 
    .. method:: get_tags(self, query_params={})
@@ -239,7 +239,7 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the tag name with id
+      Override the method to return the tag name
 
 
    .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
@@ -288,7 +288,7 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the Model with model name and id
+      Override the method to return the Model with model name
 
 
    .. method:: model_instance(self, query_params={})
