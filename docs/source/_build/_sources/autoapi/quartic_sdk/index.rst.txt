@@ -48,20 +48,23 @@ Classes
       Return the SDK version
 
 
-   .. method:: assets(self)
+   .. method:: assets(self, query_params={})
 
       Get the assets method
+      :param query_params: Dictionary of filter conditions
 
 
-   .. method:: context_frames(self)
+   .. method:: context_frames(self, query_params={})
 
       Get the context frames method
+      :param query_params: Dictionary of filter conditions
       :return: (EntityList) List of context frames
 
 
-   .. method:: edge_connectors(self)
+   .. method:: edge_connectors(self, query_params={})
 
       Get the edge connectors method
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: process_units(self)
@@ -76,18 +79,20 @@ Classes
       Get the work cells
 
 
-   .. method:: tags(self, asset_id)
+   .. method:: tags(self, asset_id, query_params={})
 
       Get the tags
       :param asset_id: ID of the asset
+      :param query_params: Dictionary of filter conditions
       :return: (EntityList) List of tags belonging to the asset
 
 
-   .. method:: list_models(self, is_active: bool = None, ml_node: int = None)
+   .. method:: list_models(self, is_active: bool = None, ml_node: int = None, query_params={})
 
       List models and its parameters accessible by user
       :param is_active: Boolean Indicator if list should contain active nodes or not
       :param ml_node:   Ml Node id to filter models deployed to particular node
+      :param query_params: Dictionary of filter conditions
       :return:          list of dictionary
 
 
