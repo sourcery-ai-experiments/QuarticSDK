@@ -18,9 +18,9 @@ class EdgeConnector(Base):
 
     def __repr__(self):
         """
-        Override the method to return the data source name with id
+        Override the method to return the data source name
         """
-        return f"<{Constants.EDGE_CONNECTOR_ENTITY}: {self.name}_{self.id}>"
+        return f"<{Constants.EDGE_CONNECTOR_ENTITY}: {self.name}>"
 
     def get_tags(self, query_params={}):
         """

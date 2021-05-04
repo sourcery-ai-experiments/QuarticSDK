@@ -19,9 +19,9 @@ class Model(Base):
 
     def __repr__(self):
         """
-        Override the method to return the Model with model name and id
+        Override the method to return the Model with model name
         """
-        return f"<{Constants.MODEL_ENTITY}: {self.model_name}_{self.model_id}>"
+        return f"<{Constants.MODEL_ENTITY}: {self.model_name}>"
 
     def model_instance(self, query_params={}):
         """
