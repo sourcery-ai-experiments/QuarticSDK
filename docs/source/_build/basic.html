@@ -91,7 +91,7 @@ tokens, please refer to the Global Settings article in the Quartic Knowledge Bas
 <p>This method returns the list of assets that the authenticated user has
 access to. The list of assets are an object of type <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>. More
 details on the class is provided below.</p>
-<p>The method parameters are as follows:</p>
+<p>The method parameters as included in v2.0.0 are as follows:</p>
 <ul class="simple">
 <li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
 and condition values to filter the Assets accordingly.
@@ -109,7 +109,7 @@ Filter conditions can be like</p></li>
 <p>This method returns the list of context frames which are created using the assets
 that the user has access to. The list of context frames are an
 object of type <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>. More details on the class is provided below.</p>
-<p>The method parameters are as follows:</p>
+<p>The method parameters as included in v2.0.0 are as follows:</p>
 <ul class="simple">
 <li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
 and condition values to filter the ContextFrame Occurrences accordingly.
@@ -122,7 +122,7 @@ Filter conditions can be like
 </div>
 <div class="section" id="tags">
 <h4>.tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h4>
-<p>This method requires the following parameters to be called:</p>
+<p>The method parameters as included in v2.0.0 are as follows:</p>
 <p><strong>asset_id (mandatory)</strong>: The asset_id of the asset whose tags are to
 be returned.</p>
 <p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
@@ -138,7 +138,7 @@ Filter conditions can be like
 <p>This method returns the list of all the data sources which the user has access to.
 The list of data sources are an object of type <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>. More details on the class
 are provided below.</p>
-<p>The method parameters are as follows:</p>
+<p>The method parameters as included in v2.0.0 are as follows:</p>
 <ul class="simple">
 <li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
 and condition values to filter the Assets accordingly.
@@ -237,7 +237,7 @@ template as <cite>Asset: {asset_name}_{asset_id}</cite>. The available attribute
 <h4>.get_tags<a class="headerlink" href="#get-tags" title="Permalink to this headline">¶</a></h4>
 <p>The method returns all the tags present in the given asset in the form
 of <code class="docutils literal notranslate"><span class="pre">EntityList</span></code> where each object refers to <code class="docutils literal notranslate"><span class="pre">Tag</span></code>.</p>
-<p>The method parameters are as follows:</p>
+<p>The method parameters as included in v2.0.0 are as follows:</p>
 <ul class="simple">
 <li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
 and condition values to filter the tags accordingly.
@@ -251,7 +251,7 @@ Filter conditions can be like</p></li>
 <h4>.batches<a class="headerlink" href="#batches" title="Permalink to this headline">¶</a></h4>
 <p>The method returns all the batches present in the given asset in the
 form of <code class="docutils literal notranslate"><span class="pre">EntityList</span></code> where each object refers to <code class="docutils literal notranslate"><span class="pre">Batch</span></code>.</p>
-<p>The method parameters are as follows:</p>
+<p>The method parameters as included in v2.0.0 are as follows:</p>
 <ul class="simple">
 <li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
 and condition values to filter the batches accordingly.
@@ -633,17 +633,18 @@ template as <cite>ContextFrame: {context_frame_id}</cite></p>
 </ul>
 <div class="section" id="id10">
 <h3>The available methods are as follows:<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
+<ul>
 <li><p><strong>occurrences</strong>: The method returns all the occurrences of the given
 ContextFrame in the form of <code class="docutils literal notranslate"><span class="pre">EntityList</span></code> where each object refers
-to <code class="docutils literal notranslate"><span class="pre">ContextFrameOccurrence</span></code>.</p></li>
-</ul>
-<p>The method parameters are as follows:</p>
+to <code class="docutils literal notranslate"><span class="pre">ContextFrameOccurrence</span></code>.</p>
+<p>The method parameters as included in v2.0.0 are as follows:</p>
 <ul class="simple">
 <li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
 and condition values to filter the ContextFrame Occurrences accordingly.
 Filter conditions can be like
 <code class="docutils literal notranslate"><span class="pre">{&quot;start_ef_occurrence&quot;:</span> <span class="pre">&quot;A3412&quot;,</span> <span class="pre">&quot;stop_ef_occurrence&quot;:</span> <span class="pre">&quot;C7415&quot;}</span></code></p></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -744,12 +745,26 @@ exists or it belongs to a different class_type, it throws an exception.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="filter">
+<h4>.filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h4>
+<p>This method filters the given EntityList to return an updated list that contains only those entities which satisfy all the conditions given in arguments.
+It works with all primitive attribtues of the <code class="docutils literal notranslate"><span class="pre">Entity</span></code> in the <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>, if the specific operation is defined for that data type.</p>
+<p>It takes multiple keyword arguments as a parameter (<strong>**kwargs</strong>) to filter the entities.</p>
+<p>For a simple filter operation that includes entities by checking for equality, the format is: <cite>entity_attribute=value</cite></p>
+<p>For operators other than equality, the format is: <cite>entity_attribute__operator=value</cite></p>
+<p>You can <a href="https://docs.python.org/3/library/operator.html" target="_blank">refer here</a> for a list of possible operators.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s1">&#39;Inactive&#39;</span><span class="p">)</span>
+<span class="n">filtered_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">country__ne</span><span class="o">=</span><span class="s1">&#39;India&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="exclude">
 <h4>.exclude<a class="headerlink" href="#exclude" title="Permalink to this headline">¶</a></h4>
 <p>This method filters the given EntityList to return an updated list that
-doesn’t contain the entity which has the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute value as
-<code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">updated_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+doesn’t contain entities which satisfy any of the conditions given in arguments.</p>
+<p>It takes the same arguments as <code class="docutils literal notranslate"><span class="pre">.filter</span></code> above but negates the conditions to exclude them.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">updated_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">updated_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">created_at__lt</span><span class="o">=</span><span class="n">first_asset</span><span class="o">.</span><span class="n">created_at</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

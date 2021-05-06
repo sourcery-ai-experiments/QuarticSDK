@@ -103,8 +103,15 @@ class definition</p>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entity_helpers.entity_list.EntityList.filter">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">filter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entity_helpers.entity_list.EntityList.filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>We filter the entities based upon the given condition</p>
+<code class="sig-name descname"><span class="pre">filter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entity_helpers.entity_list.EntityList.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>We filter the entities based upon the given conditions
+There might be multiple conditions
+:param kwargs: Dict which maps <cite>filter_key</cite> to filter_value</p>
+<blockquote>
+<div><p>The <cite>filter_key</cite> can be decomposed into two parts: (attribute, operator)
+For instance, if <cite>filter_key</cite> is <cite>created_at__lt</cite> then (‘created_at’, ‘lt’)
+It might also be a simple query where we check for equality, then <cite>filter_key</cite> is simply the attribute name</p>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py method">
@@ -122,9 +129,9 @@ class definition</p>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entity_helpers.entity_list.EntityList.exclude">
-<code class="sig-name descname"><span class="pre">exclude</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entity_helpers.entity_list.EntityList.exclude" title="Permalink to this definition">¶</a></dt>
-<dd><p>We return the EntityList after removing the entity with the attribute
-name having the value as above</p>
+<code class="sig-name descname"><span class="pre">exclude</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entity_helpers.entity_list.EntityList.exclude" title="Permalink to this definition">¶</a></dt>
+<dd><p>We return the EntityList after removing the entities with the attributes having the given values
+:param kwargs: Dict which maps <cite>filter_key</cite> to filter_value</p>
 </dd></dl>
 
 <dl class="py method">

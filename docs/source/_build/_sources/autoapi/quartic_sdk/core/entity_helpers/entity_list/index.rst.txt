@@ -62,10 +62,14 @@ Classes
       Returns the length of all entities
 
 
-   .. method:: filter(self, condition)
-      :abstractmethod:
+   .. method:: filter(self, **kwargs)
 
-      We filter the entities based upon the given condition
+      We filter the entities based upon the given conditions
+      There might be multiple conditions
+      :param kwargs: Dict which maps `filter_key` to filter_value
+                     The `filter_key` can be decomposed into two parts: (attribute, operator)
+                     For instance, if `filter_key` is `created_at__lt` then ('created_at', 'lt')
+                     It might also be a simple query where we check for equality, then `filter_key` is simply the attribute name
 
 
    .. method:: check_object_in_list(self, instance)
@@ -79,10 +83,10 @@ Classes
       We add the given object instance to the entities list of the class
 
 
-   .. method:: exclude(self, name, value)
+   .. method:: exclude(self, **kwargs)
 
-      We return the EntityList after removing the entity with the attribute
-      name having the value as above
+      We return the EntityList after removing the entities with the attributes having the given values
+      :param kwargs: Dict which maps `filter_key` to filter_value
 
 
    .. method:: __iter__(self)
