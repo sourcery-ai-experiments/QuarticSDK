@@ -4,6 +4,8 @@ Changelog
 
 **Version 2.0.0**
 -----------------
+The version 2.0.0 will be incompatible for the Quartic Platform release <3.0.3, and all the previous versions of QuarticSDK will be incompatible for the platform after the platform release 3.0.3
+
 Changes
 ``````````
 - `@mprasoonquartic <https://github.com/mprasoonquartic/>`_: Modify to handle pagination based upon cursor instead of offset (`#85 <https://github.com/Quarticai/QuarticSDK/pull/85>`_)
