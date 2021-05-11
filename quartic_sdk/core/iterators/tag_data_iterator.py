@@ -215,19 +215,3 @@ class TagDataIterator:
             granularity=granularity,
             return_type=return_type,
             transformations=transformations)
-
-    @staticmethod
-    def return_complete_data_frame_from_iterator(tag_data_iterator):
-        """
-        Returns the complete data frame as returned from the tag data iterator
-        :param tag_data_iterator: TagDataIterator object
-        :return: (pd.DataFrame)
-        """
-        tag_data_iterator.return_type = Constants.RETURN_PANDAS
-        data_df = pd.DataFrame()
-        for iteration_df in tag_data_iterator:
-            if data_df.empty:
-                data_df = iteration_df
-            else:
-                data_df = pd.concat([data_df[:-1], iteration_df])
-        return data_df
