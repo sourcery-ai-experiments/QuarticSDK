@@ -92,14 +92,3 @@ class HistoricalTagDataIterator:
             return tag_data_return["data_points"]
 
         return self.__rearrange_json_to_create_data_frame(tag_data_return)
-
-    @staticmethod
-    def get_complete_data_in_range(historical_data_iterator):
-        """
-        Get complete data frame from the opcua data iterator
-        """
-        historical_data_iterator.return_type = Constants.RETURN_PANDAS
-        data_df = pd.DataFrame()
-        for iteration_df in historical_data_iterator:
-            data_df = pd.concat([data_df, iteration_df])
-        return data_df
