@@ -22,10 +22,46 @@ Classes
    The class is used to mock the call API which in turn calls the `requests`
    get, post, patch, put and delete methods
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: json(self)
 
       The method is called in the actual implementation to get the json
       form of the response object
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: raise_for_status(self)

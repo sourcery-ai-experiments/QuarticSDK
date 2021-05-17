@@ -22,9 +22,45 @@ Classes
    The given class is the entity list iterator which will be used to iterate
    for the given list of entities
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: __next__(self)
 
       Return the subsequent iteration results starting from 0 as index
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 

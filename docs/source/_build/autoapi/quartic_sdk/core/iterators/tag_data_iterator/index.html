@@ -50,19 +50,19 @@
 </table>
 <dl class="py class">
 <dt id="quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.iterators.tag_data_iterator.</span></code><code class="sig-name descname"><span class="pre">TagDataIterator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_JSON</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.iterators.tag_data_iterator.</span></code><code class="sig-name descname"><span class="pre">TagDataIterator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_JSON</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator" title="Permalink to this definition">¶</a></dt>
 <dd><p>The given class is the iterator class, which will be used to iterate
 for getting the tag data values at the given intervals</p>
 <dl class="py method">
-<dt id="quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.validate_transformations_schema">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">validate_transformations_schema</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.validate_transformations_schema" title="Permalink to this definition">¶</a></dt>
+<dt id="quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.raise_exception_for_transformation_schema">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">raise_exception_for_transformation_schema</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.raise_exception_for_transformation_schema" title="Permalink to this definition">¶</a></dt>
 <dd><p>We validate the transformations schema. Its schema would be like the following:
 [{“transformation_type”: “interpolation”, “column”: “1”, “method”: “linear”},
 {“transformation_type”: “aggregation”, “aggregation_column”: “2”,
 “aggregation_dict”: {“1”:{“1”:”max”},”2”:{“2”:”std”}}}]
 :param transformations: List of transformations in the schema as above
 :param tags: List of tag ids
-:return: (bool) Whether the transformation schema is valid</p>
+:return: (None) Does not return anything, raises exception if validation fails</p>
 </dd></dl>
 
 <dl class="py method">
@@ -72,48 +72,47 @@ for getting the tag data values at the given intervals</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.__next__">
-<code class="sig-name descname"><span class="pre">__next__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.__next__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the next object in the iteration</p>
+<dt id="quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.__iter__">
+<code class="sig-name descname"><span class="pre">__iter__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the data iterator with the data fetch state set at 0</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.__getitem__">
-<code class="sig-name descname"><span class="pre">__getitem__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.__getitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>We override this method to get the object at the given key</p>
+<dt id="quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.__next__">
+<code class="sig-name descname"><span class="pre">__next__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.__next__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the next object in the iteration.
+Note that the return object is inclusive of time ranges</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.create_tag_data_iterator">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">create_tag_data_iterator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.create_tag_data_iterator" title="Permalink to this definition">¶</a></dt>
-<dd><p>The method creates the TagDataIterator instance based upon the parameters that are passed here
-:param start_time: (epoch) Start_time for getting data
-:param stop_time: (epoch) Stop_time for getting data
-:param granularity: Granularity of the data
-:param return_type: The param decides whether the data after querying will be</p>
-<blockquote>
-<div><p>json(when value is “json”) or pandas dataframe(when value is “pd”). By default,
-it takes the value as “json”</p>
-</div></blockquote>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">create_tag_data_iterator</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.iterators.tag_data_iterator.TagDataIterator.create_tag_data_iterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method creates the TagDataIterator instance based upon the parameters that are passed here</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_time</strong> – (epoch) Start_time for getting data</p></li>
+<li><p><strong>stop_time</strong> – (epoch) Stop_time for getting data</p></li>
+<li><p><strong>granularity</strong> – Granularity of the data</p></li>
+<li><p><strong>return_type</strong> – The param decides whether the data after querying will be
+json(when value is “json”) or pandas dataframe(when value is “pd”). By default,
+it takes the value as “json”</p></li>
+<li><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
 interpolation or aggregation, depending upon which, we pass the value of this
-dictionary. An example value here is:
-[{</p>
-<blockquote>
-<div><p>”transformation_type”: “interpolation”,
+dictionary. An example value here is:</p>
+<dl class="simple">
+<dt>[{</dt><dd><p>“transformation_type”: “interpolation”,
 “column”: “3”,
 “method”: “linear”</p>
-</div></blockquote>
-<dl class="simple">
+</dd>
 <dt>}, {</dt><dd><p>“transformation_type”: “aggregation”,
 “aggregation_column”: “4”,
 “aggregation_dict”: {“3”: “max”}</p>
 </dd>
 </dl>
 <p>}]</p>
-</p>
+</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>(DataIterator) DataIterator object which can be iterated to get the data
@@ -150,6 +149,7 @@ between the given duration</p>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../basic.html">Basic Functionality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../model_creation.html">Model Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../index.html">API Reference</a></li>
 </ul>
 

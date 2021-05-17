@@ -26,26 +26,29 @@ Classes
 
    Note: Please do not overwrite method :func: `save` as it contains utilities to validate and deploy model to Quartic
 
-   Parameters
-   ----------
-   name : Name of the model to be saved in Quartic
-   description : Description of the current model
-   log_level : Log Level for logs created/executed during run time i.e. during real time predictions
+   :Parameters:
 
-   Attributes
-   ----------
-   name : Name of the model to be saved in Quartic
-   description : description of model
-   log_level : Log level
-   log : Logger instance which can be used to set run time logs ex: self.log.info("Example Log")
+       **name** : Name of the model to be saved in Quartic
+           ..
 
-   Methods
-   -------
-   save    :   private save method to save deploy model to quartic
-   predict :   abstract predict method which needs to overridden
+       **description** : Description of the current model
+           ..
 
-   Examples
-   --------
+       **log_level** : Log Level for logs created/executed during run time i.e. during real time predictions
+           ..
+
+
+
+
+
+
+
+
+
+
+
+   .. rubric:: Examples
+
    class MyModel(BaseQuarticModel):
        def __init__(self, model):
            self.model = model
@@ -70,6 +73,32 @@ Classes
    my_model = MyModel(lr)
    my_model.save('my_model_output', [Tag('A'), Tag('B')], Tag('C'), input_data, None)
 
+   :Attributes:
+
+       **name** : Name of the model to be saved in Quartic
+           ..
+
+       **description** : description of model
+           ..
+
+       **log_level** : Log level
+           ..
+
+       **log** : Logger instance which can be used to set run time logs ex: self.log.info("Example Log")
+           ..
+
+   .. rubric:: Methods
+
+
+
+   ===========  ==========
+      **save**  (  private save method to save deploy model to quartic)   
+   **predict**  (  abstract predict method which needs to overridden)   
+   ===========  ==========
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: save(self, client, output_tag_name: str, feature_tags: List[int], target_tag: int, test_df: pandas.DataFrame, ml_node: int = None)
 
       :param client:          Quartic APIClient
@@ -82,12 +111,48 @@ Classes
       :return:                None on successfully storing the model to Quartic Platform
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: predict(self, input_df: pandas.DataFrame) -> pandas.Series
       :abstractmethod:
 
       Abstract method for custom predict method
       :param input_df: Input Data frame for prediction
       :return:    Returns pd
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 

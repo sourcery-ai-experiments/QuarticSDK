@@ -200,14 +200,10 @@ template as <cite>Asset: {asset_name}_{asset_id}</cite>. The available attribute
 <li><p><strong>last_overhaul_date</strong>: The last overhaul date of the asset in epoch</p></li>
 <li><p><strong>onboarded_at</strong>: The onboarded at time of the asset in epoch</p></li>
 <li><p><strong>created_at</strong>: The created at time of the asset in epoch</p></li>
-<li><p><strong>status</strong>: The streaming status of the asset :- 0.INIT, 1.ACTIVE, 2.PARTIAL_STREAMING, 3.INACTIVE, 4.UNASSIGNED_TAGS</p></li>
+<li><p><strong>status</strong>: The streaming status of the asset. They are given by:</p></li>
 </ul>
-<<<<<<< HEAD
-<div class="section" id="id2">
-<h3>The available methods are as follows:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-=======
-<table class="colwidths-given docutils align-default" id="id16">
-<caption><span class="caption-text">Asset streaming status</span><a class="headerlink" href="#id16" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id15">
+<caption><span class="caption-text">Asset streaming status</span><a class="headerlink" href="#id15" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -237,7 +233,6 @@ template as <cite>Asset: {asset_name}_{asset_id}</cite>. The available attribute
 </table>
 <div class="section" id="id4">
 <h3>The available methods are as follows:<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
->>>>>>> 771990a... Merge pull request #97 from Quarticai/PLT-5377
 <div class="section" id="get-tags">
 <h4>.get_tags<a class="headerlink" href="#get-tags" title="Permalink to this headline">¶</a></h4>
 <p>The method returns all the tags present in the given asset in the form
@@ -306,18 +301,10 @@ template as <cite>Tag: {tag_name}_{tag_id}</cite></p>
 <li><p><strong>id</strong>: Tag ID</p></li>
 <li><p><strong>name</strong>: Tag Name</p></li>
 <li><p><strong>tag_type</strong>: The tag types:- 1.Raw, 2.Soft, 3.Aggregation, 4.Bitwise, 5.Writeback</p></li>
-<<<<<<< HEAD
-<li><p><strong>tag_data_type</strong>: The tag data types:- 0.Double, 1.String, 2.Boolean, 3.Int, 4.Long, 5.Float</p></li>
-<li><p><strong>short_name</strong>: Tag short name</p></li>
-<li><p><strong>edge_connector</strong>: The data source ID</p></li>
-<li><p><strong>tag_process_type</strong>: The tag process types:- 1.Process Variable, 2.Condition Variable, 3.Process Alarm, 4.Process Event, 5.Anomaly Score, 6.Predicted Variable, 7.Others, 8.Workflow, 9.Influencing Score</p></li>
-<li><p><strong>category</strong>: Intelligence Categories:- 1.Energy, 2.Throughput, 3.Reliability, 4.Quality, 5.Safety, 6.Environment</p></li>
-<li><p><strong>uom_name</strong>: The name of measurement unit:- 1.Celsius, 2.Fahrenheit, 3.Pound per square inch, 4.Pascal, 5.Millibar, 6.Pound-force per square inch, 7.dB, 8.Acceleration of gravity, 9.Inch per second, 10.Revolutions per minute, 11.Meter, 12.Centemeter, 13.Millimeter, 14.Metre per second squared, 15.Millimetre per second, 16.Volt, 17.Amperes, 18.Milliampere, 19.Poiseuille, 20.Poise, 21.Kinematic, 22.Stokes, 23.Standard litre per minute, 24.On/Off, 25.Percent, 26.pH, 27.kilogram, 28.Percent On, 29.None, 30.Millimetre per second squared, 31.Counts, 32.Gallon, 33.Gallon per minute, 34.Inch, 35.Micro Simens, 36.Micro Simens Per Centimeter, 37.Parts Per Million, 38.Running/Stopped, 39.Open/Closed, 40.0/1, 41.Liters, 42.Hertz, 43.Hours, 44.Tonnes, 45.Optical density, 46.in/s pk, 47.Gs p-p, 48.Gs rms, 49.Gs pk, 50.kg/h, 51.kQ, null.No unit</p></li>
-=======
 <li><p><strong>tag_data_type</strong>: The tag data types. They are given by</p></li>
 </ul>
-<table class="colwidths-given docutils align-default" id="id17">
-<caption><span class="caption-text">Tag Data Types</span><a class="headerlink" href="#id17" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id16">
+<caption><span class="caption-text">Tag Data Types</span><a class="headerlink" href="#id16" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -350,8 +337,8 @@ template as <cite>Tag: {tag_name}_{tag_id}</cite></p>
 <li><p><strong>edge_connector</strong>: The data source ID</p></li>
 <li><p><strong>tag_process_type</strong>: The tag process types. They are given by:</p></li>
 </ul>
-<table class="colwidths-given docutils align-default" id="id18">
-<caption><span class="caption-text">Tag Process Type</span><a class="headerlink" href="#id18" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id17">
+<caption><span class="caption-text">Tag Process Type</span><a class="headerlink" href="#id17" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -394,8 +381,8 @@ template as <cite>Tag: {tag_name}_{tag_id}</cite></p>
 <ul class="simple">
 <li><p><strong>category</strong>: Intelligence Categories. They are given by:</p></li>
 </ul>
-<table class="colwidths-given docutils align-default" id="id19">
-<caption><span class="caption-text">Tag Intelligence Categories</span><a class="headerlink" href="#id19" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id18">
+<caption><span class="caption-text">Tag Intelligence Categories</span><a class="headerlink" href="#id18" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -428,7 +415,6 @@ template as <cite>Tag: {tag_name}_{tag_id}</cite></p>
 </table>
 <ul class="simple">
 <li><p><strong>uom_name</strong>: The name of measurement unit.</p></li>
->>>>>>> 771990a... Merge pull request #97 from Quarticai/PLT-5377
 <li><p><strong>asset</strong>: ID of the asset</p></li>
 <li><p><strong>created_by</strong>: The user ID, who created this tag</p></li>
 <li><p><strong>value_table</strong>: The key value pair where key is the integer while the value is the string</p></li>
@@ -492,17 +478,10 @@ template as <cite>datasource: {datasource_name}_{datasource_id}</cite></p>
 <li><p><strong>id</strong>: Datasource ID</p></li>
 <li><p><strong>created_at</strong>: Time of creation of data source in epoch</p></li>
 <li><p><strong>edge_device</strong>: ID of the edge node</p></li>
-<<<<<<< HEAD
-<li><p><strong>connector_protocol</strong>: The different datasource types:- 200.ABDF1, 201.OPTO22, 202.OPCDA, 203.OSIPI, 204.MODBUS, 205.MQTT, 206.OPCUA, 207.SQL</p></li>
-<li><p><strong>last_streamed_on</strong>: Last streamed on epoch</p></li>
-<li><p><strong>update_interval</strong>: Update interval in ms</p></li>
-<li><p><strong>name</strong>: Name of the datasource</p></li>
-<li><p><strong>stream_status</strong>: The stream status for the datasource:- 0.INIT, 1.ACTIVE, 2.PARTIAL STREAMING, 3.INACTIVE, 4.UNASSIGNED TAGS</p></li>
-=======
 <li><p><strong>connector_protocol</strong>: The different datasource types are as follows:</p></li>
 </ul>
-<table class="colwidths-given docutils align-default" id="id20">
-<caption><span class="caption-text">Data Source connector protocol</span><a class="headerlink" href="#id20" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id19">
+<caption><span class="caption-text">Data Source connector protocol</span><a class="headerlink" href="#id19" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -545,8 +524,8 @@ template as <cite>datasource: {datasource_name}_{datasource_id}</cite></p>
 <li><p><strong>name</strong>: Name of the datasource</p></li>
 <li><p><strong>stream_status</strong>: The stream status for the datasource are as follows:</p></li>
 </ul>
-<table class="colwidths-given docutils align-default" id="id21">
-<caption><span class="caption-text">Data Source streaming status</span><a class="headerlink" href="#id21" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id20">
+<caption><span class="caption-text">Data Source streaming status</span><a class="headerlink" href="#id20" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -575,7 +554,6 @@ template as <cite>datasource: {datasource_name}_{datasource_id}</cite></p>
 </tbody>
 </table>
 <ul class="simple">
->>>>>>> 771990a... Merge pull request #97 from Quarticai/PLT-5377
 <li><p><strong>created_by</strong>: ID of the user who created the datasource</p></li>
 <li><p><strong>config</strong>: Configurations of the data source</p></li>
 <li><p><strong>parent</strong>: In case of query datasource, this refers to the ID of the parent datasource</p></li>
@@ -743,12 +721,26 @@ exists or it belongs to a different class_type, it throws an exception.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="filter">
+<h4>.filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h4>
+<p>This method filters the given EntityList to return an updated list that contains only those entities which satisfy all the conditions given in arguments.
+It works with all primitive attribtues of the <code class="docutils literal notranslate"><span class="pre">Entity</span></code> in the <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>, if the specific operation is defined for that data type.</p>
+<p>It takes multiple keyword arguments as a parameter (<strong>**kwargs</strong>) to filter the entities.</p>
+<p>For a simple filter operation that includes entities by checking for equality, the format is: <cite>entity_attribute=value</cite></p>
+<p>For operators other than equality, the format is: <cite>entity_attribute__operator=value</cite></p>
+<p>You can <a href="https://docs.python.org/3/library/operator.html" target="_blank">refer here</a> for a list of possible operators.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s1">&#39;Inactive&#39;</span><span class="p">)</span>
+<span class="n">filtered_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">country__ne</span><span class="o">=</span><span class="s1">&#39;India&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="exclude">
 <h4>.exclude<a class="headerlink" href="#exclude" title="Permalink to this headline">¶</a></h4>
 <p>This method filters the given EntityList to return an updated list that
-doesn’t contain the entity which has the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute value as
-<code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">updated_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+doesn’t contain entities which satisfy any of the conditions given in arguments.</p>
+<p>It takes the same arguments as <code class="docutils literal notranslate"><span class="pre">.filter</span></code> above but negates the conditions to exclude them.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">updated_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">updated_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">created_at__lt</span><span class="o">=</span><span class="n">first_asset</span><span class="o">.</span><span class="n">created_at</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -788,29 +780,6 @@ method divides the complete interval between <code class="docutils literal notra
 <code class="docutils literal notranslate"><span class="pre">stop_time</span></code> into different time_ranges, with each range containing up
 to 200,000 data points for all the tags. The user can loop through this
 interval to get all the data points.</p>
-<<<<<<< HEAD
-=======
-</div>
-<div class="section" id="historicaltagdataiterator">
-<h2>HistoricalTagDataIterator<a class="headerlink" href="#historicaltagdataiterator" title="Permalink to this headline">¶</a></h2>
-<p>Querying historical data for any set of tags in any given duration returns
-an instance of <code class="docutils literal notranslate"><span class="pre">HistoricalTagDataIterator</span></code>, which can be used to iterate
-between the given time range. When the <code class="docutils literal notranslate"><span class="pre">.historical_data</span></code> of data source
-is called, the class queries via cursor, based upon the entered <code class="docutils literal notranslate"><span class="pre">batch_size</span></code></p>
-<div class="section" id="id15">
-<h3>The available methods are as follows:<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="get-complete-data-in-range">
-<h4>.get_complete_data_in_range<a class="headerlink" href="#get-complete-data-in-range" title="Permalink to this headline">¶</a></h4>
-<p>The method loops through the complete range and returns the final data frame
-which is required. Note that this is meant to be used only for pandas return
-of historical data and not for json return. The method has the following parameters:</p>
-<ul class="simple">
-<li><p><strong>historical_data_iterator (mandatory)</strong> This is the historicaldataiterator
-object whose complete data is to be returned</p></li>
-</ul>
-</div>
-</div>
->>>>>>> 771990a... Merge pull request #97 from Quarticai/PLT-5377
 <div class="section" id="transformations">
 <h3>Transformations:<a class="headerlink" href="#transformations" title="Permalink to this headline">¶</a></h3>
 <p>The tag data iterator is created based upon the multiple transformations
@@ -885,6 +854,7 @@ aggregated.</p></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="model_creation.html">Model Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
 </ul>
 

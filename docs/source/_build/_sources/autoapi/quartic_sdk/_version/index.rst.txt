@@ -7,17 +7,16 @@
 
    Refers to the version of the package
 
+   ..
+       !! processed by numpydoc !!
+
 
 
 Module Contents
 ---------------
 
 .. data:: __version__
-<<<<<<< HEAD
-   :annotation: = plt.4723.0
-=======
-   :annotation: = plt.5368.0
->>>>>>> 771990a... Merge pull request #97 from Quarticai/PLT-5377
+   :annotation: = r1.2.0.0
 
    
 

@@ -81,6 +81,7 @@ class EntityList:
         """
         We filter the entities based upon the given conditions
         There might be multiple conditions
+
         :param kwargs: Dict which maps `filter_key` to filter_value
                        The `filter_key` can be decomposed into two parts: (attribute, operator)
                        For instance, if `filter_key` is `created_at__lt` then ('created_at', 'lt')
@@ -97,6 +98,7 @@ class EntityList:
     def check_object_in_list(self, instance):
         """
         We check whether the instance is already in the list
+
         :param instance: Object that is to be added to the list
         """
         if not self._validate_type(instance):
@@ -117,6 +119,7 @@ class EntityList:
     def exclude(self, **kwargs):
         """
         We return the EntityList after removing the entities with the attributes having the given values
+
         :param kwargs: Dict which maps `filter_key` to filter_value
         """
         return self.filter(**kwargs, _negate=True)
@@ -159,6 +162,7 @@ class EntityList:
         """
         Get the data of all tags in the list between the given start_time and
         stop_time for the given granularity
+
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param granularity: Granularity of the data
@@ -168,6 +172,7 @@ class EntityList:
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
             dictionary. An example value here is:
+            
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
@@ -176,6 +181,7 @@ class EntityList:
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
                 "aggregation_dict": {"3": "max"}
+
             }]
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration

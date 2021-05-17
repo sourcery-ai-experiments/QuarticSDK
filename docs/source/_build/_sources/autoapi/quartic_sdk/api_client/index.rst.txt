@@ -25,10 +25,46 @@ Classes
       Return the SDK version
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: assets(self, query_params={})
 
       Get the assets method
       :param query_params: Dictionary of filter conditions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: context_frames(self, query_params={})
@@ -38,10 +74,46 @@ Classes
       :return: (EntityList) List of context frames
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: edge_connectors(self, query_params={})
 
       Get the edge connectors method
       :param query_params: Dictionary of filter conditions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: process_units(self)
@@ -50,10 +122,46 @@ Classes
       Get the process units
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: work_cells(self)
       :abstractmethod:
 
       Get the work cells
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: tags(self, asset_id, query_params={})
@@ -64,17 +172,49 @@ Classes
       :return: (EntityList) List of tags belonging to the asset
 
 
-<<<<<<< HEAD
-   .. method:: list_models(self, is_active: bool = None, ml_node: int = None) -> List[Dict]
-=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: list_models(self, is_active: bool = None, ml_node: int = None, query_params={})
->>>>>>> 771990a... Merge pull request #97 from Quarticai/PLT-5377
 
       List models and its parameters accessible by user
       :param is_active: Boolean Indicator if list should contain active nodes or not
       :param ml_node:   Ml Node id to filter models deployed to particular node
       :param query_params: Dictionary of filter conditions
       :return:          list of dictionary
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 

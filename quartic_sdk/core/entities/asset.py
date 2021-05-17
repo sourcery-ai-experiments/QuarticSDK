@@ -70,6 +70,7 @@ class Asset(Base):
         """
         Get the data of all tags in the asset between the given start_time and
         stop_time for the given granularity
+
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param granularity: Granularity of the data
@@ -79,15 +80,19 @@ class Asset(Base):
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
             dictionary. An example value here is:
+
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
                 "method": "linear"
-            }, {
+            },{
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
                 "aggregation_dict": {"3": "max"}
+
             }]
+
+            
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """

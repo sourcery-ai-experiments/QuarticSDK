@@ -167,6 +167,7 @@ class TagDataIterator:
             transformations=[]):
         """
         The method creates the TagDataIterator instance based upon the parameters that are passed here
+
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param granularity: Granularity of the data
@@ -176,6 +177,7 @@ class TagDataIterator:
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
             dictionary. An example value here is:
+
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
@@ -184,6 +186,7 @@ class TagDataIterator:
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
                 "aggregation_dict": {"3": "max"}
+
             }]
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration

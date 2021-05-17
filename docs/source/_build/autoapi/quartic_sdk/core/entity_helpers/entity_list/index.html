@@ -103,15 +103,28 @@ class definition</p>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entity_helpers.entity_list.EntityList.filter">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">filter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">condition</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entity_helpers.entity_list.EntityList.filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>We filter the entities based upon the given condition</p>
+<code class="sig-name descname"><span class="pre">filter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entity_helpers.entity_list.EntityList.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>We filter the entities based upon the given conditions
+There might be multiple conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Dict which maps <cite>filter_key</cite> to filter_value
+The <cite>filter_key</cite> can be decomposed into two parts: (attribute, operator)
+For instance, if <cite>filter_key</cite> is <cite>created_at__lt</cite> then (‘created_at’, ‘lt’)
+It might also be a simple query where we check for equality, then <cite>filter_key</cite> is simply the attribute name</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entity_helpers.entity_list.EntityList.check_object_in_list">
 <code class="sig-name descname"><span class="pre">check_object_in_list</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entity_helpers.entity_list.EntityList.check_object_in_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>We check whether the instance is already in the list
-:param instance: Object that is to be added to the list</p>
+<dd><p>We check whether the instance is already in the list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>instance</strong> – Object that is to be added to the list</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -122,9 +135,13 @@ class definition</p>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entity_helpers.entity_list.EntityList.exclude">
-<code class="sig-name descname"><span class="pre">exclude</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entity_helpers.entity_list.EntityList.exclude" title="Permalink to this definition">¶</a></dt>
-<dd><p>We return the EntityList after removing the entity with the attribute
-name having the value as above</p>
+<code class="sig-name descname"><span class="pre">exclude</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entity_helpers.entity_list.EntityList.exclude" title="Permalink to this definition">¶</a></dt>
+<dd><p>We return the EntityList after removing the entities with the attributes having the given values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Dict which maps <cite>filter_key</cite> to filter_value</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -153,36 +170,34 @@ name having the value as above</p>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entity_helpers.entity_list.EntityList.data">
-<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entity_helpers.entity_list.EntityList.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entity_helpers.entity_list.EntityList.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the data of all tags in the list between the given start_time and
-stop_time for the given granularity
-:param start_time: (epoch) Start_time for getting data
-:param stop_time: (epoch) Stop_time for getting data
-:param granularity: Granularity of the data
-:param return_type: The param decides whether the data after querying will be</p>
-<blockquote>
-<div><p>json(when value is “json”) or pandas dataframe(when value is “pd”). By default,
-it takes the value as “json”</p>
-</div></blockquote>
+stop_time for the given granularity</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_time</strong> – (epoch) Start_time for getting data</p></li>
+<li><p><strong>stop_time</strong> – (epoch) Stop_time for getting data</p></li>
+<li><p><strong>granularity</strong> – Granularity of the data</p></li>
+<li><p><strong>return_type</strong> – The param decides whether the data after querying will be
+json(when value is “json”) or pandas dataframe(when value is “pd”). By default,
+it takes the value as “json”</p></li>
+<li><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
 interpolation or aggregation, depending upon which, we pass the value of this
-dictionary. An example value here is:
-[{</p>
-<blockquote>
-<div><p>”transformation_type”: “interpolation”,
+dictionary. An example value here is:</p>
+<dl class="simple">
+<dt>[{</dt><dd><p>“transformation_type”: “interpolation”,
 “column”: “3”,
 “method”: “linear”</p>
-</div></blockquote>
-<dl class="simple">
+</dd>
 <dt>}, {</dt><dd><p>“transformation_type”: “aggregation”,
 “aggregation_column”: “4”,
 “aggregation_dict”: {“3”: “max”}</p>
 </dd>
 </dl>
 <p>}]</p>
-</p>
+</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>(DataIterator) DataIterator object which can be iterated to get the data
@@ -219,6 +234,7 @@ between the given duration</p>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../basic.html">Basic Functionality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../model_creation.html">Model Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../index.html">API Reference</a></li>
 </ul>
 

@@ -85,15 +85,16 @@ User need to Inherit this class and override the predict method with all the pos
 preprocessing, prediction, postprocessing the pandas dataframe passed to :func: <cite>predict</cite> during real time
 prediction.</p>
 <p>Note: Please do not overwrite method :func: <cite>save</cite> as it contains utilities to validate and deploy model to Quartic</p>
-<p>name : Name of the model to be saved in Quartic
-description : Description of the current model
-log_level : Log Level for logs created/executed during run time i.e. during real time predictions</p>
-<p>name : Name of the model to be saved in Quartic
-description : description of model
-log_level : Log level
-log : Logger instance which can be used to set run time logs ex: self.log.info(“Example Log”)</p>
-<p>save    :   private save method to save deploy model to quartic
-predict :   abstract predict method which needs to overridden</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name</strong><span class="classifier">Name of the model to be saved in Quartic</span></dt><dd></dd>
+<dt><strong>description</strong><span class="classifier">Description of the current model</span></dt><dd></dd>
+<dt><strong>log_level</strong><span class="classifier">Log Level for logs created/executed during run time i.e. during real time predictions</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
 <dl class="simple">
 <dt>class MyModel(BaseQuarticModel):</dt><dd><dl class="simple">
 <dt>def __init__(self, model):</dt><dd><p>self.model = model
@@ -117,6 +118,31 @@ return postprocess(prediction_df)[‘output_column’] # pandas Series</p>
 lr.train(input_data)
 my_model = MyModel(lr)
 my_model.save(‘my_model_output’, [Tag(‘A’), Tag(‘B’)], Tag(‘C’), input_data, None)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name</strong><span class="classifier">Name of the model to be saved in Quartic</span></dt><dd></dd>
+<dt><strong>description</strong><span class="classifier">description of model</span></dt><dd></dd>
+<dt><strong>log_level</strong><span class="classifier">Log level</span></dt><dd></dd>
+<dt><strong>log</strong><span class="classifier">Logger instance which can be used to set run time logs ex: self.log.info(“Example Log”)</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>save</strong></p></td>
+<td><p>(  private save method to save deploy model to quartic)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>predict</strong></p></td>
+<td><p>(  abstract predict method which needs to overridden)</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py method">
 <dt id="quartic_sdk.model.tests.BaseQuarticModel.save">
 <code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_tag_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_tags</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_tag</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ml_node</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.model.tests.BaseQuarticModel.save" title="Permalink to this definition">¶</a></dt>
@@ -297,6 +323,7 @@ raises a NotImplementedError.</p>
 <li class="toctree-l1"><a class="reference internal" href="../../../../quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../basic.html">Basic Functionality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../model_creation.html">Model Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../index.html">API Reference</a></li>
 </ul>
 

@@ -15,11 +15,16 @@ This class has the following parameters for initialization:
 
 -  **host (mandatory)**: Refers to the host the user connects to for
    making API calls.
+
 -  **username (optional)**: Required for Basic Authentication.
+
 -  **password (optional)**: Required for Basic Authentication.
+
 -  **oauth\_token (optional)**: Required for OAuth2.0 Authentication.
+
 -  **verify\_ssl (optional)**: Required when the host needs to be
    verified for SSL.
+
 -  **cert\_path (optional)**: Required for verification of SSL certificates for HTTPS requests.
 
 Here's an example:
@@ -78,6 +83,7 @@ The method parameters are as follows:
 -  **query\_params (optional)**: User can pass a dictionary of conditions 
    and condition values to filter the Assets accordingly.
    Filter conditions can be like          
+   
 |   ``{"created_at__gt": 162002555700, "status": 1}``
 
 ::
@@ -189,6 +195,7 @@ template as `Asset: {asset_name}_{asset_id}`. The available attributes in the cl
 -  **onboarded_at**: The onboarded at time of the asset in epoch
 -  **created_at**: The created at time of the asset in epoch
 -  **status**: The streaming status of the asset. They are given by:
+
 .. list-table:: Asset streaming status
    :widths: 50 50
    :header-rows: 1
@@ -221,7 +228,8 @@ The method parameters are as follows:
 
 -  **query\_params (optional)**: User can pass a dictionary of conditions 
    and condition values to filter the tags accordingly.
-   Filter conditions can be like 
+   Filter conditions can be like
+
 |   ``{"tag_type": 1, "edge_connector": 674}``
 
 .batches
@@ -235,6 +243,7 @@ The method parameters are as follows:
 -  **query\_params (optional)**: User can pass a dictionary of conditions 
    and condition values to filter the batches accordingly.
    Filter conditions can be like 
+
 |   ``{"start_time__gt": 16267600304, "stop_time__lt": 16268600304}``
 
 .data
@@ -279,6 +288,7 @@ The available attributes in this class are:
 -  **name**: Tag Name
 -  **tag_type**: The tag types:- 1.Raw, 2.Soft, 3.Aggregation, 4.Bitwise, 5.Writeback
 -  **tag_data_type**: The tag data types. They are given by
+
 .. list-table:: Tag Data Types
    :widths: 50 50
    :header-rows: 1
@@ -295,9 +305,11 @@ The available attributes in this class are:
      - BITWISE
    * - 5
      - WRITEBACK
+
 -  **short_name**: Tag short name
 -  **edge_connector**: The data source ID
 -  **tag_process_type**: The tag process types. They are given by:
+
 .. list-table:: Tag Process Type
    :widths: 50 50
    :header-rows: 1
@@ -322,7 +334,9 @@ The available attributes in this class are:
      - WORKFLOW
    * - 9
      - INFLUENCING_SCORE
+
 -  **category**: Intelligence Categories. They are given by:
+
 .. list-table:: Tag Intelligence Categories
    :widths: 50 50
    :header-rows: 1
@@ -341,6 +355,7 @@ The available attributes in this class are:
      - Safety
    * - 6
      - Environment
+
 -  **uom_name**: The name of measurement unit.
 -  **asset**: ID of the asset
 -  **created_by**: The user ID, who created this tag
@@ -408,6 +423,7 @@ The available attributes in this class are:
 -  **created_at**: Time of creation of data source in epoch
 -  **edge_device**: ID of the edge node
 -  **connector_protocol**: The different datasource types are as follows:
+
 .. list-table:: Data Source connector protocol
    :widths: 50 50
    :header-rows: 1
@@ -430,10 +446,12 @@ The available attributes in this class are:
      - OPCUA
    * - 207
      - SQL
+
 -  **last_streamed_on**: Last streamed on epoch
 -  **update_interval**: Update interval in ms
 -  **name**: Name of the datasource
 -  **stream_status**: The stream status for the datasource are as follows:
+
 .. list-table:: Data Source streaming status
    :widths: 50 50
    :header-rows: 1
@@ -450,8 +468,11 @@ The available attributes in this class are:
      - INACTIVE
    * - 4
      - UNASSIGNED_TAGS
+
 -  **created_by**: ID of the user who created the datasource
+
 -  **config**: Configurations of the data source
+
 -  **parent**: In case of query datasource, this refers to the ID of the parent datasource
 
 The available methods are as follows:

@@ -7,6 +7,9 @@
 
    The given file contains the class to refer to the Batch entity
 
+   ..
+       !! processed by numpydoc !!
+
 
 
 Module Contents
@@ -29,9 +32,45 @@ Classes
    The given class refers to the batch entity which is created based upon the batch
    object returned from the API
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: __repr__(self)
 
       Override the method to return the asset name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 
