@@ -29,8 +29,7 @@ class EdgeConnector(Base):
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         if self.connector_protocol == Constants.CONNECTOR_PROTOCOLS[Constants.SQL]:
-            new_query_params = {}
-            new_query_params["parent"] = self.id
+            new_query_params = {"parent": self.id}
             sub_edge_connectors_json = self.api_helper.call_api(
                 Constants.GET_EDGE_CONNECTORS, Constants.API_GET, new_query_params)
             sub_edge_connectors = EntityFactory(Constants.EDGE_CONNECTOR_ENTITY, sub_edge_connectors_json,
