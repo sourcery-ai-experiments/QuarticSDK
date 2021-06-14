@@ -16,7 +16,7 @@ Module Contents
 ---------------
 
 .. data:: __version__
-   :annotation: = r1.2.0.0
+   :annotation: = 2.0.0
 
    
 
