@@ -40,11 +40,21 @@ class Asset(Base):
             tags_response,
             self.api_helper)
 
-    def event_frames(self):
+    def event_frames(self, query_params={}):
         """
         The given method returns the list of event frames for the given asset
+        :param query_params: Dictionary of filter conditions
         """
-        raise NotImplementedError
+        from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
+        query_params["asset"] = self.id
+        event_frame_response = self.api_helper.call_api(
+            Constants.GET_EVENT_FRAMES,
+            Constants.API_GET,
+            query_params=query_params).json()
+        return EntityFactory(
+            Constants.EVENT_FRAME_ENTITY,
+            event_frame_response,
+            self.api_helper)
 
     def batches(self, query_params={}):
         """
@@ -91,7 +101,8 @@ class Asset(Base):
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        tags = self.get_tags().exclude(tag_data_type=Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
+        tags = self.get_tags().exclude(
+            tag_data_type=Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
         logging.info("Filtering to fetch data only for non-spectral tags")
         return TagDataIterator.create_tag_data_iterator(
             tags,

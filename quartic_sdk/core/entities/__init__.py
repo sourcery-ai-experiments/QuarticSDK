@@ -6,3 +6,5 @@ from quartic_sdk.core.entities.context_frame_occurrence import ContextFrameOccur
 from quartic_sdk.core.entities.edge_connector import EdgeConnector
 from quartic_sdk.core.entities.tag import Tag
 from quartic_sdk.core.entities.model import Model
+from quartic_sdk.core.entities.event_frame import EventFrame
+from quartic_sdk.core.entities.event_frame_occurrence import EventFrameOccurrence

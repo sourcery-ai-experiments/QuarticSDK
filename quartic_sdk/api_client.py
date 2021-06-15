@@ -91,6 +91,16 @@ class APIClient:
             return_json,
             self.api_helper)
 
+    def event_frames(self, query_params={}):
+        """
+        Get the Event Frames
+        :param query_params: Dictionary of filter conditions
+        :return: (EntityList) List of Event Frames belonging to the asset
+        """
+        return_json = self.api_helper.call_api(
+            Constants.GET_EVENT_FRAMES, Constants.API_GET).json()
+        return EntityFactory(Constants.EVENT_FRAME_ENTITY, return_json, self.api_helper)
+
     def list_models(
             self,
             is_active: bool = None,
