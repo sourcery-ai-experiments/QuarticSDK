@@ -34,6 +34,8 @@ def step_impl(context):
         world.client_assets = world.client.assets()
 
     world.first_asset = world.client_assets.first()
+    world.assets_excluding_first = world.client_assets.exclude(id=world.first_asset.id)
+    world.assets_filtered = world.client_assets.filter(id=world.first_asset.id)
 
     with mock.patch('requests.get') as requests_get:
         requests_get.return_value = TestHelpers.APIHelperCallAPI(
@@ -88,13 +90,19 @@ def step_impl(context):
     assert isinstance(world.client_asset_tags, EntityList)
     assert isinstance(world.first_asset_tags, EntityList)
     assert isinstance(world.first_tag, Tag)
+    assert isinstance(world.assets_excluding_first, EntityList)
+    for asset in world.assets_excluding_first:
+        assert isinstance(asset, Asset)
+    assert isinstance(world.assets_filtered, EntityList)
+    for asset in world.assets_filtered:
+        assert isinstance(asset, Asset)
     assert isinstance(world.first_asset_batches, EntityList)
     assert isinstance(world.first_asset_batches.first(), Batch)
     with mock.patch('requests.post') as requests_post:
         requests_post.return_value = TestHelpers.APIHelperCallAPI(
             TestHelpers.TAG_DATA_POST)
-        world.first_tag_data_first = world.first_tag_data[0]
-        assert isinstance(world.first_tag_data_first.index, Int64Index)
+        for tag_data in world.first_tag_data:
+            assert isinstance(tag_data.index, Int64Index)
     assert isinstance(world.context_frames, EntityList)
     assert isinstance(world.first_context_frame, ContextFrame)
     assert isinstance(world.cf_occurrences, EntityList)

@@ -15,11 +15,16 @@ This class has the following parameters for initialization:
 
 -  **host (mandatory)**: Refers to the host the user connects to for
    making API calls.
+
 -  **username (optional)**: Required for Basic Authentication.
+
 -  **password (optional)**: Required for Basic Authentication.
+
 -  **oauth\_token (optional)**: Required for OAuth2.0 Authentication.
+
 -  **verify\_ssl (optional)**: Required when the host needs to be
    verified for SSL.
+
 -  **cert\_path (optional)**: Required for verification of SSL certificates for HTTPS requests.
 
 Here's an example:
@@ -73,6 +78,14 @@ This method returns the list of assets that the authenticated user has
 access to. The list of assets are an object of type ``EntityList``. More
 details on the class is provided below.
 
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the Assets accordingly.
+   Filter conditions can be like          
+   
+|   ``{"created_at__gt": 162002555700, "status": 1}``
+
 ::
 
     client_assets = client.assets()
@@ -83,6 +96,13 @@ details on the class is provided below.
 This method returns the list of context frames which are created using the assets
 that the user has access to. The list of context frames are an
 object of type ``EntityList``. More details on the class is provided below.
+
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the ContextFrame Occurrences accordingly.
+   Filter conditions can be like 
+   ``{"start_ef_occurrence": "A3412", "stop_ef_occurrence": "C7415"}``
 
 ::
 
@@ -96,6 +116,11 @@ This method requires the following parameters to be called:
 **asset\_id (mandatory)**: The asset\_id of the asset whose tags are to
 be returned.
 
+**query\_params (optional)**: User can pass a dictionary of conditions 
+and condition values to filter the tags accordingly.
+Filter conditions can be like 
+|``{"tag_type": 1, "edge_connector": 674}``
+
 ::
 
     tags_of_asset_id_1 = client.tags(1)
@@ -106,6 +131,13 @@ be returned.
 This method returns the list of all the data sources which the user has access to.
 The list of data sources are an object of type ``EntityList``. More details on the class
 are provided below.
+
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the Assets accordingly.
+   Filter conditions can be like 
+   ``{"created_at__gt": 162002555700, "connector_protocol": 206}``
 
 ::
 
@@ -163,6 +195,7 @@ template as `Asset: {asset_name}_{asset_id}`. The available attributes in the cl
 -  **onboarded_at**: The onboarded at time of the asset in epoch
 -  **created_at**: The created at time of the asset in epoch
 -  **status**: The streaming status of the asset. They are given by:
+
 .. list-table:: Asset streaming status
    :widths: 50 50
    :header-rows: 1
@@ -191,11 +224,27 @@ The available methods are as follows:
 The method returns all the tags present in the given asset in the form
 of ``EntityList`` where each object refers to ``Tag``.
 
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the tags accordingly.
+   Filter conditions can be like
+
+|   ``{"tag_type": 1, "edge_connector": 674}``
+
 .batches
 ~~~~~~~~
 
 The method returns all the batches present in the given asset in the
 form of ``EntityList`` where each object refers to ``Batch``.
+
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the batches accordingly.
+   Filter conditions can be like 
+
+|   ``{"start_time__gt": 16267600304, "stop_time__lt": 16268600304}``
 
 .data
 ~~~~~
@@ -239,6 +288,7 @@ The available attributes in this class are:
 -  **name**: Tag Name
 -  **tag_type**: The tag types:- 1.Raw, 2.Soft, 3.Aggregation, 4.Bitwise, 5.Writeback
 -  **tag_data_type**: The tag data types. They are given by
+
 .. list-table:: Tag Data Types
    :widths: 50 50
    :header-rows: 1
@@ -255,9 +305,11 @@ The available attributes in this class are:
      - BITWISE
    * - 5
      - WRITEBACK
+
 -  **short_name**: Tag short name
 -  **edge_connector**: The data source ID
 -  **tag_process_type**: The tag process types. They are given by:
+
 .. list-table:: Tag Process Type
    :widths: 50 50
    :header-rows: 1
@@ -282,7 +334,9 @@ The available attributes in this class are:
      - WORKFLOW
    * - 9
      - INFLUENCING_SCORE
+
 -  **category**: Intelligence Categories. They are given by:
+
 .. list-table:: Tag Intelligence Categories
    :widths: 50 50
    :header-rows: 1
@@ -301,6 +355,7 @@ The available attributes in this class are:
      - Safety
    * - 6
      - Environment
+
 -  **uom_name**: The name of measurement unit.
 -  **asset**: ID of the asset
 -  **created_by**: The user ID, who created this tag
@@ -368,6 +423,7 @@ The available attributes in this class are:
 -  **created_at**: Time of creation of data source in epoch
 -  **edge_device**: ID of the edge node
 -  **connector_protocol**: The different datasource types are as follows:
+
 .. list-table:: Data Source connector protocol
    :widths: 50 50
    :header-rows: 1
@@ -390,10 +446,12 @@ The available attributes in this class are:
      - OPCUA
    * - 207
      - SQL
+
 -  **last_streamed_on**: Last streamed on epoch
 -  **update_interval**: Update interval in ms
 -  **name**: Name of the datasource
 -  **stream_status**: The stream status for the datasource are as follows:
+
 .. list-table:: Data Source streaming status
    :widths: 50 50
    :header-rows: 1
@@ -410,8 +468,11 @@ The available attributes in this class are:
      - INACTIVE
    * - 4
      - UNASSIGNED_TAGS
+
 -  **created_by**: ID of the user who created the datasource
+
 -  **config**: Configurations of the data source
+
 -  **parent**: In case of query datasource, this refers to the ID of the parent datasource
 
 The available methods are as follows:
@@ -473,6 +534,13 @@ The available methods are as follows:
 -  **occurrences**: The method returns all the occurrences of the given
    ContextFrame in the form of ``EntityList`` where each object refers
    to ``ContextFrameOccurrence``.
+
+The method parameters are as follows:
+
+-  **query\_params (optional)**: User can pass a dictionary of conditions 
+   and condition values to filter the ContextFrame Occurrences accordingly.
+   Filter conditions can be like 
+   ``{"start_ef_occurrence": "A3412", "stop_ef_occurrence": "C7415"}``
 
 ContextFrameOccurrence
 -------------------------
@@ -587,16 +655,43 @@ exists or it belongs to a different class\_type, it throws an exception.
 
     client_assets.add(new_asset_entity)
 
+.filter 
+~~~~~~~~
+This method filters the given EntityList to return an updated list that contains only those entities which satisfy all the conditions given in arguments.
+It works with all primitive attribtues of the ``Entity`` in the ``EntityList``, if the specific operation is defined for that data type.
+
+
+It takes multiple keyword arguments as a parameter (**\*\*kwargs**) to filter the entities.
+
+For a simple filter operation that includes entities by checking for equality, the format is: `entity_attribute=value`
+
+For operators other than equality, the format is: `entity_attribute__operator=value`
+
+You can |reference_link| for a list of possible operators.
+
+.. |reference_link| raw:: html
+
+   <a href="https://docs.python.org/3/library/operator.html" target="_blank">refer here</a>
+
+
+::
+
+   filtered_entity_list = client_assets.filter(status='Inactive')
+   filtered_entity_list = client_assets.filter(country__ne='India')
+
+
+
 .exclude
 ~~~~~~~~
 
 This method filters the given EntityList to return an updated list that
-doesn't contain the entity which has the ``name`` attribute value as
-``value``.
+doesn't contain entities which satisfy any of the conditions given in arguments.
 
+It takes the same arguments as ``.filter`` above but negates the conditions to exclude them.
 ::
 
-    updated_entity_list = client_assets.exclude("id", 1)
+    updated_entity_list = client_assets.exclude(id=5)
+    updated_entity_list = client_assets.exclude(created_at__lt=first_asset.created_at)
 
 .data
 ~~~~~

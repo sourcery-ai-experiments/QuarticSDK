@@ -18,17 +18,19 @@ class EdgeConnector(Base):
 
     def __repr__(self):
         """
-        Override the method to return the data source name with id
+        Override the method to return the data source name
         """
-        return f"<{Constants.EDGE_CONNECTOR_ENTITY}: {self.name}_{self.id}>"
+        return f"<{Constants.EDGE_CONNECTOR_ENTITY}: {self.name}>"
 
-    def get_tags(self):
+    def get_tags(self, query_params={}):
         """
         The given method returns the list of tags for the given asset
+        :param query_params: Dictionary of filter conditions
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
+        query_params["edge_connector"] = self.id
         tags_response = self.api_helper.call_api(
-            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params={"edge_connector": self.id}).json()
+            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params=query_params).json()
         return EntityFactory(Constants.TAG_ENTITY, tags_response, self.api_helper)
 
     def historical_data(self,
@@ -46,10 +48,11 @@ class EdgeConnector(Base):
         return HistoricalTagDataIterator(tags, self.id, start_time, stop_time, self.api_helper, batch_size, max_records,
             return_type)
 
-    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[]):
+    def data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[]):
         """
         Get the data of all tags in the edge connector between the given start_time and
         stop_time for the given granularity
+
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param granularity: Granularity of the data
@@ -59,6 +62,7 @@ class EdgeConnector(Base):
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
             dictionary. An example value here is:
+            
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
@@ -67,13 +71,15 @@ class EdgeConnector(Base):
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
                 "aggregation_dict": {"3": "max"}
+
             }]
+
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
         tags = self.get_tags()
         return TagDataIterator.create_tag_data_iterator(tags, start_time, stop_time, self.api_helper,
-                                                        granularity, return_type, transformations)
+                                                        granularity, return_type, batch_size, transformations)
 
     def __getattribute__(self, name):
         """

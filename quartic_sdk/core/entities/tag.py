@@ -22,9 +22,9 @@ class Tag(Base):
 
     def __repr__(self):
         """
-        Override the method to return the tag name with id
+        Override the method to return the tag name
         """
-        return f"<{Constants.TAG_ENTITY}: {self.name}_{self.id}>"
+        return f"<{Constants.TAG_ENTITY}: {self.name}>"
 
     def data(
             self,
@@ -32,10 +32,12 @@ class Tag(Base):
             stop_time,
             granularity=0,
             return_type=Constants.RETURN_PANDAS,
+            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             transformations=[]):
         """
         Get the data for the given tag between the start_time and the stop_time
         for the given granularity
+
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param granularity: Granularity of the data
@@ -45,6 +47,7 @@ class Tag(Base):
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
             dictionary. An example value here is:
+            
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
@@ -53,7 +56,9 @@ class Tag(Base):
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
                 "aggregation_dict": {"3": "max"}
+
             }]
+
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
@@ -67,6 +72,7 @@ class Tag(Base):
             self.api_helper,
             granularity,
             return_type,
+            batch_size,
             transformations)
 
     def __getattribute__(self, name):

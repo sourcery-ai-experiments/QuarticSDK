@@ -1,6 +1,7 @@
 """
 The given file contains the class to refer to the asset entity
 """
+import logging
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
@@ -18,18 +19,26 @@ class Asset(Base):
 
     def __repr__(self):
         """
-        Override the method to return the asset name with id
+        Override the method to return the asset name
         """
-        return f"<{Constants.ASSET_ENTITY}: {self.name}_{self.id}>"
+        return f"<{Constants.ASSET_ENTITY}: {self.name}>"
 
-    def get_tags(self):
+    def get_tags(self, query_params={}):
         """
         The given method returns the list of tags for the given asset
+        :param query_params: Dictionary of filter conditions
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
+        query_params["asset"] = self.id
         tags_response = self.api_helper.call_api(
-            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params={"asset": self.id}).json()
-        return EntityFactory(Constants.TAG_ENTITY, tags_response, self.api_helper)
+            Constants.GET_TAGS,
+            Constants.API_GET,
+            path_params=[],
+            query_params=query_params).json()
+        return EntityFactory(
+            Constants.TAG_ENTITY,
+            tags_response,
+            self.api_helper)
 
     def event_frames(self):
         """
@@ -37,13 +46,14 @@ class Asset(Base):
         """
         raise NotImplementedError
 
-    def batches(self):
+    def batches(self, query_params={}):
         """
         The given method returns the list of batches for the given asset
+        :param query_params: Dictionary of filter conditions
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         batches_response = self.api_helper.call_api(
-            Constants.GET_BATCHES, Constants.API_GET, [self.id]).json()
+            Constants.GET_BATCHES, Constants.API_GET, [self.id], query_params).json()
         return EntityFactory(
             Constants.BATCH_ENTITY,
             batches_response,
@@ -55,10 +65,12 @@ class Asset(Base):
             stop_time,
             granularity=0,
             return_type=Constants.RETURN_PANDAS,
+            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             transformations=[]):
         """
         Get the data of all tags in the asset between the given start_time and
         stop_time for the given granularity
+
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param granularity: Granularity of the data
@@ -68,19 +80,24 @@ class Asset(Base):
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
             dictionary. An example value here is:
+
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
                 "method": "linear"
-            }, {
+            },{
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
                 "aggregation_dict": {"3": "max"}
+
             }]
+
+            
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        tags = self.get_tags()
+        tags = self.get_tags().exclude(tag_data_type=Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
+        logging.info("Filtering to fetch data only for non-spectral tags")
         return TagDataIterator.create_tag_data_iterator(
             tags,
             start_time,
@@ -88,6 +105,7 @@ class Asset(Base):
             self.api_helper,
             granularity,
             return_type,
+            batch_size,
             transformations)
 
     def __getattribute__(self, name):
@@ -99,6 +117,7 @@ class Asset(Base):
         :return: Either mapped value or raw value with respect to the object attribute
         """
         asset_mapping = Asset.mapping
-        if name in asset_mapping.keys() and asset_mapping[name].get(self.__dict__[name]):
+        if name in asset_mapping.keys() and asset_mapping[name].get(
+                self.__dict__[name]):
             return asset_mapping[name][self.__dict__[name]]
         return object.__getattribute__(self, name)

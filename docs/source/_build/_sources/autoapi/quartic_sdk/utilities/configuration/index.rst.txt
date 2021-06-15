@@ -8,6 +8,9 @@
    The given class implements the configuration details that need to be saved
    with the APIClient to make the API calls
 
+   ..
+       !! processed by numpydoc !!
+
 
 
 Module Contents
@@ -32,6 +35,23 @@ Classes
       :return: The token for basic HTTP authentication.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: get_configuration(cls, host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True)
       :classmethod:
 
@@ -44,6 +64,24 @@ Classes
       :param cert_path: path of certificate
       :param verify_ssl: boolean value
       :return: Configuration object
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 

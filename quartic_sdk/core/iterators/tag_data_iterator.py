@@ -2,6 +2,7 @@
 import json
 import pandas as pd
 import quartic_sdk.utilities.constants as Constants
+from quartic_sdk.utilities.exceptions import IncorrectTransformationException
 
 
 class TagDataIterator:
@@ -15,9 +16,9 @@ class TagDataIterator:
             tags,
             start_time,
             stop_time,
-            count,
+            total_count,
+            batch_size,
             api_helper,
-            offset=0,
             granularity=0,
             return_type=Constants.RETURN_JSON,
             transformations=[]):
@@ -30,7 +31,7 @@ class TagDataIterator:
         :param count: Count of time ranges in this interval with each interval
                 containing 200,000 points
         :param api_helper: (APIHelper) APIHelper class object
-        :param offset: Current offset
+        :param cursor: Pagination cursor string
         :param granularity: The granularity at which the tag data is queried
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
@@ -48,21 +49,25 @@ class TagDataIterator:
                 "aggregation_dict": {"3": "max"}
             }]
         """
-        if not TagDataIterator.validate_transformations_schema(
-                transformations, tags):
-            raise Exception("Invalid transformations")
-        self.count = count
-        self._offset = offset
+
+        TagDataIterator.raise_exception_for_transformation_schema(
+            transformations, tags)
+
+        self.total_count = total_count
+        self.batch_size = batch_size
         self.tags = tags
         self.start_time = start_time
         self.stop_time = stop_time
         self.api_helper = api_helper
         self.granularity = granularity
         self.return_type = return_type
+
         self._transformations = transformations
+        self._cursor = None
+        self._data_call_state = 0
 
     @staticmethod
-    def validate_transformations_schema(transformations, tags):
+    def raise_exception_for_transformation_schema(transformations, tags):
         """
         We validate the transformations schema. Its schema would be like the following:
         [{"transformation_type": "interpolation", "column": "1", "method": "linear"},
@@ -70,29 +75,32 @@ class TagDataIterator:
         "aggregation_dict": {"1":{"1":"max"},"2":{"2":"std"}}}]
         :param transformations: List of transformations in the schema as above
         :param tags: List of tag ids
-        :return: (bool) Whether the transformation schema is valid
+        :return: (None) Does not return anything, raises exception if validation fails
         """
-        if not transformations:
-            return True
+
         agg_transformation = [transformation for transformation in transformations if transformation.get(
             "transformation_type") == "aggregation"]
         if len(agg_transformation) > 1:
-            return False
+            raise IncorrectTransformationException(
+                "Invalid transformations : Only one aggregation transformation can be applied at a time")
         for transformation in transformations:
             transformation_type = transformation.get("transformation_type")
             if transformation_type == "interpolation":
                 if transformation.get("column") is None:
-                    return False
+                    raise IncorrectTransformationException(
+                        "Invalid transformations : Interpolation column is missing")
             elif transformation_type == "aggregation":
                 if transformation.get("aggregation_column") is None \
                         or transformation.get("aggregation_dict") is None:
-                    return False
+                    raise IncorrectTransformationException(
+                        "Invalid transformations : aggregation_column and aggregation_dict is required")
                 if len(transformation.get("aggregation_dict")
                        ) != tags.count() - 1:
-                    return False
+                    raise IncorrectTransformationException(
+                        "Invalid transformations : Aggregation for all columns not defined in aggregation_dict")
             else:
-                return False
-        return True
+                raise IncorrectTransformationException(
+                    "Invalid transformations : transformation_type is invalid")
 
     def create_post_data(self):
         """
@@ -103,57 +111,48 @@ class TagDataIterator:
             "start_time": self.start_time,
             "stop_time": self.stop_time,
             "granularity": self.granularity,
-            "transformations": self._transformations
+            "transformations": self._transformations,
+            "batch_size": self.batch_size
         }
+
+    def __iter__(self):
+        """
+        Return the data iterator with the data fetch state set at 0
+        """
+        self._data_call_state = 0
+        return self
 
     def __next__(self):
         """
-        Get the next object in the iteration
+        Get the next object in the iteration.
+        Note that the return object is inclusive of time ranges
         """
-        if self._offset >= self.count:
+        if self._data_call_state != 0 and self._cursor is None:
+            self._data_call_state = 0
             raise StopIteration
-        body_json = self.create_post_data()
-        tag_data_return = self.api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, query_params={
-                "offset": self._offset}, body=body_json).json()
-        self._offset += 1
+        if self._data_call_state == 0:
+            body_json = self.create_post_data()
+            tag_data_return = self.api_helper.call_api(
+                Constants.RETURN_TAG_DATA, Constants.API_POST, body=body_json).json()
+            self._data_call_state = 1
+        else:
+            tag_data_return = self.api_helper.call_api(
+                url=Constants.RETURN_TAG_DATA,
+                method_type=Constants.API_GET,
+                query_params={
+                    "cursor": self._cursor}).json()
 
-        del tag_data_return['count']
-        del tag_data_return['offset']
+        self._cursor = tag_data_return["cursor"]
 
-        if self.return_type != Constants.RETURN_JSON:
-            tag_data_return_str = json.dumps(tag_data_return)
+        if self.return_type == Constants.RETURN_JSON:
+            return tag_data_return["data"]
 
-            tag_data_return = pd.read_json(tag_data_return_str,
+        tag_data_return_str = json.dumps(tag_data_return["data"])
+
+        return pd.read_json(tag_data_return_str,
                                            orient="split",
                                            convert_dates=False,
                                            convert_axes=False)
-
-        return tag_data_return
-
-    def __getitem__(self, key):
-        """
-        We override this method to get the object at the given key
-        """
-        if key >= self.count:
-            raise IndexError
-        body_json = self.create_post_data()
-        tag_data_return = self.api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, query_params={
-                "offset": key}, body=body_json).json()
-
-        del tag_data_return['count']
-        del tag_data_return['offset']
-
-        if self.return_type != Constants.RETURN_JSON:
-            tag_data_return_str = json.dumps(tag_data_return)
-
-            tag_data_return = pd.read_json(tag_data_return_str,
-                                           orient="split",
-                                           convert_dates=False,
-                                           convert_axes=False)
-
-        return tag_data_return
 
     @classmethod
     def create_tag_data_iterator(
@@ -164,9 +163,11 @@ class TagDataIterator:
             api_helper,
             granularity=0,
             return_type=Constants.RETURN_PANDAS,
+            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             transformations=[]):
         """
         The method creates the TagDataIterator instance based upon the parameters that are passed here
+
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param granularity: Granularity of the data
@@ -176,6 +177,7 @@ class TagDataIterator:
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
             dictionary. An example value here is:
+
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
@@ -184,30 +186,35 @@ class TagDataIterator:
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
                 "aggregation_dict": {"3": "max"}
+
             }]
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        if not TagDataIterator.validate_transformations_schema(
-                transformations, tags):
-            raise Exception("Invalid transformations")
+
+        TagDataIterator.raise_exception_for_transformation_schema(
+            transformations, tags)
         body_json = {
             "tags": [tag.id for tag in tags.all()],
             "start_time": start_time,
             "stop_time": stop_time,
             "granularity": granularity,
-            "transformations": transformations
+            "transformations": transformations,
+            "batch_size": batch_size
         }
         if tags.count() == 0:
             raise Exception("There are no tags to fetch data of")
         tag_data_response = api_helper.call_api(
-            Constants.POST_TAG_DATA, Constants.API_POST, body=body_json).json()
+            Constants.RETURN_TAG_DATA,
+            Constants.API_POST,
+            body=body_json).json()
         return TagDataIterator(
             tags=tags,
             start_time=start_time,
             stop_time=stop_time,
-            count=tag_data_response["count"],
+            total_count=tag_data_response["total_count"],
             api_helper=api_helper,
+            batch_size=batch_size,
             granularity=granularity,
             return_type=return_type,
             transformations=transformations)

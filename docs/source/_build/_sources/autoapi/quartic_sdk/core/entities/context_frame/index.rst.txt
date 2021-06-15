@@ -7,6 +7,9 @@
 
    The given file contains the class to refer to the Context Frame entity
 
+   ..
+       !! processed by numpydoc !!
+
 
 
 Module Contents
@@ -29,14 +32,69 @@ Classes
    The given class refers to the context frame entity which is created based
    upon the context frame object returned from the API
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: __repr__(self)
 
       Override the method to return the asset name with id
 
 
-   .. method:: occurrences(self)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: occurrences(self, query_params={})
 
       Return the list of occurrences for the given context frame
+      :param query_params: Dictionary of filter conditions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 

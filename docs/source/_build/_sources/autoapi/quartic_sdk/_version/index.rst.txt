@@ -7,13 +7,16 @@
 
    Refers to the version of the package
 
+   ..
+       !! processed by numpydoc !!
+
 
 
 Module Contents
 ---------------
 
 .. data:: __version__
-   :annotation: = plt.4723.0
+   :annotation: = 2.0.0
 
    
 

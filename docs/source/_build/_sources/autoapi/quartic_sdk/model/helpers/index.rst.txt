@@ -30,6 +30,24 @@ Classes
       :return:        tuple of prediction and processing time
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: validate_prediction_output(cls, result: pandas.Series)
       :classmethod:
 
@@ -37,6 +55,24 @@ Classes
       :param result: pandas series
       :return:    None
       :raises:    InvalidPredictionException
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: validate_model(cls, model, test_df)
@@ -48,11 +84,47 @@ Classes
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
 .. class:: ModelUtils
 
    Bases: :class:`object`
 
    Contains utils to pickle model and add checksum
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
 
    .. method:: get_checksum(cls, model_bytes)
       :classmethod:
@@ -60,6 +132,24 @@ Classes
       Calculates the checksum for given byte array
       :param model_bytes: pickeled model
       :return:            Returns the checksum of model
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: get_pickled_object(cls, object)
@@ -70,12 +160,48 @@ Classes
       :return:        Pickled Model as string
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: get_performance_test_df(cls, test_df: pandas.DataFrame)
       :classmethod:
 
       Creates a Test data frame of size 100 rows(for 30sec batch approximation)
       :param test_df: Test Data frame
       :return: Returns test dataframe with configured number of rows
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 

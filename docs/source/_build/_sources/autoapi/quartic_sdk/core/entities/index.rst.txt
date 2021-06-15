@@ -47,6 +47,24 @@ Classes
    The given class refers to the asset entity which is created based upon the
    asset object returned from the API
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. attribute:: mapping
       
 
@@ -54,12 +72,49 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the asset name with id
+      Override the method to return the asset name
 
 
-   .. method:: get_tags(self)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: get_tags(self, query_params={})
 
       The given method returns the list of tags for the given asset
+      :param query_params: Dictionary of filter conditions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: event_frames(self)
@@ -68,15 +123,53 @@ Classes
       The given method returns the list of event frames for the given asset
 
 
-   .. method:: batches(self)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: batches(self, query_params={})
 
       The given method returns the list of batches for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
-   .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
 
       Get the data of all tags in the asset between the given start_time and
       stop_time for the given granularity
+
       :param start_time: (epoch) Start_time for getting data
       :param stop_time: (epoch) Stop_time for getting data
       :param granularity: Granularity of the data
@@ -86,17 +179,37 @@ Classes
       :param transformations: Refers to the list of transformations. It supports either
           interpolation or aggregation, depending upon which, we pass the value of this
           dictionary. An example value here is:
+
           [{
               "transformation_type": "interpolation",
               "column": "3",
               "method": "linear"
-          }, {
+          },{
               "transformation_type": "aggregation",
               "aggregation_column": "4",
               "aggregation_dict": {"3": "max"}
+
           }]
+
       :return: (DataIterator) DataIterator object which can be iterated to get the data
           between the given duration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: __getattribute__(self, name)
@@ -109,6 +222,24 @@ Classes
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
 .. class:: Batch(body_json, api_helper)
 
 
@@ -117,9 +248,45 @@ Classes
    The given class refers to the batch entity which is created based upon the batch
    object returned from the API
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: __repr__(self)
 
-      Override the method to return the asset name with id
+      Override the method to return the asset name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 
@@ -131,14 +298,69 @@ Classes
    The given class refers to the context frame entity which is created based
    upon the context frame object returned from the API
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: __repr__(self)
 
       Override the method to return the asset name with id
 
 
-   .. method:: occurrences(self)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: occurrences(self, query_params={})
 
       Return the list of occurrences for the given context frame
+      :param query_params: Dictionary of filter conditions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 
@@ -150,9 +372,45 @@ Classes
    The given class refers to the context frame occurrence entity which is created
    based upon the context frame occurrence object returned from the API
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: __repr__(self)
 
       Override the method to return the asset name with id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 
@@ -164,6 +422,24 @@ Classes
    The given class refers to the data source entity which is created based upon the
    data source object returned from the API
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. attribute:: mapping
       
 
@@ -171,18 +447,79 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the data source name with id
+      Override the method to return the data source name
 
 
-   .. method:: get_tags(self)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: get_tags(self, query_params={})
 
       The given method returns the list of tags for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
-   .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: historical_data(self, start_time, stop_time, batch_size=Constants.DEFAULT_BATCH_SIZE, max_records=None, tags=None, return_type=Constants.RETURN_PANDAS)
+
+      Fetch historical data for the given OPCUA edge connector
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
 
       Get the data of all tags in the edge connector between the given start_time and
       stop_time for the given granularity
+
       :param start_time: (epoch) Start_time for getting data
       :param stop_time: (epoch) Stop_time for getting data
       :param granularity: Granularity of the data
@@ -192,6 +529,7 @@ Classes
       :param transformations: Refers to the list of transformations. It supports either
           interpolation or aggregation, depending upon which, we pass the value of this
           dictionary. An example value here is:
+
           [{
               "transformation_type": "interpolation",
               "column": "3",
@@ -200,9 +538,28 @@ Classes
               "transformation_type": "aggregation",
               "aggregation_column": "4",
               "aggregation_dict": {"3": "max"}
+
           }]
+
       :return: (DataIterator) DataIterator object which can be iterated to get the data
           between the given duration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: __getattribute__(self, name)
@@ -215,6 +572,24 @@ Classes
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
 .. class:: Tag(body_json, api_helper)
 
 
@@ -223,6 +598,24 @@ Classes
    The given class refers to the tag entity which is created based upon the
    tag object returned from the API
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. attribute:: mapping
       
 
@@ -230,13 +623,32 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the tag name with id
+      Override the method to return the tag name
 
 
-   .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, transformations=[])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
 
       Get the data for the given tag between the start_time and the stop_time
       for the given granularity
+
       :param start_time: (epoch) Start_time for getting data
       :param stop_time: (epoch) Stop_time for getting data
       :param granularity: Granularity of the data
@@ -246,6 +658,7 @@ Classes
       :param transformations: Refers to the list of transformations. It supports either
           interpolation or aggregation, depending upon which, we pass the value of this
           dictionary. An example value here is:
+
           [{
               "transformation_type": "interpolation",
               "column": "3",
@@ -254,9 +667,28 @@ Classes
               "transformation_type": "aggregation",
               "aggregation_column": "4",
               "aggregation_dict": {"3": "max"}
+
           }]
+
       :return: (DataIterator) DataIterator object which can be iterated to get the data
           between the given duration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: __getattribute__(self, name)
@@ -269,6 +701,24 @@ Classes
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
 .. class:: Model(body_json, api_helper)
 
 
@@ -277,15 +727,70 @@ Classes
    The given class refers to the Model entity which is created based upon the
    Model object returned from the API
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: __repr__(self)
 
-      Override the method to return the Model with model name and id
+      Override the method to return the Model with model name
 
 
-   .. method:: model_instance(self)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: model_instance(self, query_params={})
 
       Returns the model object saved in the model
+      :param query_params: Dictionary of filter conditions
       :return:    Returns a Model which is subclass of BaseQuarticModel
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 

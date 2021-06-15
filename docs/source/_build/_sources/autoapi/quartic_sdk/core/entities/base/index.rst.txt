@@ -7,6 +7,9 @@
 
    The given file contains the class to refer to the base class for entity creation
 
+   ..
+       !! processed by numpydoc !!
+
 
 
 Module Contents
@@ -27,6 +30,24 @@ Classes
    The base class which is used for creating all the required instances
    of specific types
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: get(self, name)
 
       Return the value of the given `name` attribute
@@ -34,9 +55,45 @@ Classes
       :return: The returned attribute value
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: __str__(self)
 
       Return the stringifed version of the representation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: __eq__(self, other)
@@ -44,6 +101,24 @@ Classes
       Override equals to check equality of all attributes
       :param other: The other object, to which we are comparing
       :return: (bool) Whether they are equal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 

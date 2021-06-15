@@ -63,41 +63,39 @@ tag object returned from the API</p>
 <dl class="py method">
 <dt id="quartic_sdk.core.entities.tag.Tag.__repr__">
 <code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.tag.Tag.__repr__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override the method to return the tag name with id</p>
+<dd><p>Override the method to return the tag name</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entities.tag.Tag.data">
-<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.tag.Tag.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.tag.Tag.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the data for the given tag between the start_time and the stop_time
-for the given granularity
-:param start_time: (epoch) Start_time for getting data
-:param stop_time: (epoch) Stop_time for getting data
-:param granularity: Granularity of the data
-:param return_type: The param decides whether the data after querying will be</p>
-<blockquote>
-<div><p>json(when value is “json”) or pandas dataframe(when value is “pd”). By default,
-it takes the value as “json”</p>
-</div></blockquote>
+for the given granularity</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_time</strong> – (epoch) Start_time for getting data</p></li>
+<li><p><strong>stop_time</strong> – (epoch) Stop_time for getting data</p></li>
+<li><p><strong>granularity</strong> – Granularity of the data</p></li>
+<li><p><strong>return_type</strong> – The param decides whether the data after querying will be
+json(when value is “json”) or pandas dataframe(when value is “pd”). By default,
+it takes the value as “json”</p></li>
+<li><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
 interpolation or aggregation, depending upon which, we pass the value of this
-dictionary. An example value here is:
-[{</p>
-<blockquote>
-<div><p>”transformation_type”: “interpolation”,
+dictionary. An example value here is:</p>
+<dl class="simple">
+<dt>[{</dt><dd><p>“transformation_type”: “interpolation”,
 “column”: “3”,
 “method”: “linear”</p>
-</div></blockquote>
-<dl class="simple">
+</dd>
 <dt>}, {</dt><dd><p>“transformation_type”: “aggregation”,
 “aggregation_column”: “4”,
 “aggregation_dict”: {“3”: “max”}</p>
 </dd>
 </dl>
 <p>}]</p>
-</p>
+</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>(DataIterator) DataIterator object which can be iterated to get the data
@@ -144,6 +142,7 @@ readability
 <li class="toctree-l1"><a class="reference internal" href="../../../../../quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../basic.html">Basic Functionality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../model_creation.html">Model Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../index.html">API Reference</a></li>
 </ul>
 

@@ -21,6 +21,24 @@ Classes
    The factory is used to create the respective entities depending upon
    the requirements
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: follow_single_strategy(cls, class_type, body, api_helper)
       :classmethod:
 
@@ -31,6 +49,24 @@ Classes
       :param api_helper: APIHelper instance
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: follow_list_strategy(cls, class_type, body, api_helper)
       :classmethod:
 
@@ -39,6 +75,24 @@ Classes
       :param class_type: Type of the class to be created
       :param body: Body through which the entity is to be created
       :param api_helper: APIHelper instance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 

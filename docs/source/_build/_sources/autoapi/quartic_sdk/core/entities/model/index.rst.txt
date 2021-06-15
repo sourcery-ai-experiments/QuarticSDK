@@ -24,15 +24,70 @@ Classes
    The given class refers to the Model entity which is created based upon the
    Model object returned from the API
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
    .. method:: __repr__(self)
 
-      Override the method to return the Model with model name and id
+      Override the method to return the Model with model name
 
 
-   .. method:: model_instance(self)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: model_instance(self, query_params={})
 
       Returns the model object saved in the model
+      :param query_params: Dictionary of filter conditions
       :return:    Returns a Model which is subclass of BaseQuarticModel
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 

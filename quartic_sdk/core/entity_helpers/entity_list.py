@@ -3,6 +3,7 @@ import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entities.type_mapping import ENTITY_DICTIONARY
 from quartic_sdk.core.iterators.entity_list_iterator import EntityListIterator
 from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+import operator
 
 
 class EntityList:
@@ -76,15 +77,28 @@ class EntityList:
         """
         return len(self._entities)
 
-    def filter(self, condition):
+    def filter(self, **kwargs):
         """
-        We filter the entities based upon the given condition
-        """
-        raise NotImplementedError
+        We filter the entities based upon the given conditions
+        There might be multiple conditions
+
+        :param kwargs: Dict which maps `filter_key` to filter_value
+                       The `filter_key` can be decomposed into two parts: (attribute, operator)
+                       For instance, if `filter_key` is `created_at__lt` then ('created_at', 'lt')
+                       It might also be a simple query where we check for equality, then `filter_key` is simply the attribute name
+        """ 
+        filtered_entities = self._entities
+        negate = kwargs.pop('_negate') if '_negate' in kwargs else False
+        for filter_key in kwargs:
+            filter_attribute, filter_operator = filter_key.split('__') if '__' in filter_key else (filter_key, 'eq')
+            filter_func = lambda x, y: not getattr(operator, filter_operator)(x, y) if negate else getattr(operator, filter_operator)(x, y)
+            filtered_entities = list(filter(lambda entity: filter_func(getattr(entity, filter_attribute), kwargs[filter_key]), filtered_entities))      
+        return EntityList(self._class_type, filtered_entities)
 
     def check_object_in_list(self, instance):
         """
         We check whether the instance is already in the list
+
         :param instance: Object that is to be added to the list
         """
         if not self._validate_type(instance):
@@ -102,15 +116,13 @@ class EntityList:
             raise AssertionError(
                 f"Can not add object, since it is not of {self._class_type} type")
 
-    def exclude(self, name, value):
+    def exclude(self, **kwargs):
         """
-        We return the EntityList after removing the entity with the attribute
-        name having the value as above
+        We return the EntityList after removing the entities with the attributes having the given values
+
+        :param kwargs: Dict which maps `filter_key` to filter_value
         """
-        updated_entities = [
-            entity_obj for entity_obj in self._entities if getattr(
-                entity_obj, name) != value]
-        return EntityList(self._class_type, updated_entities)
+        return self.filter(**kwargs, _negate=True)
 
     def __iter__(self):
         """
@@ -145,10 +157,12 @@ class EntityList:
             stop_time,
             granularity=0,
             return_type=Constants.RETURN_PANDAS,
+            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             transformations=[]):
         """
         Get the data of all tags in the list between the given start_time and
         stop_time for the given granularity
+
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param granularity: Granularity of the data
@@ -158,6 +172,7 @@ class EntityList:
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
             dictionary. An example value here is:
+            
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
@@ -166,6 +181,7 @@ class EntityList:
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
                 "aggregation_dict": {"3": "max"}
+
             }]
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
@@ -178,4 +194,5 @@ class EntityList:
             self.first().api_helper,
             granularity,
             return_type,
+            batch_size,
             transformations)

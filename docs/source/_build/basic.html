@@ -91,6 +91,15 @@ tokens, please refer to the Global Settings article in the Quartic Knowledge Bas
 <p>This method returns the list of assets that the authenticated user has
 access to. The list of assets are an object of type <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>. More
 details on the class is provided below.</p>
+<p>The method parameters are as follows:</p>
+<ul class="simple">
+<li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
+and condition values to filter the Assets accordingly.
+Filter conditions can be like</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">{&quot;created_at__gt&quot;:</span> <span class="pre">162002555700,</span> <span class="pre">&quot;status&quot;:</span> <span class="pre">1}</span></code></div>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client_assets</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">assets</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -100,6 +109,13 @@ details on the class is provided below.</p>
 <p>This method returns the list of context frames which are created using the assets
 that the user has access to. The list of context frames are an
 object of type <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>. More details on the class is provided below.</p>
+<p>The method parameters are as follows:</p>
+<ul class="simple">
+<li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
+and condition values to filter the ContextFrame Occurrences accordingly.
+Filter conditions can be like
+<code class="docutils literal notranslate"><span class="pre">{&quot;start_ef_occurrence&quot;:</span> <span class="pre">&quot;A3412&quot;,</span> <span class="pre">&quot;stop_ef_occurrence&quot;:</span> <span class="pre">&quot;C7415&quot;}</span></code></p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">client_context_frames</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">context_frames</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -109,6 +125,10 @@ object of type <code class="docutils literal notranslate"><span class="pre">Enti
 <p>This method requires the following parameters to be called:</p>
 <p><strong>asset_id (mandatory)</strong>: The asset_id of the asset whose tags are to
 be returned.</p>
+<p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
+and condition values to filter the tags accordingly.
+Filter conditions can be like
+<a href="#id1"><span class="problematic" id="id2">|</span></a><code class="docutils literal notranslate"><span class="pre">{&quot;tag_type&quot;:</span> <span class="pre">1,</span> <span class="pre">&quot;edge_connector&quot;:</span> <span class="pre">674}</span></code></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tags_of_asset_id_1</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">tags</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -118,6 +138,13 @@ be returned.</p>
 <p>This method returns the list of all the data sources which the user has access to.
 The list of data sources are an object of type <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>. More details on the class
 are provided below.</p>
+<p>The method parameters are as follows:</p>
+<ul class="simple">
+<li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
+and condition values to filter the Assets accordingly.
+Filter conditions can be like
+<code class="docutils literal notranslate"><span class="pre">{&quot;created_at__gt&quot;:</span> <span class="pre">162002555700,</span> <span class="pre">&quot;connector_protocol&quot;:</span> <span class="pre">206}</span></code></p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">edge_connectors</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">edge_connectors</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -149,8 +176,8 @@ create the related <code class="docutils literal notranslate"><span class="pre">
 contains information about the authentication and is used for making
 API calls.</p></li>
 </ul>
-<div class="section" id="id1">
-<h3>The available methods are as follows:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>The available methods are as follows:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="get">
 <h4>get<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h4>
 <p>The attribute value of the object is returned for the given name.</p>
@@ -173,19 +200,66 @@ template as <cite>Asset: {asset_name}_{asset_id}</cite>. The available attribute
 <li><p><strong>last_overhaul_date</strong>: The last overhaul date of the asset in epoch</p></li>
 <li><p><strong>onboarded_at</strong>: The onboarded at time of the asset in epoch</p></li>
 <li><p><strong>created_at</strong>: The created at time of the asset in epoch</p></li>
-<li><p><strong>status</strong>: The streaming status of the asset :- 0.INIT, 1.ACTIVE, 2.PARTIAL_STREAMING, 3.INACTIVE, 4.UNASSIGNED_TAGS</p></li>
+<li><p><strong>status</strong>: The streaming status of the asset. They are given by:</p></li>
 </ul>
-<div class="section" id="id2">
-<h3>The available methods are as follows:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<table class="colwidths-given docutils align-default" id="id15">
+<caption><span class="caption-text">Asset streaming status</span><a class="headerlink" href="#id15" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Integer</p></th>
+<th class="head"><p>Constant</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>INIT</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>ACTIVE</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>PARTIAL_STREAMING</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>INACTIVE</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>UNASSIGNED_TAGS</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id4">
+<h3>The available methods are as follows:<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="get-tags">
 <h4>.get_tags<a class="headerlink" href="#get-tags" title="Permalink to this headline">¶</a></h4>
 <p>The method returns all the tags present in the given asset in the form
 of <code class="docutils literal notranslate"><span class="pre">EntityList</span></code> where each object refers to <code class="docutils literal notranslate"><span class="pre">Tag</span></code>.</p>
+<p>The method parameters are as follows:</p>
+<ul class="simple">
+<li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
+and condition values to filter the tags accordingly.
+Filter conditions can be like</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">{&quot;tag_type&quot;:</span> <span class="pre">1,</span> <span class="pre">&quot;edge_connector&quot;:</span> <span class="pre">674}</span></code></div>
+</div>
 </div>
 <div class="section" id="batches">
 <h4>.batches<a class="headerlink" href="#batches" title="Permalink to this headline">¶</a></h4>
 <p>The method returns all the batches present in the given asset in the
 form of <code class="docutils literal notranslate"><span class="pre">EntityList</span></code> where each object refers to <code class="docutils literal notranslate"><span class="pre">Batch</span></code>.</p>
+<p>The method parameters are as follows:</p>
+<ul class="simple">
+<li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
+and condition values to filter the batches accordingly.
+Filter conditions can be like</p></li>
+</ul>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">{&quot;start_time__gt&quot;:</span> <span class="pre">16267600304,</span> <span class="pre">&quot;stop_time__lt&quot;:</span> <span class="pre">16268600304}</span></code></div>
+</div>
 </div>
 <div class="section" id="data">
 <h4>.data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h4>
@@ -227,20 +301,128 @@ template as <cite>Tag: {tag_name}_{tag_id}</cite></p>
 <li><p><strong>id</strong>: Tag ID</p></li>
 <li><p><strong>name</strong>: Tag Name</p></li>
 <li><p><strong>tag_type</strong>: The tag types:- 1.Raw, 2.Soft, 3.Aggregation, 4.Bitwise, 5.Writeback</p></li>
-<li><p><strong>tag_data_type</strong>: The tag data types:- 0.Double, 1.String, 2.Boolean, 3.Int, 4.Long, 5.Float</p></li>
+<li><p><strong>tag_data_type</strong>: The tag data types. They are given by</p></li>
+</ul>
+<table class="colwidths-given docutils align-default" id="id16">
+<caption><span class="caption-text">Tag Data Types</span><a class="headerlink" href="#id16" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Integer</p></th>
+<th class="head"><p>Constant</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>RAW</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>SOFT</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>AGGREGATION</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>BITWISE</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>WRITEBACK</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
 <li><p><strong>short_name</strong>: Tag short name</p></li>
 <li><p><strong>edge_connector</strong>: The data source ID</p></li>
-<li><p><strong>tag_process_type</strong>: The tag process types:- 1.Process Variable, 2.Condition Variable, 3.Process Alarm, 4.Process Event, 5.Anomaly Score, 6.Predicted Variable, 7.Others, 8.Workflow, 9.Influencing Score</p></li>
-<li><p><strong>category</strong>: Intelligence Categories:- 1.Energy, 2.Throughput, 3.Reliability, 4.Quality, 5.Safety, 6.Environment</p></li>
-<li><p><strong>uom_name</strong>: The name of measurement unit:- 1.Celsius, 2.Fahrenheit, 3.Pound per square inch, 4.Pascal, 5.Millibar, 6.Pound-force per square inch, 7.dB, 8.Acceleration of gravity, 9.Inch per second, 10.Revolutions per minute, 11.Meter, 12.Centemeter, 13.Millimeter, 14.Metre per second squared, 15.Millimetre per second, 16.Volt, 17.Amperes, 18.Milliampere, 19.Poiseuille, 20.Poise, 21.Kinematic, 22.Stokes, 23.Standard litre per minute, 24.On/Off, 25.Percent, 26.pH, 27.kilogram, 28.Percent On, 29.None, 30.Millimetre per second squared, 31.Counts, 32.Gallon, 33.Gallon per minute, 34.Inch, 35.Micro Simens, 36.Micro Simens Per Centimeter, 37.Parts Per Million, 38.Running/Stopped, 39.Open/Closed, 40.0/1, 41.Liters, 42.Hertz, 43.Hours, 44.Tonnes, 45.Optical density, 46.in/s pk, 47.Gs p-p, 48.Gs rms, 49.Gs pk, 50.kg/h, 51.kQ, null.No unit</p></li>
+<li><p><strong>tag_process_type</strong>: The tag process types. They are given by:</p></li>
+</ul>
+<table class="colwidths-given docutils align-default" id="id17">
+<caption><span class="caption-text">Tag Process Type</span><a class="headerlink" href="#id17" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Integer</p></th>
+<th class="head"><p>Constant</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>PROCESS_VARIABLE</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>CONDITION_VARIABLE</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>PROCESS_ALARM</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>PROCESS_EVENT</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>ANOMALY_SCORE</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>PREDICTED_VARIABLE</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>OTHERS</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>WORKFLOW</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>INFLUENCING_SCORE</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>category</strong>: Intelligence Categories. They are given by:</p></li>
+</ul>
+<table class="colwidths-given docutils align-default" id="id18">
+<caption><span class="caption-text">Tag Intelligence Categories</span><a class="headerlink" href="#id18" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Integer</p></th>
+<th class="head"><p>Constant</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Energy</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Throughput</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Reliability</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>Quality</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Safety</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>Environment</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p><strong>uom_name</strong>: The name of measurement unit.</p></li>
 <li><p><strong>asset</strong>: ID of the asset</p></li>
 <li><p><strong>created_by</strong>: The user ID, who created this tag</p></li>
 <li><p><strong>value_table</strong>: The key value pair where key is the integer while the value is the string</p></li>
 </ul>
-<div class="section" id="id3">
-<h3>The available methods are as follows:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id4">
-<h4>.data<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id5">
+<h3>The available methods are as follows:<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h4>.data<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
 <p>The method returns the tagdata iterator for the selected tag for the set
 <code class="docutils literal notranslate"><span class="pre">start_time</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_time</span></code>, which can be used to iterate through
 the data in batches of 200,000 datapoints. More details under the
@@ -296,24 +478,95 @@ template as <cite>datasource: {datasource_name}_{datasource_id}</cite></p>
 <li><p><strong>id</strong>: Datasource ID</p></li>
 <li><p><strong>created_at</strong>: Time of creation of data source in epoch</p></li>
 <li><p><strong>edge_device</strong>: ID of the edge node</p></li>
-<li><p><strong>connector_protocol</strong>: The different datasource types:- 200.ABDF1, 201.OPTO22, 202.OPCDA, 203.OSIPI, 204.MODBUS, 205.MQTT, 206.OPCUA, 207.SQL</p></li>
+<li><p><strong>connector_protocol</strong>: The different datasource types are as follows:</p></li>
+</ul>
+<table class="colwidths-given docutils align-default" id="id19">
+<caption><span class="caption-text">Data Source connector protocol</span><a class="headerlink" href="#id19" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Integer</p></th>
+<th class="head"><p>Constant</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>200</p></td>
+<td><p>ABDF1</p></td>
+</tr>
+<tr class="row-odd"><td><p>201</p></td>
+<td><p>OPTO22</p></td>
+</tr>
+<tr class="row-even"><td><p>202</p></td>
+<td><p>OPCDA</p></td>
+</tr>
+<tr class="row-odd"><td><p>203</p></td>
+<td><p>OSIPI</p></td>
+</tr>
+<tr class="row-even"><td><p>204</p></td>
+<td><p>MODBUS</p></td>
+</tr>
+<tr class="row-odd"><td><p>205</p></td>
+<td><p>MQTT</p></td>
+</tr>
+<tr class="row-even"><td><p>206</p></td>
+<td><p>OPCUA</p></td>
+</tr>
+<tr class="row-odd"><td><p>207</p></td>
+<td><p>SQL</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
 <li><p><strong>last_streamed_on</strong>: Last streamed on epoch</p></li>
 <li><p><strong>update_interval</strong>: Update interval in ms</p></li>
 <li><p><strong>name</strong>: Name of the datasource</p></li>
-<li><p><strong>stream_status</strong>: The stream status for the datasource:- 0.INIT, 1.ACTIVE, 2.PARTIAL STREAMING, 3.INACTIVE, 4.UNASSIGNED TAGS</p></li>
+<li><p><strong>stream_status</strong>: The stream status for the datasource are as follows:</p></li>
+</ul>
+<table class="colwidths-given docutils align-default" id="id20">
+<caption><span class="caption-text">Data Source streaming status</span><a class="headerlink" href="#id20" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Integer</p></th>
+<th class="head"><p>Constant</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>INIT</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>ACTIVE</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>PARTIAL_STREAMING</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>INACTIVE</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>UNASSIGNED_TAGS</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
 <li><p><strong>created_by</strong>: ID of the user who created the datasource</p></li>
 <li><p><strong>config</strong>: Configurations of the data source</p></li>
 <li><p><strong>parent</strong>: In case of query datasource, this refers to the ID of the parent datasource</p></li>
 </ul>
-<div class="section" id="id5">
-<h3>The available methods are as follows:<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id6">
-<h4>.get_tags<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id7">
+<h3>The available methods are as follows:<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h4>.get_tags<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
 <p>The method returns all the tags present in the given datasource in the form
 of <code class="docutils literal notranslate"><span class="pre">EntityList</span></code> where each object refers to <code class="docutils literal notranslate"><span class="pre">Tag</span></code>.</p>
 </div>
-<div class="section" id="id7">
-<h4>.data<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id9">
+<h4>.data<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
 <p>The method returns the tag data iterator for all the tags present in the
 datasource for the set <code class="docutils literal notranslate"><span class="pre">start_time</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_time</span></code>. It can be used to
 iterate through the data in batches of 200,000 datapoints. More details
@@ -355,12 +608,19 @@ template as <cite>ContextFrame: {context_frame_id}</cite></p>
 <li><p><strong>description</strong>: ContextFrame description</p></li>
 <li><p><strong>pu_or_wc</strong>: ID of the Process Unit/Work cell</p></li>
 </ul>
-<div class="section" id="id8">
-<h3>The available methods are as follows:<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>The available methods are as follows:<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><strong>occurrences</strong>: The method returns all the occurrences of the given
 ContextFrame in the form of <code class="docutils literal notranslate"><span class="pre">EntityList</span></code> where each object refers
 to <code class="docutils literal notranslate"><span class="pre">ContextFrameOccurrence</span></code>.</p></li>
+</ul>
+<p>The method parameters are as follows:</p>
+<ul class="simple">
+<li><p><strong>query_params (optional)</strong>: User can pass a dictionary of conditions
+and condition values to filter the ContextFrame Occurrences accordingly.
+Filter conditions can be like
+<code class="docutils literal notranslate"><span class="pre">{&quot;start_ef_occurrence&quot;:</span> <span class="pre">&quot;A3412&quot;,</span> <span class="pre">&quot;stop_ef_occurrence&quot;:</span> <span class="pre">&quot;C7415&quot;}</span></code></p></li>
 </ul>
 </div>
 </div>
@@ -394,8 +654,8 @@ template as <cite>Model: {model_name}_{model_id}</cite></p>
 <li><p><strong>output_tag</strong>: ID of the tag in which prediction results are stored</p></li>
 <li><p><strong>target_tag</strong>: ID of the tag which is used as the parent for prediction output tag</p></li>
 </ul>
-<div class="section" id="id9">
-<h3>The available methods are as follows:<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3>The available methods are as follows:<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="model-instance">
 <h4>.model_instance<a class="headerlink" href="#model-instance" title="Permalink to this headline">¶</a></h4>
 <p>This method returns the Model object (created and deployed by extending model base- BaseQuarticModel).</p>
@@ -417,10 +677,10 @@ will be contained in the list. The types should match the
 <code class="docutils literal notranslate"><span class="pre">class_type</span></code> as provided. In case this is not present, it will
 default to an empty list.</p></li>
 </ul>
-<div class="section" id="id10">
-<h3>The available methods are as follows:<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="id11">
-<h4>.get<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h3>The available methods are as follows:<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h4>.get<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <p>The method returns the first item in the list whose attribute <code class="docutils literal notranslate"><span class="pre">name</span></code>
 has the value <code class="docutils literal notranslate"><span class="pre">value</span></code>. It requires the following parameters:</p>
 <ul class="simple">
@@ -461,17 +721,31 @@ exists or it belongs to a different class_type, it throws an exception.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="exclude">
-<h4>.exclude<a class="headerlink" href="#exclude" title="Permalink to this headline">¶</a></h4>
-<p>This method filters the given EntityList to return an updated list that
-doesn’t contain the entity which has the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute value as
-<code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">updated_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="section" id="filter">
+<h4>.filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h4>
+<p>This method filters the given EntityList to return an updated list that contains only those entities which satisfy all the conditions given in arguments.
+It works with all primitive attribtues of the <code class="docutils literal notranslate"><span class="pre">Entity</span></code> in the <code class="docutils literal notranslate"><span class="pre">EntityList</span></code>, if the specific operation is defined for that data type.</p>
+<p>It takes multiple keyword arguments as a parameter (<strong>**kwargs</strong>) to filter the entities.</p>
+<p>For a simple filter operation that includes entities by checking for equality, the format is: <cite>entity_attribute=value</cite></p>
+<p>For operators other than equality, the format is: <cite>entity_attribute__operator=value</cite></p>
+<p>You can <a href="https://docs.python.org/3/library/operator.html" target="_blank">refer here</a> for a list of possible operators.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s1">&#39;Inactive&#39;</span><span class="p">)</span>
+<span class="n">filtered_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">country__ne</span><span class="o">=</span><span class="s1">&#39;India&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id12">
-<h4>.data<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="exclude">
+<h4>.exclude<a class="headerlink" href="#exclude" title="Permalink to this headline">¶</a></h4>
+<p>This method filters the given EntityList to return an updated list that
+doesn’t contain entities which satisfy any of the conditions given in arguments.</p>
+<p>It takes the same arguments as <code class="docutils literal notranslate"><span class="pre">.filter</span></code> above but negates the conditions to exclude them.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">updated_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">updated_entity_list</span> <span class="o">=</span> <span class="n">client_assets</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">created_at__lt</span><span class="o">=</span><span class="n">first_asset</span><span class="o">.</span><span class="n">created_at</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h4>.data<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
 <p>This method is present only for the <code class="docutils literal notranslate"><span class="pre">Tag</span></code> type EntityList, and it
 returns the data present in the given tags. It returns a TagDataIterator
 instance, and has the following parameters:</p>
@@ -580,6 +854,7 @@ aggregated.</p></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="model_creation.html">Model Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
 </ul>
 

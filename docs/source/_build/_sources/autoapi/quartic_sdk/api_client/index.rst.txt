@@ -25,20 +25,95 @@ Classes
       Return the SDK version
 
 
-   .. method:: assets(self)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: assets(self, query_params={})
 
       Get the assets method
+      :param query_params: Dictionary of filter conditions
 
 
-   .. method:: context_frames(self)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: context_frames(self, query_params={})
 
       Get the context frames method
+      :param query_params: Dictionary of filter conditions
       :return: (EntityList) List of context frames
 
 
-   .. method:: edge_connectors(self)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: edge_connectors(self, query_params={})
 
       Get the edge connectors method
+      :param query_params: Dictionary of filter conditions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
    .. method:: process_units(self)
@@ -47,25 +122,99 @@ Classes
       Get the process units
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
    .. method:: work_cells(self)
       :abstractmethod:
 
       Get the work cells
 
 
-   .. method:: tags(self, asset_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: tags(self, asset_id, query_params={})
 
       Get the tags
       :param asset_id: ID of the asset
+      :param query_params: Dictionary of filter conditions
       :return: (EntityList) List of tags belonging to the asset
 
 
-   .. method:: list_models(self, is_active: bool = None, ml_node: int = None) -> List[Dict]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: list_models(self, is_active: bool = None, ml_node: int = None, query_params={})
 
       List models and its parameters accessible by user
       :param is_active: Boolean Indicator if list should contain active nodes or not
       :param ml_node:   Ml Node id to filter models deployed to particular node
+      :param query_params: Dictionary of filter conditions
       :return:          list of dictionary
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
 
 
 
