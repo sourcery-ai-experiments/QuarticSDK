@@ -29,7 +29,10 @@ class EdgeConnector(Base):
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         tag_query_params = {**query_params}
-        if self.connector_protocol == Constants.CONNECTOR_PROTOCOLS[Constants.SQL] and self.parent == None:
+        if (
+            self.connector_protocol == Constants.CONNECTOR_PROTOCOLS[Constants.SQL]
+            and self.parent is None
+        ):
             tag_query_params["edge_connector__parent"] = self.id
         else:
             tag_query_params["edge_connector"] = self.id
