@@ -28,12 +28,13 @@ class EdgeConnector(Base):
         :param query_params: Dictionary of filter conditions
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
+        tag_query_params = {**query_params}
         if self.connector_protocol == Constants.CONNECTOR_PROTOCOLS[Constants.SQL] and self.parent == None:
-            query_params["edge_connector__parent"] = self.id
+            tag_query_params["edge_connector__parent"] = self.id
         else:
-            query_params["edge_connector"] = self.id
+            tag_query_params["edge_connector"] = self.id
         tags_response = self.api_helper.call_api(
-            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params=query_params).json()
+            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params=tag_query_params).json()
         return EntityFactory(Constants.TAG_ENTITY, tags_response, self.api_helper)
 
     def historical_data(self,
