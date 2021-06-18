@@ -176,3 +176,14 @@ EVENT_FRAME_LIST_GET = [
         "tags": []
     }
 ]
+
+EVENT_FRAME_OCCURRENCE_LIST_GET = [
+    {'id': 460803,
+     'name': 'testef',
+     'start_time': 1623933598133,
+     'stop_time': 1623933598134,
+     'event_frame_definition': 22,
+     'tags': [7735, 7739, 7751],
+     'parent_tags': []
+     }
+]

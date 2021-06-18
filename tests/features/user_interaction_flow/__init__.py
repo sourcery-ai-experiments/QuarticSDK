@@ -86,6 +86,13 @@ def step_impl(context):
 
     world.first_event_frame = world.event_frames.first()
 
+    with mock.patch('requests.get') as requests_get:
+        requests_get.return_value = TestHelpers.APIHelperCallAPI(
+            TestHelpers.EVENT_FRAME_OCCURRENCE_LIST_GET)
+
+        world.ef_occurrences = world.first_event_frame.occurrences(1623933500000,
+                                                                   1623933750000)
+
 
 @step("the methods works correctly resulting in correct data types")
 def step_impl(context):
@@ -118,3 +125,4 @@ def step_impl(context):
     assert isinstance(world.cf_occurrences.first(), ContextFrameOccurrence)
     assert isinstance(world.event_frames, EntityList)
     assert isinstance(world.first_event_frame, EventFrame)
+    assert isinstance(world.ef_occurrences.first(), EventFrameOccurrence)

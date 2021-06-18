@@ -14,7 +14,7 @@ class EventFrame(Base):
         """
         return f"<{Constants.EVENT_FRAME_ENTITY}: {self.name}>"
 
-    def event_frame_occurrences(self, start_time, stop_time, query_params={}):
+    def occurrences(self, start_time, stop_time, query_params={}):
         """
         The given method returns the list of event frame occurrences for the given asset in the given time frame
         :param start_time: (epoch) Start_time of event frame occurrence
