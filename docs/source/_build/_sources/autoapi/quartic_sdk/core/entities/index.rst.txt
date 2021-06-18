@@ -16,6 +16,8 @@ Submodules
    context_frame/index.rst
    context_frame_occurrence/index.rst
    edge_connector/index.rst
+   event_frame/index.rst
+   event_frame_occurrence/index.rst
    model/index.rst
    tag/index.rst
    type_mapping/index.rst
@@ -36,6 +38,8 @@ Classes
    quartic_sdk.core.entities.EdgeConnector
    quartic_sdk.core.entities.Tag
    quartic_sdk.core.entities.Model
+   quartic_sdk.core.entities.EventFrame
+   quartic_sdk.core.entities.EventFrameOccurrence
 
 
 
@@ -63,10 +67,10 @@ Classes
       :param query_params: Dictionary of filter conditions
 
 
-   .. method:: event_frames(self)
-      :abstractmethod:
+   .. method:: event_frames(self, query_params={})
 
       The given method returns the list of event frames for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: batches(self, query_params={})
@@ -296,6 +300,42 @@ Classes
       Returns the model object saved in the model
       :param query_params: Dictionary of filter conditions
       :return:    Returns a Model which is subclass of BaseQuarticModel
+
+
+
+.. class:: EventFrame(body_json, api_helper)
+
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the event frame entity which is created based upon the
+   event frame object returned from the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the event frame name
+
+
+   .. method:: occurrences(self, start_time, stop_time, query_params={})
+
+      The given method returns the list of event frame occurrences for the given asset in the given time frame
+      :param start_time: (epoch) Start_time of event frame occurrence
+      :param stop_time: (epoch) Stop_time of event frame occurrence
+      :param query_params: Dictionary of filter conditions
+
+
+
+.. class:: EventFrameOccurrence(body_json, api_helper)
+
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the event frame occurrence entity which is created based upon the
+   event frame occurrence object returned from the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the event frame occurrence name
 
 
 

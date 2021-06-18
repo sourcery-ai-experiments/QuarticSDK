@@ -45,10 +45,10 @@ Classes
       :param query_params: Dictionary of filter conditions
 
 
-   .. method:: event_frames(self)
-      :abstractmethod:
+   .. method:: event_frames(self, query_params={})
 
       The given method returns the list of event frames for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: batches(self, query_params={})
