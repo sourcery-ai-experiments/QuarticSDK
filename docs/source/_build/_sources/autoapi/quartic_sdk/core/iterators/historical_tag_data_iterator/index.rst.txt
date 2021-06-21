@@ -116,21 +116,3 @@ Classes
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-
