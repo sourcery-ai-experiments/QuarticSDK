@@ -21,8 +21,10 @@ class EventFrame(Base):
         :param stop_time: (epoch) Stop_time of event frame occurrence
         :param query_params: Dictionary of filter conditions
         """
-        from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
+        if not (isinstance(start_time, int) and isinstance(stop_time, int)):
+            raise TypeError("start_time and end_time epoch should be int")
 
+        from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
         event_frame_occurrence_response = self.api_helper.call_api(
             Constants.GET_EVENT_FRAME_OCCURRENCES,
             Constants.API_GET,
