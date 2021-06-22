@@ -8,3 +8,7 @@ from quartic_sdk.core.entities.tag import Tag
 from quartic_sdk.core.entities.model import Model
 from quartic_sdk.core.entities.event_frame import EventFrame
 from quartic_sdk.core.entities.event_frame_occurrence import EventFrameOccurrence
+from quartic_sdk.core.entities.site import Site
+from quartic_sdk.core.entities.procedure import Procedure
+from quartic_sdk.core.entities.product import Product
+from quartic_sdk.core.entities.procedure_step import ProcedureStep

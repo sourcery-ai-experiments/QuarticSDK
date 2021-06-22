@@ -61,7 +61,7 @@ class APIClient:
         :param query_params: Dictionary of filter conditions
         """
         return_json = self.api_helper.call_api(
-            Constants.GET_EDGE_CONNECTORS, Constants.API_GET, query_params=query_params).json()
+            Constants.GET_EDGE_CONNECTORS, Constants.API_GET, query_params={"parent__isnull": True}).json()
         return EntityFactory(Constants.EDGE_CONNECTOR_ENTITY, return_json, self.api_helper)
 
     def process_units(self):
@@ -128,3 +128,23 @@ class APIClient:
             Constants.MODEL_ENTITY,
             response.json(),
             self.api_helper)
+
+    def products(self, query_params={}):
+        """
+        This method is used to fetch list of all product belongs to a particular client
+        :param query_params: Dictionary of filter conditions
+        :return: Product(Product Entity) Objects
+        """
+        return_json = self.api_helper.call_api(
+            Constants.GET_PRODUCTS, Constants.API_GET, query_params=query_params).json()
+        return EntityFactory(Constants.PRODUCT_ENTITY, return_json, self.api_helper)
+
+    def sites(self, query_params={}):
+        """
+        This method is used to fetch all sites available for a user's client
+        :param query_params: Dictionary of filter conditions
+        :return: Site(Site Entity) Objects
+        """
+        return_json = self.api_helper.call_api(
+            Constants.GET_SITES, Constants.API_GET, query_params=query_params).json()
+        return EntityFactory(Constants.SITE_ENTITY, return_json, self.api_helper)
