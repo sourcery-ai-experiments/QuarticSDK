@@ -132,16 +132,6 @@ Module Contents
 
    
 
-.. data:: GET_EVENT_FRAMES
-   :annotation: = /api/v1/event_frame/
-
-   
-
-.. data:: GET_EVENT_FRAME_OCCURRENCES
-   :annotation: = /api/v1/ef_occurrence/
-
-   
-
 .. data:: POST_OPCUA_DATA
    :annotation: = /api/v1/historical_tag_data/
 
@@ -184,16 +174,6 @@ Module Contents
 
 .. data:: MODEL_ENTITY
    :annotation: = Model
-
-   
-
-.. data:: EVENT_FRAME_ENTITY
-   :annotation: = EventFrame
-
-   
-
-.. data:: EVENT_FRAME_OCCURRENCE_ENTITY
-   :annotation: = EventFrameOccurrence
 
    
 
