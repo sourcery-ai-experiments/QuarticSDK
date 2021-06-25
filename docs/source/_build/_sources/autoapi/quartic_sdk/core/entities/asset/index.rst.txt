@@ -24,7 +24,8 @@ Classes
 
 
 
-.. class:: Asset
+.. class:: Asset(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -83,6 +84,7 @@ Classes
       :param query_params: Dictionary of filter conditions
 
 
+<<<<<<< HEAD
 
 
 
@@ -103,8 +105,12 @@ Classes
 
    .. method:: event_frames(self)
       :abstractmethod:
+=======
+   .. method:: event_frames(self, query_params={})
+>>>>>>> 8f340fd... Merge pull request #109 from Quarticai/PLT-5405
 
       The given method returns the list of event frames for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
 

@@ -124,3 +124,66 @@ EDGE_CONNECTOR_DATA_POST = {
                                 4, 1, 2]]}, "total_count": {
                                     "1": 3, "2": 3, "3": 3}, "page_count": {
                                         "1": 3, "2": 3, "3": 3}, "cursor": None}
+
+EVENT_FRAME_LIST_GET = [
+    {
+        "id": 1,
+        "stop_rule_json": {
+            "xp1": {
+                "v1": "tag1624",
+                "v2": "12.0",
+                "opr": "<"
+            }
+        },
+        "start_rule_json": {
+            "xp1": {
+                "v1": "tag1624",
+                "v2": "4.0",
+                "opr": ">"
+            }
+        },
+        "start_raw_json": {
+            "0": {
+                "0": "1624"
+            },
+            "1": {
+                "1": "7"
+            },
+            "2": {
+                "2": "4.0"
+            }
+        },
+        "stop_raw_json": {
+            "0": {
+                "0": "1624"
+            },
+            "1": {
+                "1": "6"
+            },
+            "2": {
+                "2": "12.0"
+            }
+        },
+        "created_at": "2020-11-19T09:21:07.536136Z",
+        "updated_at": "2020-11-19T09:21:07.536177Z",
+        "name": "stop_ef",
+        "start_duration_ms": 1000,
+        "stop_duration_ms": 1000,
+        "category": 3,
+        "asset_permission": 51,
+        "asset": 51,
+        "created_by": 1,
+        "tags": []
+    }
+]
+
+EVENT_FRAME_OCCURRENCE_LIST_GET = [
+    {'id': 460803,
+     'name': 'testef',
+     'start_time': 1623933598133,
+     'stop_time': 1623933598134,
+     'event_frame_definition': 22,
+     'tags': [7735, 7739, 7751],
+     'parent_tags': []
+     }
+]

@@ -172,6 +172,7 @@ Classes
       :return: (EntityList) List of tags belonging to the asset
 
 
+<<<<<<< HEAD
 
 
 
@@ -188,6 +189,13 @@ Classes
 
       ..
           !! processed by numpydoc !!
+=======
+   .. method:: event_frames(self, query_params={})
+
+      Get the Event Frames
+      :param query_params: Dictionary of filter conditions
+      :return: (EntityList) List of Event Frames belonging to the asset
+>>>>>>> 8f340fd... Merge pull request #109 from Quarticai/PLT-5405
 
 
    .. method:: list_models(self, is_active: bool = None, ml_node: int = None, query_params={})
