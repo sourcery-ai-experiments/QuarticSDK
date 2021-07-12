@@ -1,5 +1,4 @@
 """
 Refers to the version of the package
 """
-__version__ = '2.0.dev388'
-
+__version__ = '2.1.dev388'
