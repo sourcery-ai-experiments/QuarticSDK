@@ -46,7 +46,8 @@ class TagDataIterator:
             }, {
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
-                "aggregation_dict": {"3": "max"}
+                "aggregation_dict": {"3": "max"},
+                "aggregation_timestamp": Constants.AGGREGATION_TIMESTAMP_KEEP_LAST,
             }]
         """
 
@@ -183,7 +184,8 @@ class TagDataIterator:
             }, {
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
-                "aggregation_dict": {"3": "max"}
+                "aggregation_dict": {"3": "max"},
+                "aggregation_timestamp": Constants.AGGREGATION_TIMESTAMP_KEEP_LAST,
             }]
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
