@@ -92,6 +92,7 @@ class Asset(Base):
             passed called `aggregation_timestamp`, which determines how the timestamp information
             will be retained after aggregation. Valid options are "first", "last" or "discard". By
             default, the last timestamp in each group will be retained.
+            An example value here is:
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
