@@ -21,7 +21,8 @@ Classes
 
 
 
-.. class:: Batch
+.. class:: Batch(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -30,7 +31,7 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the asset name with id
+      Override the method to return the asset name
 
 
 

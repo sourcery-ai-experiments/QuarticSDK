@@ -30,35 +30,38 @@ class APIClient:
         """
         return __version__
 
-    def assets(self):
+    def assets(self, query_params={}):
         """
         Get the assets method
+        :param query_params: Dictionary of filter conditions
         """
         return_json = self.api_helper.call_api(
-            Constants.GET_ASSETS, Constants.API_GET).json()
+            Constants.GET_ASSETS, Constants.API_GET, query_params=query_params).json()
         return EntityFactory(
             Constants.ASSET_ENTITY,
             return_json,
             self.api_helper)
 
-    def context_frames(self):
+    def context_frames(self, query_params={}):
         """
         Get the context frames method
+        :param query_params: Dictionary of filter conditions
         :return: (EntityList) List of context frames
         """
         return_json = self.api_helper.call_api(
-            Constants.GET_CONTEXT_FRAME_DEFINITIONS, Constants.API_GET).json()
+            Constants.GET_CONTEXT_FRAME_DEFINITIONS, Constants.API_GET, query_params=query_params).json()
         return EntityFactory(
             Constants.CONTEXT_FRAME_ENTITY,
             return_json,
             self.api_helper)
 
-    def edge_connectors(self):
+    def edge_connectors(self, query_params={}):
         """
         Get the edge connectors method
+        :param query_params: Dictionary of filter conditions
         """
         return_json = self.api_helper.call_api(
-            Constants.GET_EDGE_CONNECTORS, Constants.API_GET).json()
+            Constants.GET_EDGE_CONNECTORS, Constants.API_GET, query_params={"parent__isnull": True}).json()
         return EntityFactory(Constants.EDGE_CONNECTOR_ENTITY, return_json, self.api_helper)
 
     def process_units(self):
@@ -73,30 +76,43 @@ class APIClient:
         """
         raise NotImplementedError
 
-    def tags(self, asset_id):
+    def tags(self, asset_id, query_params={}):
         """
         Get the tags
         :param asset_id: ID of the asset
+        :param query_params: Dictionary of filter conditions
         :return: (EntityList) List of tags belonging to the asset
         """
+        query_params["asset"] = asset_id
         return_json = self.api_helper.call_api(
-            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params={"asset": asset_id}).json()
+            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params=query_params).json()
         return EntityFactory(
             Constants.TAG_ENTITY,
             return_json,
             self.api_helper)
 
+    def event_frames(self, query_params={}):
+        """
+        Get the Event Frames
+        :param query_params: Dictionary of filter conditions
+        :return: (EntityList) List of Event Frames belonging to the asset
+        """
+        return_json = self.api_helper.call_api(
+            Constants.GET_EVENT_FRAMES, Constants.API_GET).json()
+        return EntityFactory(Constants.EVENT_FRAME_ENTITY, return_json, self.api_helper)
+
     def list_models(
             self,
             is_active: bool = None,
-            ml_node: int = None):
+            ml_node: int = None,
+            query_params={}):
         """
         List models and its parameters accessible by user
         :param is_active: Boolean Indicator if list should contain active nodes or not
         :param ml_node:   Ml Node id to filter models deployed to particular node
+        :param query_params: Dictionary of filter conditions
         :return:          list of dictionary
         """
-        query_params = {}
         if is_active is not None:
             query_params['is_active'] = is_active
         if ml_node:
@@ -112,3 +128,23 @@ class APIClient:
             Constants.MODEL_ENTITY,
             response.json(),
             self.api_helper)
+
+    def products(self, query_params={}):
+        """
+        This method is used to fetch list of all product belongs to a particular client
+        :param query_params: Dictionary of filter conditions
+        :return: Product(Product Entity) Objects
+        """
+        return_json = self.api_helper.call_api(
+            Constants.GET_PRODUCTS, Constants.API_GET, query_params=query_params).json()
+        return EntityFactory(Constants.PRODUCT_ENTITY, return_json, self.api_helper)
+
+    def sites(self, query_params={}):
+        """
+        This method is used to fetch all sites available for a user's client
+        :param query_params: Dictionary of filter conditions
+        :return: Site(Site Entity) Objects
+        """
+        return_json = self.api_helper.call_api(
+            Constants.GET_SITES, Constants.API_GET, query_params=query_params).json()
+        return EntityFactory(Constants.SITE_ENTITY, return_json, self.api_helper)

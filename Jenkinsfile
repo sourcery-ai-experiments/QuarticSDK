@@ -7,7 +7,7 @@ containerNodes = [
       steps: [
         test: [
           file_name: 'test.sh',
-          docker_image: 'python:3.6',
+          docker_image: 'quarticai/python:3.9.5-slim-base',
           docker_image_args: '-u root'
             ]
         ]
@@ -17,7 +17,7 @@ containerNodes = [
       steps: [
         publish: [
           file_name: 'publish.sh',
-          docker_image: 'python:3.6',
+          docker_image: 'quarticai/python:3.9.5-slim-base',
           docker_image_args: '-u root'
             ]
         ]

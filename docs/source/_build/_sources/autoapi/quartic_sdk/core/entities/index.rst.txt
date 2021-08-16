@@ -16,7 +16,13 @@ Submodules
    context_frame/index.rst
    context_frame_occurrence/index.rst
    edge_connector/index.rst
+   event_frame/index.rst
+   event_frame_occurrence/index.rst
    model/index.rst
+   procedure/index.rst
+   procedure_step/index.rst
+   product/index.rst
+   site/index.rst
    tag/index.rst
    type_mapping/index.rst
 
@@ -36,10 +42,17 @@ Classes
    quartic_sdk.core.entities.EdgeConnector
    quartic_sdk.core.entities.Tag
    quartic_sdk.core.entities.Model
+   quartic_sdk.core.entities.EventFrame
+   quartic_sdk.core.entities.EventFrameOccurrence
+   quartic_sdk.core.entities.Site
+   quartic_sdk.core.entities.Procedure
+   quartic_sdk.core.entities.Product
+   quartic_sdk.core.entities.ProcedureStep
 
 
 
-.. class:: Asset
+.. class:: Asset(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -53,23 +66,25 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the asset name with id
+      Override the method to return the asset name
 
 
-   .. method:: get_tags(self)
+   .. method:: get_tags(self, query_params={})
 
       The given method returns the list of tags for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
-   .. method:: event_frames(self)
-      :abstractmethod:
+   .. method:: event_frames(self, query_params={})
 
       The given method returns the list of event frames for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
-   .. method:: batches(self)
+   .. method:: batches(self, query_params={})
 
       The given method returns the list of batches for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
@@ -108,7 +123,8 @@ Classes
 
 
 
-.. class:: Batch
+.. class:: Batch(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -117,11 +133,12 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the asset name with id
+      Override the method to return the asset name
 
 
 
-.. class:: ContextFrame
+.. class:: ContextFrame(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -133,13 +150,15 @@ Classes
       Override the method to return the asset name with id
 
 
-   .. method:: occurrences(self)
+   .. method:: occurrences(self, query_params={})
 
       Return the list of occurrences for the given context frame
+      :param query_params: Dictionary of filter conditions
 
 
 
-.. class:: ContextFrameOccurrence
+.. class:: ContextFrameOccurrence(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -167,12 +186,13 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the data source name with id
+      Override the method to return the data source name
 
 
-   .. method:: get_tags(self)
+   .. method:: get_tags(self, query_params={})
 
       The given method returns the list of tags for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
    .. method:: historical_data(self, start_time, stop_time, batch_size=Constants.DEFAULT_BATCH_SIZE, max_records=None, tags=None, return_type=Constants.RETURN_PANDAS)
@@ -231,7 +251,7 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the tag name with id
+      Override the method to return the tag name
 
 
    .. method:: data(self, start_time, stop_time, granularity=0, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
@@ -280,13 +300,186 @@ Classes
 
    .. method:: __repr__(self)
 
-      Override the method to return the Model with model name and id
+      Override the method to return the Model with model name
 
 
-   .. method:: model_instance(self)
+   .. method:: model_instance(self, query_params={})
 
       Returns the model object saved in the model
+      :param query_params: Dictionary of filter conditions
       :return:    Returns a Model which is subclass of BaseQuarticModel
+
+
+
+.. class:: EventFrame(body_json, api_helper)
+
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the event frame entity which is created based upon the
+   event frame object returned from the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the event frame name
+
+
+   .. method:: occurrences(self, start_time, stop_time, query_params={})
+
+      The given method returns the list of event frame occurrences for the given asset in the given time frame
+      :param start_time: (epoch) Start_time of event frame occurrence
+      :param stop_time: (epoch) Stop_time of event frame occurrence
+      :param query_params: Dictionary of filter conditions
+
+
+
+.. class:: EventFrameOccurrence(body_json, api_helper)
+
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the event frame occurrence entity which is created based upon the
+   event frame occurrence object returned from the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the event frame occurrence name
+
+
+
+.. class:: Site(body_json, api_helper)
+
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the site entity which is created based upon the site response
+   returned by the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the site name
+
+
+   .. method:: assets(self)
+      :abstractmethod:
+
+      Get the assets belongs to a site
+
+
+   .. method:: edge_connectors(self)
+      :abstractmethod:
+
+      Get the edge_connectors belongs to a site
+
+
+
+.. class:: Procedure(body_json, api_helper)
+
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the Procedure entity which is created based upon the procedure response
+   returned by the API
+
+   .. attribute:: UNIT_PROCEDURE
+      :annotation: = 1
+
+      
+
+   .. method:: __repr__(self)
+
+      Override the method to return the Procedure name
+
+
+   .. method:: fetch_unit_procedures(self, query_params={})
+
+      This method is used for fetching all the UnitProcedures belongs to a particular procedure
+      in PH hierarchy
+      :param query_params: Dictionary of filter conditions
+      :return: List of UnitProcedure(ProcedureStep Entity) Objects
+
+
+   .. method:: create_unit_procedure(self, name, start_batch_tag, stop_batch_tag, order, start_rule, stop_rule, asset_list)
+
+      This method is used to create UnitProcedure inside a particular Procedure
+      :param name: UnitProcedure Name
+      :param start_batch_tag: Tag Object
+      :param stop_batch_tag: Tag Object
+      :param order: sequence in which we want to add child nodes inside parent(procedure) node
+      :param start_rule: Rule (Util Class) Object
+      :param stop_rule: Rule (Util Class) Object
+      :param asset_list: List containing asset ids
+      :return: UnitProcedure(ProcedureStep Entity) Object
+
+
+
+.. class:: Product(body_json, api_helper)
+
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the product entity which is created based upon the product response
+   returned by the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the product name
+
+
+   .. method:: get_procedures(self, query_params={})
+
+      This method id used for fetching all the procedures belongs to a product
+      :param query_params: Dictionary of filter conditions
+      :return: List of Procedure(Procedure Entity) objects
+
+
+   .. method:: create_procedure(self, name, site, start_batch_tag, stop_batch_tag, additional_attributes, start_rule, stop_rule)
+
+      This method is used for creating procedure of PH hierarchy inside particular product
+      :param name: Procedure Name
+      :param site: Site Object
+      :param start_batch_tag: Tag Object
+      :param stop_batch_tag: Tag Object
+      :param additional_attributes: Additional attributes required to create procedure in the dictionary format
+      and contains fields of Procedure like receipe_type, formula and receipe_version
+      :param start_rule: Rule Class Object
+      :param stop_rule: Rule Class Object
+      :return: Procedure(Procedure Entity) Object
+
+
+
+.. class:: ProcedureStep(body_json, api_helper)
+
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the ProcedureStep entity which is created based upon the
+   procedure step response returned by the API
+
+   .. method:: __repr__(self)
+
+      Override the method to return the ProcedureStep name
+
+
+   .. method:: fetch_substep_details(self, query_params={})
+
+      This method is used for fetching procedure substep details like Operation/Phase/PhaseStep
+      :param query_params: Dictionary of filter conditions
+      :return: List of ProcedureStep(ProcedureStep Entity) Objects
+
+
+   .. method:: create_procedure_step(self, name, start_batch_tag, stop_batch_tag, procedure, order, start_rule, stop_rule, asset_list)
+
+      This method is used to create Procedure Step like Operation/Phase/PhaseStep
+      :param name: ProcedureStep Name
+      :param start_batch_tag: Tag Object
+      :param stop_batch_tag: Tag Object
+      :param procedure: Procedure Object
+      :param order: Sequence in which we want to add child nodes inside parent(UnitProcedure/Operation/Phase) node
+      :param start_rule: Rule (Util Class) Object
+      :param stop_rule: Rule (Util Class) Object
+      :param asset_list: List containing asset ids
+      :return: ProcedureStep(ProcedureStep Entity) Object
 
 
 

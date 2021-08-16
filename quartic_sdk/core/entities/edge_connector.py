@@ -18,17 +18,26 @@ class EdgeConnector(Base):
 
     def __repr__(self):
         """
-        Override the method to return the data source name with id
+        Override the method to return the data source name
         """
-        return f"<{Constants.EDGE_CONNECTOR_ENTITY}: {self.name}_{self.id}>"
+        return f"<{Constants.EDGE_CONNECTOR_ENTITY}: {self.name}>"
 
-    def get_tags(self):
+    def get_tags(self, query_params={}):
         """
         The given method returns the list of tags for the given asset
+        :param query_params: Dictionary of filter conditions
         """
         from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
+        tag_query_params = {**query_params}
+        if (
+            self.connector_protocol == Constants.CONNECTOR_PROTOCOLS[Constants.SQL]
+            and self.parent is None
+        ):
+            tag_query_params["edge_connector__parent"] = self.id
+        else:
+            tag_query_params["edge_connector"] = self.id
         tags_response = self.api_helper.call_api(
-            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params={"edge_connector": self.id}).json()
+            Constants.GET_TAGS, Constants.API_GET, path_params=[], query_params=tag_query_params).json()
         return EntityFactory(Constants.TAG_ENTITY, tags_response, self.api_helper)
 
     def historical_data(self,
@@ -58,7 +67,11 @@ class EdgeConnector(Base):
             it takes the value as "json"
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
-            dictionary. An example value here is:
+            dictionary. If `transformation_type` is "aggregation", an optional key can be
+            passed called `aggregation_timestamp`, which determines how the timestamp information
+            will be retained after aggregation. Valid options are "first", "last" or "discard". By
+            default, the last timestamp in each group will be retained.
+            An example value here is:
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
@@ -66,7 +79,8 @@ class EdgeConnector(Base):
             }, {
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
-                "aggregation_dict": {"3": "max"}
+                "aggregation_dict": {"3": "max"},
+                "aggregation_timestamp": "last",
             }]
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration

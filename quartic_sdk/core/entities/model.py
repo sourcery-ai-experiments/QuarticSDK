@@ -19,18 +19,19 @@ class Model(Base):
 
     def __repr__(self):
         """
-        Override the method to return the Model with model name and id
+        Override the method to return the Model with model name
         """
-        return f"<{Constants.MODEL_ENTITY}: {self.model_name}_{self.model_id}>"
+        return f"<{Constants.MODEL_ENTITY}: {self.model_name}>"
 
-    def model_instance(self):
+    def model_instance(self, query_params={}):
         """
         Returns the model object saved in the model
+        :param query_params: Dictionary of filter conditions
         :return:    Returns a Model which is subclass of BaseQuarticModel
         """
         response = self.api_helper.call_api(Constants.CMD_MODEL_ENDPOINT, method_type=Constants.API_GET,
                                             path_params=[self.model_id],
-                                            query_params={},
+                                            query_params=query_params,
                                             body={})
         response.raise_for_status()
         model_string = response.json()['model']

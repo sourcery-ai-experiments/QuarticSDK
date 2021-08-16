@@ -59,21 +59,24 @@
 
 <dl class="py method">
 <dt id="quartic_sdk.api_client.APIClient.assets">
-<code class="sig-name descname"><span class="pre">assets</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.assets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the assets method</p>
+<code class="sig-name descname"><span class="pre">assets</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.assets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the assets method
+:param query_params: Dictionary of filter conditions</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="quartic_sdk.api_client.APIClient.context_frames">
-<code class="sig-name descname"><span class="pre">context_frames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.context_frames" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">context_frames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.context_frames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the context frames method
+:param query_params: Dictionary of filter conditions
 :return: (EntityList) List of context frames</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="quartic_sdk.api_client.APIClient.edge_connectors">
-<code class="sig-name descname"><span class="pre">edge_connectors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.edge_connectors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the edge connectors method</p>
+<code class="sig-name descname"><span class="pre">edge_connectors</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.edge_connectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the edge connectors method
+:param query_params: Dictionary of filter conditions</p>
 </dd></dl>
 
 <dl class="py method">
@@ -90,19 +93,45 @@
 
 <dl class="py method">
 <dt id="quartic_sdk.api_client.APIClient.tags">
-<code class="sig-name descname"><span class="pre">tags</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.tags" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">tags</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.tags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the tags
 :param asset_id: ID of the asset
+:param query_params: Dictionary of filter conditions
 :return: (EntityList) List of tags belonging to the asset</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="quartic_sdk.api_client.APIClient.event_frames">
+<code class="sig-name descname"><span class="pre">event_frames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.event_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Event Frames
+:param query_params: Dictionary of filter conditions
+:return: (EntityList) List of Event Frames belonging to the asset</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="quartic_sdk.api_client.APIClient.list_models">
-<code class="sig-name descname"><span class="pre">list_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_active</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ml_node</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.list_models" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">list_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_active</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ml_node</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.list_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>List models and its parameters accessible by user
 :param is_active: Boolean Indicator if list should contain active nodes or not
 :param ml_node:   Ml Node id to filter models deployed to particular node
+:param query_params: Dictionary of filter conditions
 :return:          list of dictionary</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.api_client.APIClient.products">
+<code class="sig-name descname"><span class="pre">products</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.products" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to fetch list of all product belongs to a particular client
+:param query_params: Dictionary of filter conditions
+:return: Product(Product Entity) Objects</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="quartic_sdk.api_client.APIClient.sites">
+<code class="sig-name descname"><span class="pre">sites</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to fetch all sites available for a user’s client
+:param query_params: Dictionary of filter conditions
+:return: Site(Site Entity) Objects</p>
 </dd></dl>
 
 </dd></dl>
@@ -133,6 +162,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../basic.html">Basic Functionality</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../model_creation.html">Model Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
 </ul>
 

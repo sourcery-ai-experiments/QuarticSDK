@@ -39,7 +39,7 @@ setup(
         'Intended Audience :: Developers',      # Define that your audience are developers
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',   # Again, pick a license
-        'Programming Language :: Python :: 3.6', #Specify which python versions that you want to support
+        'Programming Language :: Python :: 3.9', #Specify which python versions that you want to support
     ],
     install_requires=get_install_requires('requirements.txt'),
     extras_require={

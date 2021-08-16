@@ -77,3 +77,31 @@ def test_entity_list_first():
     Test first method of entitylist
     """
     assert asset_entity_list.first() == test_asset_entity
+
+
+def test_entity_list_filter():
+    """
+    Test filter method of EntityList
+    """
+    assert test_tag_entities_list.filter(id=1).count() == 1
+    assert test_tag_entities_list.filter(id__ne=1).count() == 3
+    assert test_tag_entities_list.filter(tag_data_type="double").count() == 3
+    assert test_tag_entities_list.filter(tag_data_type__eq="string").count() == 1
+    assert test_tag_entities_list.filter(id__le=3).count() == 3
+    assert test_tag_entities_list.filter(id__lt=3).count() == 2
+    assert test_tag_entities_list.filter(tag_data_type="double", asset=1).count() == 2
+    assert test_tag_entities_list.filter(tag_data_type="double", asset=2).count() == 1
+
+
+def test_entity_list_exclude():
+    """
+    Test exclude method of EntityList
+    """
+    assert test_tag_entities_list.exclude(id=1).count() == 3
+    assert test_tag_entities_list.exclude(tag_data_type="double").count() == 1
+    assert test_tag_entities_list.exclude(tag_data_type="string").count() == 3
+    assert test_tag_entities_list.exclude(asset=1).count() == 2
+    assert test_tag_entities_list.exclude(asset=3).count() == 3
+    assert test_tag_entities_list.exclude(id__gt=1).count() == 1
+    assert test_tag_entities_list.exclude(id__ge=1).count() == 0
+    assert test_tag_entities_list.exclude(id=1, tag_data_type="string").count() == 2
