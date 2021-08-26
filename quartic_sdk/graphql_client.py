@@ -72,7 +72,5 @@ class GraphqlClient:
         resp = loop.run_until_complete(self.__execute__query(query))
         try:
             return resp
-        except RuntimeError as e:
-            print(f"Error occurred = {e}, response = {resp}")
-        except Exception as e:
+        except (RuntimeError, Exception) as e:
             print(f"Error occurred = {e}, response = {resp}")
