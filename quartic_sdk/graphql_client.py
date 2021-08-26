@@ -13,7 +13,7 @@ class GraphqlClient:
                  username: str = None,
                  password: str = None,
                  token: str = None,
-                 verify: bool = True):
+                 verify_ssl: bool = True):
         """
         class initialisation
         :param url: Client host url. For example ( https://stag.quartic.ai/)
@@ -31,7 +31,7 @@ class GraphqlClient:
         self.username = username
         self.password = password
         self.token = token
-        self.verify = verify
+        self.verify_ssl = verify_ssl
         self.__graphql_url = self._get_graphql_url()
 
     def _get_graphql_url(self) -> str:
@@ -49,10 +49,10 @@ class GraphqlClient:
         """
         if self.username and self.password:
             _auth = aiohttp.BasicAuth(login=self.username, password=self.password, encoding='utf-8')
-            _client = aiohttp.ClientSession(auth=_auth, connector=aiohttp.TCPConnector(ssl=self.verify))
+            _client = aiohttp.ClientSession(auth=_auth, connector=aiohttp.TCPConnector(ssl=self.verify_ssl))
         elif self.token:
             _headers = {'Authorization': f"Bearer {self.token}"}
-            _client = aiohttp.ClientSession(headers=_headers, connector=aiohttp.TCPConnector(verify_ssl=self.verify))
+            _client = aiohttp.ClientSession(headers=_headers, connector=aiohttp.TCPConnector(ssl=self.verify_ssl))
         else:
             raise AttributeError('Authentication method not found')
         async with _client as session:
