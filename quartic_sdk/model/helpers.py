@@ -2,6 +2,7 @@ import base64
 import hashlib
 import math
 import cloudpickle
+import pickle
 import pandas as pd
 import numpy as np
 
@@ -76,7 +77,7 @@ class ModelUtils(object):
         :param object:   Model to pickle
         :return:        Pickled Model as string
         """
-        pickled_object = cloudpickle.dumps(object, protocol=3)
+        pickled_object = cloudpickle.dumps(object, protocol=pickle.HIGHEST_PROTOCOL)
         encoded_string = base64.b64encode(pickled_object)
         checksum = cls.get_checksum(encoded_string)
         return checksum + encoded_string.decode()
