@@ -1,6 +1,8 @@
 import aiohttp
 from aiogqlc import GraphQLClient as AioGraphQLClient
 import asyncio
+import logging
+import coloredlogs
 from quartic_sdk._version import __version__
 from typing import Optional, Union
 import validators
@@ -38,6 +40,8 @@ class GraphqlClient:
         self.verify_ssl = verify_ssl
         self.timeout = timeout
         self.__graphql_url = self._get_graphql_url()
+        self.logger = logging.getLogger()
+        coloredlogs.install(level='DEBUG', logger=self.logger)
 
     @staticmethod
     def version():
@@ -54,8 +58,7 @@ class GraphqlClient:
         if self.username and self.password:
             _opts = {
                 'login': self.username,
-                'password': self.password,
-                'encoding': 'utf-8',
+                'password': self.password
             }
 
             _client_opts['auth'] = aiohttp.BasicAuth(**_opts)
@@ -81,37 +84,39 @@ class GraphqlClient:
             raise AttributeError(f'url entered is not correct = {self.url}')
         return f'{self.url}/graphql/'
 
-    async def __execute__query(self, query: str):
+    async def __execute__query(self, query: str, variables: dict = None):
         """
         Execute query
         """
         _client = await self._get_client()
         async with _client as session:
             graphql_client = AioGraphQLClient(self.__graphql_url, session=session)
-            _response = await graphql_client.execute(query)
+            _response = await graphql_client.execute(query, variables)
             response = await _response.json()
         return response
 
-    def execute_query(self, query: str):
+    def execute_query(self, query: str, variables: dict = None):
         """
         Execute query with query param.
         :param query: Query that needs to be executed
+        :param variables: Dictionary of variables that are used inside the query.
         """
 
         try:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-            return loop.run_until_complete(self.__execute__query(query))
+            return loop.run_until_complete(self.__execute__query(query, variables))
         except (RuntimeError, Exception) as e:
-            print(f"Error occurred = {e}")
+            self.logger.error(f"Error occurred = {e}")
 
-    async def execute_async_query(self, query: str):
+    async def execute_async_query(self, query: str, variables: dict = None):
         """
         Execute query asynchronously.
         :param query: Query that needs to be executed
+        :param variables: Dictionary of variables that are used inside the query.
         :return:
         """
         try:
-            return await self.__execute__query(query)
+            return await self.__execute__query(query, variables)
         except (RuntimeError, Exception) as e:
-            print(f"Error occurred = {e}")
+            self.logger.error(f"Error occurred = {e}")
