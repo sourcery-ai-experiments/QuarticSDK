@@ -38,7 +38,10 @@ class GraphqlClient:
         self.timeout = timeout
         self.__graphql_url = self._get_graphql_url()
 
-    async def _get_client(self):
+    async def _get_client(self) -> aiohttp.ClientSession:
+        """
+        Creates and return an aiohttp client session object.
+        """
         _client_opts = {}
         if self.username and self.password:
             _opts = {
@@ -91,5 +94,16 @@ class GraphqlClient:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
             return loop.run_until_complete(self.__execute__query(query))
+        except (RuntimeError, Exception) as e:
+            print(f"Error occurred = {e}")
+
+    async def execute_async_query(self, query: str):
+        """
+        Execute query asynchronously.
+        :param query: Query that needs to be executed
+        :return:
+        """
+        try:
+            return await self.__execute__query(query)
         except (RuntimeError, Exception) as e:
             print(f"Error occurred = {e}")
