@@ -1,6 +1,7 @@
 import aiohttp
 from aiogqlc import GraphQLClient as AioGraphQLClient
 import asyncio
+from quartic_sdk._version import __version__
 from typing import Optional, Union
 import validators
 
@@ -38,9 +39,16 @@ class GraphqlClient:
         self.timeout = timeout
         self.__graphql_url = self._get_graphql_url()
 
+    @staticmethod
+    def version():
+        """
+        Return the SDK version
+        """
+        return __version__
+
     async def _get_client(self) -> aiohttp.ClientSession:
         """
-        Creates and return an aiohttp client session object.
+        Get aiohttp client session object.
         """
         _client_opts = {}
         if self.username and self.password:
