@@ -91,7 +91,7 @@ class GraphqlClient:
         _client = await self._get_client()
         async with _client as session:
             graphql_client = AioGraphQLClient(self.__graphql_url, session=session)
-            _response = await graphql_client.execute(query, variables)
+            _response = await graphql_client.execute(query, variables=variables)
             response = await _response.json()
         return response
 
