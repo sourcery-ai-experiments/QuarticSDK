@@ -170,20 +170,3 @@ Classes
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-      ..
-          !! processed by numpydoc !!
-
-
-
