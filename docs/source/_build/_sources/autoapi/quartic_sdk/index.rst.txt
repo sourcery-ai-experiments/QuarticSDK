@@ -1,0 +1,318 @@
+:mod:`quartic_sdk`
+==================
+
+.. py:module:: quartic_sdk
+
+
+Subpackages
+-----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 3
+
+   api/index.rst
+   core/index.rst
+   model/index.rst
+   utilities/index.rst
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   _version/index.rst
+   api_client/index.rst
+   exceptions/index.rst
+
+
+Package Contents
+----------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   quartic_sdk.APIClient
+
+
+
+.. class:: APIClient(host, username=None, password=None, oauth_token=None, cert_path=None, verify_ssl=True)
+
+
+   .. method:: version()
+      :staticmethod:
+
+      Return the SDK version
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: assets(self, query_params={})
+
+      Get the assets method
+      :param query_params: Dictionary of filter conditions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: context_frames(self, query_params={})
+
+      Get the context frames method
+      :param query_params: Dictionary of filter conditions
+      :return: (EntityList) List of context frames
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: edge_connectors(self, query_params={})
+
+      Get the edge connectors method
+      :param query_params: Dictionary of filter conditions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: process_units(self)
+      :abstractmethod:
+
+      Get the process units
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: work_cells(self)
+      :abstractmethod:
+
+      Get the work cells
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: tags(self, asset_id, query_params={})
+
+      Get the tags
+      :param asset_id: ID of the asset
+      :param query_params: Dictionary of filter conditions
+      :return: (EntityList) List of tags belonging to the asset
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: event_frames(self, query_params={})
+
+      Get the Event Frames
+      :param query_params: Dictionary of filter conditions
+      :return: (EntityList) List of Event Frames belonging to the asset
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: list_models(self, is_active: bool = None, ml_node: int = None, query_params={})
+
+      List models and its parameters accessible by user
+      :param is_active: Boolean Indicator if list should contain active nodes or not
+      :param ml_node:   Ml Node id to filter models deployed to particular node
+      :param query_params: Dictionary of filter conditions
+      :return:          list of dictionary
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: products(self, query_params={})
+
+      This method is used to fetch list of all product belongs to a particular client
+      :param query_params: Dictionary of filter conditions
+      :return: Product(Product Entity) Objects
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: sites(self, query_params={})
+
+      This method is used to fetch all sites available for a user's client
+      :param query_params: Dictionary of filter conditions
+      :return: Site(Site Entity) Objects
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
