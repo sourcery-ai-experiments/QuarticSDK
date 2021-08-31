@@ -13,4 +13,15 @@ Changes
 - `@aman-quartic <https://github.com/aman-quartic/>`_: Query based API calls (`#97 <https://github.com/Quarticai/QuarticSDK/pull/97/>`_)
 
 
+**Version 2.1.0**
+-----------------
+
+Changes
+``````````
+- `@mprasoonquartic <https://github.com/mprasoonquartic/>`_: Removed complete data creation static methods for tag data iterator (`#101 <https://github.com/Quarticai/QuarticSDK/pull/101/>`_)
+- `@aman-quartic <https://github.com/aman-quartic/>`_: Added implementation for event frame and event frame occurrences (`#109 <https://github.com/Quarticai/QuarticSDK/pull/109/>`_)
+- `@HimanshuS24 <https://github.com/HimanshuS24/>`_: Added implementation of Site, Product, Procedure, and ProcedureStep Entities and related methods(`#110 <https://github.com/Quarticai/QuarticSDK/pull/110/>`_)
+- `@shubham-quartic <https://github.com/shubham-quartic/>`_: Updated dependencies and Python Version from 3.6 to 3.9 (`#113 <https://github.com/Quarticai/QuarticSDK/pull/113/>`_)
+- `@shubham-quartic <https://github.com/shubham-quartic/>`_: Added ability to retain timestamp after aggregation (`#115 <https://github.com/Quarticai/QuarticSDK/pull/115/>`_)
+- `@shivinquartic <https://github.com/shivinquartic/>`_: Added implementation for GraphQL Client (`#125 <https://github.com/Quarticai/QuarticSDK/pull/125/>`_)
 ~~~~~~~~~~~~~

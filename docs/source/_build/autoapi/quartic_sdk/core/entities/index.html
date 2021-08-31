@@ -161,7 +161,11 @@ it takes the value as “json”</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
 interpolation or aggregation, depending upon which, we pass the value of this
-dictionary. An example value here is:
+dictionary. If <cite>transformation_type</cite> is “aggregation”, an optional key can be
+passed called <cite>aggregation_timestamp</cite>, which determines how the timestamp information
+will be retained after aggregation. Valid options are “first”, “last” or “discard”. By
+default, the last timestamp in each group will be retained.
+An example value here is:
 [{</p>
 <blockquote>
 <div><p>”transformation_type”: “interpolation”,
@@ -171,7 +175,8 @@ dictionary. An example value here is:
 <dl class="simple">
 <dt>}, {</dt><dd><p>“transformation_type”: “aggregation”,
 “aggregation_column”: “4”,
-“aggregation_dict”: {“3”: “max”}</p>
+“aggregation_dict”: {“3”: “max”},
+“aggregation_timestamp”: “last”,</p>
 </dd>
 </dl>
 <p>}]</p>
@@ -292,7 +297,11 @@ it takes the value as “json”</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
 interpolation or aggregation, depending upon which, we pass the value of this
-dictionary. An example value here is:
+dictionary. If <cite>transformation_type</cite> is “aggregation”, an optional key can be
+passed called <cite>aggregation_timestamp</cite>, which determines how the timestamp information
+will be retained after aggregation. Valid options are “first”, “last” or “discard”. By
+default, the last timestamp in each group will be retained.
+An example value here is:
 [{</p>
 <blockquote>
 <div><p>”transformation_type”: “interpolation”,
@@ -302,7 +311,8 @@ dictionary. An example value here is:
 <dl class="simple">
 <dt>}, {</dt><dd><p>“transformation_type”: “aggregation”,
 “aggregation_column”: “4”,
-“aggregation_dict”: {“3”: “max”}</p>
+“aggregation_dict”: {“3”: “max”},
+“aggregation_timestamp”: “last”,</p>
 </dd>
 </dl>
 <p>}]</p>
@@ -361,7 +371,11 @@ it takes the value as “json”</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
 interpolation or aggregation, depending upon which, we pass the value of this
-dictionary. An example value here is:
+dictionary. If <cite>transformation_type</cite> is “aggregation”, an optional key can be
+passed called <cite>aggregation_timestamp</cite>, which determines how the timestamp information
+will be retained after aggregation. Valid options are “first”, “last” or “discard”. By
+default, the last timestamp in each group will be retained.
+An example value here is:
 [{</p>
 <blockquote>
 <div><p>”transformation_type”: “interpolation”,
@@ -371,7 +385,8 @@ dictionary. An example value here is:
 <dl class="simple">
 <dt>}, {</dt><dd><p>“transformation_type”: “aggregation”,
 “aggregation_column”: “4”,
-“aggregation_dict”: {“3”: “max”}</p>
+“aggregation_dict”: {“3”: “max”},
+“aggregation_timestamp”: “last”,</p>
 </dd>
 </dl>
 <p>}]</p>
