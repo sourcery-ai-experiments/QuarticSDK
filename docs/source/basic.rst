@@ -313,16 +313,20 @@ The available attributes in this class are:
 
    * - Integer
      - Constant
+   * - 0
+     - DOUBLE
    * - 1
-     - RAW
+     - STRING
    * - 2
-     - SOFT
+     - BOOLEAN
    * - 3
-     - AGGREGATION
+     - INT
    * - 4
-     - BITWISE
+     - LONG
    * - 5
-     - WRITEBACK
+     - FLOAT
+   * - 6
+     - SPECTRAL
 -  **short_name**: Tag short name
 -  **edge_connector**: The data source ID
 -  **tag_process_type**: The tag process types. They are given by:
