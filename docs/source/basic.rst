@@ -943,7 +943,7 @@ The available methods are as follows:
    The method parameters as included in v2.0.0 are as follows:
 
    -  **name**: UnitProcedure Name
-   -  **site**: Site id under which procedure gets created
+   -  **site**: Site Class instance
    -  **start_batch_tag**: Tag Entity/Object represents the start batch of Procedure
    -  **stop_batch_tag**: Tag Entity/Object represents the stop batch of Procedure
    -  **start_rule**: Rule Class instance
