@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>quartic_sdk.api_client &#8212; Quartic SDK 1.0.1 documentation</title>
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
@@ -31,11 +32,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-quartic_sdk.api_client">
+  <section id="module-quartic_sdk.api_client">
 <span id="quartic-sdk-api-client"></span><h1><a class="reference internal" href="#module-quartic_sdk.api_client" title="quartic_sdk.api_client"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.api_client</span></code></a><a class="headerlink" href="#module-quartic_sdk.api_client" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-contents">
+<section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="classes">
+<section id="classes">
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -101,6 +102,14 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="quartic_sdk.api_client.APIClient.event_frames">
+<code class="sig-name descname"><span class="pre">event_frames</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.event_frames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Event Frames
+:param query_params: Dictionary of filter conditions
+:return: (EntityList) List of Event Frames belonging to the asset</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="quartic_sdk.api_client.APIClient.list_models">
 <code class="sig-name descname"><span class="pre">list_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_active</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ml_node</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.list_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>List models and its parameters accessible by user
@@ -110,11 +119,27 @@
 :return:          list of dictionary</p>
 </dd></dl>
 
+<dl class="py method">
+<dt id="quartic_sdk.api_client.APIClient.products">
+<code class="sig-name descname"><span class="pre">products</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.products" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to fetch list of all product belongs to a particular client
+:param query_params: Dictionary of filter conditions
+:return: Product(Product Entity) Objects</p>
 </dd></dl>
 
-</div>
-</div>
-</div>
+<dl class="py method">
+<dt id="quartic_sdk.api_client.APIClient.sites">
+<code class="sig-name descname"><span class="pre">sites</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.api_client.APIClient.sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to fetch all sites available for a user’s client
+:param query_params: Dictionary of filter conditions
+:return: Site(Site Entity) Objects</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
 
 
           </div>
@@ -133,7 +158,7 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../basic.html">Basic Functionality</a></li>

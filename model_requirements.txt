@@ -3,9 +3,9 @@ h2o==3.32.0.4
 Keras==2.4.3
 lightgbm==2.2.2
 matplotlib==3.3.4
-numba==0.52.0
+numba==0.53.1
 numexpr==2.7.2
-onnx==1.8.1
+onnx==1.9.0
 pamela==1.0.0
 patsy==0.5.1
 plotly==4.14.3
@@ -17,12 +17,12 @@ pycurl==7.43.0.6
 pynndescent==0.5.2
 pypmml==0.9.9
 pytorch-ignite==0.4.3
-scikit-learn==0.20.0
+scikit-learn==0.23.1
 scikit-optimize==0.8.1
-scipy==1.2.1
+scipy==1.7.0
 seaborn==0.11.1
 statsmodels==0.12.2
-tensorflow==2.4.1
+tensorflow==2.5.0
 torch==1.7.1+cpu
 umap-learn==0.4.1
 xgboost==0.81

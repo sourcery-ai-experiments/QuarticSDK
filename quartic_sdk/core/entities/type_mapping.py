@@ -9,5 +9,11 @@ ENTITY_DICTIONARY = {
     Constants.CONTEXT_FRAME_OCCURRENCE_ENTITY: ContextFrameOccurrence,
     Constants.BATCH_ENTITY: Batch,
     Constants.MODEL_ENTITY: Model,
-    Constants.EDGE_CONNECTOR_ENTITY: EdgeConnector
+    Constants.EDGE_CONNECTOR_ENTITY: EdgeConnector,
+    Constants.EVENT_FRAME_ENTITY: EventFrame,
+    Constants.EVENT_FRAME_OCCURRENCE_ENTITY: EventFrameOccurrence,
+    Constants.SITE_ENTITY: Site,
+    Constants.PRODUCT_ENTITY: Product,
+    Constants.PROCEDURE_ENTITY: Procedure,
+    Constants.PROCEDURE_STEP_ENTITY: ProcedureStep
 }

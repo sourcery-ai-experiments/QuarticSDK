@@ -38,7 +38,11 @@ class TagDataIterator:
             it takes the value as "json"
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
-            dictionary. An example value here is:
+            dictionary. If `transformation_type` is "aggregation", an optional key can be
+            passed called `aggregation_timestamp`, which determines how the timestamp information
+            will be retained after aggregation. Valid options are "first", "last" or "discard". By
+            default, the last timestamp in each group will be retained.
+            An example value here is:
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
@@ -46,7 +50,8 @@ class TagDataIterator:
             }, {
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
-                "aggregation_dict": {"3": "max"}
+                "aggregation_dict": {"3": "max"},
+                "aggregation_timestamp": "last",
             }]
         """
 
@@ -176,8 +181,11 @@ class TagDataIterator:
             it takes the value as "json"
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
-            dictionary. An example value here is:
-
+            dictionary. If `transformation_type` is "aggregation", an optional key can be
+            passed called `aggregation_timestamp`, which determines how the timestamp information
+            will be retained after aggregation. Valid options are "first", "last" or "discard". By
+            default, the last timestamp in each group will be retained.
+            An example value here is:
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
@@ -185,8 +193,8 @@ class TagDataIterator:
             }, {
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
-                "aggregation_dict": {"3": "max"}
-
+                "aggregation_dict": {"3": "max"},
+                "aggregation_timestamp": "last",
             }]
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration

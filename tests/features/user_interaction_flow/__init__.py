@@ -34,7 +34,8 @@ def step_impl(context):
         world.client_assets = world.client.assets()
 
     world.first_asset = world.client_assets.first()
-    world.assets_excluding_first = world.client_assets.exclude(id=world.first_asset.id)
+    world.assets_excluding_first = world.client_assets.exclude(
+        id=world.first_asset.id)
     world.assets_filtered = world.client_assets.filter(id=world.first_asset.id)
 
     with mock.patch('requests.get') as requests_get:
@@ -77,6 +78,21 @@ def step_impl(context):
 
         world.cf_occurrences = world.first_context_frame.occurrences()
 
+    with mock.patch('requests.get') as requests_get:
+        requests_get.return_value = TestHelpers.APIHelperCallAPI(
+            TestHelpers.EVENT_FRAME_LIST_GET)
+
+        world.event_frames = world.client.event_frames()
+
+    world.first_event_frame = world.event_frames.first()
+
+    with mock.patch('requests.get') as requests_get:
+        requests_get.return_value = TestHelpers.APIHelperCallAPI(
+            TestHelpers.EVENT_FRAME_OCCURRENCE_LIST_GET)
+
+        world.ef_occurrences = world.first_event_frame.occurrences(1623933500000,
+                                                                   1623933750000)
+
 
 @step("the methods works correctly resulting in correct data types")
 def step_impl(context):
@@ -107,3 +123,6 @@ def step_impl(context):
     assert isinstance(world.first_context_frame, ContextFrame)
     assert isinstance(world.cf_occurrences, EntityList)
     assert isinstance(world.cf_occurrences.first(), ContextFrameOccurrence)
+    assert isinstance(world.event_frames, EntityList)
+    assert isinstance(world.first_event_frame, EventFrame)
+    assert isinstance(world.ef_occurrences.first(), EventFrameOccurrence)

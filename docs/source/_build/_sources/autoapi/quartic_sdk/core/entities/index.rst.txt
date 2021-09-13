@@ -16,7 +16,13 @@ Submodules
    context_frame/index.rst
    context_frame_occurrence/index.rst
    edge_connector/index.rst
+   event_frame/index.rst
+   event_frame_occurrence/index.rst
    model/index.rst
+   procedure/index.rst
+   procedure_step/index.rst
+   product/index.rst
+   site/index.rst
    tag/index.rst
    type_mapping/index.rst
 
@@ -36,11 +42,16 @@ Classes
    quartic_sdk.core.entities.EdgeConnector
    quartic_sdk.core.entities.Tag
    quartic_sdk.core.entities.Model
+   quartic_sdk.core.entities.EventFrame
+   quartic_sdk.core.entities.EventFrameOccurrence
+   quartic_sdk.core.entities.Site
+   quartic_sdk.core.entities.Procedure
+   quartic_sdk.core.entities.Product
+   quartic_sdk.core.entities.ProcedureStep
 
 
 
-.. class:: Asset(body_json, api_helper)
-
+.. class:: Asset
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -117,10 +128,10 @@ Classes
           !! processed by numpydoc !!
 
 
-   .. method:: event_frames(self)
-      :abstractmethod:
+   .. method:: event_frames(self, query_params={})
 
       The given method returns the list of event frames for the given asset
+      :param query_params: Dictionary of filter conditions
 
 
 
@@ -178,8 +189,11 @@ Classes
           it takes the value as "json"
       :param transformations: Refers to the list of transformations. It supports either
           interpolation or aggregation, depending upon which, we pass the value of this
-          dictionary. An example value here is:
-
+          dictionary. If `transformation_type` is "aggregation", an optional key can be
+          passed called `aggregation_timestamp`, which determines how the timestamp information
+          will be retained after aggregation. Valid options are "first", "last" or "discard". By
+          default, the last timestamp in each group will be retained.
+          An example value here is:
           [{
               "transformation_type": "interpolation",
               "column": "3",
@@ -187,8 +201,8 @@ Classes
           },{
               "transformation_type": "aggregation",
               "aggregation_column": "4",
-              "aggregation_dict": {"3": "max"}
-
+              "aggregation_dict": {"3": "max"},
+              "aggregation_timestamp": "last",
           }]
 
       :return: (DataIterator) DataIterator object which can be iterated to get the data
@@ -240,8 +254,7 @@ Classes
 
 
 
-.. class:: Batch(body_json, api_helper)
-
+.. class:: Batch
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -290,8 +303,7 @@ Classes
 
 
 
-.. class:: ContextFrame(body_json, api_helper)
-
+.. class:: ContextFrame
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -414,8 +426,7 @@ Classes
 
 
 
-.. class:: EdgeConnector(body_json, api_helper)
-
+.. class:: EdgeConnector
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -528,8 +539,11 @@ Classes
           it takes the value as "json"
       :param transformations: Refers to the list of transformations. It supports either
           interpolation or aggregation, depending upon which, we pass the value of this
-          dictionary. An example value here is:
-
+          dictionary. If `transformation_type` is "aggregation", an optional key can be
+          passed called `aggregation_timestamp`, which determines how the timestamp information
+          will be retained after aggregation. Valid options are "first", "last" or "discard". By
+          default, the last timestamp in each group will be retained.
+          An example value here is:
           [{
               "transformation_type": "interpolation",
               "column": "3",
@@ -537,8 +551,8 @@ Classes
           }, {
               "transformation_type": "aggregation",
               "aggregation_column": "4",
-              "aggregation_dict": {"3": "max"}
-
+              "aggregation_dict": {"3": "max"},
+              "aggregation_timestamp": "last",
           }]
 
       :return: (DataIterator) DataIterator object which can be iterated to get the data
@@ -590,8 +604,7 @@ Classes
 
 
 
-.. class:: Tag(body_json, api_helper)
-
+.. class:: Tag
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -657,8 +670,11 @@ Classes
           it takes the value as "json"
       :param transformations: Refers to the list of transformations. It supports either
           interpolation or aggregation, depending upon which, we pass the value of this
-          dictionary. An example value here is:
-
+          dictionary. If `transformation_type` is "aggregation", an optional key can be
+          passed called `aggregation_timestamp`, which determines how the timestamp information
+          will be retained after aggregation. Valid options are "first", "last" or "discard". By
+          default, the last timestamp in each group will be retained.
+          An example value here is:
           [{
               "transformation_type": "interpolation",
               "column": "3",
@@ -666,8 +682,8 @@ Classes
           }, {
               "transformation_type": "aggregation",
               "aggregation_column": "4",
-              "aggregation_dict": {"3": "max"}
-
+              "aggregation_dict": {"3": "max"},
+              "aggregation_timestamp": "last",
           }]
 
       :return: (DataIterator) DataIterator object which can be iterated to get the data
@@ -773,6 +789,552 @@ Classes
       Returns the model object saved in the model
       :param query_params: Dictionary of filter conditions
       :return:    Returns a Model which is subclass of BaseQuarticModel
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+.. class:: EventFrame
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the event frame entity which is created based upon the
+   event frame object returned from the API
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   .. method:: __repr__(self)
+
+      Override the method to return the event frame name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: occurrences(self, start_time, stop_time, query_params={})
+
+      The given method returns the list of event frame occurrences for the given asset in the given time frame
+      :param start_time: (epoch) Start_time of event frame occurrence
+      :param stop_time: (epoch) Stop_time of event frame occurrence
+      :param query_params: Dictionary of filter conditions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+.. class:: EventFrameOccurrence(body_json, api_helper)
+
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the event frame occurrence entity which is created based upon the
+   event frame occurrence object returned from the API
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   .. method:: __repr__(self)
+
+      Override the method to return the event frame occurrence name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+.. class:: Site
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the site entity which is created based upon the site response
+   returned by the API
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   .. method:: __repr__(self)
+
+      Override the method to return the site name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: assets(self)
+      :abstractmethod:
+
+      Get the assets belongs to a site
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: edge_connectors(self)
+      :abstractmethod:
+
+      Get the edge_connectors belongs to a site
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+.. class:: Procedure(body_json, api_helper)
+
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the Procedure entity which is created based upon the procedure response
+   returned by the API
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   .. attribute:: UNIT_PROCEDURE
+      :annotation: = 1
+
+      
+
+   .. method:: __repr__(self)
+
+      Override the method to return the Procedure name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: fetch_unit_procedures(self, query_params={})
+
+      This method is used for fetching all the UnitProcedures belongs to a particular procedure
+      in PH hierarchy
+      :param query_params: Dictionary of filter conditions
+      :return: List of UnitProcedure(ProcedureStep Entity) Objects
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: create_unit_procedure(self, name, start_batch_tag, stop_batch_tag, order, start_rule, stop_rule, asset_list)
+
+      This method is used to create UnitProcedure inside a particular Procedure
+      :param name: UnitProcedure Name
+      :param start_batch_tag: Tag Object
+      :param stop_batch_tag: Tag Object
+      :param order: sequence in which we want to add child nodes inside parent(procedure) node
+      :param start_rule: Rule (Util Class) Object
+      :param stop_rule: Rule (Util Class) Object
+      :param asset_list: List containing asset ids
+      :return: UnitProcedure(ProcedureStep Entity) Object
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+.. class:: Product
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the product entity which is created based upon the product response
+   returned by the API
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   .. method:: __repr__(self)
+
+      Override the method to return the product name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: get_procedures(self, query_params={})
+
+      This method id used for fetching all the procedures belongs to a product
+      :param query_params: Dictionary of filter conditions
+      :return: List of Procedure(Procedure Entity) objects
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: create_procedure(self, name, site, start_batch_tag, stop_batch_tag, additional_attributes, start_rule, stop_rule)
+
+      This method is used for creating procedure of PH hierarchy inside particular product
+      :param name: Procedure Name
+      :param site: Site Object
+      :param start_batch_tag: Tag Object
+      :param stop_batch_tag: Tag Object
+      :param additional_attributes: Additional attributes required to create procedure in the dictionary format
+      and contains fields of Procedure like receipe_type, formula and receipe_version
+      :param start_rule: Rule Class Object
+      :param stop_rule: Rule Class Object
+      :return: Procedure(Procedure Entity) Object
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+
+.. class:: ProcedureStep
+
+   Bases: :class:`quartic_sdk.core.entities.base.Base`
+
+   The given class refers to the ProcedureStep entity which is created based upon the
+   procedure step response returned by the API
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ..
+       !! processed by numpydoc !!
+
+   .. method:: __repr__(self)
+
+      Override the method to return the ProcedureStep name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: fetch_substep_details(self, query_params={})
+
+      This method is used for fetching procedure substep details like Operation/Phase/PhaseStep
+      :param query_params: Dictionary of filter conditions
+      :return: List of ProcedureStep(ProcedureStep Entity) Objects
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ..
+          !! processed by numpydoc !!
+
+
+   .. method:: create_procedure_step(self, name, start_batch_tag, stop_batch_tag, procedure, order, start_rule, stop_rule, asset_list)
+
+      This method is used to create Procedure Step like Operation/Phase/PhaseStep
+      :param name: ProcedureStep Name
+      :param start_batch_tag: Tag Object
+      :param stop_batch_tag: Tag Object
+      :param procedure: Procedure Object
+      :param order: Sequence in which we want to add child nodes inside parent(UnitProcedure/Operation/Phase) node
+      :param start_rule: Rule (Util Class) Object
+      :param stop_rule: Rule (Util Class) Object
+      :param asset_list: List containing asset ids
+      :return: ProcedureStep(ProcedureStep Entity) Object
 
 
 

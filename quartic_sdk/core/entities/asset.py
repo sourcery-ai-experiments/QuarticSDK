@@ -40,11 +40,21 @@ class Asset(Base):
             tags_response,
             self.api_helper)
 
-    def event_frames(self):
+    def event_frames(self, query_params={}):
         """
         The given method returns the list of event frames for the given asset
+        :param query_params: Dictionary of filter conditions
         """
-        raise NotImplementedError
+        from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
+        query_params["asset"] = self.id
+        event_frame_response = self.api_helper.call_api(
+            Constants.GET_EVENT_FRAMES,
+            Constants.API_GET,
+            query_params=query_params).json()
+        return EntityFactory(
+            Constants.EVENT_FRAME_ENTITY,
+            event_frame_response,
+            self.api_helper)
 
     def batches(self, query_params={}):
         """
@@ -79,8 +89,11 @@ class Asset(Base):
             it takes the value as "json"
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
-            dictionary. An example value here is:
-
+            dictionary. If `transformation_type` is "aggregation", an optional key can be
+            passed called `aggregation_timestamp`, which determines how the timestamp information
+            will be retained after aggregation. Valid options are "first", "last" or "discard". By
+            default, the last timestamp in each group will be retained.
+            An example value here is:
             [{
                 "transformation_type": "interpolation",
                 "column": "3",
@@ -88,15 +101,16 @@ class Asset(Base):
             },{
                 "transformation_type": "aggregation",
                 "aggregation_column": "4",
-                "aggregation_dict": {"3": "max"}
-
+                "aggregation_dict": {"3": "max"},
+                "aggregation_timestamp": "last",
             }]
 
             
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-        tags = self.get_tags().exclude(tag_data_type=Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
+        tags = self.get_tags().exclude(
+            tag_data_type=Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
         logging.info("Filtering to fetch data only for non-spectral tags")
         return TagDataIterator.create_tag_data_iterator(
             tags,

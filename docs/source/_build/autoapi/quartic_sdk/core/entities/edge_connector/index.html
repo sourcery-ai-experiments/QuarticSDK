@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>quartic_sdk.core.entities.edge_connector &#8212; Quartic SDK 1.0.1 documentation</title>
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/alabaster.css" type="text/css" />
@@ -31,11 +32,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-quartic_sdk.core.entities.edge_connector">
+  <section id="module-quartic_sdk.core.entities.edge_connector">
 <span id="quartic-sdk-core-entities-edge-connector"></span><h1><a class="reference internal" href="#module-quartic_sdk.core.entities.edge_connector" title="quartic_sdk.core.entities.edge_connector"><code class="xref py py-mod docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.edge_connector</span></code></a><a class="headerlink" href="#module-quartic_sdk.core.entities.edge_connector" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-contents">
+<section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="classes">
+<section id="classes">
 <h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -50,7 +51,7 @@
 </table>
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.edge_connector.EdgeConnector">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.edge_connector.</span></code><code class="sig-name descname"><span class="pre">EdgeConnector</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.edge_connector.EdgeConnector" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.edge_connector.</span></code><code class="sig-name descname"><span class="pre">EdgeConnector</span></code><a class="headerlink" href="#quartic_sdk.core.entities.edge_connector.EdgeConnector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the data source entity which is created based upon the
 data source object returned from the API</p>
@@ -94,15 +95,22 @@ json(when value is “json”) or pandas dataframe(when value is “pd”). By d
 it takes the value as “json”</p></li>
 <li><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
 interpolation or aggregation, depending upon which, we pass the value of this
-dictionary. An example value here is:</p>
-<dl class="simple">
-<dt>[{</dt><dd><p>“transformation_type”: “interpolation”,
+dictionary. If <cite>transformation_type</cite> is “aggregation”, an optional key can be
+passed called <cite>aggregation_timestamp</cite>, which determines how the timestamp information
+will be retained after aggregation. Valid options are “first”, “last” or “discard”. By
+default, the last timestamp in each group will be retained.
+An example value here is:
+[{</p>
+<blockquote>
+<div><p>”transformation_type”: “interpolation”,
 “column”: “3”,
 “method”: “linear”</p>
-</dd>
+</div></blockquote>
+<dl class="simple">
 <dt>}, {</dt><dd><p>“transformation_type”: “aggregation”,
 “aggregation_column”: “4”,
-“aggregation_dict”: {“3”: “max”}</p>
+“aggregation_dict”: {“3”: “max”},
+“aggregation_timestamp”: “last”,</p>
 </dd>
 </dl>
 <p>}]</p>
@@ -128,9 +136,9 @@ readability
 
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
           </div>
@@ -149,7 +157,7 @@ readability
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../quick-start.html">Quick start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../basic.html">Basic Functionality</a></li>
