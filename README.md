@@ -21,6 +21,7 @@ python setup.py install
 
 ```
 
+
 ## Example
 ---
 Comprehensive documentation is available at https://quarticsdk.readthedocs.io/en/latest/
