@@ -18,6 +18,7 @@ pip install quartic-sdk[complete]
 ```
 git clone https://github.com/Quarticai/QuarticSDK/
 python setup.py install
+
 ```
 
 ## Example
