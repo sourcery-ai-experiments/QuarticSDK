@@ -78,4 +78,3 @@ To run the unit test cases, run the command:
 ```
 pytest
 ```
-
