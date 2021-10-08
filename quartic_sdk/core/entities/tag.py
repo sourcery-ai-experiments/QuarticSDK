@@ -105,6 +105,24 @@ class Tag(Base):
             wavelengths,
             transformations)
 
+    def wavelengths(self, graphql_client, start_time=None, stop_time=None):
+        """
+        This method is used to get the list of wavelengths of a spectral tag within
+        the provided start and stop times. if start, stop times are not provided, by 
+        default it will fetch all available wavelengths.
+        :param: graphql_client: instance of GraphqlClient
+        :param: start_time(epoch): Optional 
+        :param: stop_time(epoch): Optional
+        :return: dict containing list of wavelengths or error message and status from server
+        """
+        request_body = {"tagId" : self.id}
+        if start_time:
+            request_body["startTime"] = start_time
+        if stop_time:
+            request_body["stopTime"] = stop_time
+
+        return graphql_client.execute_query(Constants.GET_TAG_WAVELENGTHS,request_body)
+
     def __getattribute__(self, name):
         """
         This method overrides the python's object __getattribute__ method. This is used to
