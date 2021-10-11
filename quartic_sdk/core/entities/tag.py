@@ -5,6 +5,7 @@ from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
 from quartic_sdk.utilities.exceptions import IncorrectTagParameterException,IncorrectWavelengthParamException
+from quartic_sdk.graphql_client import GraphqlClient
 
 
 class Tag(Base):
@@ -105,12 +106,11 @@ class Tag(Base):
             wavelengths,
             transformations)
 
-    def wavelengths(self, graphql_client, start_time=None, stop_time=None):
+    def wavelengths(self, start_time=None, stop_time=None):
         """
         This method is used to get the list of wavelengths of a spectral tag within
         the provided start and stop times. if start, stop times are not provided, by 
         default it will fetch all available wavelengths.
-        :param: graphql_client: instance of GraphqlClient
         :param: start_time(epoch): Optional 
         :param: stop_time(epoch): Optional
         :return: dict containing list of wavelengths or error message and status from server
@@ -120,8 +120,12 @@ class Tag(Base):
             request_body["startTime"] = start_time
         if stop_time:
             request_body["stopTime"] = stop_time
-
-        return graphql_client.execute_query(Constants.GET_TAG_WAVELENGTHS,request_body)
+        get_wavelengths_query = """
+        query Tag($tagId: Int!, $startTime: CustomDateTime = null, $stopTime: CustomDateTime = null) {
+        spectralTagWavelengths(tagId: $tagId, startTime: $startTime, stopTime: $stopTime)}
+        """   
+        graphql_client = GraphqlClient.get_graphql_client_from_apihelper(self.api_helper)
+        return graphql_client.execute_query(get_wavelengths_query,request_body)
 
     def __getattribute__(self, name):
         """

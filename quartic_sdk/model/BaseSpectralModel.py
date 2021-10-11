@@ -8,6 +8,7 @@ import pandas as pd
 
 from quartic_sdk.model.helpers import ModelUtils, Validation
 from quartic_sdk.utilities import constants
+from quartic_sdk.graphql_client import GraphqlClient
 
 
 class BaseSpectralModel(metaclass=abc.ABCMeta):
@@ -84,7 +85,7 @@ class BaseSpectralModel(metaclass=abc.ABCMeta):
     ):
         """
 
-        :param client:          Quartic GraphqlClient
+        :param client:          Quartic ApiClient
         :param output_tag_name: name for Prediction output tag
         :param feature_wavelengths: Feature wavelengths of spectral_tag used in model
         :param spectral_tag:    Spectral tag_id
@@ -95,9 +96,9 @@ class BaseSpectralModel(metaclass=abc.ABCMeta):
         :future_window:         Optional - time in ms(int)
         :return:                None on successfully storing the model to Quartic Platform
         """
-        from quartic_sdk import GraphqlClient
+        from quartic_sdk import APIClient
 
-        assert isinstance(client, GraphqlClient)
+        assert isinstance(client, APIClient)
         test_df = ModelUtils.get_performance_test_df(test_df)
         test_data = ModelUtils.get_pickled_object(test_df.head(5))
         model_pkl = ModelUtils.get_pickled_object(self)
@@ -107,21 +108,38 @@ class BaseSpectralModel(metaclass=abc.ABCMeta):
         ), f"model can't be more than {constants.MAX_MODEL_SIZE}MB"
 
         request_body = {
-            constants.SPECTRAL_TAG_ID: spectral_tag,
-            constants.SPECTRAL_MODEL: model_pkl,
-            constants.SPECTRAL_MODEL_NAME: self.name,
-            constants.SPECTRAL_MODEL_OUTPUT_TAG_NAME: output_tag_name,
-            constants.SPECTRAL_MODEL_FEATURE_WAVELENGTHS: feature_wavelengths,
-            constants.SPECTRAL_MODEL_TARGET_TAG_ID: target_tag,
-            constants.SPECTRAL_MODEL_TEST_DATA: test_data,
+            "featureSpectralTagId": spectral_tag,
+            "model": model_pkl,
+            "modelName": self.name,
+            "outputTagName": output_tag_name,
+            "featureWavelengths": feature_wavelengths,
+            "targetTagId": target_tag,
+            "testData": test_data,
         }
 
         if ml_node:
-            request_body[constants.SPECTRAL_MODEL_ML_NODE_ID] = ml_node
+            request_body["mlNodeId"] = ml_node
         if future_window:
-            request_body[constants.SPECTRAL_MODEL_FUTURE_WINDOW] = future_window
+            request_body["futureWindow"] = future_window
+        save_model_query = """
+                mutation SpectralMutation($featureSpectralTagId: Int!, $featureWavelengths: [String]!,
+                $model: String!, $modelName: String!, $outputTagName: String!, $targetTagId: Int!,
+                $testData: String!, $mlNodeId: Int = null, $futureWindow: Int = null) {
+                saveSpectralModel(featureSpectralTagId: $featureSpectralTagId, featureWavelengths: $featureWavelengths,
+                model: $model, modelName: $modelName, outputTagName: $outputTagName, targetTagId: $targetTagId,
+                testData: $testData, mlNodeId: $mlNodeId,futureWindow: $futureWindow) {
+                status
+                message
+                }
+                }
+                """
 
-        response = client.execute_query(constants.SAVE_SPECTRAL_MODEL, request_body)
+        graphql_client = GraphqlClient.get_graphql_client_from_apihelper(
+            client.api_helper
+        )
+        response = graphql_client.execute_query(
+            save_model_query, request_body
+        )
         self.log.info(response)
 
     @abc.abstractmethod
