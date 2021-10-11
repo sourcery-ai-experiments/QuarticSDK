@@ -12,3 +12,9 @@ class IncorrectWavelengthParamException(Exception):
 
 class IncorrectParameterException(Exception):
     pass
+
+class IncorrectAuthTypeException(Exception):
+    pass
+
+class InvalidTagAttributeException(Exception):
+    pass

@@ -9,6 +9,7 @@ from urllib.parse import urlparse
 import re
 from quartic_sdk.api.api_helper import APIHelper
 from quartic_sdk.utilities.constants import GRAPHQL_URL, OAUTH, BASIC
+from quartic_sdk.utilities.exceptions import IncorrectAuthTypeException
 
 SCHEMA_REGEX = re.compile(r"(?:(?:https?)://)")
 
@@ -142,7 +143,7 @@ class GraphqlClient:
         :return: new GraphqlCleint instance initiated with existing APIHelper configuration. 
         """
         configuration = api_helper.configuration
-        graphql_url = GRAPHQL_URL if GRAPHQL_URL else configuration.host
+        graphql_url = GRAPHQL_URL or configuration.host
         if configuration.auth_type == OAUTH:
             return GraphqlClient(url=graphql_url,
             token=configuration.oauth_token,
@@ -153,3 +154,5 @@ class GraphqlClient:
             username=configuration.username,
             password=configuration.password,
             verify_ssl=configuration.verify_ssl)    
+        else:
+            raise IncorrectAuthTypeException('Only OAUTH and BASIC auth_types are supported')
