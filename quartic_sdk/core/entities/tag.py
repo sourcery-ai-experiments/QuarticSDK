@@ -4,7 +4,8 @@ The given file contains the class to refer to the tag entity
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
-from quartic_sdk.utilities.exceptions import IncorrectTagParameterException,IncorrectWavelengthParamException
+from quartic_sdk.utilities.exceptions import IncorrectTagParameterException,IncorrectWavelengthParamException, \
+    InvalidTagAttributeException
 from quartic_sdk.graphql_client import GraphqlClient
 
 
@@ -115,6 +116,8 @@ class Tag(Base):
         :param: stop_time(epoch): Optional
         :return: dict containing list of wavelengths or error message and status from server
         """
+        if self.tag_data_type != Constants.TAG_DATA_TYPES[6]:
+            raise InvalidTagAttributeException( "Invalid attribute : Only spectral tag has attribute wavelengths") 
         request_body = {"tagId" : self.id}
         if start_time:
             request_body["startTime"] = start_time
