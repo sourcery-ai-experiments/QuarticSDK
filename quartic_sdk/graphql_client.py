@@ -7,6 +7,8 @@ from quartic_sdk._version import __version__
 from typing import Optional, Union
 from urllib.parse import urlparse
 import re
+from quartic_sdk.api.api_helper import APIHelper
+from quartic_sdk.utilities.constants import GRAPHQL_URL, OAUTH, BASIC
 
 SCHEMA_REGEX = re.compile(r"(?:(?:https?)://)")
 
@@ -130,3 +132,24 @@ class GraphqlClient:
             return await self.__execute__query(query, variables)
         except (RuntimeError, Exception) as e:
             self.logger.error(f"Error occurred = {e}")
+
+    @staticmethod
+    def get_graphql_client_from_apihelper(api_helper: APIHelper):
+        """
+        Returns an instance of GraphqlClient from provided
+        api_helper instance.
+        :param api_helper: APIHelper instace whose configurations will be used to initialte GraphqlClient
+        :return: new GraphqlCleint instance initiated with existing APIHelper configuration. 
+        """
+        configuration = api_helper.configuration
+        graphql_url = GRAPHQL_URL if GRAPHQL_URL else configuration.host
+        if configuration.auth_type == OAUTH:
+            return GraphqlClient(url=graphql_url,
+            token=configuration.oauth_token,
+            verify_ssl=configuration.verify_ssl)
+
+        elif configuration.auth_type == BASIC:
+            return GraphqlClient(url=graphql_url,
+            username=configuration.username,
+            password=configuration.password,
+            verify_ssl=configuration.verify_ssl)    
