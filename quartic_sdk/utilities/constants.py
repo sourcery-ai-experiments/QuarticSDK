@@ -194,27 +194,8 @@ RANGE = '11'
 AND = '12'
 OR = '13'
 
-#SPECTRALMODEL Constants
-SPECTRAL_MODEL = "model"
-SPECTRAL_MODEL_NAME = "modelName"
-SPECTRAL_MODEL_OUTPUT_TAG_NAME = "outputTagName"
-SPECTRAL_MODEL_FEATURE_WAVELENGTHS = "featureWavelengths"
-SPECTRAL_TAG_ID = "featureSpectralTagId"
-SPECTRAL_MODEL_TARGET_TAG_ID = "targetTagId"
-SPECTRAL_MODEL_TEST_DATA = "testData"
-SPECTRAL_MODEL_ML_NODE_ID = "mlNodeId"
-SPECTRAL_MODEL_FUTURE_WINDOW = "futureWindow"
-
-#Graphql Queries
-SAVE_SPECTRAL_MODEL = """
-mutation SpectralMutation($featureSpectralTagId: Int!, $featureWavelengths: [String]!, $model: String!, $modelName: String!, $outputTagName: String!, $targetTagId: Int!, $testData: String!, $mlNodeId: Int = null, $futureWindow: Int = null) {
-  saveSpectralModel(featureSpectralTagId: $featureSpectralTagId, featureWavelengths: $featureWavelengths, model: $model, modelName: $modelName, outputTagName: $outputTagName, targetTagId: $targetTagId, testData: $testData, mlNodeId: $mlNodeId,futureWindow: $futureWindow) {
-    status
-    message
-  }
-}
-"""
-GET_TAG_WAVELENGTHS ="""
-query Tag($tagId: Int!, $startTime: CustomDateTime = null, $stopTime: CustomDateTime = null) {
-  spectralTagWavelengths(tagId: $tagId, startTime: $startTime, stopTime: $stopTime)}
-"""
+#Graphql Server URL
+# If the APIClient and GraphqlClient urls are different then user can
+# define graphql url which will be used in conversion of APIClient to 
+# GraphqlClient 
+GRAPHQL_URL = ''
