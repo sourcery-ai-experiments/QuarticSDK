@@ -82,6 +82,16 @@ Classes
           between the given duration
 
 
+   .. method:: wavelengths(self, start_time=None, stop_time=None)
+
+      This method is used to get the list of wavelengths of a spectral tag within
+      the provided start and stop times. if start, stop times are not provided, by 
+      default it will fetch all available wavelengths.
+      :param: start_time(epoch): Optional 
+      :param: stop_time(epoch): Optional
+      :return: dict containing list of wavelengths or error message and status from server
+
+
    .. method:: __getattribute__(self, name)
 
       This method overrides the python's object __getattribute__ method. This is used to

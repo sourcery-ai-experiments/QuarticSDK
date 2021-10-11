@@ -20,6 +20,7 @@ Submodules
    :maxdepth: 1
 
    BaseQuarticModel/index.rst
+   BaseSpectralModel/index.rst
    helpers/index.rst
 
 
