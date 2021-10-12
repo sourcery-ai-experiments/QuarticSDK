@@ -205,8 +205,6 @@ RANGE = '11'
 AND = '12'
 OR = '13'
 
-#Graphql Server URL
-# If the APIClient and GraphqlClient urls are different then user can
-# define graphql url which will be used in conversion of APIClient to 
-# GraphqlClient 
-GRAPHQL_URL = ''
+#Graphql Server URL for local dev used for
+# apiclient to graphqlclient converstion
+LOCAL_DEV_GRAPHQL_URL = 'http://localhost:8070'
