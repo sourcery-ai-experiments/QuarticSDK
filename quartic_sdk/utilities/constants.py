@@ -204,7 +204,3 @@ EQUAL = '10'
 RANGE = '11'
 AND = '12'
 OR = '13'
-
-#Graphql Server URL for local dev used for
-# apiclient to graphqlclient converstion
-LOCAL_DEV_GRAPHQL_URL = 'http://localhost:8070'

@@ -8,7 +8,7 @@ from typing import Optional, Union
 from urllib.parse import urlparse
 import re
 from quartic_sdk.api.api_helper import APIHelper
-from quartic_sdk.utilities.constants import LOCAL_DEV_GRAPHQL_URL, OAUTH, BASIC
+from quartic_sdk.utilities.constants import OAUTH, BASIC
 from quartic_sdk.utilities.exceptions import IncorrectAuthTypeException
 
 SCHEMA_REGEX = re.compile(r"(?:(?:https?)://)")
@@ -143,14 +143,13 @@ class GraphqlClient:
         :return: new GraphqlCleint instance initiated with existing APIHelper configuration. 
         """
         configuration = api_helper.configuration
-        graphql_url = LOCAL_DEV_GRAPHQL_URL if configuration._Configuration__local_dev else configuration.host
         if configuration.auth_type == OAUTH:
-            return GraphqlClient(url=graphql_url,
+            return GraphqlClient(url=configuration.gql_host,
             token=configuration.oauth_token,
             verify_ssl=configuration.verify_ssl)
 
         elif configuration.auth_type == BASIC:
-            return GraphqlClient(url=graphql_url,
+            return GraphqlClient(url=configuration.gql_host,
             username=configuration.username,
             password=configuration.password,
             verify_ssl=configuration.verify_ssl)    
