@@ -419,6 +419,12 @@ the data in batches of 200,000 datapoints. More details under the
    will return the pandas dataframe iterator, or ``json`` which will
    return json object on return. This value takes the ``pd`` value as
    default.
+-  **wavelengths (optional)**: This parameter is only valid for spectral 
+   type tags.User can pass a dict with key as "wavelengths" and value as 
+   the list of wavelength values for which user wants to fetch the data. 
+   By default for a given spectral tag, data for all of its available
+   wavelengths will be fetched. By passing this paramter user can choose 
+   to fetch for the specified wavelengths.
 -  **transformations (optional)**: The user is supposed to pass the list
    of interpolations and aggregations here. Further details on
    transformations is provided towards the end of this documentation.
@@ -625,6 +631,7 @@ The available attributes in this class are:
 -  **feature_tags**: IDs of tags used as Feature
 -  **output_tag**: ID of the tag in which prediction results are stored
 -  **target_tag**: ID of the tag which is used as the parent for prediction output tag
+-  **is_spectral_model**: Boolean if the model is spectral or not
 
 The available methods are as follows:
 *************************************

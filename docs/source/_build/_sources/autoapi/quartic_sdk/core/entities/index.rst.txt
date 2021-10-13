@@ -51,8 +51,7 @@ Classes
 
 
 
-.. class:: Asset(body_json, api_helper)
-
+.. class:: Asset
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -128,8 +127,7 @@ Classes
 
 
 
-.. class:: Batch(body_json, api_helper)
-
+.. class:: Batch
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -142,8 +140,7 @@ Classes
 
 
 
-.. class:: ContextFrame(body_json, api_helper)
-
+.. class:: ContextFrame
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -162,8 +159,7 @@ Classes
 
 
 
-.. class:: ContextFrameOccurrence(body_json, api_helper)
-
+.. class:: ContextFrameOccurrence
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -259,12 +255,20 @@ Classes
 
       
 
+   .. method:: raise_exception_for_wavelegths(wavelengths)
+      :staticmethod:
+
+      Validate wavelengths passed for a spectral tag. Schema as following
+      {"wavelengths" : ['1460000.0','1460001.0]}
+      :param wavelengths: dict containing key as 'wavelengths' and value as list of wavelengths
+
+
    .. method:: __repr__(self)
 
       Override the method to return the tag name
 
 
-   .. method:: data(self, start_time, stop_time, sampling_ratio=1, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, transformations=[])
+   .. method:: data(self, start_time, stop_time, sampling_ratio=1, return_type=Constants.RETURN_PANDAS, batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS, wavelengths={}, transformations=[])
 
       Get the data for the given tag between the start_time and the stop_time
       for the given sampling_ratio
@@ -274,6 +278,10 @@ Classes
       :param return_type: The param decides whether the data after querying will be
           json(when value is "json") or pandas dataframe(when value is "pd"). By default,
           it takes the value as "json"
+      :param wavelengths: dict containing list of wavelengths(string) as value with key "wavelengths"
+          Used for getting data for a spectral tag for specified wavelengths. 
+          An example value here is:
+          {"wavelengths:['1460000.0','1460001.0']}   
       :param transformations: Refers to the list of transformations. It supports either
           interpolation or aggregation, depending upon which, we pass the value of this
           dictionary. If `transformation_type` is "aggregation", an optional key can be
@@ -326,8 +334,7 @@ Classes
 
 
 
-.. class:: EventFrame(body_json, api_helper)
-
+.. class:: EventFrame
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -362,8 +369,7 @@ Classes
 
 
 
-.. class:: Site(body_json, api_helper)
-
+.. class:: Site
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -388,8 +394,7 @@ Classes
 
 
 
-.. class:: Procedure(body_json, api_helper)
-
+.. class:: Procedure
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -428,8 +433,7 @@ Classes
 
 
 
-.. class:: Product(body_json, api_helper)
-
+.. class:: Product
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -463,8 +467,7 @@ Classes
 
 
 
-.. class:: ProcedureStep(body_json, api_helper)
-
+.. class:: ProcedureStep
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 

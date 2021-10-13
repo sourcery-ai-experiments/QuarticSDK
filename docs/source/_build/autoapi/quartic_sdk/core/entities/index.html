@@ -109,7 +109,7 @@
 </table>
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.Asset">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Asset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Asset" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Asset</span></code><a class="headerlink" href="#quartic_sdk.core.entities.Asset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the asset entity which is created based upon the
 asset object returned from the API</p>
@@ -204,7 +204,7 @@ readability
 
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.Batch">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Batch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Batch" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Batch</span></code><a class="headerlink" href="#quartic_sdk.core.entities.Batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the batch entity which is created based upon the batch
 object returned from the API</p>
@@ -218,7 +218,7 @@ object returned from the API</p>
 
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.ContextFrame">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">ContextFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.ContextFrame" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">ContextFrame</span></code><a class="headerlink" href="#quartic_sdk.core.entities.ContextFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the context frame entity which is created based
 upon the context frame object returned from the API</p>
@@ -239,7 +239,7 @@ upon the context frame object returned from the API</p>
 
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.ContextFrameOccurrence">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">ContextFrameOccurrence</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.ContextFrameOccurrence" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">ContextFrameOccurrence</span></code><a class="headerlink" href="#quartic_sdk.core.entities.ContextFrameOccurrence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the context frame occurrence entity which is created
 based upon the context frame occurrence object returned from the API</p>
@@ -350,6 +350,14 @@ tag object returned from the API</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt id="quartic_sdk.core.entities.Tag.raise_exception_for_wavelegths">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">raise_exception_for_wavelegths</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavelengths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Tag.raise_exception_for_wavelegths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate wavelengths passed for a spectral tag. Schema as following
+{“wavelengths” : [‘1460000.0’,’1460001.0]}
+:param wavelengths: dict containing key as ‘wavelengths’ and value as list of wavelengths</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="quartic_sdk.core.entities.Tag.__repr__">
 <code class="sig-name descname"><span class="pre">__repr__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Tag.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override the method to return the tag name</p>
@@ -357,7 +365,7 @@ tag object returned from the API</p>
 
 <dl class="py method">
 <dt id="quartic_sdk.core.entities.Tag.data">
-<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Tag.data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.RETURN_PANDAS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Constants.DEFAULT_PAGE_LIMIT_ROWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelengths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Tag.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the data for the given tag between the start_time and the stop_time
 for the given sampling_ratio
 :param start_time: (epoch) Start_time for getting data
@@ -370,7 +378,12 @@ it takes the value as “json”</p>
 </div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wavelengths</strong> – dict containing list of wavelengths(string) as value with key “wavelengths”
+Used for getting data for a spectral tag for specified wavelengths.
+An example value here is:
+{“wavelengths:[‘1460000.0’,’1460001.0’]}</p></li>
+<li><p><strong>transformations</strong> – <p>Refers to the list of transformations. It supports either
 interpolation or aggregation, depending upon which, we pass the value of this
 dictionary. If <cite>transformation_type</cite> is “aggregation”, an optional key can be
 passed called <cite>aggregation_timestamp</cite>, which determines how the timestamp information
@@ -391,7 +404,8 @@ An example value here is:
 </dd>
 </dl>
 <p>}]</p>
-</p>
+</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>(DataIterator) DataIterator object which can be iterated to get the data
@@ -436,7 +450,7 @@ Model object returned from the API</p>
 
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.EventFrame">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">EventFrame</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.EventFrame" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">EventFrame</span></code><a class="headerlink" href="#quartic_sdk.core.entities.EventFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the event frame entity which is created based upon the
 event frame object returned from the API</p>
@@ -473,7 +487,7 @@ event frame occurrence object returned from the API</p>
 
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.Site">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Site</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Site" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Site</span></code><a class="headerlink" href="#quartic_sdk.core.entities.Site" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the site entity which is created based upon the site response
 returned by the API</p>
@@ -499,7 +513,7 @@ returned by the API</p>
 
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.Procedure">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Procedure</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Procedure" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Procedure</span></code><a class="headerlink" href="#quartic_sdk.core.entities.Procedure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the Procedure entity which is created based upon the procedure response
 returned by the API</p>
@@ -541,7 +555,7 @@ in PH hierarchy
 
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.Product">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Product</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.Product" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">Product</span></code><a class="headerlink" href="#quartic_sdk.core.entities.Product" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the product entity which is created based upon the product response
 returned by the API</p>
@@ -578,7 +592,7 @@ and contains fields of Procedure like receipe_type, formula and receipe_version
 
 <dl class="py class">
 <dt id="quartic_sdk.core.entities.ProcedureStep">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">ProcedureStep</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body_json</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_helper</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#quartic_sdk.core.entities.ProcedureStep" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">quartic_sdk.core.entities.</span></code><code class="sig-name descname"><span class="pre">ProcedureStep</span></code><a class="headerlink" href="#quartic_sdk.core.entities.ProcedureStep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="base/index.html#quartic_sdk.core.entities.base.Base" title="quartic_sdk.core.entities.base.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">quartic_sdk.core.entities.base.Base</span></code></a></p>
 <p>The given class refers to the ProcedureStep entity which is created based upon the
 procedure step response returned by the API</p>
