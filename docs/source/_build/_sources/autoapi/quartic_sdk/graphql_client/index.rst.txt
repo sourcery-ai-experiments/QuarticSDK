@@ -65,4 +65,13 @@ Classes
       :return:
 
 
+   .. method:: get_graphql_client_from_apihelper(api_helper: quartic_sdk.api.api_helper.APIHelper)
+      :staticmethod:
+
+      Returns an instance of GraphqlClient from provided
+      api_helper instance.
+      :param api_helper: APIHelper instace whose configurations will be used to initialte GraphqlClient
+      :return: new GraphqlCleint instance initiated with existing APIHelper configuration. 
+
+
 

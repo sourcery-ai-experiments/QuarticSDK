@@ -7,6 +7,9 @@ from quartic_sdk._version import __version__
 from typing import Optional, Union
 from urllib.parse import urlparse
 import re
+from quartic_sdk.api.api_helper import APIHelper
+from quartic_sdk.utilities.constants import OAUTH, BASIC
+from quartic_sdk.utilities.exceptions import IncorrectAuthTypeException
 
 SCHEMA_REGEX = re.compile(r"(?:(?:https?)://)")
 
@@ -130,3 +133,25 @@ class GraphqlClient:
             return await self.__execute__query(query, variables)
         except (RuntimeError, Exception) as e:
             self.logger.error(f"Error occurred = {e}")
+
+    @staticmethod
+    def get_graphql_client_from_apihelper(api_helper: APIHelper):
+        """
+        Returns an instance of GraphqlClient from provided
+        api_helper instance.
+        :param api_helper: APIHelper instace whose configurations will be used to initialte GraphqlClient
+        :return: new GraphqlCleint instance initiated with existing APIHelper configuration. 
+        """
+        configuration = api_helper.configuration
+        if configuration.auth_type == OAUTH:
+            return GraphqlClient(url=configuration.gql_host,
+            token=configuration.oauth_token,
+            verify_ssl=configuration.verify_ssl)
+
+        elif configuration.auth_type == BASIC:
+            return GraphqlClient(url=configuration.gql_host,
+            username=configuration.username,
+            password=configuration.password,
+            verify_ssl=configuration.verify_ssl)    
+        else:
+            raise IncorrectAuthTypeException('Only OAUTH and BASIC auth_types are supported')
