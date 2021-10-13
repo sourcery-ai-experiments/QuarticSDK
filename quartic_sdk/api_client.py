@@ -14,12 +14,13 @@ class APIClient:
             password=None,
             oauth_token=None,
             cert_path=None,
-            verify_ssl=True):
+            verify_ssl=True,
+            gql_host=None):
         """
         Create the API Client
         """
         self.api_helper = APIHelper(
-            host, username, password, oauth_token, cert_path, verify_ssl)
+            host, username, password, oauth_token, cert_path, verify_ssl, gql_host)
 
     @staticmethod
     def version():

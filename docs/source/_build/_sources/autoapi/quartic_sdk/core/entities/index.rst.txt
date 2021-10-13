@@ -51,7 +51,8 @@ Classes
 
 
 
-.. class:: Asset
+.. class:: Asset(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -127,7 +128,8 @@ Classes
 
 
 
-.. class:: Batch
+.. class:: Batch(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -140,7 +142,8 @@ Classes
 
 
 
-.. class:: ContextFrame
+.. class:: ContextFrame(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -159,7 +162,8 @@ Classes
 
 
 
-.. class:: ContextFrameOccurrence
+.. class:: ContextFrameOccurrence(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -303,6 +307,16 @@ Classes
           between the given duration
 
 
+   .. method:: wavelengths(self, start_time=None, stop_time=None)
+
+      This method is used to get the list of wavelengths of a spectral tag within
+      the provided start and stop times. if start, stop times are not provided, by 
+      default it will fetch all available wavelengths.
+      :param: start_time(epoch): Optional 
+      :param: stop_time(epoch): Optional
+      :return: dict containing list of wavelengths or error message and status from server
+
+
    .. method:: __getattribute__(self, name)
 
       This method overrides the python's object __getattribute__ method. This is used to
@@ -334,7 +348,8 @@ Classes
 
 
 
-.. class:: EventFrame
+.. class:: EventFrame(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -369,7 +384,8 @@ Classes
 
 
 
-.. class:: Site
+.. class:: Site(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -394,7 +410,8 @@ Classes
 
 
 
-.. class:: Procedure
+.. class:: Procedure(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -433,7 +450,8 @@ Classes
 
 
 
-.. class:: Product
+.. class:: Product(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
@@ -467,7 +485,8 @@ Classes
 
 
 
-.. class:: ProcedureStep
+.. class:: ProcedureStep(body_json, api_helper)
+
 
    Bases: :class:`quartic_sdk.core.entities.base.Base`
 
