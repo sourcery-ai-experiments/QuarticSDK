@@ -28,4 +28,3 @@ pipelineBuilder = new PipelineBuilder(this, env, scm, containerNodes)
 userEnv = ['RESERVE=azubuntu']
 
 pipelineBuilder.executePipeline(userEnv)
-
