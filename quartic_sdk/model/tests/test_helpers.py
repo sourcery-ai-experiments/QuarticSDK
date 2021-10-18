@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from quartic_sdk.exceptions import InvalidPredictionException
 from quartic_sdk.model.helpers import ModelUtils, Validation
-from quartic_sdk.model.tests import ModelThatReturnsString, SlowModel
+from quartic_sdk.model.tests import ModelThatReturnsString, SlowModel, SpectralModelThatReturnsString, SlowSpectralModel
 
 
 class TestModelValidations(TestCase):
@@ -30,6 +30,15 @@ class TestModelValidations(TestCase):
         with self.assertRaises(InvalidPredictionException):
             data = {'col_A': [1, 2], 'col_B': [3, 4]}
             Validation.validate_model(SlowModel(), pd.DataFrame(data=data))
+
+    def test_validate_spectral_model(self):
+        with self.assertRaises(InvalidPredictionException):
+            data = {'wavenum_1': ['1460000.0','1460001.0'], 'wavenum_2': ['1490004.0','1490005.0']}
+            Validation.validate_model(SpectralModelThatReturnsString(), pd.DataFrame(data=data))   
+
+        with self.assertRaises(InvalidPredictionException):
+            data = {'wavenum_1': ['1460000.0','1460001.0'], 'wavenum_2': ['1490004.0','1490005.0']}
+            Validation.validate_model(SlowSpectralModel(), pd.DataFrame(data=data))        
 
     def test_pickle_model(self):
         model_byte_array = ModelUtils.get_pickled_object("test model object")
