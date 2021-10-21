@@ -1,4 +1,4 @@
-@Library('smart-commit-library') _
+@Library('shared-library') _
 import quarticpipeline.PipelineBuilder
 
 containerNodes = [
