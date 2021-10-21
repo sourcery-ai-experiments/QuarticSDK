@@ -32,6 +32,7 @@ Comprehensive documentation is available at https://quarticsdk.readthedocs.io/en
 
 Here's an example on how the Quartic SDK can be used:
 
+
 #### Getting the assets, tags, batches from the server
 ```
 # Assuming that the Quartic.ai server is at `https://test.quartic.ai/`, with the login
