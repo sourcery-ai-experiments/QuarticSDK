@@ -44,7 +44,6 @@ from quartic_sdk import APIClient
 
 
 
-
 client = APIClient("https://test.quartic.ai/", username="username", password="password")
 user_assets = client.assets() # Get the list of all assets that the user has access to
 
