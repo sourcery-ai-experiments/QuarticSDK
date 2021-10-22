@@ -163,6 +163,7 @@ class SlowSpectralModel(BaseSpectralModel):
     def __init__(self):
         super().__init__("test_spectral_model")
 
+
     def pre_transform(self, df):
         """
         A simple transformation that sleeps for x secs before returning same
