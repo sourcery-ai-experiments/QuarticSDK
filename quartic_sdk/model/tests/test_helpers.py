@@ -59,19 +59,6 @@ class TestModelValidations(TestCase):
             with self.assertRaises(InvalidPredictionException):
                 Validation.validate_model(SlowSpectralModel(), pd.DataFrame(data=data))        
 
-    def test_validate_spectral_model(self):
-        with self.assertRaises(InvalidPredictionException):
-            data = {'wavenum_1': ['1460000.0','1460001.0'], 'wavenum_2': ['1490004.0','1490005.0']}
-            Validation.validate_model(SpectralModelThatReturnsString(), pd.DataFrame(data=data))   
-        
-        with patch.object(Validation,"get_model_prediction_and_time") as MockPredictionAndTiming:
-            data = {'wavenum_1': ['1460000.0','1460001.0'], 'wavenum_2': ['1490004.0','1490005.0']}
-            prediction = pd.Series([i for i in range(pd.DataFrame(data=data).shape[0])])
-            MockPredictionAndTiming.return_value = prediction , constants.MAX_PREDICTION_PROCESSING_TIME + 1
-            
-            with self.assertRaises(InvalidPredictionException):
-                Validation.validate_model(SlowSpectralModel(), pd.DataFrame(data=data))        
-
     def test_pickle_model(self):
         model_byte_array = ModelUtils.get_pickled_object("test model object")
         checksum_data = model_byte_array[:32]
