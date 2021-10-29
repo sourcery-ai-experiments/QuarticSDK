@@ -4,8 +4,10 @@ from unittest.mock import patch
 import pandas as pd
 import numpy as np
 from quartic_sdk.exceptions import InvalidPredictionException
+from quartic_sdk.utilities.exceptions import InvalidWindowDuration
 from quartic_sdk.model.helpers import ModelUtils, Validation
-from quartic_sdk.model.tests import ModelThatReturnsString, SlowModel, SpectralModelThatReturnsString, SlowSpectralModel
+from quartic_sdk.model.tests import ModelThatReturnsString, ModelWithValidWindow, SlowModel,\
+     SpectralModelThatReturnsString, SlowSpectralModel, ModelWithInValidWindow
 from quartic_sdk.utilities import constants
 
 
@@ -32,6 +34,30 @@ class TestModelValidations(TestCase):
         with self.assertRaises(InvalidPredictionException):
             data = {'col_A': [1, 2], 'col_B': [3, 4]}
             Validation.validate_model(SlowModel(), pd.DataFrame(data=data))
+               
+    def test_validate_model_with_window(self):
+        with self.assertRaises(InvalidWindowDuration):
+            data = {'col_A': [1, 2], 'col_B': [3, 4]}
+            Validation.validate_model(ModelWithInValidWindow(), pd.DataFrame(data=data))
+    
+    def test_validate_model_window_vars(self):
+        model  = ModelWithValidWindow()
+        data = {'col_A': [1, 2], 'col_B': [3, 4]}
+        model.predict(pd.DataFrame(data=data))
+        self.assertEquals(model._BaseQuarticModel__window_duration, 3600)      
+
+    def test_validate_spectral_model(self):
+        with self.assertRaises(InvalidPredictionException):
+            data = {'wavenum_1': ['1460000.0','1460001.0'], 'wavenum_2': ['1490004.0','1490005.0']}
+            Validation.validate_model(SpectralModelThatReturnsString(), pd.DataFrame(data=data))   
+        
+        with patch.object(Validation,"get_model_prediction_and_time") as MockPredictionAndTiming:
+            data = {'wavenum_1': ['1460000.0','1460001.0'], 'wavenum_2': ['1490004.0','1490005.0']}
+            prediction = pd.Series([i for i in range(pd.DataFrame(data=data).shape[0])])
+            MockPredictionAndTiming.return_value = prediction , constants.MAX_PREDICTION_PROCESSING_TIME + 1
+            
+            with self.assertRaises(InvalidPredictionException):
+                Validation.validate_model(SlowSpectralModel(), pd.DataFrame(data=data))        
 
     def test_validate_spectral_model(self):
         with self.assertRaises(InvalidPredictionException):
