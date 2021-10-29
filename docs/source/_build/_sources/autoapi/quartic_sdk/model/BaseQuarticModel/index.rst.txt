@@ -90,4 +90,12 @@ Classes
       :return:    Returns pd
 
 
+   .. method:: with_window(duration)
+
+      This is decorator method for window support
+      User can decorate predict method with this decorator for window support
+      :param duration: window duration in sec
+      :return:    None
+
+
 
