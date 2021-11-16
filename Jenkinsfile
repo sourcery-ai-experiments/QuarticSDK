@@ -4,16 +4,16 @@
 import quarticpipeline.PipelineBuilder
 
 containerNodes = [
-  Test: [
-    dir: './jenkins_scripts/',
-      steps: [
-        test: [
-          file_name: 'test.sh',
-          docker_image: 'quarticai/python:3.9.5-slim-base',
-          docker_image_args: '-u root'
-            ]
-        ]
-    ],
+  // Test: [
+  //   dir: './jenkins_scripts/',
+  //     steps: [
+  //       test: [
+  //         file_name: 'test.sh',
+  //         docker_image: 'quarticai/python:3.9.5-slim-base',
+  //         docker_image_args: '-u root'
+  //           ]
+  //       ]
+  //   ],
   Publish: [
     dir: './jenkins_scripts/',
       steps: [
