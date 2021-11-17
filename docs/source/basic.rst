@@ -118,6 +118,108 @@ This method executes the GraphQL query.
     client.execute(query, variables) # Returns a json response on a success.
 
 
+GraphQL Queries and Mutations
+-----------------------------
+This section contains all GraphQL queries and Mutations used in QuarticSDK.
+
+Spectral Queries and Mutations
+*****************************
+
+Tag.wavelengths():
+~~~~~~~~~~~~~~~~~
+
+Below query fetchs the wavelengths for a given Spectral Tag.
+Following variables need to be passed while executing the query:
+
+-  **tagId (mandatory)**: Refers to the Spectral Tag Id.
+-  **startTime (optional)**: Refers to epoch timestamp.
+-  **stopTime (optional)**: Refers to epoch timestamp.
+
+
+::
+
+    query = '''
+        query Tag($tagId: Int!, 
+        $startTime: CustomDateTime = null, 
+        $stopTime: CustomDateTime = null)
+       {
+        spectralTagWavelengths(tagId: $tagId, startTime: $startTime, stopTime: $stopTime)
+       }
+    '''
+
+    variables = {
+        'tagId': 2,
+        'startTime':1605548720000,
+        'stopTime':1605548850000
+    }
+
+
+::
+
+    client.execute(query, variables) # Returns a list of json response on a success.
+
+
+
+BaseSpectralModel.save():
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Using below mutation, Spectral Model can be saved to the Quartic AI Platform.
+Following variables needs to be passed while executing the query:
+
+-  **featureSpectralTagId (mandatory)**: Refers to list of wavelengths.
+-  **featureWavelengths (mandatory)**: Refers to epoch timestamp.
+-  **model (mandatory)**: Refers to the pickled Model string.
+-  **modelName (mandatory)**: Refers to the name of the Spectral Model.
+-  **outputTagName (mandatory)**: Refers to name of the output Tag.
+-  **testData (mandatory)**: Refers pickled test_df string.
+-  **mlNodeId (optional)**: id of the ML_Node.
+-  **futureWindow (optional)**: futureWindow time in seconds.
+
+
+::
+
+    query = '''
+            mutation SpectralMutation($featureSpectralTagId: Int!, 
+            $featureWavelengths: [String]!,
+             $model: String!, $modelName: String!, 
+             $outputTagName: String!, $targetTagId: Int!, 
+             $testData: String!, $mlNodeId: Int = null, 
+             $futureWindow: Int = null) 
+         {
+            saveSpectralModel(featureSpectralTagId: $featureSpectralTagId, 
+            featureWavelengths: $featureWavelengths, 
+            model: $model, modelName: $modelName, 
+            outputTagName: $outputTagName, targetTagId: $targetTagId, 
+            testData: $testData, mlNodeId: $mlNodeId, 
+            futureWindow: $futureWindow) 
+            {
+            status
+            message
+            }
+         }
+                
+    '''
+
+    variables = {
+        'featureSpectralTagId': 2,
+        'featureWavelengths':[14600001.0,14600001.1],
+        'model':'d122ff6322c69ec4b3ab50abd9ae51fdgAWVBgEAAAAAAACMF2Nsb3VkcGlja2xlLmNsb3VkcGlja2xllIwUX21ha2Vfc',
+        'modelName': 'ExpModel1',
+        'outputTagName': Exp1Tag,
+        'testData':'hidWlsdGluc5SMBHR5cGWUk5SMA29iapRoA4wGb2JqZWN0lJOUhZR9lIwgZDFjM2UxMDlkZjE2NGIwZDkyNjNlZ',
+        'futureWindow':5
+
+
+    }
+
+
+::
+
+    client.execute(query, variables) # Returns a json response on a success.
+
+
+
+
 ===============
 API Client
 ===============
