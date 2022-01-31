@@ -13,6 +13,6 @@
 # make test
 
 # echo "end....."
-echo "$USERNAME"
-docker login -u $USERNAME -p $PASSWORD
+echo "$UNAME"
+docker login -u $UNAME -p $PASSWORD
 
