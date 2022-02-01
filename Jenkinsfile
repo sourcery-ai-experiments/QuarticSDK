@@ -25,8 +25,6 @@ containerNodes = [
 ]
 
 pipelineBuilder = new PipelineBuilder(this, env, scm, containerNodes)
-userEnv = ['RESERVE=azubuntu',
-            'CRED=dockerHub',
-            'UNAME=USERNAME']
+userEnv = ['RESERVE=azubuntu']
 
 pipelineBuilder.executePipeline(userEnv)
