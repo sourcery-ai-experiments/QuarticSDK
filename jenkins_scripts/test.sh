@@ -13,6 +13,7 @@
 # make test
 
 # echo "end....."
-echo "$UNAME"
-docker login -u $UNAME -p $PASSWORD
+# echo "$UNAME"
+credentialsId='dockerHub'
+docker login -u $user -p $pass
 
