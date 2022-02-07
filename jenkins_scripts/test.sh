@@ -14,6 +14,7 @@
 
 # echo "end....."
 # echo "$UNAME"
-credentialsId='dockerHub'
-docker login -u $user -p $pass
+# credentialsId='dockerHub'
+echo "$PASS_USR"
+docker login -u $PASS_USR -p $PASS_PSW
 
