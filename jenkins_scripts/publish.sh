@@ -11,7 +11,7 @@ echo "$BRANCH_NAME"
 export PUBLISH_PYPI=true
 export GITHUB_TOKEN="$GIT_TOKEN"
 
-apt-get install libcurl4-gnutls-dev -y
+apt-get update && apt-get install libcurl4-gnutls-dev -y
 
 pip install -U pip==22.0.4
 pip install pip-tools
@@ -22,3 +22,4 @@ bash ./jenkins_scripts/update_dependency.sh $BRANCH_NAME
 cat requirements.txt
 
 pip install importlib-metadata==3.7.0
+
