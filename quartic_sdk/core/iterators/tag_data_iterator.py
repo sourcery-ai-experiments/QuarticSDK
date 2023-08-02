@@ -16,7 +16,6 @@ class TagDataIterator:
             tags,
             start_time,
             stop_time,
-            total_count,
             batch_size,
             api_helper,
             sampling_ratio=1,
@@ -59,7 +58,6 @@ class TagDataIterator:
         TagDataIterator.raise_exception_for_transformation_schema(
             transformations, tags)
 
-        self.total_count = total_count
         self.batch_size = batch_size
         self.tags = tags
         self.start_time = start_time
@@ -155,10 +153,11 @@ class TagDataIterator:
 
         tag_data_return_str = json.dumps(tag_data_return["data"])
 
-        return pd.read_json(tag_data_return_str,
+        return_dataframe = pd.read_json(tag_data_return_str,
                                            orient="split",
                                            convert_dates=False,
                                            convert_axes=False)
+        return return_dataframe
 
     @classmethod
     def create_tag_data_iterator(
@@ -226,7 +225,6 @@ class TagDataIterator:
             tags=tags,
             start_time=start_time,
             stop_time=stop_time,
-            total_count=tag_data_response["total_count"],
             api_helper=api_helper,
             batch_size=batch_size,
             sampling_ratio=sampling_ratio,
