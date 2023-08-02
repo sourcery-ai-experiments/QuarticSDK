@@ -153,11 +153,12 @@ class TagDataIterator:
 
         tag_data_return_str = json.dumps(tag_data_return["data"])
 
-        return_dataframe = pd.read_json(tag_data_return_str,
-                                           orient="split",
-                                           convert_dates=False,
-                                           convert_axes=False)
-        return return_dataframe
+        return pd.read_json(
+            tag_data_return_str,
+            orient="split",
+            convert_dates=False,
+            convert_axes=False,
+        )
 
     @classmethod
     def create_tag_data_iterator(
