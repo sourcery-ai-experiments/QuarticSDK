@@ -14,6 +14,14 @@ TARGET_TAG_ID = "target_tag_id"
 TEST_DATA = "test_data"
 ML_NODE_ID = "ml_node_id"
 
+NAME = 'name'
+NEEDS = 'needs'
+ASSET = 'asset'
+TAG_CATEGORY = 'tagCategory'
+SOURCE = 'source'
+IS_STREAMING = 'isStreaming'
+
+
 # Model Type Integer Constants and their mapping
 MODEL_TYPE_ALL = 0
 MODEL_TYPE_TELEMETRY = 1
