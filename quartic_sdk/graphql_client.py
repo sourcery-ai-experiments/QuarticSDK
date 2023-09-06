@@ -150,13 +150,13 @@ class GraphqlClient:
         configuration = api_helper.configuration
         if configuration.auth_type == OAUTH:
             return GraphqlClient(url=configuration.gql_host,
-            token=configuration.oauth_token,
-            verify_ssl=configuration.verify_ssl)
+                                 token=configuration.oauth_token,
+                                 verify_ssl=configuration.verify_ssl)
 
         elif configuration.auth_type == BASIC:
             return GraphqlClient(url=configuration.gql_host,
-            username=configuration.username,
-            password=configuration.password,
-            verify_ssl=configuration.verify_ssl)    
+                                 username=configuration.username,
+                                 password=configuration.password,
+                                 verify_ssl=configuration.verify_ssl)
         else:
             raise IncorrectAuthTypeException('Only OAUTH and BASIC auth_types are supported')

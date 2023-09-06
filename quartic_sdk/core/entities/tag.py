@@ -40,7 +40,6 @@ class Tag(Base):
                 'Invalid Wavelengths: Wavelength values must be passed in a list '
             )
 
-
     def __repr__(self):
         """
         Override the method to return the tag name
@@ -54,7 +53,7 @@ class Tag(Base):
             sampling_ratio=1,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
-            wavelengths = {},
+            wavelengths={},
             transformations=[]):
         """
         Get the data for the given tag between the start_time and the stop_time
@@ -68,7 +67,7 @@ class Tag(Base):
         :param wavelengths: dict containing list of wavelengths(string) as value with key "wavelengths"
             Used for getting data for a spectral tag for specified wavelengths. 
             An example value here is:
-            {"wavelengths:['1460000.0','1460001.0']}   
+            {"wavelengths:['1460000.0','1460001.0']}
         :param transformations: Refers to the list of transformations. It supports either
             interpolation or aggregation, depending upon which, we pass the value of this
             dictionary. If `transformation_type` is "aggregation", an optional key can be
@@ -90,10 +89,12 @@ class Tag(Base):
             between the given duration
         """
         from quartic_sdk.core.entity_helpers.entity_list import EntityList       
-        if wavelengths and self.tag_data_type !=  Constants.TAG_DATA_TYPES[6]:
-            raise IncorrectTagParameterException( "Invalid parameters : Wavelengths are only supported with spectral tag type")                    
+        if wavelengths and self.tag_data_type != Constants.TAG_DATA_TYPES[6]:
+            raise IncorrectTagParameterException( "Invalid parameters : Wavelengths are only "
+                                                  "supported with spectral tag type")
         if wavelengths:
             Tag.raise_exception_for_wavelegths(wavelengths)
+
         return TagDataIterator.create_tag_data_iterator(
             EntityList(
                 Constants.TAG_ENTITY,

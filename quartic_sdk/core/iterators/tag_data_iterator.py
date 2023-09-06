@@ -20,7 +20,7 @@ class TagDataIterator:
             api_helper,
             sampling_ratio=1,
             return_type=Constants.RETURN_JSON,
-            wavelengths = {},
+            wavelengths={},
             transformations=[]):
         """
         We initialize the iterator with the given parameters
@@ -28,10 +28,7 @@ class TagDataIterator:
                 each containing tags as the individual items
         :param start_time: (epoch) Start time of the query
         :param stop_time: (epoch) Stop time of the query
-        :param count: Count of time ranges in this interval with each interval
-                containing 200,000 points
         :param api_helper: (APIHelper) APIHelper class object
-        :param cursor: Pagination cursor string
         :param sampling_ratio: The sampling_ratio at which the tag data is queried
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
@@ -115,7 +112,7 @@ class TagDataIterator:
             "start_time": self.start_time,
             "stop_time": self.stop_time,
             "sampling_ratio": self.sampling_ratio,
-            "wavelengths" : self.wavelengths,
+            "wavelengths": self.wavelengths,
             "transformations": self._transformations,
             "batch_size": self.batch_size
         }
@@ -132,7 +129,7 @@ class TagDataIterator:
         Get the next object in the iteration.
         Note that the return object is inclusive of time ranges
         """
-        if self._data_call_state != 0 and self._cursor is None:
+        if self._data_call_state != 0 and self.__count == self.offset:
             self._data_call_state = 0
             raise StopIteration
         if self._data_call_state == 0:
@@ -146,17 +143,17 @@ class TagDataIterator:
                 method_type=Constants.API_POST,
                 body={"cursor": self._cursor}).json()
 
-        self._cursor = tag_data_return["cursor"]
+        # self._cursor = tag_data_return["cursor"]
+            self.__count = tag_data_return['count']
+            self.offset = tag_data_return['offset']
 
         if self.return_type == Constants.RETURN_JSON:
             return tag_data_return["data"]
 
-        tag_data_return_str = json.dumps(tag_data_return["data"])
-
-        return_dataframe = pd.read_json(tag_data_return_str,
-                                           orient="split",
-                                           convert_dates=False,
-                                           convert_axes=False)
+        return_dataframe = pd.read_json(json.dumps(tag_data_return["data"]),
+                                        orient="split",
+                                        convert_dates=False,
+                                        convert_axes=False)
         return return_dataframe
 
     @classmethod
@@ -169,7 +166,7 @@ class TagDataIterator:
             sampling_ratio=1,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
-            wavelengths = {},
+            wavelengths={},
             transformations=[]):
         """
         The method creates the TagDataIterator instance based upon the parameters that are passed here
@@ -229,5 +226,5 @@ class TagDataIterator:
             batch_size=batch_size,
             sampling_ratio=sampling_ratio,
             return_type=return_type,
-            wavelengths = wavelengths,
+            wavelengths=wavelengths,
             transformations=transformations)
