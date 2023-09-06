@@ -16,7 +16,7 @@ class TagDataIterator:
             tags,
             start_time,
             stop_time,
-            batch_size,
+            limit,
             api_helper,
             sampling_ratio=1,
             return_type=Constants.RETURN_JSON,
@@ -55,7 +55,7 @@ class TagDataIterator:
         TagDataIterator.raise_exception_for_transformation_schema(
             transformations, tags)
 
-        self.batch_size = batch_size
+        self.limit = limit
         self.tags = tags
         self.start_time = start_time
         self.stop_time = stop_time
@@ -64,8 +64,11 @@ class TagDataIterator:
         self.return_type = return_type
         self.wavelengths = wavelengths
         self._transformations = transformations
-        self._cursor = None
-        self._data_call_state = 0
+        # self._cursor = None
+        # self._data_call_state = 0
+        self.offset = None
+        self.count = -1
+        self.body_json = None
 
     @staticmethod
     def raise_exception_for_transformation_schema(transformations, tags):
@@ -114,7 +117,9 @@ class TagDataIterator:
             "sampling_ratio": self.sampling_ratio,
             "wavelengths": self.wavelengths,
             "transformations": self._transformations,
-            "batch_size": self.batch_size
+            "limit": self.limit,
+            "offset": self.offset,
+            "count": self.count
         }
 
     def __iter__(self):
@@ -129,23 +134,29 @@ class TagDataIterator:
         Get the next object in the iteration.
         Note that the return object is inclusive of time ranges
         """
-        if self._data_call_state != 0 and self.__count == self.offset:
-            self._data_call_state = 0
+        if self.limit == -1 or self.__count == self.offset:
             raise StopIteration
-        if self._data_call_state == 0:
-            body_json = self.create_post_data()
-            tag_data_return = self.api_helper.call_api(
-                Constants.RETURN_TAG_DATA, Constants.API_POST, body=body_json).json()
-            self._data_call_state = 1
         else:
+            if not self.body_json:
+                self.body_json = self.create_post_data()
+
             tag_data_return = self.api_helper.call_api(
-                url=Constants.RETURN_TAG_DATA_CURSOR,
-                method_type=Constants.API_POST,
-                body={"cursor": self._cursor}).json()
+                Constants.RETURN_TAG_DATA, Constants.API_POST, body=self.body_json).json()
+            # self._data_call_state = 1
+        # else:
+        #     tag_data_return = self.api_helper.call_api(
+        #         url=Constants.RETURN_TAG_DATA_CURSOR,
+        #         method_type=Constants.API_POST,
+        #         body={"cursor": self._cursor}).json()
 
         # self._cursor = tag_data_return["cursor"]
             self.__count = tag_data_return['count']
             self.offset = tag_data_return['offset']
+            self.limit = tag_data_return['limit']
+
+            self.body_json['offset'] = self.offset
+            self.body_json['count'] = self.__count
+            self.body_json['limit'] = self.limit
 
         if self.return_type == Constants.RETURN_JSON:
             return tag_data_return["data"]
@@ -166,7 +177,7 @@ class TagDataIterator:
             api_helper,
             sampling_ratio=1,
             return_type=Constants.RETURN_PANDAS,
-            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
+            limit=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             wavelengths={},
             transformations=[]):
         """
@@ -204,27 +215,27 @@ class TagDataIterator:
 
         TagDataIterator.raise_exception_for_transformation_schema(
             transformations, tags)
-        body_json = {
-            "tags": [tag.id for tag in tags.all()],
-            "start_time": start_time,
-            "stop_time": stop_time,
-            "sampling_ratio": sampling_ratio,
-            "wavelengths": wavelengths,
-            "transformations": transformations,
-            "batch_size": batch_size
-        }
+        # body_json = {
+        #     "tags": [tag.id for tag in tags.all()],
+        #     "start_time": start_time,
+        #     "stop_time": stop_time,
+        #     "sampling_ratio": sampling_ratio,
+        #     "wavelengths": wavelengths,
+        #     "transformations": transformations,
+        #     "batch_size": batch_size
+        # }
         if tags.count() == 0:
             raise Exception("There are no tags to fetch data of")
-        tag_data_response = api_helper.call_api(
-            Constants.RETURN_TAG_DATA,
-            Constants.API_POST,
-            body=body_json).json()
+        # tag_data_response = api_helper.call_api(
+        #     Constants.RETURN_TAG_DATA,
+        #     Constants.API_POST,
+        #     body=body_json).json()
         return TagDataIterator(
             tags=tags,
             start_time=start_time,
             stop_time=stop_time,
             api_helper=api_helper,
-            batch_size=batch_size,
+            limit=limit,
             sampling_ratio=sampling_ratio,
             return_type=return_type,
             wavelengths=wavelengths,
