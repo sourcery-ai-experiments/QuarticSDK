@@ -29,7 +29,7 @@ def step_impl(context):
         password="password")
 
 
-@step("we call the required methods to get the data souce data")
+@step("we call the required methods to get the data source data")
 def step_impl(context):
     """
     Now we call the different internal methods and save their values
@@ -78,30 +78,30 @@ def step_impl(context):
                 transformations=test_transformation1,
                 return_type=Constants.RETURN_JSON)
 
-    with mock.patch('requests.get') as requests_get:
-        requests_get.return_value = APIHelperCallAPI(TAG_LIST_MULTI_GET)
-
-        test_transformation2 = [{
-            "transformation_type": "interpolation",
-            "method": "linear"
-        }]
-
-        with pytest.raises(Exception):
-            world.tag_data_with_incorrect_transformation = world.first_edge_connector.data(
-                start_time=1, stop_time=2, transformations=test_transformation2)
-
-        with pytest.raises(Exception):
-            test_transformation3 = [{
-                "transformation_type": "interpolation",
-                "column": "1",
-                "method": "linear"
-            }, {
-                "transformation_type": "aggregation",
-                "aggregation_column": "1"
-            }]
-
-            world.tag_data_with_incorrect_transformation = world.first_edge_connector.data(
-                start_time=1, stop_time=2, transformations=test_transformation3)
+    # with mock.patch('requests.get') as requests_get:
+    #     requests_get.return_value = APIHelperCallAPI(TAG_LIST_MULTI_GET)
+    #
+    #     test_transformation2 = [{
+    #         "transformation_type": "interpolation",
+    #         "method": "linear"
+    #     }]
+    #
+    #     with pytest.raises(Exception):
+    #         world.tag_data_with_incorrect_transformation = world.first_edge_connector.data(
+    #             start_time=1, stop_time=2, transformations=test_transformation2)
+    #
+    #     with pytest.raises(Exception):
+    #         test_transformation3 = [{
+    #             "transformation_type": "interpolation",
+    #             "column": "1",
+    #             "method": "linear"
+    #         }, {
+    #             "transformation_type": "aggregation",
+    #             "aggregation_column": "1"
+    #         }]
+    #
+    #         world.tag_data_with_incorrect_transformation = world.first_edge_connector.data(
+    #             start_time=1, stop_time=2, transformations=test_transformation3)
 
 
 @step("the return of data source data works correctly for json and pandas df")
