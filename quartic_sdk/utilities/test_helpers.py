@@ -42,15 +42,20 @@ TAG_DATA_POST = {
     }
 ASSET_DATA_POST = {
     "data": {
-        "columns": [
-            "1", "2", "3"], "index": [
-                12121212, 12121222, 12121232], "data": [
-                    [
-                        2, 3, 1], [
-                            3, 1, 2], [
-                                4, 1, 2]]}, "total_count": {
-                                    "1": 3, "2": 3, "3": 3}, "page_count": {
-                                        "1": 3, "2": 3, "3": 3}, "cursor": None}
+        "columns": ["1", "2", "3"],
+        "index": [12121212, 12121222, 12121232],
+        "data": [
+            [2, 3, 1],
+            [3, 1, 2],
+            [4, 1, 2]]},
+    "total_count": {"1": 3, "2": 3, "3": 3},
+    "page_count": {"1": 3, "2": 3, "3": 3},
+    "cursor": None,
+    'count': 1,
+    'limit': 1,
+    'offset': 1,
+
+}
 SINGLE_ASSET_GET = {"id": 2, "name": "Asset_name2", "edge_connectors": [1, 2]}
 TAG_LIST_MULTI_GET = [{"id": 1,
                        "name": "Tag1",
@@ -122,15 +127,19 @@ EDGE_CONNECTOR_LIST_GET = [{"id": 1,
                             "connector_protocol": 201}]
 EDGE_CONNECTOR_DATA_POST = {
     "data": {
-        "columns": [
-            "1", "2", "3"], "index": [
-                1, 2, 3], "data": [
-                    [
-                        2, 3, 1], [
-                            3, 1, 2], [
-                                4, 1, 2]]}, "total_count": {
-                                    "1": 3, "2": 3, "3": 3}, "page_count": {
-                                        "1": 3, "2": 3, "3": 3}, "cursor": None}
+        "columns": ["1", "2", "3"],
+        "index": [1, 2, 3],
+        "data": [
+            [2, 3, 1],
+            [3, 1, 2],
+            [4, 1, 2]]},
+    "total_count": {"1": 3, "2": 3, "3": 3},
+    "page_count": {"1": 3, "2": 3, "3": 3},
+    "cursor": None,
+    'count': 1,
+    'limit': 1,
+    'offset': 1
+}
 
 EVENT_FRAME_LIST_GET = [
     {
