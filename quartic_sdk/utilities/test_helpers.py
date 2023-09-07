@@ -31,11 +31,15 @@ TAG_LIST_GET = [{"id": 1,
                  "tag_data_type": 0}]
 TAG_DATA_POST = {
     "data": {
-        "columns": ["1"], "index": [
-            12121212, 12121222, 12121232], "data": [
-                [2], [3], [4]]}, "total_count": {
-                    "1": 3}, "page_count": {
-                        "1": 3}, "cursor": None}
+        "columns": ["1"],
+        "index": [12121212, 12121222, 12121232],
+        "data": [[2], [3], [4]]
+    },
+    "total_count": {"1": 3},
+    'count': 1,
+    'limit': 1,
+    'offset': 1
+    }
 ASSET_DATA_POST = {
     "data": {
         "columns": [
@@ -77,14 +81,17 @@ TAG_LIST_MULTI_GET = [{"id": 1,
                       ]
 TAG_LIST_DATA_POST = {
     "data": {
-        "columns": [
-            "1", "2"], "index": [
-                1, 2], "data": [
-                    [
-                        1, 2], [
-                            2, 3]]}, "total_count": {
-                                "1": 2, "2": 2}, "page_count": {
-                                    "1": 2, "2": 2}, "cursor": None}
+        "columns": ["1", "2"],
+        "index": [1, 2],
+        "data": [[1, 2],
+                 [2, 3]]
+    },
+    'count': 1,
+    'limit': 1,
+    'offset': 1,
+    "total_count": {"1": 2, "2": 2},
+    "page_count": {"1": 2, "2": 2},
+    "": None}
 BATCH_LIST_GET = [{"id": 1, "name": 12121212, "start": 1212, "stop": 2121}]
 CONTEXT_FRAME_LIST_GET = [{"id": 1, "name": "CFD1",
                            "description": "CFD description", "pu_or_wc": "PU"}]
