@@ -67,7 +67,7 @@ class TagDataIterator:
         # self._cursor = None
         # self._data_call_state = 0
         self.offset = None
-        self.count = -1
+        self.__count = -1
         self.body_json = None
 
     @staticmethod
@@ -119,7 +119,7 @@ class TagDataIterator:
             "transformations": self._transformations,
             "limit": self.limit,
             "offset": self.offset,
-            "count": self.count
+            "count": self.__count
         }
 
     def __iter__(self):
