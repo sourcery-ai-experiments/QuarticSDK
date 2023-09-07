@@ -149,6 +149,8 @@ class TagDataIterator:
         #         body={"cursor": self._cursor}).json()
 
         # self._cursor = tag_data_return["cursor"]
+        print('tag_data_return')
+        print(tag_data_return)
         self.__count = tag_data_return['count']
         self.offset = tag_data_return['offset']
         self.limit = tag_data_return['limit']
