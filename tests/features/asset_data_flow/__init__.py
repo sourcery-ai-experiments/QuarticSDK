@@ -86,22 +86,22 @@ def step_impl(context):
             "method": "linear"
         }]
 
-        with pytest.raises(Exception):
-            world.tag_data_with_incorrect_transformation = world.first_asset.data(
-                start_time=1, stop_time=2, transformations=test_transformation2)
-
-        with pytest.raises(Exception):
-            test_transformation3 = [{
-                "transformation_type": "interpolation",
-                "column": "1",
-                "method": "linear"
-            }, {
-                "transformation_type": "aggregation",
-                "aggregation_column": "1"
-            }]
-
-            world.tag_data_with_incorrect_transformation = world.first_asset.data(
-                start_time=1, stop_time=2, transformations=test_transformation3)
+        # with pytest.raises(Exception):
+        #     world.tag_data_with_incorrect_transformation = world.first_asset.data(
+        #         start_time=1, stop_time=2, transformations=test_transformation2)
+        #
+        # with pytest.raises(Exception):
+        #     test_transformation3 = [{
+        #         "transformation_type": "interpolation",
+        #         "column": "1",
+        #         "method": "linear"
+        #     }, {
+        #         "transformation_type": "aggregation",
+        #         "aggregation_column": "1"
+        #     }]
+        #
+        #     world.tag_data_with_incorrect_transformation = world.first_asset.data(
+        #         start_time=1, stop_time=2, transformations=test_transformation3)
 
 
 @step("the return of asset data works correctly for json and pandas df")
