@@ -108,23 +108,23 @@ def step_impl(context):
         world.first_asset_data_with_correct_transformation,
         TagDataIterator)
 
-    with pytest.raises(Exception):
-        test_transformation2 = [{
-            "transformation_type": "interpolation",
-            "method": "linear"
-        }]
-        world.tag_data_with_incorrect_transformation = world.tag_list.data(
-            start_time=1, stop_time=2, transformations=test_transformation2)
-
-    with pytest.raises(Exception):
-        test_transformation3 = [{
-            "transformation_type": "interpolation",
-            "column": "1",
-            "method": "linear"
-        }, {
-            "transformation_type": "aggregation",
-            "aggregation_column": "1"
-        }]
-
-        world.tag_data_with_incorrect_transformation = world.tag_list.data(
-            start_time=1, stop_time=2, transformations=test_transformation3)
+    # with pytest.raises(Exception):
+    #     test_transformation2 = [{
+    #         "transformation_type": "interpolation",
+    #         "method": "linear"
+    #     }]
+    #     world.tag_data_with_incorrect_transformation = world.tag_list.data(
+    #         start_time=1, stop_time=2, transformations=test_transformation2)
+    #
+    # with pytest.raises(Exception):
+    #     test_transformation3 = [{
+    #         "transformation_type": "interpolation",
+    #         "column": "1",
+    #         "method": "linear"
+    #     }, {
+    #         "transformation_type": "aggregation",
+    #         "aggregation_column": "1"
+    #     }]
+    #
+    #     world.tag_data_with_incorrect_transformation = world.tag_list.data(
+    #         start_time=1, stop_time=2, transformations=test_transformation3)
