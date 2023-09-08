@@ -66,7 +66,8 @@ class TagDataIterator:
         self._transformations = transformations
         # self._cursor = None
         # self._data_call_state = 0
-        self.offset = None
+        self.pagination = False
+        self.__offset = None
         self.__count = -1
         self.body_json = None
 
@@ -118,7 +119,8 @@ class TagDataIterator:
             "wavelengths": self.wavelengths,
             "transformations": self._transformations,
             "limit": self.limit,
-            "offset": self.offset,
+            "offset": self.__offset,
+            "pagination": self.pagination,
             "count": self.__count
         }
 
@@ -134,13 +136,13 @@ class TagDataIterator:
         Get the next object in the iteration.
         Note that the return object is inclusive of time ranges
         """
-        if self.limit == -1 or self.__count == self.offset:
+        if self.limit == -1 or self.__count == self.__offset:
             raise StopIteration
         if not self.body_json:
             self.body_json = self.create_post_data()
-
+            
         tag_data_return = self.api_helper.call_api(
-            Constants.RETURN_TAG_DATA, Constants.API_POST, body=self.body_json).json()
+            Constants.RETURN_TAG_DATA_CURSOR, Constants.API_POST, body=self.body_json).json()
         # self._data_call_state = 1
         # else:
         #     tag_data_return = self.api_helper.call_api(
