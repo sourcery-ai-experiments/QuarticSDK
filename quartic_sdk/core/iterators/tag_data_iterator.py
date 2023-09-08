@@ -18,7 +18,7 @@ class TagDataIterator:
             stop_time,
             limit,
             api_helper,
-            sampling_ratio=1,
+            pagination=False,
             return_type=Constants.RETURN_JSON,
             wavelengths={},
             transformations=[]):
@@ -29,7 +29,6 @@ class TagDataIterator:
         :param start_time: (epoch) Start time of the query
         :param stop_time: (epoch) Stop time of the query
         :param api_helper: (APIHelper) APIHelper class object
-        :param sampling_ratio: The sampling_ratio at which the tag data is queried
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -66,7 +65,7 @@ class TagDataIterator:
         self._transformations = transformations
         # self._cursor = None
         # self._data_call_state = 0
-        self.pagination = False
+        self.pagination = pagination
         self.__offset = None
         self.__count = -1
         self.body_json = None
@@ -115,7 +114,6 @@ class TagDataIterator:
             "tags": [tag.id for tag in self.tags.all()],
             "start_time": self.start_time,
             "stop_time": self.stop_time,
-            "sampling_ratio": self.sampling_ratio,
             "wavelengths": self.wavelengths,
             "transformations": self._transformations,
             "limit": self.limit,
@@ -140,7 +138,7 @@ class TagDataIterator:
             raise StopIteration
         if not self.body_json:
             self.body_json = self.create_post_data()
-            
+
         tag_data_return = self.api_helper.call_api(
             Constants.RETURN_TAG_DATA_CURSOR, Constants.API_POST, body=self.body_json).json()
         # self._data_call_state = 1
@@ -154,10 +152,10 @@ class TagDataIterator:
         print('tag_data_return')
         print(tag_data_return)
         self.__count = tag_data_return['count']
-        self.offset = tag_data_return['offset']
+        self.__offset = tag_data_return['offset']
         self.limit = tag_data_return['limit']
 
-        self.body_json['offset'] = self.offset
+        self.body_json['offset'] = self.__offset
         self.body_json['count'] = self.__count
         self.body_json['limit'] = self.limit
 
@@ -178,7 +176,7 @@ class TagDataIterator:
             start_time,
             stop_time,
             api_helper,
-            sampling_ratio=1,
+            pagination=False,
             return_type=Constants.RETURN_PANDAS,
             limit=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             wavelengths={},
@@ -239,7 +237,7 @@ class TagDataIterator:
             stop_time=stop_time,
             api_helper=api_helper,
             limit=limit,
-            sampling_ratio=sampling_ratio,
+            pagination=pagination,
             return_type=return_type,
             wavelengths=wavelengths,
             transformations=transformations)

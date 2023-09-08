@@ -50,7 +50,7 @@ class Tag(Base):
             self,
             start_time,
             stop_time,
-            sampling_ratio=1,
+            pagination=False,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             wavelengths={},
@@ -60,7 +60,6 @@ class Tag(Base):
         for the given sampling_ratio
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param sampling_ratio: sampling_ratio of the data
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -101,8 +100,8 @@ class Tag(Base):
                 [self]),
             start_time,
             stop_time,
+            pagination,
             self.api_helper,
-            sampling_ratio,
             return_type,
             batch_size,
             wavelengths,
