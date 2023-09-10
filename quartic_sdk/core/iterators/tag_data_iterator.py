@@ -150,13 +150,23 @@ class TagDataIterator:
         # self._cursor = tag_data_return["cursor"]
         print('tag_data_return')
         print(tag_data_return)
-        self.__count = tag_data_return['count']
-        self.__offset = tag_data_return['offset']
-        self.limit = tag_data_return['limit']
+        if 'count' in tag_data_return.keys():
+            self.__count = tag_data_return['count']
+            self.body_json['count'] = self.__count
+        else:
+            self.__count = -1
 
-        self.body_json['offset'] = self.__offset
-        self.body_json['count'] = self.__count
-        self.body_json['limit'] = self.limit
+        if 'offset' in tag_data_return.keys():
+            self.__offset = tag_data_return['offset']
+            self.body_json['offset'] = self.__offset
+        else:
+            self.__offset = -1
+
+        if 'limit' in tag_data_return.keys():
+            self.limit = tag_data_return['limit']
+            self.body_json['limit'] = self.limit
+        else:
+            self.limit = -1
 
         if self.return_type == Constants.RETURN_JSON:
             return tag_data_return["data"]
