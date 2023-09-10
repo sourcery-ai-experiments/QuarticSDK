@@ -59,7 +59,6 @@ class TagDataIterator:
         self.start_time = start_time
         self.stop_time = stop_time
         self.api_helper = api_helper
-        self.sampling_ratio = sampling_ratio
         self.return_type = return_type
         self.wavelengths = wavelengths
         self._transformations = transformations
