@@ -101,8 +101,8 @@ class Tag(Base):
             start_time,
             stop_time,
             self.api_helper,
-            batch_size,
             pagination,
+            batch_size,
             return_type,
             wavelengths,
             transformations)
