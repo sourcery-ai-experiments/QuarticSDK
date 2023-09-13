@@ -89,8 +89,8 @@ class Tag(Base):
         """
         from quartic_sdk.core.entity_helpers.entity_list import EntityList       
         if wavelengths and self.tag_data_type != Constants.TAG_DATA_TYPES[6]:
-            raise IncorrectTagParameterException( "Invalid parameters : Wavelengths are only "
-                                                  "supported with spectral tag type")
+            raise IncorrectTagParameterException("Invalid parameters : Wavelengths are only "
+                                                 "supported with spectral tag type")
         if wavelengths:
             Tag.raise_exception_for_wavelegths(wavelengths)
 
@@ -100,10 +100,10 @@ class Tag(Base):
                 [self]),
             start_time,
             stop_time,
+            batch_size,
             self.api_helper,
             pagination,
             return_type,
-            batch_size,
             wavelengths,
             transformations)
 
@@ -118,7 +118,7 @@ class Tag(Base):
         """
         if self.tag_data_type != Constants.TAG_DATA_TYPES[6]:
             raise InvalidTagAttributeException( "Invalid attribute : Only spectral tag has attribute wavelengths") 
-        request_body = {"tagId" : self.id}
+        request_body = {"tagId": self.id}
         if start_time:
             request_body["startTime"] = start_time
         if stop_time:
