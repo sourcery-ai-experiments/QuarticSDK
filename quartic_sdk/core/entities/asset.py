@@ -73,13 +73,12 @@ class Asset(Base):
             self,
             start_time,
             stop_time,
-            pagination=False,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             transformations=[]):
         """
         Get the data of all tags in the asset between the given start_time and
-        stop_time for the given sampling_ratio
+        stop_time.
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
         :param return_type: The param decides whether the data after querying will be
@@ -113,7 +112,6 @@ class Asset(Base):
             start_time,
             stop_time,
             self.api_helper,
-            pagination,
             return_type,
             batch_size,
             transformations)

@@ -58,16 +58,14 @@ class EdgeConnector(Base):
     def data(self,
              start_time,
              stop_time,
-             pagination=False,
              return_type=Constants.RETURN_PANDAS,
              batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
              transformations=[]):
         """
         Get the data of all tags in the edge connector between the given start_time and
-        stop_time for the given sampling_ratio
+        stop_time
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param sampling_ratio: sampling_ratio of the data
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -96,7 +94,6 @@ class EdgeConnector(Base):
                                                         start_time,
                                                         stop_time,
                                                         self.api_helper,
-                                                        pagination,
                                                         return_type,
                                                         batch_size,
                                                         transformations)

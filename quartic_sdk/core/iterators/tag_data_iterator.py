@@ -18,7 +18,6 @@ class TagDataIterator:
             stop_time,
             limit,
             api_helper,
-            pagination=False,
             return_type=Constants.RETURN_JSON,
             wavelengths={},
             transformations=[]):
@@ -62,9 +61,6 @@ class TagDataIterator:
         self.return_type = return_type
         self.wavelengths = wavelengths
         self._transformations = transformations
-        # self._cursor = None
-        # self._data_call_state = 0
-        self.pagination = pagination
         self.__offset = None
         self.__count = -1
         self.body_json = None
@@ -117,7 +113,6 @@ class TagDataIterator:
             "transformations": self._transformations,
             "limit": self.limit,
             "offset": self.__offset,
-            "pagination": self.pagination,
             "count": self.__count
         }
 
@@ -133,21 +128,14 @@ class TagDataIterator:
         Get the next object in the iteration.
         Note that the return object is inclusive of time ranges
         """
-        if self.limit == -1 or self.__count == self.__offset:
+        if self.__count == self.__offset:
             raise StopIteration
         if not self.body_json:
             self.body_json = self.create_post_data()
 
         tag_data_return = self.api_helper.call_api(
             Constants.RETURN_TAG_DATA_CURSOR, Constants.API_POST, body=self.body_json).json()
-        # self._data_call_state = 1
-        # else:
-        #     tag_data_return = self.api_helper.call_api(
-        #         url=Constants.RETURN_TAG_DATA_CURSOR,
-        #         method_type=Constants.API_POST,
-        #         body={"cursor": self._cursor}).json()
 
-        # self._cursor = tag_data_return["cursor"]
         print('tag_data_return')
         print(tag_data_return)
         if 'count' in tag_data_return.keys():
@@ -185,7 +173,6 @@ class TagDataIterator:
             start_time,
             stop_time,
             api_helper,
-            pagination=False,
             return_type=Constants.RETURN_PANDAS,
             limit=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             wavelengths={},
@@ -194,7 +181,6 @@ class TagDataIterator:
         The method creates the TagDataIterator instance based upon the parameters that are passed here
         :param start_time: (epoch) Start_time for getting data
         :param stop_time: (epoch) Stop_time for getting data
-        :param sampling_ratio: sampling_ratio of the data
         :param return_type: The param decides whether the data after querying will be
             json(when value is "json") or pandas dataframe(when value is "pd"). By default,
             it takes the value as "json"
@@ -229,7 +215,6 @@ class TagDataIterator:
         #     "tags": [tag.id for tag in tags.all()],
         #     "start_time": start_time,
         #     "stop_time": stop_time,
-        #     "sampling_ratio": sampling_ratio,
         #     "wavelengths": wavelengths,
         #     "transformations": transformations,
         #     "batch_size": batch_size
@@ -246,7 +231,6 @@ class TagDataIterator:
             stop_time=stop_time,
             api_helper=api_helper,
             limit=limit,
-            pagination=pagination,
             return_type=return_type,
             wavelengths=wavelengths,
             transformations=transformations)
