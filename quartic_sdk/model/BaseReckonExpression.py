@@ -10,7 +10,6 @@ from quartic_sdk.model.helpers import ModelUtils, Validation
 from quartic_sdk.utilities import constants
 from functools import wraps
 from quartic_sdk.utilities.exceptions import InvalidWindowDuration,MovingWindowException
-from quartic_sdk import GraphqlClient
 from quartic_sdk.utilities.jupyter_utils import get_ipynb_name
 
 class BaseReckonExpression(metaclass=abc.ABCMeta):
@@ -35,7 +34,7 @@ class BaseReckonExpression(metaclass=abc.ABCMeta):
         self.__window_support = False
         self.__window_duration = None
 
-    def save(self, client: GraphqlClient, output_tag_name: str,
+    def save(self, client, output_tag_name: str,
              needs: List[int], asset: int, is_streaming: bool,
                tag_category: str, test_df: pd.DataFrame):
         """
@@ -92,7 +91,8 @@ class BaseReckonExpression(metaclass=abc.ABCMeta):
         """
         
         try:
-            client.execute_query(graphQLQuery, variables)
+            res = client.execute_query(graphQLQuery, variables)
+            self.log.info(res)
             self.log.info("Successfully saved the model to Quartic Platform")
         except HTTPError as ex:
             raise Exception(f"Failed to Save model: {ex.response.content.decode()}")
