@@ -11,7 +11,7 @@ from quartic_sdk.utilities import constants
 from functools import wraps
 from quartic_sdk.utilities.exceptions import InvalidWindowDuration,MovingWindowException
 from quartic_sdk import GraphqlClient
-
+from quartic_sdk.utilities.jupyter_utils import get_ipynb_name
 
 class BaseReckonExpression(metaclass=abc.ABCMeta):
     """
@@ -67,14 +67,17 @@ class BaseReckonExpression(metaclass=abc.ABCMeta):
             constants.ASSET: asset,
             constants.IS_STREAMING: is_streaming,
             constants.TAG_CATEGORY: tag_category,
-            constants.SOURCE: "A_2"
+            constants.SOURCE: "A_2",
+            constants.FILE_NAME: get_ipynb_name()
         }
 
         graphQLQuery = """
 
-            mutation MyMutation($asset: ID!, $model: String!, $isStreaming: Boolean!, $needs: [String]!, $name: String!, $tagCategory: Int!, $source: TagExpressionSourceEnumCreate!) {
+            mutation MyMutation($asset: ID!, $model: String!, $isStreaming: Boolean!, $needs: [String]!, $name: String!, $tagCategory: Int!,
+              $source: TagExpressionSourceEnumCreate!,
+              $fileName: String!) {
                 __typename
-                TagexpressionCreate(newTagexpression: {asset: $asset, model: $model,isStreaming: $isStreaming, needs: $needs, name: $name, tagCategory: $tagCategory, source: $source}) {
+                TagexpressionCreate(newTagexpression: {asset: $asset, model: $model,isStreaming: $isStreaming, needs: $needs, name: $name, tagCategory: $tagCategory, source: $source, fileName: $fileName}) {
                     ok
                     errors {
                     field

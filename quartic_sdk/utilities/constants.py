@@ -20,6 +20,7 @@ ASSET = 'asset'
 TAG_CATEGORY = 'tagCategory'
 SOURCE = 'source'
 IS_STREAMING = 'isStreaming'
+FILE_NAME = 'fileName'
 
 
 # Model Type Integer Constants and their mapping
