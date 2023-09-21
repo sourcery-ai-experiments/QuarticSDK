@@ -1,6 +1,7 @@
-import requests, os,subprocess, ipykernel, json
+import requests, os,subprocess, json
 
 def get_ipynb_name():
+    import ipykernel
     connection_file = os.path.basename(ipykernel.get_connection_file())
     kernel_id = connection_file.split('-', 1)[1].split('.')[0]
     token = os.getenv('JPY_API_TOKEN')
