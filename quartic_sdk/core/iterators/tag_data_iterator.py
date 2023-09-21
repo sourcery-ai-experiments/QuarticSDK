@@ -211,20 +211,8 @@ class TagDataIterator:
 
         TagDataIterator.raise_exception_for_transformation_schema(
             transformations, tags)
-        # body_json = {
-        #     "tags": [tag.id for tag in tags.all()],
-        #     "start_time": start_time,
-        #     "stop_time": stop_time,
-        #     "wavelengths": wavelengths,
-        #     "transformations": transformations,
-        #     "batch_size": batch_size
-        # }
         if tags.count() == 0:
             raise Exception("There are no tags to fetch data of")
-        # tag_data_response = api_helper.call_api(
-        #     Constants.RETURN_TAG_DATA,
-        #     Constants.API_POST,
-        #     body=body_json).json()
         return TagDataIterator(
             tags=tags,
             start_time=start_time,

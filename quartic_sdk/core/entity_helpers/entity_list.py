@@ -152,7 +152,7 @@ class EntityList:
             self,
             start_time,
             stop_time,
-            pagination=False,
+            pagination=True,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
             transformations=[]):
