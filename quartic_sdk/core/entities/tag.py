@@ -22,23 +22,23 @@ class Tag(Base):
         "tag_process_type": Constants.PROCESS_VARIABLE_TYPES,
         "category": Constants.INTELLIGENCE_CATEGORIES
     }
-    @staticmethod
-    def raise_exception_for_wavelegths(wavelengths):
-        """
-        Validate wavelengths passed for a spectral tag. Schema as following
-        {"wavelengths" : ['1460000.0','1460001.0]}
-        :param wavelengths: dict containing key as 'wavelengths' and value as list of wavelengths
-        """
-        assert isinstance(wavelengths, dict), "Wavelengths must be a dict"
+    # @staticmethod
+    # def raise_exception_for_wavelegths(wavelengths):
+    #     """
+    #     Validate wavelengths passed for a spectral tag. Schema as following
+    #     {"wavelengths" : ['1460000.0','1460001.0]}
+    #     :param wavelengths: dict containing key as 'wavelengths' and value as list of wavelengths
+    #     """
+    #     assert isinstance(wavelengths, dict), "Wavelengths must be a dict"
         
-        if not wavelengths.get('wavelengths'):
-            raise IncorrectWavelengthParamException(
-                'Invalid Wavelengths: "wavelengths" key required in dict'
-            )
-        elif not isinstance(wavelengths.get("wavelengths"), list):
-            raise IncorrectWavelengthParamException(
-                'Invalid Wavelengths: Wavelength values must be passed in a list '
-            )
+    #     if not wavelengths.get('wavelengths'):
+    #         raise IncorrectWavelengthParamException(
+    #             'Invalid Wavelengths: "wavelengths" key required in dict'
+    #         )
+    #     elif not isinstance(wavelengths.get("wavelengths"), list):
+    #         raise IncorrectWavelengthParamException(
+    #             'Invalid Wavelengths: Wavelength values must be passed in a list '
+    #         )
 
     def __repr__(self):
         """
@@ -52,7 +52,6 @@ class Tag(Base):
             stop_time,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
-            wavelengths={},
             transformations=[]):
         """
         Get the data for the given tag between the start_time and the stop_time
@@ -87,11 +86,11 @@ class Tag(Base):
             between the given duration
         """
         from quartic_sdk.core.entity_helpers.entity_list import EntityList       
-        if wavelengths and self.tag_data_type != Constants.TAG_DATA_TYPES[6]:
-            raise IncorrectTagParameterException("Invalid parameters : Wavelengths are only "
-                                                 "supported with spectral tag type")
-        if wavelengths:
-            Tag.raise_exception_for_wavelegths(wavelengths)
+        # if wavelengths and self.tag_data_type != Constants.TAG_DATA_TYPES[6]:
+        #     raise IncorrectTagParameterException("Invalid parameters : Wavelengths are only "
+        #                                          "supported with spectral tag type")
+        # if wavelengths:
+        #     Tag.raise_exception_for_wavelegths(wavelengths)
 
         return TagDataIterator.create_tag_data_iterator(
             EntityList(
@@ -102,31 +101,30 @@ class Tag(Base):
             self.api_helper,
             batch_size,
             return_type,
-            wavelengths,
             transformations)
 
-    def wavelengths(self, start_time=None, stop_time=None):
-        """
-        This method is used to get the list of wavelengths of a spectral tag within
-        the provided start and stop times. if start, stop times are not provided, by 
-        default it will fetch all available wavelengths.
-        :param: start_time(epoch): Optional 
-        :param: stop_time(epoch): Optional
-        :return: dict containing list of wavelengths or error message and status from server
-        """
-        if self.tag_data_type != Constants.TAG_DATA_TYPES[6]:
-            raise InvalidTagAttributeException( "Invalid attribute : Only spectral tag has attribute wavelengths") 
-        request_body = {"tagId": self.id}
-        if start_time:
-            request_body["startTime"] = start_time
-        if stop_time:
-            request_body["stopTime"] = stop_time
-        get_wavelengths_query = """
-        query Tag($tagId: Int!, $startTime: CustomDateTime = null, $stopTime: CustomDateTime = null) {
-        spectralTagWavelengths(tagId: $tagId, startTime: $startTime, stopTime: $stopTime)}
-        """   
-        graphql_client = GraphqlClient.get_graphql_client_from_apihelper(self.api_helper)
-        return graphql_client.execute_query(get_wavelengths_query,request_body)
+    # def wavelengths(self, start_time=None, stop_time=None):
+    #     """
+    #     This method is used to get the list of wavelengths of a spectral tag within
+    #     the provided start and stop times. if start, stop times are not provided, by 
+    #     default it will fetch all available wavelengths.
+    #     :param: start_time(epoch): Optional 
+    #     :param: stop_time(epoch): Optional
+    #     :return: dict containing list of wavelengths or error message and status from server
+    #     """
+    #     if self.tag_data_type != Constants.TAG_DATA_TYPES[6]:
+    #         raise InvalidTagAttributeException( "Invalid attribute : Only spectral tag has attribute wavelengths") 
+    #     request_body = {"tagId": self.id}
+    #     if start_time:
+    #         request_body["startTime"] = start_time
+    #     if stop_time:
+    #         request_body["stopTime"] = stop_time
+    #     get_wavelengths_query = """
+    #     query Tag($tagId: Int!, $startTime: CustomDateTime = null, $stopTime: CustomDateTime = null) {
+    #     spectralTagWavelengths(tagId: $tagId, startTime: $startTime, stopTime: $stopTime)}
+    #     """   
+    #     graphql_client = GraphqlClient.get_graphql_client_from_apihelper(self.api_helper)
+    #     return graphql_client.execute_query(get_wavelengths_query,request_body)
 
     def __getattribute__(self, name):
         """

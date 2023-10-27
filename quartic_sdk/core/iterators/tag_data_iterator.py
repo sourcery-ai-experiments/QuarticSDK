@@ -5,6 +5,7 @@ import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.utilities.exceptions import IncorrectTransformationException
 
 
+
 class TagDataIterator:
     """
     The given class is the iterator class, which will be used to iterate
@@ -19,7 +20,6 @@ class TagDataIterator:
             limit,
             api_helper,
             return_type=Constants.RETURN_JSON,
-            wavelengths={},
             transformations=[]):
         """
         We initialize the iterator with the given parameters
@@ -59,10 +59,9 @@ class TagDataIterator:
         self.stop_time = stop_time
         self.api_helper = api_helper
         self.return_type = return_type
-        self.wavelengths = wavelengths
         self._transformations = transformations
         self.__offset = None
-        self.__count = -1
+        self.___data_iterations = True
         self.body_json = None
 
     @staticmethod
@@ -109,11 +108,9 @@ class TagDataIterator:
             "tags": [tag.id for tag in self.tags.all()],
             "start_time": self.start_time,
             "stop_time": self.stop_time,
-            "wavelengths": self.wavelengths,
             "transformations": self._transformations,
             "limit": self.limit,
-            "offset": self.__offset,
-            "count": self.__count
+            "offset": self.__offset
         }
 
     def __iter__(self):
@@ -128,21 +125,23 @@ class TagDataIterator:
         Get the next object in the iteration.
         Note that the return object is inclusive of time ranges
         """
-        if self.__count == self.__offset:
-            raise StopIteration
+        # if self.__count == self.__offset:
+        #     raise StopIteration
+
+        if not self.___data_iterations:
+            raise StopIteration("No data to iterate.")
+        
         if not self.body_json:
             self.body_json = self.create_post_data()
 
         tag_data_return = self.api_helper.call_api(
             Constants.RETURN_TAG_DATA_CURSOR, Constants.API_POST, body=self.body_json).json()
 
-        print('tag_data_return')
-        print(tag_data_return)
-        if 'count' in tag_data_return.keys():
-            self.__count = tag_data_return['count']
-            self.body_json['count'] = self.__count
-        else:
-            self.__count = -1
+        # if 'count' in tag_data_return.keys():
+        #     self.__count = tag_data_return['count']
+        #     self.body_json['count'] = self.__count
+        # else:
+        #     self.__count = -1
 
         if 'offset' in tag_data_return.keys():
             self.__offset = tag_data_return['offset']
@@ -155,6 +154,9 @@ class TagDataIterator:
             self.body_json['limit'] = self.limit
         else:
             self.limit = -1
+
+        if tag_data_return['data'] is None:
+            self.___data_iterations = False
 
         if self.return_type == Constants.RETURN_JSON:
             return tag_data_return["data"]
@@ -175,7 +177,6 @@ class TagDataIterator:
             api_helper,
             return_type=Constants.RETURN_PANDAS,
             limit=Constants.DEFAULT_PAGE_LIMIT_ROWS,
-            wavelengths={},
             transformations=[]):
         """
         The method creates the TagDataIterator instance based upon the parameters that are passed here
@@ -220,5 +221,4 @@ class TagDataIterator:
             api_helper=api_helper,
             limit=limit,
             return_type=return_type,
-            wavelengths=wavelengths,
             transformations=transformations)
