@@ -76,3 +76,4 @@ dict2css==0.3.0.post1
 importlib-metadata==7.0.0
 prompt-toolkit==3.0.42
 lazy-object-proxy==1.10.0
+prompt-toolkit==3.0.43
