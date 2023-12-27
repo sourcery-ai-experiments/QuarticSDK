@@ -20,7 +20,7 @@ class TagDataIterator:
             api_helper,
             sampling_ratio=1,
             return_type=Constants.RETURN_JSON,
-            wavelengths = {},
+            wavelengths = [],
             transformations=[]):
         """
         We initialize the iterator with the given parameters
@@ -67,8 +67,7 @@ class TagDataIterator:
         self.return_type = return_type
         self.wavelengths = wavelengths
         self._transformations = transformations
-        self._cursor = None
-        self._data_call_state = 0
+        self.offset_map = {}
 
     @staticmethod
     def raise_exception_for_transformation_schema(transformations, tags):
@@ -81,7 +80,6 @@ class TagDataIterator:
         :param tags: List of tag ids
         :return: (None) Does not return anything, raises exception if validation fails
         """
-
         agg_transformation = [transformation for transformation in transformations if transformation.get(
             "transformation_type") == "aggregation"]
         if len(agg_transformation) > 1:
@@ -117,7 +115,8 @@ class TagDataIterator:
             "sampling_ratio": self.sampling_ratio,
             "wavelengths" : self.wavelengths,
             "transformations": self._transformations,
-            "batch_size": self.batch_size
+            "batch_size": self.batch_size,
+            "offset_map": self.offset_map
         }
 
     def __iter__(self):
@@ -132,32 +131,25 @@ class TagDataIterator:
         Get the next object in the iteration.
         Note that the return object is inclusive of time ranges
         """
-        if self._data_call_state != 0 and self._cursor is None:
+        if self._data_call_state == 1:
             self._data_call_state = 0
             raise StopIteration
-        if self._data_call_state == 0:
+        else:
             body_json = self.create_post_data()
             tag_data_return = self.api_helper.call_api(
                 Constants.RETURN_TAG_DATA, Constants.API_POST, body=body_json).json()
-            self._data_call_state = 1
-        else:
-            tag_data_return = self.api_helper.call_api(
-                url=Constants.RETURN_TAG_DATA_CURSOR,
-                method_type=Constants.API_POST,
-                body={"cursor": self._cursor}).json()
+            if not tag_data_return or (tag_data_return.get('data') and
+                                        len(tag_data_return['data']['data']) < body_json['batch_size']):
+                self._data_call_state = 1
+            self.offset_map = tag_data_return.get("offset_map", {})
 
-        self._cursor = tag_data_return["cursor"]
-
-        if self.return_type == Constants.RETURN_JSON:
-            return tag_data_return["data"]
-
-        tag_data_return_str = json.dumps(tag_data_return["data"])
-
-        return_dataframe = pd.read_json(tag_data_return_str,
-                                           orient="split",
-                                           convert_dates=False,
-                                           convert_axes=False)
-        return return_dataframe
+            if self.return_type == Constants.RETURN_JSON:
+                return tag_data_return["data"]
+            return pd.DataFrame(
+                tag_data_return["data"]["data"],
+                index=tag_data_return["data"]["index"],
+                columns=tag_data_return["data"]["columns"],
+            )
 
     @classmethod
     def create_tag_data_iterator(
@@ -169,7 +161,7 @@ class TagDataIterator:
             sampling_ratio=1,
             return_type=Constants.RETURN_PANDAS,
             batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
-            wavelengths = {},
+            wavelengths = [],
             transformations=[]):
         """
         The method creates the TagDataIterator instance based upon the parameters that are passed here
@@ -203,24 +195,10 @@ class TagDataIterator:
         :return: (DataIterator) DataIterator object which can be iterated to get the data
             between the given duration
         """
-
         TagDataIterator.raise_exception_for_transformation_schema(
             transformations, tags)
-        body_json = {
-            "tags": [tag.id for tag in tags.all()],
-            "start_time": start_time,
-            "stop_time": stop_time,
-            "sampling_ratio": sampling_ratio,
-            "wavelengths": wavelengths,
-            "transformations": transformations,
-            "batch_size": batch_size
-        }
         if tags.count() == 0:
             raise Exception("There are no tags to fetch data of")
-        tag_data_response = api_helper.call_api(
-            Constants.RETURN_TAG_DATA,
-            Constants.API_POST,
-            body=body_json).json()
         return TagDataIterator(
             tags=tags,
             start_time=start_time,
