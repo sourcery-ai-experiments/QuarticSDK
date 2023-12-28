@@ -39,7 +39,6 @@ def step_impl(context):
     Now we call the different internal methods and save their values
     internally in the world parameter
     """
-
     with mock.patch('requests.get') as requests_get:
         requests_get.return_value = APIHelperCallAPI(ASSET_LIST_GET)
 
@@ -82,30 +81,30 @@ def step_impl(context):
                 transformations=test_transformation1,
                 return_type=Constants.RETURN_JSON)
 
-    with mock.patch('requests.get') as requests_get:
-        requests_get.return_value = APIHelperCallAPI(TAG_LIST_MULTI_GET)
+        with mock.patch('requests.get') as requests_get:
+            requests_get.return_value = APIHelperCallAPI(TAG_LIST_MULTI_GET)
 
-        test_transformation2 = [{
-            "transformation_type": "interpolation",
-            "method": "linear"
-        }]
-
-        with pytest.raises(Exception):
-            world.tag_data_with_incorrect_transformation = world.first_asset.data(
-                start_time=1, stop_time=2, transformations=test_transformation2)
-
-        with pytest.raises(Exception):
-            test_transformation3 = [{
+            test_transformation2 = [{
                 "transformation_type": "interpolation",
-                "column": "1",
                 "method": "linear"
-            }, {
-                "transformation_type": "aggregation",
-                "aggregation_column": "1"
             }]
 
-            world.tag_data_with_incorrect_transformation = world.first_asset.data(
-                start_time=1, stop_time=2, transformations=test_transformation3)
+            with pytest.raises(Exception):
+                world.tag_data_with_incorrect_transformation = world.first_asset.data(
+                    start_time=1, stop_time=2, transformations=test_transformation2)
+
+            with pytest.raises(Exception):
+                test_transformation3 = [{
+                    "transformation_type": "interpolation",
+                    "column": "1",
+                    "method": "linear"
+                }, {
+                    "transformation_type": "aggregation",
+                    "aggregation_column": "1"
+                }]
+
+                world.tag_data_with_incorrect_transformation = world.first_asset.data(
+                    start_time=1, stop_time=2, transformations=test_transformation3)
 
 
 @step("the return of asset data works correctly for json and pandas df")
@@ -150,4 +149,4 @@ def step_impl(context):
     with mock.patch('requests.post') as requests_post4:
         requests_post4.return_value = APIHelperCallAPI(ASSET_DATA_POST.copy())
         for first_asset_data_with_correct_transformation_json in world.first_asset_data_with_correct_transformation_json:
-            assert(first_asset_data_with_correct_transformation_json, dict)
+            assert isinstance(first_asset_data_with_correct_transformation_json, dict)
