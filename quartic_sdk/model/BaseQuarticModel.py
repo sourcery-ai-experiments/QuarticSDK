@@ -91,6 +91,7 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         :param ml_node:         Optional - Ml Node Id if deployment of model needs to be done to specific node
         :return:                None on successfully storing the model to the Quartic AI Platform
         """
+        raise NotImplementedError("This is deprecated")
         from quartic_sdk import APIClient
         assert isinstance(client, APIClient)
         test_df = ModelUtils.get_performance_test_df(test_df)
