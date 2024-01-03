@@ -92,33 +92,6 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         :return:                None on successfully storing the model to the Quartic AI Platform
         """
         raise NotImplementedError("This is deprecated")
-        from quartic_sdk import APIClient
-        assert isinstance(client, APIClient)
-        test_df = ModelUtils.get_performance_test_df(test_df)
-        test_data = ModelUtils.get_pickled_object(test_df.head(5))
-        model_pkl = ModelUtils.get_pickled_object(self)
-        Validation.validate_model(self, test_df)
-        assert sys.getsizeof(model_pkl) <= constants.MAX_MODEL_SIZE, \
-            f"model can't be more than {constants.MAX_MODEL_SIZE}MB"
-
-        # Need to implement rest api call part to trigger api
-        request_body = {
-            constants.MODEL: model_pkl,
-            constants.MODEL_NAME: self.name,
-            constants.OUTPUT_TAG_NAME: output_tag_name,
-            constants.FEATURE_TAGS: feature_tags,
-            constants.TARGET_TAG_ID: target_tag,
-            constants.TEST_DATA: test_data
-        }
-        if ml_node:
-            request_body[constants.ML_NODE_ID] = ml_node
-        try:
-            client.api_helper.call_api(constants.CMD_MODEL_ENDPOINT,
-                                       method_type=constants.API_POST,
-                                       body=request_body)
-            self.log.info("Successfully saved the model to Quartic Platform")
-        except HTTPError as ex:
-            raise Exception(f"Failed to Save model: {ex.response.content.decode()}")
 
     @abc.abstractmethod
     def predict(self, input_df: pd.DataFrame) -> pd.Series:
@@ -166,13 +139,12 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
             raise MovingWindowException("only callable for models with window support")
         if not self.__window_duration:
             raise MovingWindowException("Predict must be called atleast once before calling moving window predict")
-       
+
         for index, row in input_df.iterrows():
             start_ts = int(index) - self.__window_duration * 1000
             df_to_predict = window_df.loc[(window_df.index >= start_ts) & (window_df.index <= int(index))]
-            prediction = self.predict.__wrapped__(self, df_to_predict)
-            if prediction:
+            if prediction := self.predict.__wrapped__(self, df_to_predict):
                 predictions.loc[index] = prediction
 
-        
+
         return predictions
