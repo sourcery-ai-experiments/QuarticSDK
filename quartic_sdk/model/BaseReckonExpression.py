@@ -76,8 +76,9 @@ class BaseReckonExpression(metaclass=abc.ABCMeta):
 
 
         test_df = ModelUtils.get_performance_test_df(test_df)
-        model_pkl = ModelUtils.get_pickled_object(self)
         Validation.validate_expression(self, test_df)
+        model_pkl = ModelUtils.get_pickled_object(self)
+        
         assert sys.getsizeof(model_pkl) <= constants.MAX_MODEL_SIZE, \
             f"model can't be more than {constants.MAX_MODEL_SIZE}MB"
 
@@ -162,18 +163,9 @@ class BaseReckonExpression(metaclass=abc.ABCMeta):
         if input_df.empty:
             raise MovingWindowException("input_df must not be empty")
         window_df = pd.concat([previous_df, input_df])
-        predictions = pd.Series()
         if not hasattr(self.evaluate,'__wrapped__'):
             raise MovingWindowException("only callable for models with window support")
         if not self.__window_duration:
             raise MovingWindowException("Predict must be called atleast once before calling moving window predict")
        
-        for index, row in input_df.iterrows():
-            start_ts = int(index) - self.__window_duration * 1000
-            df_to_predict = window_df.loc[(window_df.index >= start_ts) & (window_df.index <= int(index))]
-            prediction = self.evaluate.__wrapped__(self, df_to_predict)
-            if prediction:
-                predictions.loc[index] = prediction
-
-        
-        return predictions
+        return self.evaluate.__wrapped__(self, window_df)
