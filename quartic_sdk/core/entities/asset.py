@@ -4,7 +4,7 @@ The given file contains the class to refer to the asset entity
 import logging
 from quartic_sdk.core.entities.base import Base
 import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+from quartic_sdk.utilities.tag_data import TagData
 
 
 class Asset(Base):
@@ -73,10 +73,10 @@ class Asset(Base):
             self,
             start_time,
             stop_time,
-            sampling_ratio=1,
+            sampling_value=1500,
             return_type=Constants.RETURN_PANDAS,
-            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
-            transformations=[]):
+            transformations=[],
+            ):
         """
         Get the data of all tags in the asset between the given start_time and
         stop_time for the given sampling_ratio
@@ -109,14 +109,13 @@ class Asset(Base):
         tags = self.get_tags().exclude(
             tag_data_type=Constants.TAG_DATA_TYPES[Constants.SPECTRAL])
         logging.info("Filtering to fetch data only for non-spectral tags")
-        return TagDataIterator.create_tag_data_iterator(
+        return TagData.get_tag_data(
             tags=tags,
             start_time=start_time,
             stop_time=stop_time,
             api_helper=self.api_helper,
-            sampling_ratio=sampling_ratio,
+            sampling_value=sampling_value,
             return_type=return_type,
-            batch_size=batch_size,
             transformations=transformations)
 
     def __getattribute__(self, name):

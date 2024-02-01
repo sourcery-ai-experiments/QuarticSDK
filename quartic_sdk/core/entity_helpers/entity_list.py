@@ -2,7 +2,7 @@
 import quartic_sdk.utilities.constants as Constants
 from quartic_sdk.core.entities.type_mapping import ENTITY_DICTIONARY
 from quartic_sdk.core.iterators.entity_list_iterator import EntityListIterator
-from quartic_sdk.core.iterators.tag_data_iterator import TagDataIterator
+from quartic_sdk.utilities.tag_data import TagData
 import operator
 
 
@@ -152,10 +152,10 @@ class EntityList:
             self,
             start_time,
             stop_time,
-            sampling_ratio=1,
+            sampling_value=1500,
             return_type=Constants.RETURN_PANDAS,
-            batch_size=Constants.DEFAULT_PAGE_LIMIT_ROWS,
-            transformations=[]):
+            transformations=[],
+            ):
         """
         Get the data of all tags in the list between the given start_time and
         stop_time for the given sampling_ratio
@@ -186,12 +186,11 @@ class EntityList:
             between the given duration
         """
         assert self._class_type == Constants.TAG_ENTITY
-        return TagDataIterator.create_tag_data_iterator(
+        return TagData.get_tag_data(
             tags=self,
             start_time=start_time,
             stop_time=stop_time,
             api_helper=self.first().api_helper,
-            sampling_ratio=sampling_ratio,
+            sampling_value=sampling_value,
             return_type=return_type,
-            batch_size=batch_size,
             transformations=transformations)
