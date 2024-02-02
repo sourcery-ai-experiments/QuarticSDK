@@ -70,9 +70,13 @@ pyzmq==22.0.2
 cycler==0.12.1
 executing==1.2.0
 py4j==0.10.9.7
-wcwidth==0.2.12
 exceptiongroup==1.2.0
 dict2css==0.3.0.post1
 importlib-metadata==7.0.1
 lazy-object-proxy==1.10.0
 prompt-toolkit==3.0.43
+alabaster==0.7.16
+domdf-python-tools==3.7.0
+idna==3.4
+pexpect==4.8.0
+wcwidth==0.2.13
