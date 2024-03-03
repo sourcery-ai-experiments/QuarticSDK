@@ -3,7 +3,6 @@ from quartic_sdk.api.api_helper import APIHelper
 from quartic_sdk.core.entity_helpers.entity_factory import EntityFactory
 from quartic_sdk._version import __version__
 from quartic_sdk.utilities.exceptions import IncorrectParameterException
-from urllib.parse import urljoin
 
 
 class APIClient:
@@ -20,7 +19,6 @@ class APIClient:
         """
         Create the API Client
         """
-        host = urljoin(host, "/sdk/")
         self.api_helper = APIHelper(
             host, username, password, oauth_token, cert_path, verify_ssl, gql_host)
 
