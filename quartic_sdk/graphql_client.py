@@ -1,6 +1,4 @@
 import aiohttp
-import json, os
-import requests
 from aiogqlc import GraphQLClient as AioGraphQLClient
 import asyncio
 import nest_asyncio
@@ -14,8 +12,7 @@ import re
 from quartic_sdk.api.api_helper import APIHelper
 from quartic_sdk.utilities.constants import OAUTH, BASIC
 from quartic_sdk.utilities.exceptions import IncorrectAuthTypeException
-import quartic_sdk.utilities.constants as Constants
-from quartic_sdk.utilities.decorator import save_token, async_authenticate_with_tokens, get_and_save_token
+from quartic_sdk.utilities.decorator import async_authenticate_with_tokens, get_and_save_token
 
 SCHEMA_REGEX = re.compile(r"(?:(?:https?)://)")
 
@@ -29,6 +26,7 @@ class GraphqlClient:
                  username: str = None,
                  password: str = None,
                  token: str = None,
+                 refresh: str = None,
                  timeout: Optional[Union[aiohttp.ClientTimeout, float]] = None,
                  verify_ssl: bool = True):
         """
@@ -52,12 +50,52 @@ class GraphqlClient:
         self.verify_ssl = verify_ssl
         self.timeout = timeout
         self.__graphql_url = self._get_graphql_url()
-        self.access_token, self.refresh_token = (token,"") if token else get_and_save_token(self.__graphql_url,username,password,verify_ssl)
+        self.access_token, self.refresh_token = (token, "") if token else get_and_save_token(
+            self.__graphql_url, username, password, verify_ssl)
+        self.refresh_token = refresh if refresh else self.refresh_token
         self.logger = logging.getLogger()
         coloredlogs.install(level='DEBUG', logger=self.logger)
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         nest_asyncio.apply()
+
+    @staticmethod
+    def __get_access_token():
+        """
+        Used to get access, refresh and hostname from the browser
+        using IPython Javascript
+        """
+        global access_token
+        global refresh_token
+        global hostname
+        from IPython.display import display, Javascript
+        js_code = """
+            async function getTokens() {
+                const session = jupyterapp.shell.currentWidget.context.sessionContext.session;
+                const ipython = jupyterapp.serviceManager.sessions._connectToKernel({model: {id: session._kernel._id, name: session._kernel._name}})
+                const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+                    const [name, value] = cookie.trim().split('=');
+                    acc[name] = value;
+                    return acc;
+                }, {});
+                const hostname = window.location.hostname;
+                await ipython.requestExecute({code: `
+                    global access_token = '${cookies.access}'
+                    global refresh_token = '${cookies.refresh}'
+                    global hostname = '${hostname}'
+                `}).done;
+                console.log("executed")
+            }
+
+            getTokens()
+        """
+        display(Javascript(js_code))
+
+    @classmethod
+    def client_for_jupyterhub(cls, timeout: Optional[Union[aiohttp.ClientTimeout, float]] = None,
+                            verify_ssl: bool = True):
+        cls.__get_access_token()
+        return cls(hostname, token=access_token, refresh=refresh_token, timeout=timeout, verify_ssl=verify_ssl)
 
     @staticmethod
     def version():
@@ -66,7 +104,7 @@ class GraphqlClient:
         """
         return __version__
 
-    
+
     async def _get_client(self) -> aiohttp.ClientSession:
         """
         Get aiohttp client session object.
@@ -95,7 +133,7 @@ class GraphqlClient:
         if not result.scheme or not result.netloc:
             raise AttributeError(f'url {self.url} is incorrect')
         return __graphql_url
-    
+
     @async_authenticate_with_tokens
     async def __execute__query(self, query: str, variables: dict = None):
         """
@@ -142,7 +180,7 @@ class GraphqlClient:
         Returns an instance of GraphqlClient from provided
         api_helper instance.
         :param api_helper: APIHelper instace whose configurations will be used to initialte GraphqlClient
-        :return: new GraphqlCleint instance initiated with existing APIHelper configuration. 
+        :return: new GraphqlCleint instance initiated with existing APIHelper configuration.
         """
         configuration = api_helper.configuration
         if configuration.auth_type == OAUTH:
@@ -154,7 +192,7 @@ class GraphqlClient:
             return GraphqlClient(url=configuration.gql_host,
             username=configuration.username,
             password=configuration.password,
-            verify_ssl=configuration.verify_ssl)    
+            verify_ssl=configuration.verify_ssl)
         else:
             raise IncorrectAuthTypeException('Only OAUTH and BASIC auth_types are supported')
 
