@@ -92,8 +92,6 @@ class BaseQuarticModel(metaclass=abc.ABCMeta):
         :return:                None on successfully storing the model to the Quartic AI Platform
         """
         raise NotImplementedError("This is deprecated")
-        from quartic_sdk import APIClient
-        assert isinstance(client, APIClient)
         test_df = ModelUtils.get_performance_test_df(test_df)
         test_data = ModelUtils.get_pickled_object(test_df.head(5))
         model_pkl = ModelUtils.get_pickled_object(self)
