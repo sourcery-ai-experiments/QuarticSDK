@@ -7,6 +7,57 @@ GraphQL documentation
 **Queries**
 ------------
 
+AccessPermission
+^^^^^^^^^^^^^^^^
+This query fetches the access permission details.
+
+The available attribtues of this query are as follows:
+******************************************************
+
+-  **id**: The ID of the attribute
+-  **name** : The access permission name whose value is to be returned.
+-  **permission** : Permissions pertaining to the component.
+-  **updatedAt**: The updated at time of the attribute in epoch
+-  **organisationGroup**: Organisation group details to which the entity belongs to.
+-  **feature**: Feature details to which the entity belongs to.
+
+
+The available paramter to filter this query are as follows:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  **id**: For a particular ID.
+-  **limit**: Number of results to return per page. Default 'default_limit': None, and 'max_limit': None
+-  **ordering**: Order results.
+-  **offset**: The initial index from which to return the results. Default: 0
+
+
+AggregationTagValue
+^^^^^^^^^^^^^^^^^^^
+
+The available attribtues of this query are as follows:
+******************************************************
+
+- **tag**: Tag details.
+- **value**: Aggreated value.
+- **id**: id of the tag.
+- **startTime**: start time
+- **stopTime**: stop time
+- **createdAt**: created at date time
+- **updatedAt**: updated at date time
+
+
+The available paramter to filter this query are as follows:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- **tag_Asset**: Filter by tag asset.
+- **tag**: Filter by tag.
+- **startTime_Gte**: Greater than start at datetime
+- **startTime_Lte**: Less than or equal to start at datetime
+- **stopTime_Gte**: Greater than stop at datetime
+- **stopTime_Lte**: Less than or equal to stop at datetime
+- **id**: Filter by ID
+- **limit**: Limit the number of objects in query
+- **offset**: Offset objects by number
+
 AhAttribute
 ^^^^^^^^^^^^
 
@@ -27,6 +78,7 @@ The available attribtues of this query are as follows:
 -  **updatedAt**: The updated at time of the attribute in epoch
 -  **attribtueValues**: All the values for attribute
 -  **aliasTag**: Get alias tag for the attribute
+-  **uom**: unit of measurement
 
 .. list-table:: Types of attributes
    :widths: 50
@@ -80,6 +132,8 @@ The available paramters to filter this query are as follows:
 - **name_Iexact**: If exact name match the string
 - **offset**: The initial index from which to return the results. Default: 0
 - **ordering**: Order results by the attribute
+- **ahEntityTypeIn**:
+- **site_Id**:
 
 
 AhEntityAttributeValue
@@ -136,6 +190,7 @@ The available paramter to filter this query are as follows:
 - **name_Iexact**: If exact name match the string
 - **offset**: The initial index from which to return the results.
 - **ordering**: Order results by the attribute.
+- **hierarchyType**:
 
 
 AhEntityType
@@ -191,6 +246,7 @@ The available attribtues of this query are as follows:
 -  **onboardedAt**: onboarding Datetime
 -  **status**: Ehether the asset is running
 -  **tags**: List of sensors assigned to the asset.
+-  **productionHierarchyName**:
 
 
 The available paramter to filter this query are as follows:
@@ -204,6 +260,8 @@ The available paramter to filter this query are as follows:
 - **limit**: Number of results to return per page. Default 'default_limit': None, and 'max_limit': None
 - **offset**: The initial index from which to return the results. Default: 0
 - **ordering**: Order results by the attribute.
+- **clientAssets**: Boolean.
+- **entity_Site**: Values of different members of the object.
 
 
 AssetComponent
@@ -232,6 +290,7 @@ The available paramter to filter this query are as follows:
 - **limit**: Number of results to return per page. Default 'default_limit': None, and 'max_limit': None
 - **offset**: The initial index from which to return the results. Default: 0
 - **ordering**: Order results by the attribute.
+- **asset_Id**: Filter by asset Id.
 
 
 AssetOperation
@@ -257,6 +316,8 @@ The available attribtues of this query are as follows:
 -  **createdAt**: The created at time of the attribute in epoch
 -  **updatedAt**: The updated at time of the attribute in epoch
 -  **alarmTags**: List of flags raised
+-  **osiBatchEventframe**:
+-  **osiStateEventframe**:
 
 The available paramter to filter this query are as follows:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -276,7 +337,6 @@ The available paramter to filter this query are as follows:
 - **updatedAt_Gte**: greater than or equal to updated at datetime
 - **updatedAt_Lt**: less than updated at datetime
 - **updatedAt_Lte**: less than or equal to updated at datetime
-
 
 
 ManualProcedureBatch
@@ -315,6 +375,7 @@ The available attribtues of this query are as follows:
 - **id**: ID of the product
 - **name**: name of the product
 - **productProcedures**: List of procedures
+- **productCount**: Count of procedures
 - **ruleDefinitions**: list of rule definitions
 - **totalBatchCount**: count of the total batch
 - **updatedAt**: updated at datetime
@@ -869,6 +930,8 @@ The available attribtues of this query are as follows:
 - **connectorProtocol**: protocol defining the Type of data incoming
 - **containsTagUsedInAssetOpDef**: Whether it has tags defined in asset operation
 - **createdAt**: created at datetime
+- **createdBy**: created by name.
+- **diskConsumed**:
 - **edgeDevice**: edge device pertaining to this connector
 - **etlSheets**: Sheets uploaded for auto-creation of tags
 - **hotStorageRetentionDurationInMs**: Regular accessed data(9 months)
@@ -889,6 +952,11 @@ The available attribtues of this query are as follows:
 - **updatedAt**: updated at datetime
 - **userEmailForAlerts**: List of emails of the user for alerts
 - **userPhoneNumberForAlerts**: List of phone numbers of the users for sending alerts
+- **offlineRequests**: --
+- **osiEventFrames**: --
+- **softTagsCount**: Total soft tag count on the connector.
+- **timestampFormat**:
+- **writebackTagsCount**:
 
 
 The available paramter to filter this query are as follows:
@@ -943,6 +1011,15 @@ The available attribtues of this query are as follows:
 - **systemStatus**: Info of the system status
 - **totalTagsCount**: Count of the total tags
 - **updatedAt**: updated at datetime
+- **backupDevice**: Backup device details.
+- **hasBackupDatasource**:
+- **isBackup**:
+- **isNodeStatusExpired**: Status of the node expiration.
+- **isQnnectv2Build**:
+- **lastStateUpdated**: Datetime of last state update.
+- **nodeStatus**:
+- **platformVersion**: Version number of the platform.
+- **sitemapJson**:
 
 The available paramter to filter this query are as follows:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -956,7 +1033,7 @@ The available paramter to filter this query are as follows:
 - **ordering**: Order results by the attribute
 - **skipChildQlites**: boolean to filter one branch of child tree
 - **status**: filter by status of the edge node
-
+- **isBackup**:  boolean to filter.
 
 Site
 ^^^^^^^^^^^^^
@@ -1016,10 +1093,8 @@ The available paramter to filter this query are as follows:
 - **ordering**: Order results by the attribute
 
 
-
 Tag
 ^^^^^^^^^^^^^
-
 
 The available attribtues of this query are as follows:
 *******************************************************
@@ -1070,13 +1145,17 @@ The available paramter to filter this query are as follows:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - **alreadyMapped**: Boolean
 - **asset**: filter by asset
+- **asset_Id**: filter by asset Id.
+- **asset_Entity_Site**: filter by asset entity site.
 - **category**: filter by category
+- **assignedTags**: Filter by assigned tags, Boolean.
 - **edgeConnector**: filter by edge connector
 - **id**: Filter by ID
 - **isWritable**: boolean
 - **limit**: Limit number of values in query
 - **name__Icontains**: if name contains the string 
 - **name__Iexact**: Exact name match the string
+- **nameShortnameContains**:
 - **offset**: Offset objects by number
 - **ordering**: Order results by the attribute
 - **shortName_Icontains**: if short name contains the string
@@ -1088,6 +1167,7 @@ The available paramter to filter this query are as follows:
 - **tagProcessType**: Filter by tag process type
 - **tagProcessType_In**: 
 - **tagsWoAssetPerm**: 
+- **tagsAvailableForAssetId**:
 - **tagType**: Filter by tag type
 - **tagType_In**: filter by tag type_In
 - **tagValueType**: filter by tag value type
@@ -1159,6 +1239,7 @@ The available attribtues of this query are as follows:
 - **installedOn**: installed on datetime
 - **name**: name of the installer
 - **siteVersion**: version of the site
+- **qproVersion**:
 - **sslCertPath**:
 - **sslKeyPath**:
 - **sslZipPath**:
@@ -1412,14 +1493,13 @@ The available paramters for this mutation are as follows:
 RuleDefinition
 ^^^^^^^^^^^^^^^
 
-   
-
 The available attribtues of this query are as follows:
 *******************************************************
 - **actionDescription**: things to be checked if rule is broken
 - **asset**: asset to which it belongs to
 - **assetPermission**: assets which have rules access
 - **category**: category affected
+- **categoryNavigationUrl**:
 - **config**: configuration for rule definition
 - **createdAt**: created at date time
 - **durationMs**: time for which rule is broken
@@ -1428,22 +1508,27 @@ The available attribtues of this query are as follows:
 - **id**: ID of the rule definition
 - **isAcknowledgeable**: boolean
 - **isActive**: boolean
+- **latestRulebreak**:
 - **name**: name of the rule definition
 - **phoneNumbers**: list of phone numbers
 - **product**: product associated
 - **rawJson**: UI based JSON
 - **ruleJson**: JSON of the rule
+- **rulebreakSet**:
 - **sendEmails**: boolean
 - **sendSms**: Boolean
+- **smtpConfig**:
 - **severity**: level of impact
 - **source**: origin if the rule
 - **stepcontrolstrategySet**: 
 - **tags**: tags involved
+- **twilioConfig**:
 - **updatedAt**: updated at date time
 
 The available paramter to filter this query are as follows:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - **id**: Filter by ID
+- **asset_Id**: Filter by Asset ID
 - **limit**: Limit number of values in query
 - **offset**: Offset objects by number
 - **ordering**: Order results by the attribute
@@ -1452,13 +1537,12 @@ The available paramter to filter this query are as follows:
 - **updatedAt_Gte**: greater than or equal to updated at datetime
 - **updatedAt_Lt**: less than updated at datetime
 - **updatedAt_Lte**: less than or equal to updated at datetime
-
+- **name_Icontains**: if name contains the string
+- **name_Iexact**: Exact name match the string
 
 
 TagExpression
 ^^^^^^^^^^^^^^^
-
-   
 
 The available attribtues of this query are as follows:
 *******************************************************
@@ -1472,6 +1556,9 @@ The available attribtues of this query are as follows:
 - **tag**: new tag formed
 - **updatedAt**:  updated at datetime
 - **workspaceXML**: Blockly XML configuration
+- **modelStr**:
+- **fileName**:
+- **source**:
 
 The available paramter to filter this query are as follows:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1516,10 +1603,13 @@ The available attribtues of this query are as follows:
 - **stopRuleJson**: JSON for stop rule
 - **tags**: tags used to build this event
 - **updatedAt**: updated at date time
+- **eventFrameOccurrences**:
+- **latestEventframe**:
 
 The available paramter to filter this query are as follows:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - **id**: Filter by ID
+- **asset_Id**: Filter by Asset ID
 - **limit**: Limit number of values in query
 - **offset**: Offset objects by number
 - **ordering**: Order results by the attribute
@@ -1528,6 +1618,8 @@ The available paramter to filter this query are as follows:
 - **updatedAt_Gte**: greater than or equal to updated at datetime
 - **updatedAt_Lt**: less than updated at datetime
 - **updatedAt_Lte**: less than or equal to updated at datetime
+- **name_Icontains**: if name contains the string
+- **name_Iexact**: Exact name match the string
 
 
 MLDeployed
@@ -1566,7 +1658,6 @@ The available paramter to filter this query are as follows:
 MLExpConfig
 ^^^^^^^^^^^^^
 
-   
 
 The available attribtues of this query are as follows:
 *******************************************************
@@ -1636,6 +1727,7 @@ The available attribtues of this query are as follows:
 - **name**: name of the procedure
 - **procedureState**: state among 5 values
 - **procedureStepNodes**: 
+- **procedureType**:
 - **product**: product to which it belongs to
 - **site**: site to which it is linked with
 - **testResults**: 
@@ -1692,8 +1784,6 @@ The available paramter to filter this query are as follows:
 
 ProcedureStepComponent
 ^^^^^^^^^^^^^^^^^^^^^^^
-
-   
 
 The available attribtues of this query are as follows:
 *******************************************************
@@ -1857,8 +1947,6 @@ The available paramter for this mutation are as follows:
 ProcedurestepbatchCreate
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   
-
 The available attribtues of this mutation are as follows:
 *******************************************************
 - **errors**: Info of any error occurred
@@ -1989,8 +2077,86 @@ The available paramter for this mutation are as follows:
 ----------------
 RuleBreak
 ^^^^^^^^^^^^^^^^^^^^^
+
+The available attribtues of this query are as follows:
+*******************************************************
+
+- **assetPermission**: permission of the asset
+- **createdAt**: created at date time
+- **id**: ID of the frame
+- **name**: name of the rule break.
+- **startTime**: start time for rule break.
+- **stopTime**: Stop time for rule break.
+- **updatedAt**: updated at date time
+- **acknowledgeDate**:
+- **acknowledgedBy**:
+- **acknowledgedByactionDescription**:
+- **comments**:
+- **ruleDefinition**:
+
+The available paramter to filter this query are as follows:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- **id**: Filter by ID
+- **ruleDefinition_Asset_Id**: Filter by Asset ID
+- **ruleDefinition_Category**: Filter by Category ID
+- **ruleDefinition_Id**: Filter by rule definition ID
+- **ruleDefinition_Severity**:
+- **limit**: Limit number of values in query
+- **offset**: Offset objects by number
+- **ordering**: Order results by the attribute
+- **startTime**: Start time.
+- **startTime_Gt**: greater than start at datetime
+- **startTime_Gte**: greater than or equal to start at datetime
+- **startTime_Lt**: less than start at datetime
+- **startTime_Lte**: less than or equal to start at datetime
+- **stopTime**: stop time.
+- **stopTime_Gt**: Greater than stop at datetime
+- **stopTime_Gte**: greater than or equal to stop at datetime
+- **stopTime_Lt**: less than stop at datetime
+- **stopTime_Lte**: less than or equal to stop at datetime
+- **acknowledgeDate**: Filter on acknowledge date.
+- **acknowledgeDate_Gt**: Greater than acknowledge date at datetime
+- **acknowledgeDate_Gte**: Greater than or equal acknowledge date at datetime
+- **acknowledgeDate_Lt**: Less than acknowledge date at datetime
+- **acknowledgeDate_Lte**: Less than or equal acknowledge date at datetime
+
 EventFrameOccurrence
 ^^^^^^^^^^^^^^^^^^^^^
+
+
+The available attribtues of this query are as follows:
+*******************************************************
+
+- **assetPermission**: permission of the asset
+- **createdAt**: created at date time
+- **id**: ID of the frame
+- **name**: name of the frame
+- **startTime**: start time for event frame occurrence.
+- **stopTime**: Stop time for event frame occurrence.
+- **updatedAt**: updated at date time
+- **eventFrameDefinition**:
+
+The available paramter to filter this query are as follows:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- **id**: Filter by ID
+- **eventFrameDefinition_Asset_Id**: Filter by Asset ID
+- **eventFrameDefinition_Category**: Filter by Asset ID
+- **eventFrameDefinition_Id**: Filter by Asset ID
+- **limit**: Limit number of values in query
+- **offset**: Offset objects by number
+- **ordering**: Order results by the attribute
+- **startTime**: Start time.
+- **startTime_Gt**: greater than start at datetime
+- **startTime_Gte**: greater than or equal to start at datetime
+- **startTime_Lt**: less than start at datetime
+- **startTime_Lte**: less than or equal to start at datetime
+- **stopTime**: stop time.
+- **stopTime_Gt**: Greater than stop at datetime
+- **stopTime_Gte**: greater than or equal to stop at datetime
+- **stopTime_Lt**: less than stop at datetime
+- **stopTime_Lte**: less than or equal to stop at datetime
+
+
 ContextFrameOccurence
 ^^^^^^^^^^^^^^^^^^^^^
 Batch
@@ -2001,8 +2167,6 @@ BatchPhase
 ProcedureStepBatch
 ^^^^^^^^^^^^^^^^^^^
 
-   
-
 The available attribtues of this query are as follows:
 *******************************************************
 - **batchName**: name of the batch
@@ -2011,6 +2175,8 @@ The available attribtues of this query are as follows:
 - **humanVerified**: boolean
 - **id**: id of the batch
 - **procedureStepComponent**:
+- **procedureType**:
+- **sequential**:
 - **startTime**: start time of the batch
 - **stopTime**: stop time of the batch
 - **updatedAt**: updated at date time
@@ -2025,8 +2191,11 @@ The available paramter to filter this query are as follows:
 - **ordering**: Order results by the attribute.
 - **procedureId**: filter by procedure ID
 - **productid**: filter by product ID
-
-
+- **batchType**: filter by type of the batch
+- **filterByStepType**:
+- **humanVerified**:
+- **startTimeGte**:greater than or equal to start at datetime
+- **stopTimeLte**:greater than or equal to stop at datetime
 
 **Mutations**
 ----------------
